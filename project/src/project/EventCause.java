@@ -9,7 +9,7 @@ public class EventCause {
 	@Id
 	@Column(name="cause_code_event_id")
 	private EventCauseCK causeCodeAndEventIdCK; //Cause_code and event_id CK
-	@Column(name="description", length=100)
+	@Column(length=100)
 	private String description;
 
 	public EventCause() {

@@ -12,6 +12,7 @@ public class CellInfo {
 	private int cellInfoId;
 
 	private int cellId;
+	//TODO I'm pretty sure that neVersion is a string thing, check later
 	private int neVersion;
 	private String hier3Id, hier32Id, hier321Id;
 

@@ -1,11 +1,13 @@
 package entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name="Failure_Class")
 public class FailureClass {
 	@Id
+	@Column(name="failure_class")
 	private int failureClass;
 	private String description;
 

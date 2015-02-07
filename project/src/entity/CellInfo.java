@@ -1,20 +1,29 @@
 package entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name="Cell_Info")
 public class CellInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="cell_info_id")
 	private int cellInfoId;
 
+	@Column(name="cell_id")
 	private int cellId;
 	//TODO I'm pretty sure that neVersion is a string thing, check later
+	@Column(name="ne_version")
 	private int neVersion;
-	private String hier3Id, hier32Id, hier321Id;
+	@Column(name="hier3_id")
+	private String hier3Id;
+	@Column(name="hier32_id")
+	private String hier32Id;
+	@Column(name="hier321_id")
+	private String hier321Id;
 
 	public CellInfo() {
 	}

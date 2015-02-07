@@ -9,6 +9,7 @@ public class FailureClass {
 	@Id
 	@Column(name="failure_class")
 	private int failureClass;
+	@Column(length=100)
 	private String description;
 
 	public FailureClass() {

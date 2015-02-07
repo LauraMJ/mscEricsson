@@ -18,11 +18,11 @@ public class CellInfo {
 	//TODO I'm pretty sure that neVersion is a string thing, check later
 	@Column(name="ne_version")
 	private int neVersion;
-	@Column(name="hier3_id")
+	@Column(name="hier3_id", length=20)
 	private String hier3Id;
-	@Column(name="hier32_id")
+	@Column(name="hier32_id", length=20)
 	private String hier32Id;
-	@Column(name="hier321_id")
+	@Column(name="hier321_id", length=20)
 	private String hier321Id;
 
 	public CellInfo() {

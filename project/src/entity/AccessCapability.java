@@ -13,7 +13,7 @@ public class AccessCapability {
 	@Column(name="access_capability_id")
 	private int accessCapabilityId;
 
-	@Column(name="access_capability")
+	@Column(name="access_capability", length=120)
 	private String accessCapability;
 
 	public AccessCapability() {

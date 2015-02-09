@@ -14,11 +14,11 @@ public class Input_Mode {
 	@Column(length=45)
 	private String input_mode;
 	
-	public UE_Type() {
+	public Input_Mode() {
 		//
 	}
 	
-	public UE_Type(int input_mode_id, String input_mode){
+	public Input_Mode(int input_mode_id, String input_mode){
 		this.input_mode_id = input_mode_id;
 		this.input_mode = input_mode;
 	}

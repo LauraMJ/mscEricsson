@@ -38,7 +38,7 @@ public class FailureTrace {
 	private int causeCode;
 	
 	@Column(name="ne_version", length=3)
-	private int neVersion;
+	private String neVersion;
 	
 	@Column(name="imsi", length=20)
 	private String IMSI;
@@ -110,11 +110,11 @@ public class FailureTrace {
 		this.cellId = cellId;
 	}
 
-	public int getNeVersion() {
+	public String getNeVersion() {
 		return neVersion;
 	}
 
-	public void setNeVersion(int neVersion) {
+	public void setNeVersion(String neVersion) {
 		this.neVersion = neVersion;
 	}
 

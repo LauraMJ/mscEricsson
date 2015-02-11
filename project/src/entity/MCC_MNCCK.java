@@ -23,16 +23,28 @@ public class MCC_MNCCK implements Serializable{
 	
 	
 	
-	//required equals method
-	public boolean equals(Object object){
-		//need to add more code
-		return false;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MCC_MNCCK other = (MCC_MNCCK) obj;
+		if (mcc != other.mcc)
+			return false;
+		if (mnc != other.mnc)
+			return false;
+		return true;
 	}
-	//required hashcode method
-	public int hashCode(){
-		int hashCode = 0; //temp to remove errors
-		//generate hash for both fields together
-		return hashCode;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + mcc;
+		result = prime * result + mnc;
+		return result;
 	}
 	
 	

@@ -1,11 +1,16 @@
 package entity;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 public class HierInfo {
-	@OneToOne
-	private CellInfo cell;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="hier_info_id")
+	private int hierInfoId;
 
 	@Column(name="hier3_id", length=20)
 	private String hier3Id;
@@ -42,13 +47,5 @@ public class HierInfo {
 
 	public void setHier321Id(String hier321Id) {
 		this.hier321Id = hier321Id;
-	}
-
-	public CellInfo getCell() {
-		return cell;
-	}
-
-	public void setCell(CellInfo cell) {
-		this.cell = cell;
 	}
 }

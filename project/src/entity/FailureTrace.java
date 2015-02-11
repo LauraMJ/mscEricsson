@@ -13,13 +13,10 @@ public class FailureTrace {
 	@Column(name="failure_trace_id")
 	private int failureTraceId;
 	
-	@Column(length=60)
-	private String failureTrace;
-	
 	@Column(name="date_time")
 	private String dateTime;
 	
-	@Column(name="event_cd")
+	@Column(name="event_id")
 	private int eventId;
 	
 	@Column(name="failure_class")
@@ -31,25 +28,30 @@ public class FailureTrace {
 	@Column(name="market_operator")
 	private int marketOperator;
 	
-	@Column(name="cell_info_Id")
-	private int cellInfoId;
+	@Column(name="cell_id")
+	private int cellId;
 	
-	@Column(name="duration")
+	@Column
 	private int duration;
 	
 	@Column(name="cause_code")
 	private int causeCode;
 	
-	@Column(name="imsi")
+	@Column(name="ne_version", length=3)
+	private int neVersion;
+	
+	@Column(name="imsi", length=20)
 	private String IMSI;
+	
+	@Column(name="hier_info_id")
+	private int hierInfoId;
 
 	public FailureTrace() {
 		
 	}
 	
-	public FailureTrace(int failureTraceId, String failureTrace){
+	public FailureTrace(int failureTraceId){
 		this.setFailureTraceId(failureTraceId);
-		this.setFailureTrace(failureTrace);
 	}
 
 	public int getFailureTraceId() {
@@ -100,12 +102,28 @@ public class FailureTrace {
 		this.marketOperator = marketOperator;
 	}
 
-	public int getCellInfoId() {
-		return cellInfoId;
+	public int getCellId() {
+		return cellId;
 	}
 
-	public void setCellInfoId(int cellInfoId) {
-		this.cellInfoId = cellInfoId;
+	public void setCellId(int cellId) {
+		this.cellId = cellId;
+	}
+
+	public int getNeVersion() {
+		return neVersion;
+	}
+
+	public void setNeVersion(int neVersion) {
+		this.neVersion = neVersion;
+	}
+
+	public int getHierInfoId() {
+		return hierInfoId;
+	}
+
+	public void setHierInfoId(int hierInfoId) {
+		this.hierInfoId = hierInfoId;
 	}
 
 	public int getDuration() {
@@ -131,10 +149,5 @@ public class FailureTrace {
 	public void setIMSI(String iMSI) {
 		IMSI = iMSI;
 	}
-	public String getFailureTrace() {
-		return failureTrace;
-	}
-	public void setFailureTrace(String failureTrace) {
-		this.failureTrace = failureTrace;
-	}
+
 }

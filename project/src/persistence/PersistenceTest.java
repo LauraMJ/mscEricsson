@@ -1,7 +1,6 @@
 package persistence;
 
 import entity.AccessCapability;
-import entity.CellInfo;
 import entity.Country;
 import entity.EventCause;
 import entity.EventCauseCK;

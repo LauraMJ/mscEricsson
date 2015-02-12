@@ -22,7 +22,7 @@ public class PersistenceTest {
 	public PersistenceTest() {
 		PersistenceUtil.persist(new AccessCapability("TEST"));
 		System.out.println("Entity saved");
-		PersistenceUtil.persist(new CellInfo(25, 12, "213421", "2341325", "TEST"));
+		//PersistenceUtil.persist(new CellInfo(25, 12, "213421", "2341325", "TEST"));
 		System.out.println("Entity saved");
 		PersistenceUtil.persist(new FailureClass(4, "hello world"));
 		System.out.println("Entity saved");

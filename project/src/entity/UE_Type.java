@@ -8,7 +8,7 @@ import javax.persistence.Id;
 public class UE_Type {
 	@Id
 	@Column(name="ue type id")
-	private int ue_type_id; 
+	private Integer ue_type_id; 
 	@Column(length=45)
 	private String ue_type;
 	
@@ -16,16 +16,16 @@ public class UE_Type {
 		
 	}
 	
-	public UE_Type(int ue_type_id, String ue_type){
+	public UE_Type(Integer ue_type_id, String ue_type){
 		this.ue_type_id = ue_type_id;
 		this.ue_type = ue_type;
 	}
 
-	public int getUe_type_id() {
+	public Integer getUe_type_id() {
 		return ue_type_id;
 	}
 
-	public void setUe_type_id(int ue_type_id) {
+	public void setUe_type_id(Integer ue_type_id) {
 		this.ue_type_id = ue_type_id;
 	}
 

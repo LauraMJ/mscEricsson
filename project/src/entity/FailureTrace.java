@@ -11,31 +11,31 @@ public class FailureTrace {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="failure_trace_id")
-	private int failureTraceId;
+	private Integer failureTraceId;
 	
 	@Column(name="date_time")
 	private String dateTime;
 	
 	@Column(name="event_id")
-	private int eventId;
+	private Integer eventId;
 	
 	@Column(name="failure_class")
-	private int failureClass;
+	private Integer failureClass;
 	
 	@Column(name="ue_type")
-	private int ueType;
+	private Integer ueType;
 	
 	@Column(name="market_operator")
-	private int marketOperator;
+	private Integer marketOperator;
 	
 	@Column(name="cell_id")
-	private int cellId;
+	private Integer cellId;
 	
 	@Column
-	private int duration;
+	private Integer duration;
 	
 	@Column(name="cause_code")
-	private int causeCode;
+	private Integer causeCode;
 	
 	@Column(name="ne_version", length=3)
 	private String neVersion;
@@ -44,21 +44,21 @@ public class FailureTrace {
 	private String IMSI;
 	
 	@Column(name="hier_info_id")
-	private int hierInfoId;
+	private Integer hierInfoId;
 
 	public FailureTrace() {
 		
 	}
 	
-	public FailureTrace(int failureTraceId){
+	public FailureTrace(Integer failureTraceId){
 		this.setFailureTraceId(failureTraceId);
 	}
 
-	public int getFailureTraceId() {
+	public Integer getFailureTraceId() {
 		return failureTraceId;
 	}
 
-	public void setFailureTraceId(int failureTraceId) {
+	public void setFailureTraceId(Integer failureTraceId) {
 		this.failureTraceId = failureTraceId;
 	}
 
@@ -70,43 +70,43 @@ public class FailureTrace {
 		this.dateTime = dateTime;
 	}
 
-	public int getEventId() {
+	public Integer getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(int eventId) {
+	public void setEventId(Integer eventId) {
 		this.eventId = eventId;
 	}
 
-	public int getFailureClass() {
+	public Integer getFailureClass() {
 		return failureClass;
 	}
 
-	public void setFailureClass(int failureClass) {
+	public void setFailureClass(Integer failureClass) {
 		this.failureClass = failureClass;
 	}
 
-	public int getUeType() {
+	public Integer getUeType() {
 		return ueType;
 	}
 
-	public void setUeType(int ueType) {
+	public void setUeType(Integer ueType) {
 		this.ueType = ueType;
 	}
 
-	public int getMarketOperator() {
+	public Integer getMarketOperator() {
 		return marketOperator;
 	}
 
-	public void setMarketOperator(int marketOperator) {
+	public void setMarketOperator(Integer marketOperator) {
 		this.marketOperator = marketOperator;
 	}
 
-	public int getCellId() {
+	public Integer getCellId() {
 		return cellId;
 	}
 
-	public void setCellId(int cellId) {
+	public void setCellId(Integer cellId) {
 		this.cellId = cellId;
 	}
 
@@ -118,27 +118,27 @@ public class FailureTrace {
 		this.neVersion = neVersion;
 	}
 
-	public int getHierInfoId() {
+	public Integer getHierInfoId() {
 		return hierInfoId;
 	}
 
-	public void setHierInfoId(int hierInfoId) {
+	public void setHierInfoId(Integer hierInfoId) {
 		this.hierInfoId = hierInfoId;
 	}
 
-	public int getDuration() {
+	public Integer getDuration() {
 		return duration;
 	}
 
-	public void setDuration(int duration) {
+	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
 
-	public int getCauseCode() {
+	public Integer getCauseCode() {
 		return causeCode;
 	}
 
-	public void setCauseCode(int causeCode) {
+	public void setCauseCode(Integer causeCode) {
 		this.causeCode = causeCode;
 	}
 

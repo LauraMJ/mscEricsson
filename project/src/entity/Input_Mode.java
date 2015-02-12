@@ -8,7 +8,7 @@ import javax.persistence.Id;
 public class Input_Mode {
 	@Id
 	@Column(name="input mode id")
-	private int input_mode_id; 
+	private Integer input_mode_id; 
 	@Column(length=45)
 	private String input_mode;
 	
@@ -16,16 +16,16 @@ public class Input_Mode {
 		//
 	}
 	
-	public Input_Mode(int input_mode_id, String input_mode){
+	public Input_Mode(Integer input_mode_id, String input_mode){
 		this.input_mode_id = input_mode_id;
 		this.input_mode = input_mode;
 	}
 
-	public int getInput_mode_id() {
+	public Integer getInput_mode_id() {
 		return input_mode_id;
 	}
 
-	public void setInput_mode_id(int input_mode_id) {
+	public void setInput_mode_id(Integer input_mode_id) {
 		this.input_mode_id = input_mode_id;
 	}
 

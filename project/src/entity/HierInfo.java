@@ -10,7 +10,7 @@ public class HierInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="hier_info_id")
-	private int hierInfoId;
+	private Integer hierInfoId;
 
 	@Column(name="hier3_id", length=20)
 	private String hier3Id;

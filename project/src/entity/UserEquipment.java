@@ -9,28 +9,28 @@ public class UserEquipment {
 	
 	@Id
 	@Column(name="tac")
-	private int TAC;
+	private Integer TAC;
 	@Column(name="marketing_name", length=60)
 	private String marketingName;
 	@Column(name="manufacturer", length=60)
 	private String manufacturer;
 	@Column(name="access_capability")
-	private int accessCapability;
+	private Integer accessCapability;
 	@Column(name="model", length=45)
 	private String model;
 	@Column(name="ue_type")
-	private int UEType;
+	private Integer UEType;
 	@Column(name="os")
-	private int OS;
+	private Integer OS;
 	@Column(name="input_mode")
-	private int inputMode;
+	private Integer inputMode;
 	
 	public UserEquipment(){
 		
 	}
 	
-	public UserEquipment(int TAC, String marketingName, int accessCapability, 
-			String model, int UEType, int OS, int inputMode){
+	public UserEquipment(Integer TAC, String marketingName, Integer accessCapability, 
+			String model, Integer UEType, Integer OS, Integer inputMode){
 		this.TAC = TAC;
 		this.marketingName = marketingName;
 		this.accessCapability = accessCapability;
@@ -40,10 +40,10 @@ public class UserEquipment {
 		this.inputMode = inputMode;
 	}
 	
-	public int getTAC() {
+	public Integer getTAC() {
 		return TAC;
 	}
-	public void setTAC(int tAC) {
+	public void setTAC(Integer tAC) {
 		TAC = tAC;
 	}
 	public String getMarketingName() {
@@ -59,10 +59,10 @@ public class UserEquipment {
 	public void setManufacturer(String manufacturer) {
 		this.manufacturer = manufacturer;
 	}
-	public int getAccessCapability() {
+	public Integer getAccessCapability() {
 		return accessCapability;
 	}
-	public void setAccessCapability(int accessCapability) {
+	public void setAccessCapability(Integer accessCapability) {
 		this.accessCapability = accessCapability;
 	}
 	public String getModel() {
@@ -71,22 +71,22 @@ public class UserEquipment {
 	public void setModel(String model) {
 		this.model = model;
 	}
-	public int getUEType() {
+	public Integer getUEType() {
 		return UEType;
 	}
-	public void setUEType(int uEType) {
+	public void setUEType(Integer uEType) {
 		UEType = uEType;
 	}
-	public int getOS() {
+	public Integer getOS() {
 		return OS;
 	}
-	public void setOS(int oS) {
+	public void setOS(Integer oS) {
 		OS = oS;
 	}
-	public int getInputMode() {
+	public Integer getInputMode() {
 		return inputMode;
 	}
-	public void setInputMode(int inputMode) {
+	public void setInputMode(Integer inputMode) {
 		this.inputMode = inputMode;
 	}
 

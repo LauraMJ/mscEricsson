@@ -8,23 +8,23 @@ import javax.persistence.Id;
 public class FailureClass {
 	@Id
 	@Column(name="failure_class")
-	private int failureClass;
+	private Integer failureClass;
 	@Column(length=100)
 	private String description;
 
 	public FailureClass() {
 	}
 
-	public FailureClass(int failureClass, String description) {
+	public FailureClass(Integer failureClass, String description) {
 		this.failureClass = failureClass;
 		this.description = description;
 	}
 
-	public int getFailureClass() {
+	public Integer getFailureClass() {
 		return failureClass;
 	}
 
-	public void setFailureClass(int failureClass) {
+	public void setFailureClass(Integer failureClass) {
 		this.failureClass = failureClass;
 	}
 

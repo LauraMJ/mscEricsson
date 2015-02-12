@@ -7,14 +7,14 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class EventCauseCK implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private int causeCode;
-	private int eventId;
+	private Integer causeCode;
+	private Integer eventId;
 
 	public EventCauseCK() {
 		//
 	}
 	
-	public EventCauseCK(int causeCode, int eventId){
+	public EventCauseCK(Integer causeCode, Integer eventId){
 		super(); //needed?
 		this.causeCode = causeCode;
 		this.eventId = eventId;
@@ -48,19 +48,19 @@ public class EventCauseCK implements Serializable{
 	
 	
 
-	public int getCauseCode() {
+	public Integer getCauseCode() {
 		return causeCode;
 	}
 
-	public void setCauseCode(int causeCode) {
+	public void setCauseCode(Integer causeCode) {
 		this.causeCode = causeCode;
 	}
 
-	public int getEventId() {
+	public Integer getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(int eventId) {
+	public void setEventId(Integer eventId) {
 		this.eventId = eventId;
 	}
 

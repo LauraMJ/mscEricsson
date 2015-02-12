@@ -8,14 +8,14 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class MCC_MNCCK implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private int mcc;
-	private int mnc;
+	private Integer mcc;
+	private Integer mnc;
 
 	public MCC_MNCCK() {
 		//
 	}
 	
-	public MCC_MNCCK(int mcc, int mnc){
+	public MCC_MNCCK(Integer mcc, Integer mnc){
 		super();
 		this.mcc = mcc;
 		this.mnc = mnc;
@@ -50,19 +50,19 @@ public class MCC_MNCCK implements Serializable{
 	
 	
 
-	public int getMcc() {
+	public Integer getMcc() {
 		return mcc;
 	}
 
-	public void setMcc(int mcc) {
+	public void setMcc(Integer mcc) {
 		this.mcc = mcc;
 	}
 
-	public int getMnc() {
+	public Integer getMnc() {
 		return mnc;
 	}
 
-	public void setMnc(int mnc) {
+	public void setMnc(Integer mnc) {
 		this.mnc = mnc;
 	}
 	

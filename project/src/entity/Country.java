@@ -8,7 +8,7 @@ import javax.persistence.Id;
 public class Country {
 	@Id
 	@Column
-	private int mcc; //PK
+	private Integer mcc; //PK
 	@Column(length=45)
 	private String country;
 	
@@ -16,7 +16,7 @@ public class Country {
 		//
 	}
 	
-	public Country(int mcc, String country){
+	public Country(Integer mcc, String country){
 		this.mcc = mcc;
 		this.country = country;
 	}

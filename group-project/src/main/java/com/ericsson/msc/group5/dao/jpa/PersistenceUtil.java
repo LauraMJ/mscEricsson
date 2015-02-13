@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 public class PersistenceUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("call_failure_logs");
+	protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("callFailureLogs");
 
 	public static void persist(Object entity) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();

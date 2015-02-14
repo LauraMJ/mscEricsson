@@ -12,8 +12,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<inherited>true</inherited>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.7</source>
+					<target>1.7</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
@@ -64,6 +64,12 @@
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>
 			<version>1.0.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.8</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

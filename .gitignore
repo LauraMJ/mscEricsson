@@ -28,3 +28,4 @@ local.properties
 # ignore temp test folders and the eclipse settings file
 group-project/test
 group-project/.settings
+group-project/.classpath

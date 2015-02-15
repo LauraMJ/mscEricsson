@@ -7,6 +7,8 @@ import com.ericsson.msc.group5.entities.EventCauseCK;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.MCC_MNC;
 import com.ericsson.msc.group5.entities.MCC_MNCCK;
+import com.ericsson.msc.group5.entities.UE_Type;
+import com.ericsson.msc.group5.entities.UserEquipment;
 
 public class PersistenceTest {
 	//Variables for laura's tests
@@ -33,6 +35,8 @@ public class PersistenceTest {
 		PersistenceUtil.persist(new EventCause(eventCauseCK, "this is a description of the event"));
 		System.out.println("Entity saved");
 		PersistenceUtil.persist(new MCC_MNC(mccmnc, "some operator name"));
+		System.out.println("Entity saved");
+		PersistenceUtil.persist(new UserEquipment(123245, "TestMarketingName", "GSM 1800", "BrickPhone1.0", null, null, null));
 		System.out.println("Entity saved");
 		
 	}

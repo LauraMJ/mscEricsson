@@ -36,8 +36,6 @@ public class PersistenceTest {
 		System.out.println("Entity saved");
 		PersistenceUtil.persist(new MCC_MNC(mccmnc, "some operator name"));
 		System.out.println("Entity saved");
-		
-		
 		PersistenceUtil.persist(new UserEquipment(123245, "TestMarketingName", "GSM 1800", "BrickPhone1.0", null, null, null));
 		System.out.println("Entity saved");
 		

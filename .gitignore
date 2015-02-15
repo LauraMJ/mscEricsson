@@ -24,3 +24,7 @@ local.properties
 
 # Locally stored "Eclipse launch configurations"
 *.launch
+
+# ignore temp test folders and the eclipse settings file
+group-project/test
+group-project/.settings

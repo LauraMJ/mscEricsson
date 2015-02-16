@@ -60,9 +60,7 @@ public class DataImport {
 		
 		//Export the data to the database
 		System.out.println("Data formatted, starting export to database");
-		for(BaseData row:baseDataRows){
-			sendToDB(row);
-		}
+		PersistenceUtil.persistList(baseDataRows);
 		
 		long duration = System.currentTimeMillis() - start;
 		System.out.println("Data imported from " +fileName);
@@ -101,10 +99,6 @@ public class DataImport {
 		//Format the data in each cell appropriately
 		formatInputs();
 		baseDataRows.add(setRowData());
-	}
-	
-	private void sendToDB(BaseData b){
-		PersistenceUtil.persist(b);
 	}
 	
 	private void formatInputs() {

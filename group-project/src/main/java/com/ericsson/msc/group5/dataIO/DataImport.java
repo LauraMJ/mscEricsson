@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.*;
 
@@ -19,6 +20,7 @@ public class DataImport {
 	//Change this to where you've stored the base data spreadsheet
 	private String fileName = "C:\\Users\\User\\Desktop\\test.xlsx";
 	private FileInputStream fileInputStream;
+	private ArrayList<BaseData> baseDataRows = new ArrayList<BaseData>();
 	private Workbook workbook;
 	private DateFormat date, time;
 	private XSSFSheet worksheet;
@@ -26,20 +28,21 @@ public class DataImport {
 	private XSSFCell market, operator, cellId, duration, causeCode;
 	private XSSFCell neVersion, imsi, hier3, hier32, hier321;
 	private XSSFRow row;
-	private Date dateTimeVal;
-	private Integer eventIdVal, ueTypeVal, marketVal, operatorVal, cellIdVal, durationVal;
-	private String causeCodeVal, neVersionVal, failureClassVal;
-	private String dateString;
+	private Integer eventIdVal, ueTypeVal, marketVal, operatorVal;
+	private Integer causeCodeVal, failureClassVal, cellIdVal, durationVal;
+	private String dateString, neVersionVal;
 	private Long imsiVal, hier3Val, hier32Val, hier321Val;
-	private ArrayList<BaseData> baseDataRows = new ArrayList<BaseData>();
+	private Date dateTimeVal;
 	
 	public DataImport(){
 		long start = System.currentTimeMillis();
+		
 		try {
 			//Read in the base data sheet from the excel file
 			fileInputStream = new FileInputStream(fileName);
 			workbook = new XSSFWorkbook(fileInputStream); 
 			worksheet = (XSSFSheet) workbook.getSheetAt(0);
+			
 		} 
 		catch (FileNotFoundException e) {
 			System.out.println("File not found at" +fileName);
@@ -52,10 +55,12 @@ public class DataImport {
 		date = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
 		time = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
 		
+		//Get the number of rows in the input file
+		int numRows = worksheet.getLastRowNum();
+		
 		//Import the data from the excel sheet
-		System.out.println("Starting import");
-		for(int i = 1; i <= 1000; i++){
-				readRowFromSheet(i);
+		for(int i = 1; i <numRows; i++) {
+			readRowFromSheet(i);
 		}
 		
 		//Export the data to the database
@@ -93,8 +98,8 @@ public class DataImport {
 		hier321 =  row.getCell(13);
 		
 		//Needed to handle nulls
-		failureClass.setCellType(Cell.CELL_TYPE_STRING);
-		causeCode.setCellType(Cell.CELL_TYPE_STRING);
+		failureClass.setCellType(Cell.CELL_TYPE_NUMERIC);
+		causeCode.setCellType(Cell.CELL_TYPE_NUMERIC);
 		
 		//Format the data in each cell appropriately
 		formatInputs();
@@ -105,13 +110,13 @@ public class DataImport {
 		dateTimeVal = dateTime.getDateCellValue();
 		dateString = date.format(dateTimeVal) +" " +time.format(dateTimeVal);
 		eventIdVal = (int) eventId.getNumericCellValue();
-		failureClassVal = failureClass.getStringCellValue();
+		failureClassVal = (int) failureClass.getNumericCellValue();
 	    ueTypeVal = (int) ueType.getNumericCellValue();
 		marketVal = (int) market.getNumericCellValue();
 		operatorVal = (int) operator.getNumericCellValue();
 		cellIdVal = (int) cellId.getNumericCellValue();
 		durationVal = (int) duration.getNumericCellValue();
-		causeCodeVal = causeCode.getStringCellValue();
+		causeCodeVal = (int) causeCode.getNumericCellValue();
 		neVersionVal = neVersion.getStringCellValue();
 		imsiVal = (long) imsi.getNumericCellValue();
 		hier3Val = (long) hier3.getNumericCellValue();

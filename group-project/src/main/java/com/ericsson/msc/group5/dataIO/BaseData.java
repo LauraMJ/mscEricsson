@@ -15,13 +15,13 @@ public class BaseData {
 	Date dateTimeVal;
 	String dateString;
 	Integer eventIdVal;
-	String failureClassVal;
+	Integer failureClassVal;
 	Integer ueTypeVal;
 	Integer marketVal;
 	Integer operatorVal;
 	Integer cellIdVal;
 	Integer durationVal;
-	String causeCodeVal;
+	Integer causeCodeVal;
 	String neVersionVal;
 	Long imsiVal;
 	Long hier3Val;
@@ -64,12 +64,12 @@ public class BaseData {
 		this.eventIdVal = eventIdVal;
 	}
 
-	public String getFailureClassVal() {
+	public Integer getFailureClassVal() {
 		return failureClassVal;
 	}
 
-	public void setFailureClassVal(String failureClassVal) {
-		this.failureClassVal = failureClassVal;
+	public void setFailureClassVal(Integer failureClassVal2) {
+		this.failureClassVal = failureClassVal2;
 	}
 
 	public Integer getUeTypeVal() {
@@ -112,12 +112,12 @@ public class BaseData {
 		this.durationVal = durationVal;
 	}
 
-	public String getCauseCodeVal() {
+	public Integer getCauseCodeVal() {
 		return causeCodeVal;
 	}
 
-	public void setCauseCodeVal(String causeCodeVal) {
-		this.causeCodeVal = causeCodeVal;
+	public void setCauseCodeVal(Integer causeCodeVal2) {
+		this.causeCodeVal = causeCodeVal2;
 	}
 
 	public String getNeVersionVal() {

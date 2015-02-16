@@ -3,6 +3,8 @@ package com.ericsson.msc.group5.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class UserEquipment {
@@ -18,10 +20,13 @@ public class UserEquipment {
 	private String accessCapability;
 	@Column(name = "model", length = 45)
 	private String model;
+	@ManyToOne
 	@Column(name = "ue_type")
 	private Integer UEType;
+	@ManyToOne
 	@Column(name = "os")
 	private Integer OS;
+	@ManyToOne
 	@Column(name = "input_mode")
 	private Integer inputMode;
 

@@ -12,37 +12,25 @@ public class FailureTrace {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="failure_trace_id")
 	private Integer failureTraceId;
-	
 	@Column(name="date_time")
 	private String dateTime;
-	
 	@Column(name="event_id")
 	private Integer eventId;
-	
 	@Column(name="failure_class")
 	private Integer failureClass;
-	
 	@Column(name="ue_type")
 	private Integer ueType;
-	
 	@Column(name="market_operator")
 	private Integer marketOperator;
-	
 	@Column(name="cell_id")
 	private Integer cellId;
-	
-	@Column
 	private Integer duration;
-	
 	@Column(name="cause_code")
 	private Integer causeCode;
-	
 	@Column(name="ne_version", length=3)
 	private String neVersion;
-	
 	@Column(name="imsi", length=20)
 	private String IMSI;
-	
 	@Column(name="hier_info_id")
 	private Integer hierInfoId;
 

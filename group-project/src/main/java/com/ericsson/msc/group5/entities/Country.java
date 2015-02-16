@@ -7,7 +7,6 @@ import javax.persistence.Id;
 @Entity
 public class Country {
 	@Id
-	@Column
 	private Integer mcc; //PK
 	@Column(length=45)
 	private String country;

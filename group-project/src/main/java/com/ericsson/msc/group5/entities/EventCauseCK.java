@@ -20,8 +20,6 @@ public class EventCauseCK implements Serializable{
 		this.eventId = eventId;
 	}
 	
-	
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -37,6 +35,7 @@ public class EventCauseCK implements Serializable{
 			return false;
 		return true;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -45,8 +44,6 @@ public class EventCauseCK implements Serializable{
 		result = prime * result + eventId;
 		return result;
 	}
-	
-	
 
 	public Integer getCauseCode() {
 		return causeCode;

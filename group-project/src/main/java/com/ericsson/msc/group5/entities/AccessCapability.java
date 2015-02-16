@@ -12,7 +12,6 @@ public class AccessCapability {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="access_capability_id")
 	private Integer accessCapabilityId;
-
 	@Column(name="access_capability", length=120)
 	private String accessCapability;
 

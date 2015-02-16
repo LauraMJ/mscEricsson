@@ -8,7 +8,7 @@ import javax.persistence.Id;
 public class EventCause {
 	@Id
 	@Column(name="cause_code_event_id")
-	private EventCauseCK causeCodeAndEventIdCK; //Cause_code and event_id CK
+	private EventCauseCK causeCodeAndEventIdCK; 
 	@Column(length=100)
 	private String description;
 

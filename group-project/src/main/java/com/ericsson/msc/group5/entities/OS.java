@@ -7,8 +7,8 @@ import javax.persistence.Id;
 @Entity(name="OS")
 public class OS{
 	@Id
-	@Column(name="os id")
-	private Integer os_id; 
+	@Column(name="os_id")
+	private Integer osId; 
 	@Column(length=45)
 	private String os;
 	
@@ -16,17 +16,17 @@ public class OS{
 		
 	}
 	
-	public OS(Integer os_id, String os){
-		this.os_id = os_id;
+	public OS(Integer osId, String os){
+		this.osId = osId;
 		this.os = os;
 	}
 
-	public Integer getOs_id() {
-		return os_id;
+	public Integer getOsId() {
+		return osId;
 	}
 
-	public void setOs_id(Integer os_id) {
-		this.os_id = os_id;
+	public void setOsId(Integer osId) {
+		this.osId = osId;
 	}
 
 	public String getOs() {

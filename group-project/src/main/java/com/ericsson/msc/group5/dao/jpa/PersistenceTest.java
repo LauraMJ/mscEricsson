@@ -7,7 +7,6 @@ import com.ericsson.msc.group5.entities.EventCauseCK;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.MCC_MNC;
 import com.ericsson.msc.group5.entities.MCC_MNCCK;
-import com.ericsson.msc.group5.entities.UE_Type;
 import com.ericsson.msc.group5.entities.UserEquipment;
 
 public class PersistenceTest {

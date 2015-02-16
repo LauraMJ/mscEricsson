@@ -36,5 +36,4 @@ public class UE_Type {
 	public void setUe_type(String ue_type) {
 		this.ue_type = ue_type;
 	}
-
 }

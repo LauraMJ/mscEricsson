@@ -8,7 +8,7 @@ import javax.persistence.Id;
 public class MCC_MNC {
 	@Id
 	@Column(name="mcc_mnc")
-	private MCC_MNCCK mccAndMnc; //Composite key of MCC and MNC
+	private MCC_MNCCK mccAndMnc; 
 	@Column(length=100)
 	private String operator;
 

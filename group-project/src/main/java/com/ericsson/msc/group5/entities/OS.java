@@ -36,7 +36,4 @@ public class OS{
 	public void setOs(String os) {
 		this.os = os;
 	}
-
-	
-
 }

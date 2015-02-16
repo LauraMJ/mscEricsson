@@ -11,13 +11,10 @@ public class HierInfo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="hier_info_id")
 	private Integer hierInfoId;
-
 	@Column(name="hier3_id", length=20)
 	private String hier3Id;
-	
 	@Column(name="hier32_id", length=20)
 	private String hier32Id;
-	
 	@Column(name="hier321_id", length=20)
 	private String hier321Id;
 	

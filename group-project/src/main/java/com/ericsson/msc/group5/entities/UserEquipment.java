@@ -104,5 +104,4 @@ public class UserEquipment {
 	public void setInputMode(Integer inputMode) {
 		this.inputMode = inputMode;
 	}
-
 }

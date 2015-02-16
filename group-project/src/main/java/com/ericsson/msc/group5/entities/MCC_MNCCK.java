@@ -21,8 +21,6 @@ public class MCC_MNCCK implements Serializable{
 		this.mnc = mnc;
 	}
 	
-	
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -47,9 +45,6 @@ public class MCC_MNCCK implements Serializable{
 		return result;
 	}
 	
-	
-	
-
 	public Integer getMcc() {
 		return mcc;
 	}
@@ -65,6 +60,4 @@ public class MCC_MNCCK implements Serializable{
 	public void setMnc(Integer mnc) {
 		this.mnc = mnc;
 	}
-	
-
 }

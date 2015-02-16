@@ -17,16 +17,17 @@ public class UserEquipment {
 	@Column(name = "manufacturer", length = 60)
 	private String manufacturer;
 	@Column(name = "access_capability", length = 100)
+
 	private String accessCapability;
 	@Column(name = "model", length = 45)
 	private String model;
-	@ManyToOne
+
 	@Column(name = "ue_type")
 	private Integer UEType;
-	@ManyToOne
+
 	@Column(name = "os")
 	private Integer OS;
-	@ManyToOne
+
 	@Column(name = "input_mode")
 	private Integer inputMode;
 

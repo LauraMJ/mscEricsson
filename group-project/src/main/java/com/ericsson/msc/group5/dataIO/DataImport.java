@@ -11,10 +11,12 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.*;
 
+import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
+import com.ericsson.msc.group5.entities.AccessCapability;
+
 public class DataImport {
 	//Change this to where you've stored the base data spreadsheet
-	private String path = "C:\\Users\\User\\Desktop\\";
-	private String fileName = "test.xlsx";
+	private String fileName = "C:\\Users\\User\\Desktop\\test.xlsx";
 	
 	private FileInputStream fileInputStream;
 	private Workbook workbook;
@@ -28,7 +30,7 @@ public class DataImport {
 	public DataImport(){
 		try {
 			//Read in the base data sheet from the excel file
-			fileInputStream = new FileInputStream(path + fileName);
+			fileInputStream = new FileInputStream(fileName);
 			workbook = new XSSFWorkbook(fileInputStream); 
 			worksheet = (XSSFSheet) workbook.getSheetAt(0);
 			
@@ -37,9 +39,11 @@ public class DataImport {
 			time = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
 			
 			//Need to change this later to export to DB instead of printing
-			printRow(1);
-			System.out.println();
-			printRow(5);
+			for(int i = 1; i <= 1000; i++){
+				printRow(i);
+			}
+			System.out.println("Data imported from" +fileName);
+			
 		} 
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -93,22 +97,6 @@ public class DataImport {
 		Long hier32Val = (long) hier32.getNumericCellValue();
 		Long hier321Val = (long) hier321.getNumericCellValue();
 		
-		/* Print out the data imported from one row in the base data.
-		 * Will be replaced by inserts into the database
-		 */
-		System.out.println("dateTime: \t" + dateString);
-		System.out.println("eventId: \t" + eventIdVal);
-		System.out.println("failureClass: \t" + failureClassVal);
-		System.out.println("ueType: \t" + ueTypeVal);
-		System.out.println("market: \t" + marketVal);
-		System.out.println("operator: \t" + operatorVal);
-		System.out.println("cellId: \t" + cellIdVal);
-		System.out.println("duration: \t" + durationVal);
-		System.out.println("causeCode: \t" + causeCodeVal);
-		System.out.println("neVersion: \t" + neVersionVal);
-		System.out.println("imsi: \t\t" + imsiVal);
-		System.out.println("hier3: \t\t" + hier3Val );
-		System.out.println("hier32: \t" + hier32Val );
-		System.out.println("hier321: \t" + hier321Val );
+		PersistenceUtil.persist(new BaseData(dateTimeVal,dateString, eventIdVal, failureClassVal, ueTypeVal, marketVal, operatorVal, cellIdVal, durationVal, causeCodeVal, neVersionVal, imsiVal, hier3Val, hier32Val, hier321Val));
 	}
 }

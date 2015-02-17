@@ -8,37 +8,39 @@ import javax.persistence.Id;
 
 @Entity
 public class FailureTrace {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="failure_trace_id")
+	@Column(name = "failure_trace_id")
 	private Integer failureTraceId;
-	@Column(name="date_time")
+	@Column(name = "date_time")
 	private String dateTime;
-	@Column(name="event_id")
+	@Column(name = "event_id")
 	private Integer eventId;
-	@Column(name="failure_class")
-	private Integer failureClass;
-	@Column(name="ue_type")
-	private Integer ueType;
-	@Column(name="market_operator")
-	private Integer marketOperator;
-	@Column(name="cell_id")
+	@Column(name = "cell_id")
 	private Integer cellId;
 	private Integer duration;
-	@Column(name="cause_code")
-	private Integer causeCode;
-	@Column(name="ne_version", length=3)
+	@Column(name = "ne_version", length = 3)
 	private String neVersion;
-	@Column(name="imsi", length=20)
+	@Column(name = "imsi", length = 20)
 	private String IMSI;
-	@Column(name="hier_info_id")
-	private Integer hierInfoId;
+
+	@Column(name = "market_operator")
+	private MCC_MNC marketOperator;
+	@Column(name = "failure_class")
+	private FailureClass failureClass;
+	@Column(name = "ue_type")
+	private UEType ueType;
+	@Column(name = "cause_code")
+	private EventCause causeCode;
+	@Column(name = "hier_info")
+	private HierInfo hierInfo;
 
 	public FailureTrace() {
-		
+
 	}
-	
-	public FailureTrace(Integer failureTraceId){
+
+	public FailureTrace(Integer failureTraceId) {
 		this.setFailureTraceId(failureTraceId);
 	}
 
@@ -66,27 +68,27 @@ public class FailureTrace {
 		this.eventId = eventId;
 	}
 
-	public Integer getFailureClass() {
+	public FailureClass getFailureClass() {
 		return failureClass;
 	}
 
-	public void setFailureClass(Integer failureClass) {
+	public void setFailureClass(FailureClass failureClass) {
 		this.failureClass = failureClass;
 	}
 
-	public Integer getUeType() {
+	public UEType getUeType() {
 		return ueType;
 	}
 
-	public void setUeType(Integer ueType) {
+	public void setUeType(UEType ueType) {
 		this.ueType = ueType;
 	}
 
-	public Integer getMarketOperator() {
+	public MCC_MNC getMarketOperator() {
 		return marketOperator;
 	}
 
-	public void setMarketOperator(Integer marketOperator) {
+	public void setMarketOperator(MCC_MNC marketOperator) {
 		this.marketOperator = marketOperator;
 	}
 
@@ -106,12 +108,12 @@ public class FailureTrace {
 		this.neVersion = neVersion;
 	}
 
-	public Integer getHierInfoId() {
-		return hierInfoId;
+	public HierInfo getHierInfoId() {
+		return hierInfo;
 	}
 
-	public void setHierInfoId(Integer hierInfoId) {
-		this.hierInfoId = hierInfoId;
+	public void setHierInfoId(HierInfo hierInfo) {
+		this.hierInfo = hierInfo;
 	}
 
 	public Integer getDuration() {
@@ -122,11 +124,11 @@ public class FailureTrace {
 		this.duration = duration;
 	}
 
-	public Integer getCauseCode() {
+	public EventCause getCauseCode() {
 		return causeCode;
 	}
 
-	public void setCauseCode(Integer causeCode) {
+	public void setCauseCode(EventCause causeCode) {
 		this.causeCode = causeCode;
 	}
 

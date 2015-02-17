@@ -1,0 +1,89 @@
+diff --git a/group-project/src/main/java/com/ericsson/msc/group5/entities/UserEquipment.java b/group-project/src/main/java/com/ericsson/msc/group5/entities/UserEquipment.java
+index d11c500..53b7767 100644
+--- a/group-project/src/main/java/com/ericsson/msc/group5/entities/UserEquipment.java
++++ b/group-project/src/main/java/com/ericsson/msc/group5/entities/UserEquipment.java
+@@ -1,5 +1,6 @@
+ package com.ericsson.msc.group5.entities;
+ 
++import javax.persistence.CascadeType;
+ import javax.persistence.Column;
+ import javax.persistence.Entity;
+ import javax.persistence.Id;
+@@ -18,16 +19,16 @@ public class UserEquipment {
+ 	private String manufacturer;
+ 	@Column(name = "model", length = 45)
+ 	private String model;
+-	@ManyToOne(optional = false)
++	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+ 	@JoinColumn(name = "accessCapabilityId")
+ 	private AccessCapability accessCapabilityClass;
+-	@ManyToOne(optional = false)
++	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+ 	@JoinColumn(name = "ueTypeId")
+ 	private UEType ueType;
+-	@ManyToOne(optional = false)
++	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+ 	@JoinColumn(name = "osId")
+ 	private OS os;
+-	@ManyToOne(optional = false)
++	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+ 	@JoinColumn(name = "inputModeId")
+ 	private InputMode inputModeClass;
+ 
+@@ -35,9 +36,8 @@ public class UserEquipment {
+ 
+ 	}
+ 
+-	public UserEquipment(Integer typeAllocationCode, String marketingName,
+-			String manufacturer, AccessCapability accessCapabilityClass,
+-			String model, UEType ueType, OS oS, InputMode inputModeClass) {
++	public UserEquipment(Integer typeAllocationCode, String marketingName, String manufacturer, AccessCapability accessCapabilityClass, String model,
++			UEType ueType, OS oS, InputMode inputModeClass) {
+ 		super();
+ 		this.typeAllocationCode = typeAllocationCode;
+ 		this.marketingName = marketingName;
+diff --git a/group-project/src/test/java/com/ericsson/msc/group5/entities/mappingTest.java b/group-project/src/test/java/com/ericsson/msc/group5/entities/mappingTest.java
+index 054d576..85bc2fe 100644
+--- a/group-project/src/test/java/com/ericsson/msc/group5/entities/mappingTest.java
++++ b/group-project/src/test/java/com/ericsson/msc/group5/entities/mappingTest.java
+@@ -24,29 +24,32 @@ public class mappingTest {
+ 		input.setInputMode(null);
+ 		input.setInputModeId(0);
+ 
+-		UserEquipment userEquip = new UserEquipment(123, "market",
+-				"manufacturerName", ac, "model1", ue, os, input);
++		UserEquipment userEquip = new UserEquipment(123, "market", "manufacturerName", ac, "model1", ue, os, input);
+ 		/*
+-		 * userEquip.setAccessCapabilityClass(ac); userEquip.setUeType(ue);
+-		 * userEquip.setoS(os); userEquip.setInputModeClass(input);
++		 * userEquip.setAccessCapabilityClass(ac); userEquip.setUeType(ue); userEquip.setoS(os); userEquip.setInputModeClass(input);
+ 		 */
+ 
+-		EntityManagerFactory entityManagerFactory = Persistence
+-				.createEntityManagerFactory("callFailureLogs");
++		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("callFailureLogs");
+ 
+-		EntityManager entityManager = entityManagerFactory
+-				.createEntityManager();
++		EntityManager entityManager = entityManagerFactory.createEntityManager();
+ 
+ 		EntityTransaction entityTransaction = null;
+ 
+ 		try {
++			System.out.println("hello");
+ 			entityTransaction = entityManager.getTransaction();
+ 			entityTransaction.begin();
++			System.out.println("hello1");
+ 			entityManager.persist(ac);
++			System.out.println("hello2");
+ 			entityManager.persist(ue);
++			System.out.println("hello3");
+ 			entityManager.persist(input);
++			System.out.println("hello4");
+ 			entityManager.persist(os);
++			System.out.println("hello5");
+ 			entityManager.persist(userEquip);
++			System.out.println("hello6");
+ 
+ 			entityTransaction.commit();
+ 		}

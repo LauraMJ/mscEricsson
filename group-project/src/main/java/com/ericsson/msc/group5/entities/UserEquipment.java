@@ -1,8 +1,11 @@
 package com.ericsson.msc.group5.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class UserEquipment {
@@ -14,42 +17,45 @@ public class UserEquipment {
 	private String marketingName;
 	@Column(name = "manufacturer", length = 60)
 	private String manufacturer;
-	@Column(name = "access_capability", length = 100)
-	private String accessCapability;
 	@Column(name = "model", length = 45)
 	private String model;
-
-	@Column(name = "ue_type")
-	private Integer UEType;
-
-	@Column(name = "os")
-	private Integer OS;
-
-	@Column(name = "input_mode")
-	private Integer inputMode;
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "accessCapabilityId")
+	private AccessCapability accessCapabilityClass;
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "ueTypeId")
+	private UEType ueType;
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "osId")
+	private OS os;
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "inputModeId")
+	private InputMode inputModeClass;
 
 	public UserEquipment() {
 
 	}
 
 	public UserEquipment(Integer typeAllocationCode, String marketingName,
-			String accessCapability, String model, Integer UEType, Integer OS,
-			Integer inputMode) {
+			String manufacturer, AccessCapability accessCapabilityClass,
+			String model, UEType ueType, OS oS, InputMode inputModeClass) {
+		super();
 		this.typeAllocationCode = typeAllocationCode;
 		this.marketingName = marketingName;
-		this.accessCapability = accessCapability;
+		this.manufacturer = manufacturer;
+		this.accessCapabilityClass = accessCapabilityClass;
 		this.model = model;
-		this.UEType = UEType;
-		this.OS = OS;
-		this.inputMode = inputMode;
+		this.ueType = ueType;
+		this.os = oS;
+		this.inputModeClass = inputModeClass;
 	}
 
 	public Integer getTypeAllocationCode() {
 		return typeAllocationCode;
 	}
 
-	public void setTypeAllocationCode(Integer tAC) {
-		typeAllocationCode = tAC;
+	public void setTypeAllocationCode(Integer typeAllocationCode) {
+		this.typeAllocationCode = typeAllocationCode;
 	}
 
 	public String getMarketingName() {
@@ -68,14 +74,6 @@ public class UserEquipment {
 		this.manufacturer = manufacturer;
 	}
 
-	public String getAccessCapability() {
-		return accessCapability;
-	}
-
-	public void setAccessCapability(String accessCapability) {
-		this.accessCapability = accessCapability;
-	}
-
 	public String getModel() {
 		return model;
 	}
@@ -84,27 +82,35 @@ public class UserEquipment {
 		this.model = model;
 	}
 
-	public Integer getUEType() {
-		return UEType;
+	public UEType getUeType() {
+		return ueType;
 	}
 
-	public void setUEType(Integer uEType) {
-		UEType = uEType;
+	public void setUeType(UEType ueType) {
+		this.ueType = ueType;
 	}
 
-	public Integer getOS() {
-		return OS;
+	public AccessCapability getAccessCapabilityClass() {
+		return accessCapabilityClass;
 	}
 
-	public void setOS(Integer oS) {
-		OS = oS;
+	public void setAccessCapabilityClass(AccessCapability accessCapabilityClass) {
+		this.accessCapabilityClass = accessCapabilityClass;
 	}
 
-	public Integer getInputMode() {
-		return inputMode;
+	public OS getoS() {
+		return os;
 	}
 
-	public void setInputMode(Integer inputMode) {
-		this.inputMode = inputMode;
+	public void setoS(OS oS) {
+		this.os = oS;
+	}
+
+	public InputMode getInputModeClass() {
+		return inputModeClass;
+	}
+
+	public void setInputModeClass(InputMode inputModeClass) {
+		this.inputModeClass = inputModeClass;
 	}
 }

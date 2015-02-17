@@ -30,6 +30,7 @@ public class PersistenceUtil implements Serializable {
 		}
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		entityManagerFactory.close();
 	}
 
 	public static void remove(Object entity) {

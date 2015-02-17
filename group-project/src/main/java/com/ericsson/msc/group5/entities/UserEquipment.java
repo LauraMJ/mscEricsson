@@ -1,5 +1,6 @@
 package com.ericsson.msc.group5.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,16 +19,16 @@ public class UserEquipment {
 	private String manufacturer;
 	@Column(name = "model", length = 45)
 	private String model;
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "accessCapabilityId")
 	private AccessCapability accessCapabilityClass;
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ueTypeId")
 	private UEType ueType;
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "osId")
 	private OS os;
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "inputModeId")
 	private InputMode inputModeClass;
 
@@ -35,9 +36,8 @@ public class UserEquipment {
 
 	}
 
-	public UserEquipment(Integer typeAllocationCode, String marketingName,
-			String manufacturer, AccessCapability accessCapabilityClass,
-			String model, UEType ueType, OS oS, InputMode inputModeClass) {
+	public UserEquipment(Integer typeAllocationCode, String marketingName, String manufacturer, AccessCapability accessCapabilityClass, String model,
+			UEType ueType, OS oS, InputMode inputModeClass) {
 		super();
 		this.typeAllocationCode = typeAllocationCode;
 		this.marketingName = marketingName;

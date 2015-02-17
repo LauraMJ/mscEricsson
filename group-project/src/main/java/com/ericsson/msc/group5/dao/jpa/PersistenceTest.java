@@ -7,7 +7,6 @@ import com.ericsson.msc.group5.entities.EventCauseCK;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.MCC_MNC;
 import com.ericsson.msc.group5.entities.MCC_MNCCK;
-import com.ericsson.msc.group5.entities.UserEquipment;
 
 public class PersistenceTest {
 
@@ -36,10 +35,9 @@ public class PersistenceTest {
 		System.out.println("Entity saved");
 		PersistenceUtil.persist(new MCC_MNC(mccmnc, "some operator name"));
 		System.out.println("Entity saved");
-		PersistenceUtil.persist(new UserEquipment(123245, "TestMarketingName",
-				"GSM 1800", "BrickPhone1.0", null, null, null));
+		// PersistenceUtil.persist(new UserEquipment(123245,
+		// "TestMarketingName", "GSM 1800", "BrickPhone1.0", null, null, null));
 		System.out.println("Entity saved");
 
-		// comment
 	}
 }

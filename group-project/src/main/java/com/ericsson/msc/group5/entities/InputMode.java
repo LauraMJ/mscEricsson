@@ -1,22 +1,36 @@
 package com.ericsson.msc.group5.entities;
 
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-@Entity(name="Input_Mode")
+@Entity(name = "Input_Mode")
 public class InputMode {
+
 	@Id
-	@Column(name="input_mode_id")
-	private Integer inputModeId; 
-	@Column(name="input_mode", length=45)
+	@Column(name = "input_mode_id")
+	private Integer inputModeId;
+	@Column(name = "input_mode", length = 45)
 	private String inputMode;
-	
+
+	@OneToMany(mappedBy = "input_mode", targetEntity = UserEquipment.class)
+	private Collection <UserEquipment> userEquipment;
+
+	public Collection <UserEquipment> getUserEquipment() {
+		return userEquipment;
+	}
+
+	public void setUserEquipment(Collection <UserEquipment> userEquipment) {
+		this.userEquipment = userEquipment;
+	}
+
 	public InputMode() {
 		//
 	}
-	
-	public InputMode(Integer inputModeId, String inputMode){
+
+	public InputMode(Integer inputModeId, String inputMode) {
 		this.inputModeId = inputModeId;
 		this.inputMode = inputMode;
 	}

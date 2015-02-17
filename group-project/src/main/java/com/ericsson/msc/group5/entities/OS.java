@@ -1,22 +1,36 @@
 package com.ericsson.msc.group5.entities;
 
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-@Entity(name="OS")
-public class OS{
+@Entity(name = "OS")
+public class OS {
+
 	@Id
-	@Column(name="os_id")
-	private Integer osId; 
-	@Column(length=45)
+	@Column(name = "os_id")
+	private Integer osId;
+	@Column(length = 45)
 	private String os;
-	
-	public OS() {
-		
+
+	@OneToMany(mappedBy = "os", targetEntity = UserEquipment.class)
+	private Collection <UserEquipment> userEquipment;
+
+	public Collection <UserEquipment> getUserEquipment() {
+		return userEquipment;
 	}
-	
-	public OS(Integer osId, String os){
+
+	public void setUserEquipment(Collection <UserEquipment> userEquipment) {
+		this.userEquipment = userEquipment;
+	}
+
+	public OS() {
+
+	}
+
+	public OS(Integer osId, String os) {
 		this.osId = osId;
 		this.os = os;
 	}

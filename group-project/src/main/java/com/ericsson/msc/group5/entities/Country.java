@@ -6,18 +6,18 @@ import javax.persistence.Id;
 
 @Entity
 public class Country {
+
 	@Id
-	private Integer mcc; //PK
-	@Column(length=45)
+	private Integer mcc; // PK
+	@Column(length = 45)
 	private String country;
-	
+
 	public Country() {
 		//
 	}
-	
-	public Country(Integer mcc, String country){
+
+	public Country(Integer mcc, String country) {
 		this.mcc = mcc;
 		this.country = country;
 	}
-
 }

@@ -1,24 +1,28 @@
 package com.ericsson.msc.group5.entities;
 
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
- * Failure Class JPA entity.
- * 
- * Matches an integer id of a failure to a string description.
+ * Failure Class JPA entity. Matches an integer id of a failure to a string description.
  * 
  * @author szymon
  */
 @Entity(name = "Failure_Class")
 public class FailureClass {
+
 	@Id
 	@Column(name = "failure_class")
 	private Integer failureClass;
 
 	@Column(length = 100)
 	private String description;
+
+	@OneToMany(mappedBy = "failureClass", targetEntity = FailureTrace.class)
+	private Collection <FailureTrace> failureTrace;
 
 	/**
 	 * No-args constructor used by the JPA.

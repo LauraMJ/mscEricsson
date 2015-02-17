@@ -1,11 +1,13 @@
 package com.ericsson.msc.group5.entities;
 
+import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class UserEquipment {
@@ -32,13 +34,15 @@ public class UserEquipment {
 	@JoinColumn(name = "inputModeId")
 	private InputMode inputModeClass;
 
+	@OneToMany(mappedBy = "userEqipment", targetEntity = FailureTrace.class)
+	private Collection <FailureTrace> failureTrace;
+
 	public UserEquipment() {
 
 	}
 
-	public UserEquipment(Integer typeAllocationCode, String marketingName,
-			String manufacturer, AccessCapability accessCapabilityClass,
-			String model, UEType ueType, OS oS, InputMode inputModeClass) {
+	public UserEquipment(Integer typeAllocationCode, String marketingName, String manufacturer, AccessCapability accessCapabilityClass, String model,
+			UEType ueType, OS oS, InputMode inputModeClass) {
 		super();
 		this.typeAllocationCode = typeAllocationCode;
 		this.marketingName = marketingName;

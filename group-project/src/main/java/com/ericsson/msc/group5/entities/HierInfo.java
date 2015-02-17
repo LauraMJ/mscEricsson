@@ -1,27 +1,34 @@
 package com.ericsson.msc.group5.entities;
 
+import java.util.Collection;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
+@Entity
 public class HierInfo {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="hier_info_id")
+	@Column(name = "hier_info_id")
 	private Integer hierInfoId;
-	@Column(name="hier3_id", length=20)
+	@Column(name = "hier3_id", length = 20)
 	private String hier3Id;
-	@Column(name="hier32_id", length=20)
+	@Column(name = "hier32_id", length = 20)
 	private String hier32Id;
-	@Column(name="hier321_id", length=20)
+	@Column(name = "hier321_id", length = 20)
 	private String hier321Id;
-	
+
+	@OneToMany(mappedBy = "hierInfo", targetEntity = FailureTrace.class)
+	private Collection <FailureTrace> failureTrace;
+
 	public HierInfo() {
-		
+
 	}
-	
+
 	public String getHier3Id() {
 		return hier3Id;
 	}

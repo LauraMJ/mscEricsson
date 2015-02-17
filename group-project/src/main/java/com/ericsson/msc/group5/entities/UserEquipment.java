@@ -3,21 +3,18 @@ package com.ericsson.msc.group5.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class UserEquipment {
 
 	@Id
-	@Column(name = "tac")
-	private Integer TAC;
+	@Column(name = "type_allocation_code")
+	private Integer typeAllocationCode;
 	@Column(name = "marketing_name", length = 60)
 	private String marketingName;
 	@Column(name = "manufacturer", length = 60)
 	private String manufacturer;
 	@Column(name = "access_capability", length = 100)
-
 	private String accessCapability;
 	@Column(name = "model", length = 45)
 	private String model;
@@ -35,10 +32,10 @@ public class UserEquipment {
 
 	}
 
-	public UserEquipment(Integer TAC, String marketingName,
+	public UserEquipment(Integer typeAllocationCode, String marketingName,
 			String accessCapability, String model, Integer UEType, Integer OS,
 			Integer inputMode) {
-		this.TAC = TAC;
+		this.typeAllocationCode = typeAllocationCode;
 		this.marketingName = marketingName;
 		this.accessCapability = accessCapability;
 		this.model = model;
@@ -47,12 +44,12 @@ public class UserEquipment {
 		this.inputMode = inputMode;
 	}
 
-	public Integer getTAC() {
-		return TAC;
+	public Integer getTypeAllocationCode() {
+		return typeAllocationCode;
 	}
 
-	public void setTAC(Integer tAC) {
-		TAC = tAC;
+	public void setTypeAllocationCode(Integer tAC) {
+		typeAllocationCode = tAC;
 	}
 
 	public String getMarketingName() {

@@ -24,11 +24,12 @@ public class mappingTest {
 		input.setInputMode(null);
 		input.setInputModeId(0);
 
-		UserEquipment userEquip = new UserEquipment();
-		userEquip.setAccessCapabilityClass(ac);
-		userEquip.setUeType(ue);
-		userEquip.setoS(os);
-		userEquip.setInputModeClass(input);
+		UserEquipment userEquip = new UserEquipment(123, "market",
+				"manufacturerName", ac, "model1", ue, os, input);
+		/*
+		 * userEquip.setAccessCapabilityClass(ac); userEquip.setUeType(ue);
+		 * userEquip.setoS(os); userEquip.setInputModeClass(input);
+		 */
 
 		EntityManagerFactory entityManagerFactory = Persistence
 				.createEntityManagerFactory("callFailureLogs");
@@ -41,10 +42,10 @@ public class mappingTest {
 		try {
 			entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
+			entityManager.persist(ac);
 			entityManager.persist(ue);
 			entityManager.persist(input);
 			entityManager.persist(os);
-			entityManager.persist(ac);
 			entityManager.persist(userEquip);
 
 			entityTransaction.commit();

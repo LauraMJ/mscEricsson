@@ -19,16 +19,16 @@ public class UserEquipment {
 	@Column(name = "model", length = 45)
 	private String model;
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "access_capability")
+	@JoinColumn(name = "accessCapabilityId")
 	private AccessCapability accessCapabilityClass;
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "ue_type")
+	@JoinColumn(name = "ueTypeId")
 	private UEType ueType;
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "os")
-	private OS oS;
+	@JoinColumn(name = "osId")
+	private OS os;
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "input_mode")
+	@JoinColumn(name = "inputModeId")
 	private InputMode inputModeClass;
 
 	public UserEquipment() {
@@ -45,7 +45,7 @@ public class UserEquipment {
 		this.accessCapabilityClass = accessCapabilityClass;
 		this.model = model;
 		this.ueType = ueType;
-		this.oS = oS;
+		this.os = oS;
 		this.inputModeClass = inputModeClass;
 	}
 
@@ -53,8 +53,8 @@ public class UserEquipment {
 		return typeAllocationCode;
 	}
 
-	public void setTypeAllocationCode(Integer tAC) {
-		typeAllocationCode = tAC;
+	public void setTypeAllocationCode(Integer typeAllocationCode) {
+		this.typeAllocationCode = typeAllocationCode;
 	}
 
 	public String getMarketingName() {
@@ -98,11 +98,11 @@ public class UserEquipment {
 	}
 
 	public OS getoS() {
-		return oS;
+		return os;
 	}
 
 	public void setoS(OS oS) {
-		this.oS = oS;
+		this.os = oS;
 	}
 
 	public InputMode getInputModeClass() {

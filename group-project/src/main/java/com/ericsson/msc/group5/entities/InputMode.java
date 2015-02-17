@@ -15,7 +15,7 @@ public class InputMode {
 	@Column(name = "input_mode", length = 45)
 	private String inputMode;
 
-	@OneToMany(mappedBy = "input_mode", targetEntity = UserEquipment.class)
+	@OneToMany(mappedBy = "inputModeClass", targetEntity = UserEquipment.class)
 	private Collection <UserEquipment> userEquipment;
 
 	public Collection <UserEquipment> getUserEquipment() {

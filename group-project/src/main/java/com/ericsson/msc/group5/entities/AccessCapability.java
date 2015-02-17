@@ -3,8 +3,6 @@ package com.ericsson.msc.group5.entities;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -18,7 +16,6 @@ import javax.persistence.OneToMany;
 public class AccessCapability {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "access_capability_id")
 	private Integer accessCapabilityId;
 	@Column(name = "access_capability", length = 120)

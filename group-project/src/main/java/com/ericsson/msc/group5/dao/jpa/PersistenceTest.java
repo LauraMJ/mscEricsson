@@ -10,33 +10,36 @@ import com.ericsson.msc.group5.entities.MCC_MNCCK;
 import com.ericsson.msc.group5.entities.UserEquipment;
 
 public class PersistenceTest {
-	//Variables for laura's tests
+
+	// Variables for laura's tests
 	EventCauseCK eventCauseCK = new EventCauseCK(4102, 203);
 	MCC_MNCCK mccmnc = new MCC_MNCCK(123, 456);
-	
 
-	public static void main(String[] args) {
+	public static void main(String [] args) {
 		new PersistenceTest();
 	}
 
 	public PersistenceTest() {
 		PersistenceUtil.persist(new AccessCapability("TEST"));
 		System.out.println("Entity saved");
-		//PersistenceUtil.persist(new CellInfo(25, 12, "213421", "2341325", "TEST"));
+		// PersistenceUtil.persist(new CellInfo(25, 12, "213421", "2341325",
+		// "TEST"));
 		System.out.println("Entity saved");
 		PersistenceUtil.persist(new FailureClass(4, "hello world"));
 		System.out.println("Entity saved");
-		
-		
-		//laura's tests
+
+		// laura's tests
 		PersistenceUtil.persist(new Country(340, "Denmark"));
 		System.out.println("Entity saved");
-		PersistenceUtil.persist(new EventCause(eventCauseCK, "this is a description of the event"));
+		PersistenceUtil.persist(new EventCause(eventCauseCK,
+				"this is a description of the event"));
 		System.out.println("Entity saved");
 		PersistenceUtil.persist(new MCC_MNC(mccmnc, "some operator name"));
 		System.out.println("Entity saved");
-		PersistenceUtil.persist(new UserEquipment(123245, "TestMarketingName", "GSM 1800", "BrickPhone1.0", null, null, null));
+		PersistenceUtil.persist(new UserEquipment(123245, "TestMarketingName",
+				"GSM 1800", "BrickPhone1.0", null, null, null));
 		System.out.println("Entity saved");
-		
+
+		// comment
 	}
 }

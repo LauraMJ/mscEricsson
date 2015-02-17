@@ -2,12 +2,10 @@ package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -21,10 +19,15 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class AccessCapabilityTest {
+
 	@Deployment
-	public static Archive<?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(AccessCapability.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+	public static Archive <?> createDeployment() {
+		return ShrinkWrap
+				.create(WebArchive.class, "test.war")
+				.addPackage(AccessCapability.class.getPackage())
+				.addAsResource("test-persistence.xml",
+						"META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -49,16 +52,19 @@ public class AccessCapabilityTest {
 
 	@Test
 	public void accessCapabilityTest() throws Exception {
-		AccessCapability createdAC = new AccessCapability(INITIAL_ACCESS_CAPABILITY);
+		AccessCapability createdAC = new AccessCapability(0,
+				INITIAL_ACCESS_CAPABILITY);
 		em.persist(createdAC);
 		int newId = createdAC.getAccessCapabilityId();
 
 		AccessCapability loadedAC = em.find(AccessCapability.class, newId);
-		assertEquals("Failed to insert", INITIAL_ACCESS_CAPABILITY, loadedAC.getAccessCapability());
+		assertEquals("Failed to insert", INITIAL_ACCESS_CAPABILITY,
+				loadedAC.getAccessCapability());
 
 		loadedAC.setAccessCapability(UPDATED_ACCESS_CAPABILITY);
 		AccessCapability updatedAC = em.find(AccessCapability.class, newId);
-		assertEquals("Failed to update", UPDATED_ACCESS_CAPABILITY, updatedAC.getAccessCapability());
+		assertEquals("Failed to update", UPDATED_ACCESS_CAPABILITY,
+				updatedAC.getAccessCapability());
 
 		em.remove(updatedAC);
 		AccessCapability shouldBeNull = em.find(AccessCapability.class, newId);
@@ -69,7 +75,9 @@ public class AccessCapabilityTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.AccessCapability").executeUpdate();
+		em.createQuery(
+				"delete from com.ericsson.msc.group5.entities.AccessCapability")
+				.executeUpdate();
 		utx.commit();
 	}
 

@@ -45,7 +45,8 @@ public class AccessCapability {
 	 * @param accessCapability
 	 *            A String listing all access capabilities of the user device.
 	 */
-	public AccessCapability(String accessCapability) {
+	public AccessCapability(Integer accessCapabilityId, String accessCapability) {
+		this.accessCapabilityId = accessCapabilityId;
 		this.accessCapability = accessCapability;
 	}
 

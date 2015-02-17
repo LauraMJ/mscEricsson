@@ -19,7 +19,7 @@ public class PersistenceTest {
 	}
 
 	public PersistenceTest() {
-		PersistenceUtil.persist(new AccessCapability("TEST"));
+		PersistenceUtil.persist(new AccessCapability(1919191, "TEST"));
 		System.out.println("Entity saved");
 		// PersistenceUtil.persist(new CellInfo(25, 12, "213421", "2341325",
 		// "TEST"));

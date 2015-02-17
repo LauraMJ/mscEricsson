@@ -36,8 +36,9 @@ public class UserEquipment {
 
 	}
 
-	public UserEquipment(Integer typeAllocationCode, String marketingName, String manufacturer, AccessCapability accessCapabilityClass, String model,
-			UEType ueType, OS oS, InputMode inputModeClass) {
+	public UserEquipment(Integer typeAllocationCode, String marketingName,
+			String manufacturer, AccessCapability accessCapabilityClass,
+			String model, UEType ueType, OS oS, InputMode inputModeClass) {
 		super();
 		this.typeAllocationCode = typeAllocationCode;
 		this.marketingName = marketingName;

@@ -22,12 +22,8 @@ public class AccessCapabilityTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap
-				.create(WebArchive.class, "test.war")
-				.addPackage(AccessCapability.class.getPackage())
-				.addAsResource("test-persistence.xml",
-						"META-INF/persistence.xml")
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(AccessCapability.class.getPackage())
+				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -51,20 +47,17 @@ public class AccessCapabilityTest {
 	}
 
 	@Test
-	public void accessCapabilityTest() throws Exception {
-		AccessCapability createdAC = new AccessCapability(0,
-				INITIAL_ACCESS_CAPABILITY);
+	public void basicCRUDTest() throws Exception {
+		AccessCapability createdAC = new AccessCapability(0, INITIAL_ACCESS_CAPABILITY);
 		em.persist(createdAC);
 		int newId = createdAC.getAccessCapabilityId();
 
 		AccessCapability loadedAC = em.find(AccessCapability.class, newId);
-		assertEquals("Failed to insert", INITIAL_ACCESS_CAPABILITY,
-				loadedAC.getAccessCapability());
+		assertEquals("Failed to insert", INITIAL_ACCESS_CAPABILITY, loadedAC.getAccessCapability());
 
 		loadedAC.setAccessCapability(UPDATED_ACCESS_CAPABILITY);
 		AccessCapability updatedAC = em.find(AccessCapability.class, newId);
-		assertEquals("Failed to update", UPDATED_ACCESS_CAPABILITY,
-				updatedAC.getAccessCapability());
+		assertEquals("Failed to update", UPDATED_ACCESS_CAPABILITY, updatedAC.getAccessCapability());
 
 		em.remove(updatedAC);
 		AccessCapability shouldBeNull = em.find(AccessCapability.class, newId);
@@ -75,9 +68,7 @@ public class AccessCapabilityTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery(
-				"delete from com.ericsson.msc.group5.entities.AccessCapability")
-				.executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.AccessCapability").executeUpdate();
 		utx.commit();
 	}
 

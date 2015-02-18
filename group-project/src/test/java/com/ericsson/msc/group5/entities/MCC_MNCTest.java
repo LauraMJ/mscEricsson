@@ -18,11 +18,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class EventCauseTest {
+public class MCC_MNCTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(EventCause.class.getPackage())
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(MCC_MNC.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -32,8 +32,8 @@ public class EventCauseTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_DESCRIPTION = "RRC CONN SETUP-UE BEARERS REJECTED DUE TO ARP ADM REJ AND LICENSES MISSING";
-	private static String UPDATED_DESCRIPTION = "UE CTXT RELEASE-UNKNOWN OR ALREADY ALLOCATED ENB UE S1AP ID";
+	private static String INITIAL_OPERATOR = "Oklahoma Western Telephone Company US";
+	private static String UPDATED_OPERATOR = "Clearnet CA";
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -48,20 +48,21 @@ public class EventCauseTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		EventCauseCK pk = new EventCauseCK(1, 1);
-		EventCause createdEC = new EventCause(pk, INITIAL_DESCRIPTION);
-		em.persist(createdEC);
+		MCC_MNCCK pk = new MCC_MNCCK(1, 1);
+		MCC_MNC createdMCC = new MCC_MNC(pk, INITIAL_OPERATOR);
+		createdMCC.setCountry(new Country(1, "Denmark"));
+		em.persist(createdMCC);
 
-		EventCause loadedEC = em.find(EventCause.class, pk);
-		assertEquals("Failed to insert", INITIAL_DESCRIPTION, loadedEC.getDescription());
+		MCC_MNC loadedMCC = em.find(MCC_MNC.class, pk);
+		assertEquals("Failed to insert", INITIAL_OPERATOR, loadedMCC.getOperator());
 
-		loadedEC.setDescription(UPDATED_DESCRIPTION);
-		EventCause updatedEC = em.find(EventCause.class, pk);
+		loadedMCC.setOperator(UPDATED_OPERATOR);
+		MCC_MNC updatedMCC = em.find(MCC_MNC.class, pk);
 
-		assertEquals("Failed to update", UPDATED_DESCRIPTION, updatedEC.getDescription());
+		assertEquals("Failed to update", UPDATED_OPERATOR, updatedMCC.getOperator());
 
-		em.remove(updatedEC);
-		EventCause shouldBeNull = em.find(EventCause.class, pk);
+		em.remove(updatedMCC);
+		MCC_MNC shouldBeNull = em.find(MCC_MNC.class, pk);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
@@ -69,7 +70,7 @@ public class EventCauseTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.EventCause").executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.MCC_MNC").executeUpdate();
 		utx.commit();
 	}
 

@@ -47,7 +47,7 @@ public class UETypeTest {
 	}
 
 	@Test
-	public void failureClassTest() throws Exception {
+	public void basicCRUDTest() throws Exception {
 		int newId = 1;
 		UEType createdUE = new UEType();
 		createdUE.setUeType(INITIAL_UETYPE);

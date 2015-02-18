@@ -47,7 +47,7 @@ public class CountryTest {
 	}
 
 	@Test
-	public void failureClassTest() throws Exception {
+	public void basicCRUDTest() throws Exception {
 		int newId = 1;
 		Country createdC = new Country(newId, INITIAL_COUNTRY);
 		em.persist(createdC);

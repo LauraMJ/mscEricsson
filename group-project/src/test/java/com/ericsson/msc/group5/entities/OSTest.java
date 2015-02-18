@@ -47,7 +47,7 @@ public class OSTest {
 	}
 
 	@Test
-	public void failureClassTest() throws Exception {
+	public void basicCRUDTest() throws Exception {
 		int newId = 1;
 		OS createdOS = new OS(newId, INITIAL_OS);
 		em.persist(createdOS);

@@ -2,12 +2,10 @@ package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -21,8 +19,9 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class FailureClassTest {
+
 	@Deployment
-	public static Archive<?> createDeployment() {
+	public static Archive <?> createDeployment() {
 		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(FailureClass.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
@@ -48,9 +47,9 @@ public class FailureClassTest {
 	}
 
 	@Test
-	public void failureClassTest() throws Exception {
+	public void basicCRUDTest() throws Exception {
 		int newId = 0;
-				
+
 		FailureClass createdFC = new FailureClass(newId, INITIAL_DESCRIPTION);
 		em.persist(createdFC);
 

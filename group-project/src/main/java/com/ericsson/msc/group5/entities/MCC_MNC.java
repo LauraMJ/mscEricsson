@@ -25,6 +25,15 @@ public class MCC_MNC {
 	@JoinColumn(name = "mcc", referencedColumnName = "mcc", insertable = false, updatable = false)
 	private Country country;
 
+	public MCC_MNC() {
+		//
+	}
+
+	public MCC_MNC(MCC_MNCCK mccAndMnc, String operator) {
+		this.mccAndMnc = mccAndMnc;
+		this.operator = operator;
+	}
+
 	public Country getCountry() {
 		return country;
 	}
@@ -33,12 +42,11 @@ public class MCC_MNC {
 		this.country = country;
 	}
 
-	public MCC_MNC() {
-		//
+	public String getOperator() {
+		return operator;
 	}
 
-	public MCC_MNC(MCC_MNCCK mccAndMnc, String operator) {
-		this.mccAndMnc = mccAndMnc;
+	public void setOperator(String operator) {
 		this.operator = operator;
 	}
 

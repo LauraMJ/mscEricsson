@@ -51,7 +51,7 @@ public class HierInfoTest {
 	}
 
 	@Test
-	public void failureClassTest() throws Exception {
+	public void basicCRUDTest() throws Exception {
 		HierInfo createdHI = new HierInfo();
 		createdHI.setHier3Id(INITIAL_HIER3);
 		createdHI.setHier32Id(INITIAL_HIER32);

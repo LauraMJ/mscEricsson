@@ -33,6 +33,14 @@ public class HierInfo {
 		return hier3Id;
 	}
 
+	public Integer getHierInfoId() {
+		return hierInfoId;
+	}
+
+	public void setHierInfoId(Integer hierInfoId) {
+		this.hierInfoId = hierInfoId;
+	}
+
 	public void setHier3Id(String hier3Id) {
 		this.hier3Id = hier3Id;
 	}

@@ -17,7 +17,7 @@ import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
 public class DataImport {
 
 	// Change this to where you've stored the base data spreadsheet
-	private String fileName = "C:\\Users\\User\\Desktop\\baseData.xls";
+	private String fileName = "C:\\Users\\Siobhan\\Desktop\\baseData.xls";
 	private FileInputStream fileInputStream;
 	private ArrayList <BaseData> baseDataRows = new ArrayList <BaseData>();
 	private ArrayList <BaseData> eventCauseRows = new ArrayList <BaseData>();

@@ -18,11 +18,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class OSTest {
+public class CountryTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(OS.class.getPackage())
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Country.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -32,8 +32,8 @@ public class OSTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_OS = "BLACKBERRY";
-	private static String UPDATED_OS = "IOS";
+	private static String INITIAL_COUNTRY = "United States of America";
+	private static String UPDATED_COUNTRY = "Guadeloupe-France";
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -49,18 +49,19 @@ public class OSTest {
 	@Test
 	public void failureClassTest() throws Exception {
 		int newId = 1;
-		OS createdOS = new OS(newId, INITIAL_OS);
-		em.persist(createdOS);
+		Country createdC = new Country(newId, INITIAL_COUNTRY);
+		em.persist(createdC);
 
-		OS loadedOS = em.find(OS.class, newId);
-		assertEquals("Failed to insert", INITIAL_OS, loadedOS.getOs());
+		Country loadedC = em.find(Country.class, newId);
+		assertEquals("Failed to insert", INITIAL_COUNTRY, loadedC.getCountry());
 
-		loadedOS.setOs(UPDATED_OS);
-		OS updatedOS = em.find(OS.class, newId);
-		assertEquals("Failed to update", UPDATED_OS, updatedOS.getOs());
+		loadedC.setCountry(UPDATED_COUNTRY);
+		Country updatedC = em.find(Country.class, newId);
 
-		em.remove(updatedOS);
-		OS shouldBeNull = em.find(OS.class, newId);
+		assertEquals("Failed to update", UPDATED_COUNTRY, updatedC.getCountry());
+
+		em.remove(updatedC);
+		Country shouldBeNull = em.find(Country.class, newId);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
@@ -68,7 +69,7 @@ public class OSTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.OS").executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.Country").executeUpdate();
 		utx.commit();
 	}
 

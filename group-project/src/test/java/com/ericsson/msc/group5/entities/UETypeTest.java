@@ -70,7 +70,7 @@ public class UETypeTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.HierInfo").executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.UEType").executeUpdate();
 		utx.commit();
 	}
 

@@ -43,7 +43,7 @@ public class FailureTrace {
 	private EventCause causeCode;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumns({@JoinColumn(name = "mcc", referencedColumnName = "mcc"), @JoinColumn(name = "mnc", referencedColumnName = "mnc")})
-	private MCC_MNC marketOperator;
+	private CountryCodeNetworkCode marketOperator;
 
 	public FailureTrace() {
 
@@ -93,11 +93,11 @@ public class FailureTrace {
 		this.userEqipment = userEqipment;
 	}
 
-	public MCC_MNC getMarketOperator() {
+	public CountryCodeNetworkCode getMarketOperator() {
 		return marketOperator;
 	}
 
-	public void setMarketOperator(MCC_MNC marketOperator) {
+	public void setMarketOperator(CountryCodeNetworkCode marketOperator) {
 		this.marketOperator = marketOperator;
 	}
 

@@ -14,7 +14,7 @@ public class mappingTest {
 		hi.setHier321Id("35279815702");
 		FailureClass fc = new FailureClass(0, "description");
 		EventCause ec = new EventCause(new EventCauseCK(0, 0), "description");
-		MCC_MNC mcc = new MCC_MNC(new MCC_MNCCK(0, 0), "operator string");
+		CountryCodeNetworkCode mcc = new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(0, 0), "operator string");
 		Country c = new Country(0, "country");
 		mcc.setCountry(c);
 
@@ -22,7 +22,7 @@ public class mappingTest {
 		ac.setAccessCapability("TEST ACCESS CAPABILITY");
 		ac.setAccessCapabilityId(0);
 
-		UEType ue = new UEType();
+		UserEquipmentType ue = new UserEquipmentType();
 		ue.setUeType("TEST UE TYPE");
 		ue.setUeTypeId(0);
 

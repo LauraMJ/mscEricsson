@@ -10,11 +10,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class MCC_MNC {
+public class CountryCodeNetworkCode {
 
 	@Id
-	@Column(name = "mcc_mnc")
-	private MCC_MNCCK mccAndMnc;
+	@Column(name = "country_code_network_code")
+	private CountryCodeNetworkCodeCK countryCodeNetworkCode;
 	@Column(length = 100)
 	private String operator;
 
@@ -22,7 +22,7 @@ public class MCC_MNC {
 	private Collection <FailureTrace> failureTrace;
 
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumn(name = "mcc", referencedColumnName = "mcc", insertable = false, updatable = false)
+	@JoinColumn(name = "country_code", referencedColumnName = "country_code", insertable = false, updatable = false)
 	private Country country;
 
 	public Country getCountry() {
@@ -33,12 +33,13 @@ public class MCC_MNC {
 		this.country = country;
 	}
 
-	public MCC_MNC() {
+	public CountryCodeNetworkCode() {
 		//
 	}
 
-	public MCC_MNC(MCC_MNCCK mccAndMnc, String operator) {
-		this.mccAndMnc = mccAndMnc;
+	public CountryCodeNetworkCode(
+			CountryCodeNetworkCodeCK countryCodeNetworkCode, String operator) {
+		this.countryCodeNetworkCode = countryCodeNetworkCode;
 		this.operator = operator;
 	}
 

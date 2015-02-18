@@ -6,14 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity(name = "UE_Type")
-public class UEType {
+@Entity(name = "user_equipment_type")
+public class UserEquipmentType {
 
 	@Id
-	@Column(name = "ue_type_id")
-	private Integer ueTypeId;
-	@Column(name = "ue_type", length = 45)
-	private String ueType;
+	@Column(name = "user_equipment_type_id")
+	private Integer userEquipmentTypeId;
+	@Column(name = "user_equipment_type", length = 45)
+	private String userEquipmentType;
 
 	@OneToMany(mappedBy = "ueType", targetEntity = UserEquipment.class)
 	private Collection <UserEquipment> userEquipment;
@@ -26,27 +26,27 @@ public class UEType {
 		this.userEquipment = userEquipment;
 	}
 
-	public UEType() {
+	public UserEquipmentType() {
 	}
 
-	public UEType(Integer ueTypeId, String ueType) {
-		this.ueTypeId = ueTypeId;
-		this.ueType = ueType;
+	public UserEquipmentType(Integer ueTypeId, String ueType) {
+		this.userEquipmentTypeId = ueTypeId;
+		this.userEquipmentType = ueType;
 	}
 
 	public Integer getUeTypeId() {
-		return ueTypeId;
+		return userEquipmentTypeId;
 	}
 
 	public void setUeTypeId(Integer ueTypeId) {
-		this.ueTypeId = ueTypeId;
+		this.userEquipmentTypeId = ueTypeId;
 	}
 
 	public String getUeType() {
-		return ueType;
+		return userEquipmentType;
 	}
 
 	public void setUeType(String ueType) {
-		this.ueType = ueType;
+		this.userEquipmentType = ueType;
 	}
 }

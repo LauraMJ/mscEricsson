@@ -26,7 +26,7 @@ public class UserEquipment {
 	private AccessCapability accessCapabilityClass;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ueTypeId")
-	private UEType ueType;
+	private UserEquipmentType ueType;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "osId")
 	private OS os;
@@ -42,7 +42,7 @@ public class UserEquipment {
 	}
 
 	public UserEquipment(Integer typeAllocationCode, String marketingName, String manufacturer, AccessCapability accessCapabilityClass, String model,
-			UEType ueType, OS oS, InputMode inputModeClass) {
+			UserEquipmentType ueType, OS oS, InputMode inputModeClass) {
 		super();
 		this.typeAllocationCode = typeAllocationCode;
 		this.marketingName = marketingName;
@@ -86,11 +86,11 @@ public class UserEquipment {
 		this.model = model;
 	}
 
-	public UEType getUeType() {
+	public UserEquipmentType getUeType() {
 		return ueType;
 	}
 
-	public void setUeType(UEType ueType) {
+	public void setUeType(UserEquipmentType ueType) {
 		this.ueType = ueType;
 	}
 

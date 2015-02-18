@@ -173,7 +173,7 @@ public class DataImport {
 		worksheet = (HSSFSheet) workbook.getSheetAt(4);
 
 		// Get the number of rows in the input file
-		// int numRows = worksheet.getLastRowNum();
+		int numRows = worksheet.getLastRowNum();
 
 		// Select the row in the table
 		for (int i = 1; i <= numRows; i++) {

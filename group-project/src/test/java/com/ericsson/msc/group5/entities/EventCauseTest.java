@@ -18,11 +18,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class FailureClassTest {
+public class EventCauseTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(FailureClass.class.getPackage())
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(EventCause.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -32,8 +32,8 @@ public class FailureClassTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_DESCRIPTION = "HIGH PRIORITY ACCESS";
-	private static String UPDATED_DESCRIPTION = "EMERGENCY";
+	private static String INITIAL_DESCRIPTION = "RRC CONN SETUP-UE BEARERS REJECTED DUE TO ARP ADM REJ AND LICENSES MISSING";
+	private static String UPDATED_DESCRIPTION = "UE CTXT RELEASE-UNKNOWN OR ALREADY ALLOCATED ENB UE S1AP ID";
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -48,20 +48,20 @@ public class FailureClassTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		int newId = 0;
+		EventCauseCK pk = new EventCauseCK(1, 1);
+		EventCause createdEC = new EventCause(pk, INITIAL_DESCRIPTION);
+		em.persist(createdEC);
 
-		FailureClass createdFC = new FailureClass(newId, INITIAL_DESCRIPTION);
-		em.persist(createdFC);
+		EventCause loadedEC = em.find(EventCause.class, pk);
+		assertEquals("Failed to insert", INITIAL_DESCRIPTION, loadedEC.getDescription());
 
-		FailureClass loadedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to insert", INITIAL_DESCRIPTION, loadedFC.getDescription());
+		loadedEC.setDescription(UPDATED_DESCRIPTION);
+		EventCause updatedEC = em.find(EventCause.class, pk);
 
-		loadedFC.setDescription(UPDATED_DESCRIPTION);
-		FailureClass updatedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to update", UPDATED_DESCRIPTION, updatedFC.getDescription());
+		assertEquals("Failed to update", UPDATED_DESCRIPTION, updatedEC.getDescription());
 
-		em.remove(updatedFC);
-		FailureClass shouldBeNull = em.find(FailureClass.class, newId);
+		em.remove(updatedEC);
+		EventCause shouldBeNull = em.find(EventCause.class, pk);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
@@ -69,7 +69,7 @@ public class FailureClassTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.FailureClass").executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.EventCause").executeUpdate();
 		utx.commit();
 	}
 

@@ -15,7 +15,7 @@ public class Country {
 	private String country;
 
 	@OneToMany(mappedBy = "country", targetEntity = CountryCodeNetworkCode.class)
-	private Collection <CountryCodeNetworkCode> mccMnc;
+	private Collection <CountryCodeNetworkCode> counryCodeNetworkCode;
 
 	public Country() {
 		//
@@ -23,6 +23,14 @@ public class Country {
 
 	public Country(Integer countryCode, String country) {
 		this.countryCode = countryCode;
+		this.country = country;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
 		this.country = country;
 	}
 }

@@ -18,12 +18,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class FailureClassTest {
+public class CountryCodeNetworkCodeTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(FailureClass.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap
+				.create(WebArchive.class, "test.war")
+				.addPackage(CountryCodeNetworkCode.class.getPackage())
+				.addAsResource("test-persistence.xml",
+						"META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -32,8 +36,8 @@ public class FailureClassTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_DESCRIPTION = "HIGH PRIORITY ACCESS";
-	private static String UPDATED_DESCRIPTION = "EMERGENCY";
+	private static String INITIAL_OPERATOR = "Oklahoma Western Telephone Company US";
+	private static String UPDATED_OPERATOR = "Clearnet CA";
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -48,20 +52,27 @@ public class FailureClassTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		int newId = 0;
+		CountryCodeNetworkCodeCK pk = new CountryCodeNetworkCodeCK(1, 1);
+		CountryCodeNetworkCode createdMCC = new CountryCodeNetworkCode(pk,
+				INITIAL_OPERATOR);
+		createdMCC.setCountry(new Country(1, "Denmark"));
+		em.persist(createdMCC);
 
-		FailureClass createdFC = new FailureClass(newId, INITIAL_DESCRIPTION);
-		em.persist(createdFC);
+		CountryCodeNetworkCode loadedMCC = em.find(
+				CountryCodeNetworkCode.class, pk);
+		assertEquals("Failed to insert", INITIAL_OPERATOR,
+				loadedMCC.getOperator());
 
-		FailureClass loadedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to insert", INITIAL_DESCRIPTION, loadedFC.getDescription());
+		loadedMCC.setOperator(UPDATED_OPERATOR);
+		CountryCodeNetworkCode updatedMCC = em.find(
+				CountryCodeNetworkCode.class, pk);
 
-		loadedFC.setDescription(UPDATED_DESCRIPTION);
-		FailureClass updatedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to update", UPDATED_DESCRIPTION, updatedFC.getDescription());
+		assertEquals("Failed to update", UPDATED_OPERATOR,
+				updatedMCC.getOperator());
 
-		em.remove(updatedFC);
-		FailureClass shouldBeNull = em.find(FailureClass.class, newId);
+		em.remove(updatedMCC);
+		CountryCodeNetworkCode shouldBeNull = em.find(
+				CountryCodeNetworkCode.class, pk);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
@@ -69,7 +80,9 @@ public class FailureClassTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.FailureClass").executeUpdate();
+		em.createQuery(
+				"delete from com.ericsson.msc.group5.entities.CountryCodeNetworkCode")
+				.executeUpdate();
 		utx.commit();
 	}
 

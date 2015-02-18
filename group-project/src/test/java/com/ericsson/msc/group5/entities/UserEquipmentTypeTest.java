@@ -18,12 +18,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class FailureClassTest {
+public class UserEquipmentTypeTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(FailureClass.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap
+				.create(WebArchive.class, "test.war")
+				.addPackage(UserEquipmentType.class.getPackage())
+				.addAsResource("test-persistence.xml",
+						"META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -32,8 +36,8 @@ public class FailureClassTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_DESCRIPTION = "HIGH PRIORITY ACCESS";
-	private static String UPDATED_DESCRIPTION = "EMERGENCY";
+	private static String INITIAL_UserEquipmentType = "HANDHELD";
+	private static String UPDATED_UserEquipmentType = "M2M";
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -48,20 +52,24 @@ public class FailureClassTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		int newId = 0;
+		int newId = 1;
+		UserEquipmentType createdUE = new UserEquipmentType();
+		createdUE.setUserEquipmentType(INITIAL_UserEquipmentType);
+		createdUE.setUserEquipmentTypeId(newId);
+		em.persist(createdUE);
 
-		FailureClass createdFC = new FailureClass(newId, INITIAL_DESCRIPTION);
-		em.persist(createdFC);
+		UserEquipmentType loadedUE = em.find(UserEquipmentType.class, newId);
+		assertEquals("Failed to insert", INITIAL_UserEquipmentType,
+				loadedUE.getUserEquipmentType());
 
-		FailureClass loadedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to insert", INITIAL_DESCRIPTION, loadedFC.getDescription());
+		loadedUE.setUserEquipmentType(UPDATED_UserEquipmentType);
+		UserEquipmentType updatedUE = em.find(UserEquipmentType.class, newId);
+		assertEquals("Failed to update", UPDATED_UserEquipmentType,
+				updatedUE.getUserEquipmentType());
 
-		loadedFC.setDescription(UPDATED_DESCRIPTION);
-		FailureClass updatedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to update", UPDATED_DESCRIPTION, updatedFC.getDescription());
-
-		em.remove(updatedFC);
-		FailureClass shouldBeNull = em.find(FailureClass.class, newId);
+		em.remove(updatedUE);
+		UserEquipmentType shouldBeNull = em
+				.find(UserEquipmentType.class, newId);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
@@ -69,7 +77,9 @@ public class FailureClassTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.FailureClass").executeUpdate();
+		em.createQuery(
+				"delete from com.ericsson.msc.group5.entities.UserEquipmentType")
+				.executeUpdate();
 		utx.commit();
 	}
 

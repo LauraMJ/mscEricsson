@@ -15,7 +15,7 @@ public class UserEquipmentType {
 	@Column(name = "user_equipment_type", length = 45)
 	private String userEquipmentType;
 
-	@OneToMany(mappedBy = "ueType", targetEntity = UserEquipment.class)
+	@OneToMany(mappedBy = "UserEquipmentType", targetEntity = UserEquipment.class)
 	private Collection <UserEquipment> userEquipment;
 
 	public Collection <UserEquipment> getUserEquipment() {
@@ -29,24 +29,25 @@ public class UserEquipmentType {
 	public UserEquipmentType() {
 	}
 
-	public UserEquipmentType(Integer ueTypeId, String ueType) {
-		this.userEquipmentTypeId = ueTypeId;
-		this.userEquipmentType = ueType;
+	public UserEquipmentType(Integer userEquipmentTypeId,
+			String userEquipmentType) {
+		this.userEquipmentTypeId = userEquipmentTypeId;
+		this.userEquipmentType = userEquipmentType;
 	}
 
-	public Integer getUeTypeId() {
+	public Integer getUserEquipmentTypeId() {
 		return userEquipmentTypeId;
 	}
 
-	public void setUeTypeId(Integer ueTypeId) {
-		this.userEquipmentTypeId = ueTypeId;
+	public void setUserEquipmentTypeId(Integer userEquipmentTypeId) {
+		this.userEquipmentTypeId = userEquipmentTypeId;
 	}
 
-	public String getUeType() {
+	public String getUserEquipmentType() {
 		return userEquipmentType;
 	}
 
-	public void setUeType(String ueType) {
-		this.userEquipmentType = ueType;
+	public void setUserEquipmentType(String userEquipmentType) {
+		this.userEquipmentType = userEquipmentType;
 	}
 }

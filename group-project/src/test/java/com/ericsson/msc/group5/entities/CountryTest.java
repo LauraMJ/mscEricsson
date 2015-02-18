@@ -18,11 +18,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class FailureClassTest {
+public class CountryTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(FailureClass.class.getPackage())
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Country.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -32,8 +32,8 @@ public class FailureClassTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_DESCRIPTION = "HIGH PRIORITY ACCESS";
-	private static String UPDATED_DESCRIPTION = "EMERGENCY";
+	private static String INITIAL_COUNTRY = "United States of America";
+	private static String UPDATED_COUNTRY = "Guadeloupe-France";
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -48,20 +48,20 @@ public class FailureClassTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		int newId = 0;
+		int newId = 1;
+		Country createdC = new Country(newId, INITIAL_COUNTRY);
+		em.persist(createdC);
 
-		FailureClass createdFC = new FailureClass(newId, INITIAL_DESCRIPTION);
-		em.persist(createdFC);
+		Country loadedC = em.find(Country.class, newId);
+		assertEquals("Failed to insert", INITIAL_COUNTRY, loadedC.getCountry());
 
-		FailureClass loadedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to insert", INITIAL_DESCRIPTION, loadedFC.getDescription());
+		loadedC.setCountry(UPDATED_COUNTRY);
+		Country updatedC = em.find(Country.class, newId);
 
-		loadedFC.setDescription(UPDATED_DESCRIPTION);
-		FailureClass updatedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to update", UPDATED_DESCRIPTION, updatedFC.getDescription());
+		assertEquals("Failed to update", UPDATED_COUNTRY, updatedC.getCountry());
 
-		em.remove(updatedFC);
-		FailureClass shouldBeNull = em.find(FailureClass.class, newId);
+		em.remove(updatedC);
+		Country shouldBeNull = em.find(Country.class, newId);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
@@ -69,7 +69,7 @@ public class FailureClassTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.FailureClass").executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.Country").executeUpdate();
 		utx.commit();
 	}
 

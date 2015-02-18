@@ -17,21 +17,11 @@ public class CountryCodeNetworkCode {
 	private CountryCodeNetworkCodeCK countryCodeNetworkCode;
 	@Column(length = 100)
 	private String operator;
-
-	@OneToMany(mappedBy = "marketOperator", targetEntity = FailureTrace.class)
-	private Collection <FailureTrace> failureTrace;
-
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "country_code", referencedColumnName = "country_code", insertable = false, updatable = false)
 	private Country country;
-
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
+	@OneToMany(mappedBy = "marketOperator", targetEntity = FailureTrace.class)
+	private Collection <FailureTrace> failureTrace;
 
 	public CountryCodeNetworkCode() {
 		//
@@ -41,6 +31,22 @@ public class CountryCodeNetworkCode {
 			CountryCodeNetworkCodeCK countryCodeNetworkCode, String operator) {
 		this.countryCodeNetworkCode = countryCodeNetworkCode;
 		this.operator = operator;
+	}
+
+	public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 
 }

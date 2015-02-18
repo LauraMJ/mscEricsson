@@ -18,11 +18,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class FailureClassTest {
+public class OSTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(FailureClass.class.getPackage())
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(OS.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -32,8 +32,8 @@ public class FailureClassTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_DESCRIPTION = "HIGH PRIORITY ACCESS";
-	private static String UPDATED_DESCRIPTION = "EMERGENCY";
+	private static String INITIAL_OS = "BLACKBERRY";
+	private static String UPDATED_OS = "IOS";
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -48,20 +48,19 @@ public class FailureClassTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		int newId = 0;
+		int newId = 1;
+		OS createdOS = new OS(newId, INITIAL_OS);
+		em.persist(createdOS);
 
-		FailureClass createdFC = new FailureClass(newId, INITIAL_DESCRIPTION);
-		em.persist(createdFC);
+		OS loadedOS = em.find(OS.class, newId);
+		assertEquals("Failed to insert", INITIAL_OS, loadedOS.getOs());
 
-		FailureClass loadedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to insert", INITIAL_DESCRIPTION, loadedFC.getDescription());
+		loadedOS.setOs(UPDATED_OS);
+		OS updatedOS = em.find(OS.class, newId);
+		assertEquals("Failed to update", UPDATED_OS, updatedOS.getOs());
 
-		loadedFC.setDescription(UPDATED_DESCRIPTION);
-		FailureClass updatedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to update", UPDATED_DESCRIPTION, updatedFC.getDescription());
-
-		em.remove(updatedFC);
-		FailureClass shouldBeNull = em.find(FailureClass.class, newId);
+		em.remove(updatedOS);
+		OS shouldBeNull = em.find(OS.class, newId);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
@@ -69,7 +68,7 @@ public class FailureClassTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.FailureClass").executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.OS").executeUpdate();
 		utx.commit();
 	}
 

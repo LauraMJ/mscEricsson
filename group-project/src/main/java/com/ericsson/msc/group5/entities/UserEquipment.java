@@ -25,15 +25,14 @@ public class UserEquipment {
 	@JoinColumn(name = "accessCapabilityId")
 	private AccessCapability accessCapabilityClass;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumn(name = "ueTypeId")
-	private UserEquipmentType ueType;
+	@JoinColumn(name = "UserEquipmentTypeId")
+	private UserEquipmentType UserEquipmentType;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "osId")
 	private OS os;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "inputModeId")
 	private InputMode inputModeClass;
-
 	@OneToMany(mappedBy = "userEqipment", targetEntity = FailureTrace.class)
 	private Collection <FailureTrace> failureTrace;
 
@@ -41,15 +40,17 @@ public class UserEquipment {
 
 	}
 
-	public UserEquipment(Integer typeAllocationCode, String marketingName, String manufacturer, AccessCapability accessCapabilityClass, String model,
-			UserEquipmentType ueType, OS oS, InputMode inputModeClass) {
+	public UserEquipment(Integer typeAllocationCode, String marketingName,
+			String manufacturer, AccessCapability accessCapabilityClass,
+			String model, UserEquipmentType userEquipmentType, OS oS,
+			InputMode inputModeClass) {
 		super();
 		this.typeAllocationCode = typeAllocationCode;
 		this.marketingName = marketingName;
 		this.manufacturer = manufacturer;
 		this.accessCapabilityClass = accessCapabilityClass;
 		this.model = model;
-		this.ueType = ueType;
+		this.UserEquipmentType = userEquipmentType;
 		this.os = oS;
 		this.inputModeClass = inputModeClass;
 	}
@@ -86,12 +87,12 @@ public class UserEquipment {
 		this.model = model;
 	}
 
-	public UserEquipmentType getUeType() {
-		return ueType;
+	public UserEquipmentType getUserEquipmentType() {
+		return UserEquipmentType;
 	}
 
-	public void setUeType(UserEquipmentType ueType) {
-		this.ueType = ueType;
+	public void setUserEquipmentType(UserEquipmentType userEquipmentType) {
+		this.UserEquipmentType = userEquipmentType;
 	}
 
 	public AccessCapability getAccessCapabilityClass() {

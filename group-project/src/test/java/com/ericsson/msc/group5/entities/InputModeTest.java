@@ -18,11 +18,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class FailureClassTest {
+public class InputModeTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(FailureClass.class.getPackage())
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(InputMode.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -32,8 +32,8 @@ public class FailureClassTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_DESCRIPTION = "HIGH PRIORITY ACCESS";
-	private static String UPDATED_DESCRIPTION = "EMERGENCY";
+	private static String INITIAL_INPUT_MODE = "TOUCH_SCREEN";
+	private static String UPDATED_INPUT_MODE = "QWERTY";
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -48,20 +48,20 @@ public class FailureClassTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		int newId = 0;
+		int newId = 1;
+		InputMode createdIM = new InputMode(newId, INITIAL_INPUT_MODE);
+		em.persist(createdIM);
 
-		FailureClass createdFC = new FailureClass(newId, INITIAL_DESCRIPTION);
-		em.persist(createdFC);
+		InputMode loadedIM = em.find(InputMode.class, newId);
+		assertEquals("Failed to insert", INITIAL_INPUT_MODE, loadedIM.getInputMode());
 
-		FailureClass loadedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to insert", INITIAL_DESCRIPTION, loadedFC.getDescription());
+		loadedIM.setInputMode(UPDATED_INPUT_MODE);
+		InputMode updatedIM = em.find(InputMode.class, newId);
 
-		loadedFC.setDescription(UPDATED_DESCRIPTION);
-		FailureClass updatedFC = em.find(FailureClass.class, newId);
-		assertEquals("Failed to update", UPDATED_DESCRIPTION, updatedFC.getDescription());
+		assertEquals("Failed to update", UPDATED_INPUT_MODE, updatedIM.getInputMode());
 
-		em.remove(updatedFC);
-		FailureClass shouldBeNull = em.find(FailureClass.class, newId);
+		em.remove(updatedIM);
+		InputMode shouldBeNull = em.find(InputMode.class, newId);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
@@ -69,7 +69,7 @@ public class FailureClassTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.FailureClass").executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.InputMode").executeUpdate();
 		utx.commit();
 	}
 

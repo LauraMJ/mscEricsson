@@ -14,6 +14,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -84,6 +85,7 @@ public class UserEquipmentTest {
 	 * Test to ensure that deletes cascade/don't cascade properly to the owned entities.
 	 */
 	@Test
+	@Ignore
 	public void testDeleteCascade() {
 
 	}
@@ -92,6 +94,7 @@ public class UserEquipmentTest {
 	 * Test the manufacturer field - boundary/values
 	 */
 	@Test
+	@Ignore
 	public void testManufacturerSetter() {
 
 	}
@@ -100,6 +103,7 @@ public class UserEquipmentTest {
 	 * Test the marketing name field - boundary/values
 	 */
 	@Test
+	@Ignore
 	public void testMarketingNameSetter() {
 
 	}
@@ -108,6 +112,7 @@ public class UserEquipmentTest {
 	 * Test the model field - boundary/values
 	 */
 	@Test
+	@Ignore
 	public void testModelSetter() {
 
 	}

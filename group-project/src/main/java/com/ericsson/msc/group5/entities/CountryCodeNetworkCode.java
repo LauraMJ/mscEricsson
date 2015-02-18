@@ -18,7 +18,7 @@ public class CountryCodeNetworkCode {
 	@Column(length = 100)
 	private String operator;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumn(name = "country_code", referencedColumnName = "country_code", insertable = false, updatable = false)
+	@JoinColumn(name = "countryCode", insertable = false, updatable = false)
 	private Country country;
 	@OneToMany(mappedBy = "marketOperator", targetEntity = FailureTrace.class)
 	private Collection <FailureTrace> failureTrace;

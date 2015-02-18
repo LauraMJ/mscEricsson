@@ -14,8 +14,7 @@ public class mappingTest {
 		hi.setHier321Id("35279815702");
 		FailureClass fc = new FailureClass(0, "description");
 		EventCause ec = new EventCause(new EventCauseCK(0, 0), "description");
-		CountryCodeNetworkCode mcc = new CountryCodeNetworkCode(
-				new CountryCodeNetworkCodeCK(0, 0), "operator string");
+		CountryCodeNetworkCode mcc = new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(0, 0), "operator string");
 		Country c = new Country(0, "country");
 		mcc.setCountry(c);
 
@@ -35,11 +34,9 @@ public class mappingTest {
 		input.setInputMode(null);
 		input.setInputModeId(0);
 
-		UserEquipment userEquip = new UserEquipment(123, "market",
-				"manufacturerName", ac, "model1", ue, os, input);
+		UserEquipment userEquip = new UserEquipment(123, "market", "manufacturerName", ac, "model1", ue, os, input);
 		/*
-		 * userEquip.setAccessCapabilityClass(ac); userEquip.setUeType(ue);
-		 * userEquip.setoS(os); userEquip.setInputModeClass(input);
+		 * userEquip.setAccessCapabilityClass(ac); userEquip.setUeType(ue); userEquip.setoS(os); userEquip.setInputModeClass(input);
 		 */
 
 		// other stuff
@@ -56,11 +53,9 @@ public class mappingTest {
 		ft.setNeVersion("B12");
 		ft.setUserEqipment(userEquip);
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("callFailureLogs");
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("callFailureLogs");
 
-		EntityManager entityManager = entityManagerFactory
-				.createEntityManager();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 		EntityTransaction entityTransaction = null;
 
@@ -83,6 +78,7 @@ public class mappingTest {
 				entityTransaction.rollback();
 			throw e;
 		}
+		System.out.println("Done");
 	}
 
 }

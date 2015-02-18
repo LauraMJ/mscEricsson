@@ -20,6 +20,10 @@ public class DataImport {
 	private String fileName = "C:\\Users\\User\\Desktop\\baseData.xls";
 	private FileInputStream fileInputStream;
 	private ArrayList <BaseData> baseDataRows = new ArrayList <BaseData>();
+	private ArrayList <BaseData> eventCauseRows = new ArrayList <BaseData>();
+	private ArrayList <BaseData> failureClassRows = new ArrayList <BaseData>();
+	private ArrayList <BaseData> UETableRows = new ArrayList <BaseData>();
+	private ArrayList <BaseData> MCC_MNCRows = new ArrayList <BaseData>();
 	private Workbook workbook;
 	private DateFormat date, time;
 	private HSSFSheet worksheet;
@@ -34,6 +38,11 @@ public class DataImport {
 	private Date dateTimeVal;
 
 	private int counter = 0;
+	private HSSFCell description;
+
+	enum Sheet {
+		BASE, EVENT_CAUSE, FAILURE_CLASS, UE_TABLE, MCC_MNC_TABLE;
+	}
 
 	public DataImport() {
 		long start = System.currentTimeMillis();
@@ -42,8 +51,6 @@ public class DataImport {
 			// Read in the base data sheet from the excel file
 			fileInputStream = new FileInputStream(fileName);
 			workbook = new HSSFWorkbook(fileInputStream);
-			worksheet = (HSSFSheet) workbook.getSheetAt(0);
-
 		}
 		catch (FileNotFoundException e) {
 			System.out.println("File not found at" + fileName);
@@ -56,14 +63,8 @@ public class DataImport {
 		date = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
 		time = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
 
-		// Get the number of rows in the input file
-		int numRows = worksheet.getLastRowNum();
-
 		// Import the data from the excel sheet
-		for (int i = 1; i <= numRows; i++) {
-			readRowFromSheet(i);
-		}
-		// System.out.println(counter);
+		readBaseDataSheet();
 
 		// Export the data to the database
 		System.out.println("Data formatted, starting export to database");
@@ -79,37 +80,116 @@ public class DataImport {
 		new DataImport();
 	}
 
-	private void readRowFromSheet(int rowNum) {
+	private void readBaseDataSheet() {
+		worksheet = (HSSFSheet) workbook.getSheetAt(0);
+
+		// Get the number of rows in the input file
+		int numRows = worksheet.getLastRowNum();
+
 		// Select the row in the table
-		row = (HSSFRow) worksheet.getRow(rowNum);
+		for (int i = 1; i <= numRows; i++) {
+			row = (HSSFRow) worksheet.getRow(i);
 
-		// Read each cell in the row
-		dateTime = row.getCell(0);
-		eventId = row.getCell(1);
-		failureClass = row.getCell(2);
-		ueType = row.getCell(3);
-		market = row.getCell(4);
-		operator = row.getCell(5);
-		cellId = row.getCell(6);
-		duration = row.getCell(7);
-		causeCode = row.getCell(8);
-		neVersion = row.getCell(9);
-		imsi = row.getCell(10);
-		hier3 = row.getCell(11);
-		hier32 = row.getCell(12);
-		hier321 = row.getCell(13);
-
-		// TODO: decide what to do with this
-		// Needed to handle nulls
-		// failureClass.setCellType(Cell.CELL_TYPE_NUMERIC);
-		// causeCode.setCellType(Cell.CELL_TYPE_NUMERIC);
-
-		// Format the data in each cell appropriately
-		formatInputs();
-		baseDataRows.add(setRowData());
+			// Read each cell in the row
+			dateTime = row.getCell(0);
+			eventId = row.getCell(1);
+			failureClass = row.getCell(2);
+			ueType = row.getCell(3);
+			market = row.getCell(4);
+			operator = row.getCell(5);
+			cellId = row.getCell(6);
+			duration = row.getCell(7);
+			causeCode = row.getCell(8);
+			neVersion = row.getCell(9);
+			imsi = row.getCell(10);
+			hier3 = row.getCell(11);
+			hier32 = row.getCell(12);
+			hier321 = row.getCell(13);
+			formatBaseData();
+			setRowData(Sheet.BASE);
+		}
 	}
 
-	private void formatInputs() {
+	private void readEventCauseSheet() {
+		worksheet = (HSSFSheet) workbook.getSheetAt(1);
+
+		// Get the number of rows in the input file
+		int numRows = worksheet.getLastRowNum();
+
+		// Select the row in the table
+		for (int i = 1; i <= numRows; i++) {
+			row = (HSSFRow) worksheet.getRow(i);
+
+			// Read each cell in the row
+			causeCode = row.getCell(0);
+			eventId = row.getCell(1);
+			description = row.getCell(2);
+
+			// TODO formatBaseData();
+			// TODO eventCauseRows.add(setRowData());
+		}
+	}
+
+	private void readFailureClassSheet() {
+		worksheet = (HSSFSheet) workbook.getSheetAt(2);
+
+		// Get the number of rows in the input file
+		int numRows = worksheet.getLastRowNum();
+
+		// Select the row in the table
+		for (int i = 1; i <= numRows; i++) {
+			row = (HSSFRow) worksheet.getRow(i);
+
+			// Read each cell in the row
+			failureClass = row.getCell(0);
+			description = row.getCell(1);
+
+			// TODO formatBaseData();
+			// TODO eventCauseRows.add(setRowData());
+		}
+	}
+
+	private void readUETableSheet() {
+		worksheet = (HSSFSheet) workbook.getSheetAt(3);
+
+		// Get the number of rows in the input file
+		int numRows = worksheet.getLastRowNum();
+
+		// Select the row in the table
+		for (int i = 1; i <= numRows; i++) {
+			row = (HSSFRow) worksheet.getRow(i);
+
+			// Read each cell in the row
+			// causeCode = row.getCell(0);
+			// eventId = row.getCell(1);
+			// description = row.getCell(2);
+
+			// TODO formatBaseData();
+			// TODO eventCauseRows.add(setRowData());
+		}
+	}
+
+	private void readMCC_MNCSheet() {
+		worksheet = (HSSFSheet) workbook.getSheetAt(4);
+
+		// Get the number of rows in the input file
+		// int numRows = worksheet.getLastRowNum();
+
+		// Select the row in the table
+		for (int i = 1; i <= numRows; i++) {
+			row = (HSSFRow) worksheet.getRow(i);
+
+			// Read each cell in the row
+			// causeCode = row.getCell(0);
+			// eventId = row.getCell(1);
+			// description = row.getCell(2);
+
+			// TODO formatBaseData();
+			// TODO eventCauseRows.add(setRowData());
+		}
+	}
+
+	private void formatBaseData() {
 		boolean isNull = false;
 
 		dateTimeVal = dateTime.getDateCellValue();
@@ -147,7 +227,18 @@ public class DataImport {
 		hier321Val = (long) hier321.getNumericCellValue();
 	}
 
-	public BaseData setRowData() {
+	public void setRowData(Sheet sheet) {
+		switch (sheet) {
+			case BASE:
+				setBaseRowData();
+				break;
+			default:
+				break;
+
+		}
+	}
+
+	private void setBaseRowData() {
 		BaseData base = new BaseData();
 		base.setCauseCodeVal(causeCodeVal);
 		base.setCellIdVal(cellIdVal);
@@ -163,6 +254,7 @@ public class DataImport {
 		base.setNeVersionVal(neVersionVal);
 		base.setOperatorVal(operatorVal);
 		base.setUeTypeVal(ueTypeVal);
-		return base;
+		baseDataRows.add(base);
 	}
+
 }

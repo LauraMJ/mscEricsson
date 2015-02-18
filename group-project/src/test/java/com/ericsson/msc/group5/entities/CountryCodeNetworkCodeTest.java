@@ -53,24 +53,24 @@ public class CountryCodeNetworkCodeTest {
 	@Test
 	public void basicCRUDTest() throws Exception {
 		CountryCodeNetworkCodeCK pk = new CountryCodeNetworkCodeCK(1, 1);
-		CountryCodeNetworkCode createdMCC = new CountryCodeNetworkCode(pk,
-				INITIAL_OPERATOR);
-		createdMCC.setCountry(new Country(1, "Denmark"));
-		em.persist(createdMCC);
+		CountryCodeNetworkCode createdCountryCodeNetworkCode = new CountryCodeNetworkCode(
+				pk, INITIAL_OPERATOR);
+		createdCountryCodeNetworkCode.setCountry(new Country(1, "Denmark"));
+		em.persist(createdCountryCodeNetworkCode);
 
-		CountryCodeNetworkCode loadedMCC = em.find(
+		CountryCodeNetworkCode loadedCountryCodeNetworkCode = em.find(
 				CountryCodeNetworkCode.class, pk);
 		assertEquals("Failed to insert", INITIAL_OPERATOR,
-				loadedMCC.getOperator());
+				loadedCountryCodeNetworkCode.getOperator());
 
-		loadedMCC.setOperator(UPDATED_OPERATOR);
-		CountryCodeNetworkCode updatedMCC = em.find(
+		loadedCountryCodeNetworkCode.setOperator(UPDATED_OPERATOR);
+		CountryCodeNetworkCode updatedCountryCodeNetworkCode = em.find(
 				CountryCodeNetworkCode.class, pk);
 
 		assertEquals("Failed to update", UPDATED_OPERATOR,
-				updatedMCC.getOperator());
+				updatedCountryCodeNetworkCode.getOperator());
 
-		em.remove(updatedMCC);
+		em.remove(updatedCountryCodeNetworkCode);
 		CountryCodeNetworkCode shouldBeNull = em.find(
 				CountryCodeNetworkCode.class, pk);
 		assertNull("Failed to delete", shouldBeNull);

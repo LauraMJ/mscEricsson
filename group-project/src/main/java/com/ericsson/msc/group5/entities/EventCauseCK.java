@@ -15,6 +15,7 @@ public class EventCauseCK implements Serializable {
 	}
 
 	public EventCauseCK(Integer causeCode, Integer eventId) {
+		super();
 		this.causeCode = causeCode;
 		this.eventId = eventId;
 	}

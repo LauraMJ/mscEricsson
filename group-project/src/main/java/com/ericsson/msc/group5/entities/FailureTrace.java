@@ -39,10 +39,14 @@ public class FailureTrace {
 	@JoinColumn(name = "hierInfoId")
 	private HierInfo hierInfo;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumns({@JoinColumn(name = "causeCode", referencedColumnName = "causeCode"), @JoinColumn(name = "eventId", referencedColumnName = "eventId")})
+	@JoinColumns({
+			@JoinColumn(name = "causeCode", referencedColumnName = "causeCode"),
+			@JoinColumn(name = "eventId", referencedColumnName = "eventId")})
 	private EventCause causeCode;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumns({@JoinColumn(name = "mcc", referencedColumnName = "mcc"), @JoinColumn(name = "mnc", referencedColumnName = "mnc")})
+	@JoinColumns({
+			@JoinColumn(name = "countryCode", referencedColumnName = "countryCode"),
+			@JoinColumn(name = "networkCode", referencedColumnName = "networkCode")})
 	private CountryCodeNetworkCode marketOperator;
 
 	public FailureTrace() {

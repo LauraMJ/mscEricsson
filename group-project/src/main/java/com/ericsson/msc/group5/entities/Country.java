@@ -10,12 +10,13 @@ import javax.persistence.OneToMany;
 public class Country {
 
 	@Id
+	@Column(name = "country_code")
 	private Integer countryCode; // PK
 	@Column(length = 45)
 	private String country;
 
 	@OneToMany(mappedBy = "country", targetEntity = CountryCodeNetworkCode.class)
-	private Collection <CountryCodeNetworkCode> counryCodeNetworkCode;
+	private Collection <CountryCodeNetworkCode> countryCodeNetworkCode;
 
 	public Country() {
 		//

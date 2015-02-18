@@ -11,10 +11,9 @@ public class EventCause {
 
 	@Id
 	@Column(name = "cause_code_event_id")
-	private EventCauseCK causeCodeAndEventIdCK;
+	private EventCauseCK causeCodeEventIdCK;
 	@Column(length = 100)
 	private String description;
-
 	@OneToMany(mappedBy = "causeCode", targetEntity = FailureTrace.class)
 	private Collection <FailureTrace> failureTrace;
 
@@ -22,8 +21,8 @@ public class EventCause {
 		//
 	}
 
-	public EventCause(EventCauseCK causeCodeAndEventIdCK, String description) {
-		this.causeCodeAndEventIdCK = causeCodeAndEventIdCK;
+	public EventCause(EventCauseCK causeCodeEventIdCK, String description) {
+		this.causeCodeEventIdCK = causeCodeEventIdCK;
 		this.description = description;
 	}
 

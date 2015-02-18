@@ -18,12 +18,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class MCC_MNCTest {
+public class CountryCodeNetworkCodeTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(MCC_MNC.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap
+				.create(WebArchive.class, "test.war")
+				.addPackage(CountryCodeNetworkCode.class.getPackage())
+				.addAsResource("test-persistence.xml",
+						"META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -48,21 +52,27 @@ public class MCC_MNCTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		MCC_MNCCK pk = new MCC_MNCCK(1, 1);
-		MCC_MNC createdMCC = new MCC_MNC(pk, INITIAL_OPERATOR);
-		createdMCC.setCountry(new Country(1, "Denmark"));
-		em.persist(createdMCC);
+		CountryCodeNetworkCodeCK pk = new CountryCodeNetworkCodeCK(1, 1);
+		CountryCodeNetworkCode createdCountryCodeNetworkCode = new CountryCodeNetworkCode(
+				pk, INITIAL_OPERATOR);
+		createdCountryCodeNetworkCode.setCountry(new Country(1, "Denmark"));
+		em.persist(createdCountryCodeNetworkCode);
 
-		MCC_MNC loadedMCC = em.find(MCC_MNC.class, pk);
-		assertEquals("Failed to insert", INITIAL_OPERATOR, loadedMCC.getOperator());
+		CountryCodeNetworkCode loadedCountryCodeNetworkCode = em.find(
+				CountryCodeNetworkCode.class, pk);
+		assertEquals("Failed to insert", INITIAL_OPERATOR,
+				loadedCountryCodeNetworkCode.getOperator());
 
-		loadedMCC.setOperator(UPDATED_OPERATOR);
-		MCC_MNC updatedMCC = em.find(MCC_MNC.class, pk);
+		loadedCountryCodeNetworkCode.setOperator(UPDATED_OPERATOR);
+		CountryCodeNetworkCode updatedCountryCodeNetworkCode = em.find(
+				CountryCodeNetworkCode.class, pk);
 
-		assertEquals("Failed to update", UPDATED_OPERATOR, updatedMCC.getOperator());
+		assertEquals("Failed to update", UPDATED_OPERATOR,
+				updatedCountryCodeNetworkCode.getOperator());
 
-		em.remove(updatedMCC);
-		MCC_MNC shouldBeNull = em.find(MCC_MNC.class, pk);
+		em.remove(updatedCountryCodeNetworkCode);
+		CountryCodeNetworkCode shouldBeNull = em.find(
+				CountryCodeNetworkCode.class, pk);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
@@ -70,7 +80,9 @@ public class MCC_MNCTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.MCC_MNC").executeUpdate();
+		em.createQuery(
+				"delete from com.ericsson.msc.group5.entities.CountryCodeNetworkCode")
+				.executeUpdate();
 		utx.commit();
 	}
 

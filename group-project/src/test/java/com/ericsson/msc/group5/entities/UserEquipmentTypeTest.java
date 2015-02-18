@@ -18,12 +18,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class UETypeTest {
+public class UserEquipmentTypeTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(UEType.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap
+				.create(WebArchive.class, "test.war")
+				.addPackage(UserEquipmentType.class.getPackage())
+				.addAsResource("test-persistence.xml",
+						"META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -32,8 +36,8 @@ public class UETypeTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_UETYPE = "HANDHELD";
-	private static String UPDATED_UETYPE = "M2M";
+	private static String INITIAL_UserEquipmentType = "HANDHELD";
+	private static String UPDATED_UserEquipmentType = "M2M";
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -49,20 +53,23 @@ public class UETypeTest {
 	@Test
 	public void basicCRUDTest() throws Exception {
 		int newId = 1;
-		UEType createdUE = new UEType();
-		createdUE.setUeType(INITIAL_UETYPE);
-		createdUE.setUeTypeId(newId);
+		UserEquipmentType createdUE = new UserEquipmentType();
+		createdUE.setUserEquipmentType(INITIAL_UserEquipmentType);
+		createdUE.setUserEquipmentTypeId(newId);
 		em.persist(createdUE);
 
-		UEType loadedUE = em.find(UEType.class, newId);
-		assertEquals("Failed to insert", INITIAL_UETYPE, loadedUE.getUeType());
+		UserEquipmentType loadedUE = em.find(UserEquipmentType.class, newId);
+		assertEquals("Failed to insert", INITIAL_UserEquipmentType,
+				loadedUE.getUserEquipmentType());
 
-		loadedUE.setUeType(UPDATED_UETYPE);
-		UEType updatedUE = em.find(UEType.class, newId);
-		assertEquals("Failed to update", UPDATED_UETYPE, updatedUE.getUeType());
+		loadedUE.setUserEquipmentType(UPDATED_UserEquipmentType);
+		UserEquipmentType updatedUE = em.find(UserEquipmentType.class, newId);
+		assertEquals("Failed to update", UPDATED_UserEquipmentType,
+				updatedUE.getUserEquipmentType());
 
 		em.remove(updatedUE);
-		UEType shouldBeNull = em.find(UEType.class, newId);
+		UserEquipmentType shouldBeNull = em
+				.find(UserEquipmentType.class, newId);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
@@ -70,7 +77,9 @@ public class UETypeTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.UEType").executeUpdate();
+		em.createQuery(
+				"delete from com.ericsson.msc.group5.entities.UserEquipmentType")
+				.executeUpdate();
 		utx.commit();
 	}
 

@@ -10,19 +10,20 @@ import javax.persistence.OneToMany;
 public class Country {
 
 	@Id
-	private Integer mcc; // PK
+	@Column(name = "country_code")
+	private Integer countryCode; // PK
 	@Column(length = 45)
 	private String country;
 
-	@OneToMany(mappedBy = "country", targetEntity = MCC_MNC.class)
-	private Collection <MCC_MNC> mccMnc;
+	@OneToMany(mappedBy = "country", targetEntity = CountryCodeNetworkCode.class)
+	private Collection <CountryCodeNetworkCode> countryCodeNetworkCode;
 
 	public Country() {
 		//
 	}
 
-	public Country(Integer mcc, String country) {
-		this.mcc = mcc;
+	public Country(Integer countryCode, String country) {
+		this.countryCode = countryCode;
 		this.country = country;
 	}
 

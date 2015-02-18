@@ -1,11 +1,11 @@
 package com.ericsson.msc.group5.entities;
 
 import java.io.Serializable;
-
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class EventCauseCK implements Serializable{
+public class EventCauseCK implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private Integer causeCode;
 	private Integer eventId;
@@ -13,13 +13,13 @@ public class EventCauseCK implements Serializable{
 	public EventCauseCK() {
 		//
 	}
-	
-	public EventCauseCK(Integer causeCode, Integer eventId){
-		super(); //needed?
+
+	public EventCauseCK(Integer causeCode, Integer eventId) {
+		super();
 		this.causeCode = causeCode;
 		this.eventId = eventId;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -35,7 +35,7 @@ public class EventCauseCK implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

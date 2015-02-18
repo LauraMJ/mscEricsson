@@ -4,6 +4,10 @@ public class EventIdValidator {
 
 	private int eventId;
 
+	public EventIdValidator(int eventId) {
+		validate(eventId);
+	}
+
 	public boolean validate(int eventId) {
 
 		if (eventId <= 4000 && eventId <= 5000) {

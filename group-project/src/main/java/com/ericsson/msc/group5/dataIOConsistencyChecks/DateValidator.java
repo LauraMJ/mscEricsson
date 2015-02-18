@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.dataIO;
+package com.ericsson.msc.group5.dataIOConsistencyChecks;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

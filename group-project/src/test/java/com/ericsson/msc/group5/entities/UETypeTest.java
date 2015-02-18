@@ -18,11 +18,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class HierInfoTest {
+public class UETypeTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(HierInfo.class.getPackage())
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(UEType.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -32,12 +32,8 @@ public class HierInfoTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_HIER3 = "4809532081614990000";
-	private static String INITIAL_HIER32 = "8226896360947470000";
-	private static String INITIAL_HIER321 = "1150444940909480000";
-	private static String UPDATED_HIER3 = "229001099943031000";
-	private static String UPDATED_HIER32 = "4970937722532610000";
-	private static String UPDATED_HIER321 = "6079299740152730000";
+	private static String INITIAL_UETYPE = "HANDHELD";
+	private static String UPDATED_UETYPE = "M2M";
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -52,28 +48,21 @@ public class HierInfoTest {
 
 	@Test
 	public void failureClassTest() throws Exception {
-		HierInfo createdHI = new HierInfo();
-		createdHI.setHier3Id(INITIAL_HIER3);
-		createdHI.setHier32Id(INITIAL_HIER32);
-		createdHI.setHier321Id(INITIAL_HIER321);
-		em.persist(createdHI);
-		int newId = createdHI.getHierInfoId();
+		int newId = 1;
+		UEType createdUE = new UEType();
+		createdUE.setUeType(INITIAL_UETYPE);
+		createdUE.setUeTypeId(newId);
+		em.persist(createdUE);
 
-		HierInfo loadedHI = em.find(HierInfo.class, newId);
-		assertEquals("Failed to insert", INITIAL_HIER3, loadedHI.getHier3Id());
-		assertEquals("Failed to insert", INITIAL_HIER32, loadedHI.getHier32Id());
-		assertEquals("Failed to insert", INITIAL_HIER321, loadedHI.getHier321Id());
+		UEType loadedUE = em.find(UEType.class, newId);
+		assertEquals("Failed to insert", INITIAL_UETYPE, loadedUE.getUeType());
 
-		loadedHI.setHier3Id(UPDATED_HIER3);
-		loadedHI.setHier32Id(UPDATED_HIER32);
-		loadedHI.setHier321Id(UPDATED_HIER321);
-		HierInfo updatedHI = em.find(HierInfo.class, newId);
-		assertEquals("Failed to update", UPDATED_HIER3, updatedHI.getHier3Id());
-		assertEquals("Failed to update", UPDATED_HIER32, updatedHI.getHier32Id());
-		assertEquals("Failed to update", UPDATED_HIER321, updatedHI.getHier321Id());
+		loadedUE.setUeType(UPDATED_UETYPE);
+		UEType updatedUE = em.find(UEType.class, newId);
+		assertEquals("Failed to update", UPDATED_UETYPE, updatedUE.getUeType());
 
-		em.remove(updatedHI);
-		HierInfo shouldBeNull = em.find(HierInfo.class, newId);
+		em.remove(updatedUE);
+		UEType shouldBeNull = em.find(UEType.class, newId);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 

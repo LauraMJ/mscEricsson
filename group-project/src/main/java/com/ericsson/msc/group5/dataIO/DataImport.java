@@ -7,20 +7,19 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
-
 import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
 
 public class DataImport {
+
 	// Change this to where you've stored the base data spreadsheet
-	private String fileName = "/home/szymon/Dropbox/workspaces/dit/s2/project/Read Excel/sample.xls";
+	private String fileName = "C:\\Users\\User\\Desktop\\baseData.xls";
 	private FileInputStream fileInputStream;
-	private ArrayList<BaseData> baseDataRows = new ArrayList<BaseData>();
+	private ArrayList <BaseData> baseDataRows = new ArrayList <BaseData>();
 	private Workbook workbook;
 	private DateFormat date, time;
 	private HSSFSheet worksheet;
@@ -33,9 +32,8 @@ public class DataImport {
 	private String dateString, neVersionVal;
 	private Long imsiVal, hier3Val, hier32Val, hier321Val;
 	private Date dateTimeVal;
-	
-	private 
-	int counter = 0;
+
+	private int counter = 0;
 
 	public DataImport() {
 		long start = System.currentTimeMillis();
@@ -46,9 +44,11 @@ public class DataImport {
 			workbook = new HSSFWorkbook(fileInputStream);
 			worksheet = (HSSFSheet) workbook.getSheetAt(0);
 
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e) {
 			System.out.println("File not found at" + fileName);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -60,10 +60,10 @@ public class DataImport {
 		int numRows = worksheet.getLastRowNum();
 
 		// Import the data from the excel sheet
-		for (int i = 1; i < numRows; i++) {
+		for (int i = 1; i <= numRows; i++) {
 			readRowFromSheet(i);
 		}
-		System.out.println(counter);
+		// System.out.println(counter);
 
 		// Export the data to the database
 		System.out.println("Data formatted, starting export to database");
@@ -75,7 +75,7 @@ public class DataImport {
 		System.out.println("Time taken: " + duration + " ms");
 	}
 
-	public static void main(String[] args) {
+	public static void main(String [] args) {
 		new DataImport();
 	}
 
@@ -99,7 +99,7 @@ public class DataImport {
 		hier32 = row.getCell(12);
 		hier321 = row.getCell(13);
 
-		//TODO: decide what to do with this
+		// TODO: decide what to do with this
 		// Needed to handle nulls
 		// failureClass.setCellType(Cell.CELL_TYPE_NUMERIC);
 		// causeCode.setCellType(Cell.CELL_TYPE_NUMERIC);
@@ -111,18 +111,19 @@ public class DataImport {
 
 	private void formatInputs() {
 		boolean isNull = false;
-		
+
 		dateTimeVal = dateTime.getDateCellValue();
 		dateString = date.format(dateTimeVal) + " " + time.format(dateTimeVal);
 		eventIdVal = (int) eventId.getNumericCellValue();
 		try {
 			failureClassVal = (int) failureClass.getNumericCellValue();
-		} catch (IllegalStateException e) {
-			if(!isNull){
+		}
+		catch (IllegalStateException e) {
+			if ( !isNull) {
 				isNull = true;
 				counter++;
 			}
-			System.out.println("null detected in Failure Class");
+			// System.out.println("null detected in Failure Class");
 		}
 		ueTypeVal = (int) ueType.getNumericCellValue();
 		marketVal = (int) market.getNumericCellValue();
@@ -131,12 +132,13 @@ public class DataImport {
 		durationVal = (int) duration.getNumericCellValue();
 		try {
 			causeCodeVal = (int) causeCode.getNumericCellValue();
-		} catch (IllegalStateException e) {
-			if(!isNull){
+		}
+		catch (IllegalStateException e) {
+			if ( !isNull) {
 				isNull = true;
 				counter++;
 			}
-			System.out.println("null detected in Cause Code");
+			// System.out.println("null detected in Cause Code");
 		}
 		neVersionVal = neVersion.getStringCellValue();
 		imsiVal = (long) imsi.getNumericCellValue();

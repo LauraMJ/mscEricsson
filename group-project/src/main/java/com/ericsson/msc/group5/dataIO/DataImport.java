@@ -17,13 +17,13 @@ import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
 public class DataImport {
 
 	// Change this to where you've stored the base data spreadsheet
-	private String fileName = "C:\\Users\\Siobhan\\Desktop\\baseData.xls";
+	private String fileName = "C:\\Users\\User\\Desktop\\baseData.xls";
 	private FileInputStream fileInputStream;
 	private ArrayList <BaseData> baseDataRows = new ArrayList <BaseData>();
-	private ArrayList <BaseData> eventCauseRows = new ArrayList <BaseData>();
-	private ArrayList <BaseData> failureClassRows = new ArrayList <BaseData>();
-	private ArrayList <BaseData> UETableRows = new ArrayList <BaseData>();
-	private ArrayList <BaseData> MCC_MNCRows = new ArrayList <BaseData>();
+	private ArrayList <EventCauseData> eventCauseRows = new ArrayList <EventCauseData>();
+	private ArrayList <FailureClassData> failureClassRows = new ArrayList <FailureClassData>();
+	private ArrayList <UETableData> UETableRows = new ArrayList <UETableData>();
+	private ArrayList <MccMncData> MCC_MNCRows = new ArrayList <MccMncData>();
 	private Workbook workbook;
 	private DateFormat date, time;
 	private HSSFSheet worksheet;
@@ -39,6 +39,13 @@ public class DataImport {
 
 	private int counter = 0;
 	private HSSFCell description;
+	private HSSFCell country;
+	private HSSFCell mnc;
+	private HSSFCell mcc;
+	private HSSFCell tac;
+	private HSSFCell marketName;
+	private HSSFCell manufacturer;
+	private HSSFCell accessCapability;
 
 	enum Sheet {
 		BASE, EVENT_CAUSE, FAILURE_CLASS, UE_TABLE, MCC_MNC_TABLE;
@@ -125,8 +132,7 @@ public class DataImport {
 			eventId = row.getCell(1);
 			description = row.getCell(2);
 
-			// TODO formatBaseData();
-			// TODO eventCauseRows.add(setRowData());
+			setRowData(Sheet.EVENT_CAUSE);
 		}
 	}
 
@@ -145,7 +151,7 @@ public class DataImport {
 			description = row.getCell(1);
 
 			// TODO formatBaseData();
-			// TODO eventCauseRows.add(setRowData());
+			setRowData(Sheet.FAILURE_CLASS);
 		}
 	}
 
@@ -160,12 +166,12 @@ public class DataImport {
 			row = (HSSFRow) worksheet.getRow(i);
 
 			// Read each cell in the row
-			// causeCode = row.getCell(0);
-			// eventId = row.getCell(1);
-			// description = row.getCell(2);
+			tac = row.getCell(0);
+			marketName = row.getCell(1);
+			manufacturer = row.getCell(2);
+			accessCapability = row.getCell(3);
 
-			// TODO formatBaseData();
-			// TODO eventCauseRows.add(setRowData());
+			setRowData(Sheet.UE_TABLE);
 		}
 	}
 
@@ -180,12 +186,12 @@ public class DataImport {
 			row = (HSSFRow) worksheet.getRow(i);
 
 			// Read each cell in the row
-			// causeCode = row.getCell(0);
-			// eventId = row.getCell(1);
-			// description = row.getCell(2);
+			mcc = row.getCell(0);
+			mnc = row.getCell(1);
+			country = row.getCell(2);
+			operator = row.getCell(3);
 
-			// TODO formatBaseData();
-			// TODO eventCauseRows.add(setRowData());
+			setRowData(Sheet.MCC_MNC_TABLE);
 		}
 	}
 
@@ -232,10 +238,52 @@ public class DataImport {
 			case BASE:
 				setBaseRowData();
 				break;
+			case EVENT_CAUSE:
+				setEventCauseRowData();
+				break;
+			case FAILURE_CLASS:
+				setFailureClassRowData();
+				break;
+			case UE_TABLE:
+				setUETableRowData();
+				break;
+			case MCC_MNC_TABLE:
+				setMccMncRowData();
+				break;
 			default:
 				break;
-
 		}
+	}
+
+	private void setMccMncRowData() {
+		MccMncData mccMncData = new MccMncData();
+		mccMncData.setMcc((int) mcc.getNumericCellValue());
+		mccMncData.setMnc((int) mnc.getNumericCellValue());
+		mccMncData.setCountry(country.getStringCellValue());
+		mccMncData.setOperator(operator.getStringCellValue());
+		MCC_MNCRows.add(mccMncData);
+	}
+
+	private void setFailureClassRowData() {
+		FailureClassData failureClassData = new FailureClassData();
+		failureClassData.setFailureClass((int) failureClass.getNumericCellValue());
+		failureClassData.setDescription(description.getStringCellValue());
+		failureClassRows.add(failureClassData);
+	}
+
+	private void setUETableRowData() {
+		UETableData ueTableData = new UETableData();
+		ueTableData.setTac((int) tac.getNumericCellValue());
+		ueTableData.setMarketName(marketName.getStringCellValue());
+		ueTableData.setManufacturer(manufacturer.getStringCellValue());
+		ueTableData.setAccessCapability(accessCapability.getStringCellValue());
+	}
+
+	private void setEventCauseRowData() {
+		EventCauseData eventCauseData = new EventCauseData();
+		eventCauseData.setEventId((int) eventId.getNumericCellValue());
+		eventCauseData.setCauseCode((int) causeCode.getNumericCellValue());
+		eventCauseData.setDescription(description.getStringCellValue());
 	}
 
 	private void setBaseRowData() {

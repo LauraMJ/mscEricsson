@@ -46,6 +46,10 @@ public class DataImport {
 	private HSSFCell marketName;
 	private HSSFCell manufacturer;
 	private HSSFCell accessCapability;
+	private HSSFCell model;
+	private HSSFCell vendor;
+	private HSSFCell os;
+	private HSSFCell inputMode;
 
 	enum Sheet {
 		BASE, EVENT_CAUSE, FAILURE_CLASS, UE_TABLE, MCC_MNC_TABLE;
@@ -75,7 +79,7 @@ public class DataImport {
 
 		// Export the data to the database
 		System.out.println("Data formatted, starting export to database");
-		PersistenceUtil.persistList(baseDataRows);
+		PersistenceUtil.persistBaseData(baseDataRows);
 
 		long duration = System.currentTimeMillis() - start;
 		System.out.println("Data imported from " + fileName);
@@ -170,7 +174,11 @@ public class DataImport {
 			marketName = row.getCell(1);
 			manufacturer = row.getCell(2);
 			accessCapability = row.getCell(3);
-
+			model = row.getCell(4);
+			vendor = row.getCell(5);
+			ueType = row.getCell(6);
+			os = row.getCell(7);
+			inputMode = row.getCell(8);
 			setRowData(Sheet.UE_TABLE);
 		}
 	}
@@ -277,6 +285,11 @@ public class DataImport {
 		ueTableData.setMarketName(marketName.getStringCellValue());
 		ueTableData.setManufacturer(manufacturer.getStringCellValue());
 		ueTableData.setAccessCapability(accessCapability.getStringCellValue());
+		ueTableData.setModel(model.getStringCellValue());
+		ueTableData.setVendor(vendor.getStringCellValue());
+		ueTableData.setUeType(ueType.getStringCellValue());
+		ueTableData.setOs(os.getStringCellValue());
+		ueTableData.setInputMode(inputMode.getStringCellValue());
 	}
 
 	private void setEventCauseRowData() {

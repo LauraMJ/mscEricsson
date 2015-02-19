@@ -13,8 +13,99 @@ public class UETableData {
 	private int id;
 	private Integer tac;
 	private String marketName, manufacturer, accessCapability;
+	private String model, vendor, ueType, os, inputMode;
 
 	public UETableData() {
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the model
+	 */
+	public String getModel() {
+		return model;
+	}
+
+	/**
+	 * @param model
+	 *            the model to set
+	 */
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	/**
+	 * @return the vendor
+	 */
+	public String getVendor() {
+		return vendor;
+	}
+
+	/**
+	 * @param vendor
+	 *            the vendor to set
+	 */
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
+	}
+
+	/**
+	 * @return the ueType
+	 */
+	public String getUeType() {
+		return ueType;
+	}
+
+	/**
+	 * @param ueType
+	 *            the ueType to set
+	 */
+	public void setUeType(String ueType) {
+		this.ueType = ueType;
+	}
+
+	/**
+	 * @return the os
+	 */
+	public String getOs() {
+		return os;
+	}
+
+	/**
+	 * @param os
+	 *            the os to set
+	 */
+	public void setOs(String os) {
+		this.os = os;
+	}
+
+	/**
+	 * @return the inputMode
+	 */
+	public String getInputMode() {
+		return inputMode;
+	}
+
+	/**
+	 * @param inputMode
+	 *            the inputMode to set
+	 */
+	public void setInputMode(String inputMode) {
+		this.inputMode = inputMode;
 	}
 
 	/**

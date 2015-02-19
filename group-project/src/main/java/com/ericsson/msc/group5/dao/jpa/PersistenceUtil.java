@@ -6,6 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import com.ericsson.msc.group5.dataIO.BaseData;
+import com.ericsson.msc.group5.dataIO.EventCauseData;
+import com.ericsson.msc.group5.dataIO.FailureClassData;
+import com.ericsson.msc.group5.dataIO.MccMncData;
+import com.ericsson.msc.group5.dataIO.UETableData;
 
 public class PersistenceUtil implements Serializable {
 
@@ -21,10 +25,54 @@ public class PersistenceUtil implements Serializable {
 		entityManager.close();
 	}
 
-	public static void persistList(ArrayList <BaseData> list) {
+	public static void persistBaseData(ArrayList <BaseData> list) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		for (BaseData row : list) {
+			entityManager.persist(row);
+		}
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		entityManagerFactory.close();
+	}
+
+	public static void persistUEType(ArrayList <UETableData> list) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		for (UETableData row : list) {
+			entityManager.persist(row);
+		}
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		entityManagerFactory.close();
+	}
+
+	public static void persistFailureClass(ArrayList <FailureClassData> list) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		for (FailureClassData row : list) {
+			entityManager.persist(row);
+		}
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		entityManagerFactory.close();
+	}
+
+	public static void persistEventCause(ArrayList <EventCauseData> list) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		for (EventCauseData row : list) {
+			entityManager.persist(row);
+		}
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		entityManagerFactory.close();
+	}
+
+	public static void persistMccMnc(ArrayList <MccMncData> list) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		for (MccMncData row : list) {
 			entityManager.persist(row);
 		}
 		entityManager.getTransaction().commit();

@@ -66,7 +66,7 @@ public class DataImport {
 		time = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
 
 		// Import the data from the excel sheet
-		readBaseDataSheet();
+		// readBaseDataSheet();
 		readUETableSheet();
 
 		// Export the data to the database
@@ -157,7 +157,7 @@ public class DataImport {
 
 		// Get the number of rows in the input file
 		int numRows = worksheet.getLastRowNum();
-
+		System.out.println(numRows);
 		// Select the row in the table
 		for (int i = 1; i <= numRows; i++) {
 			row = (HSSFRow) worksheet.getRow(i);
@@ -286,6 +286,7 @@ public class DataImport {
 		ueTableData.setUeType(ueType.getStringCellValue());
 		ueTableData.setOs(os.getStringCellValue());
 		ueTableData.setInputMode(inputMode.getStringCellValue());
+		UETableRows.add(ueTableData);
 	}
 
 	private void setEventCauseRowData() {

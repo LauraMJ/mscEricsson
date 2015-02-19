@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity(name = "OS")
+@Entity(name = "os")
 public class OS {
 
 	@Id

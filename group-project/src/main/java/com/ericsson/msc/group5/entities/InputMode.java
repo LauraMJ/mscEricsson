@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity(name = "Input_Mode")
+@Entity(name = "input_mode")
 public class InputMode {
 
 	@Id

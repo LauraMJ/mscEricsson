@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
  * 
  * @author szymon
  */
-@Entity(name = "Access_Capability")
+@Entity(name = "access_capability")
 public class AccessCapability {
 
 	@Id

@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 
-@Entity
+@Entity(name = "failure_trace")
 public class FailureTrace {
 
 	@Id

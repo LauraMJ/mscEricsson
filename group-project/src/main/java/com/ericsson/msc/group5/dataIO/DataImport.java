@@ -11,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
 
@@ -38,18 +39,8 @@ public class DataImport {
 	private Date dateTimeVal;
 
 	private int counter = 0;
-	private HSSFCell description;
-	private HSSFCell country;
-	private HSSFCell mnc;
-	private HSSFCell mcc;
-	private HSSFCell tac;
-	private HSSFCell marketName;
-	private HSSFCell manufacturer;
-	private HSSFCell accessCapability;
-	private HSSFCell model;
-	private HSSFCell vendor;
-	private HSSFCell os;
-	private HSSFCell inputMode;
+	private HSSFCell description, country, mnc, mcc, tac, marketName;
+	private HSSFCell manufacturer, accessCapability, model, vendor, os, inputMode;
 
 	enum Sheet {
 		BASE, EVENT_CAUSE, FAILURE_CLASS, UE_TABLE, MCC_MNC_TABLE;
@@ -76,10 +67,12 @@ public class DataImport {
 
 		// Import the data from the excel sheet
 		readBaseDataSheet();
+		readUETableSheet();
 
 		// Export the data to the database
 		System.out.println("Data formatted, starting export to database");
-		PersistenceUtil.persistBaseData(baseDataRows);
+		// PersistenceUtil.persistBaseData(baseDataRows);
+		PersistenceUtil.persistUEType(UETableRows);
 
 		long duration = System.currentTimeMillis() - start;
 		System.out.println("Data imported from " + fileName);
@@ -179,6 +172,9 @@ public class DataImport {
 			ueType = row.getCell(6);
 			os = row.getCell(7);
 			inputMode = row.getCell(8);
+
+			marketName.setCellType(Cell.CELL_TYPE_STRING);
+			model.setCellType(Cell.CELL_TYPE_STRING);
 			setRowData(Sheet.UE_TABLE);
 		}
 	}

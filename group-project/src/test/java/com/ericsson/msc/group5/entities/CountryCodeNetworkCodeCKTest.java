@@ -1,3 +1,4 @@
+//
 package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;

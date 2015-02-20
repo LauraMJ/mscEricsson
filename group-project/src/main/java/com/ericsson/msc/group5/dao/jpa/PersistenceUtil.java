@@ -14,7 +14,6 @@ import com.ericsson.msc.group5.dataIO.UETableData;
 public class PersistenceUtil implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
 	protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("callFailureLogs");
 
 	public static void persist(Object entity) {
@@ -101,4 +100,9 @@ public class PersistenceUtil implements Serializable {
 	public static EntityManager createEM() {
 		return entityManagerFactory.createEntityManager();
 	}
+
+	public static EntityManager closeEM() {
+		return entityManagerFactory.createEntityManager();
+	}
+
 }

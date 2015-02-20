@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.dataIO.ConsistencyChecks;
+package com.ericsson.msc.group5.dataIO;
 
 public class Validator {
 

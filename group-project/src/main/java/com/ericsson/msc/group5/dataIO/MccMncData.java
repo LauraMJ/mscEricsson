@@ -14,6 +14,10 @@ public class MccMncData {
 	Integer mcc, mnc;
 	String country, operator;
 
+	public MccMncData() {
+
+	}
+
 	/**
 	 * @return the mcc
 	 */
@@ -72,10 +76,6 @@ public class MccMncData {
 	 */
 	public void setOperator(String operator) {
 		this.operator = operator;
-	}
-
-	public MccMncData() {
-
 	}
 
 }

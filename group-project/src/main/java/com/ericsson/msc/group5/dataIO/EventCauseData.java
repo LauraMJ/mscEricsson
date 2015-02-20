@@ -11,8 +11,12 @@ public class EventCauseData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private Integer causeCode, eventId;
-	private String description;
+	Integer causeCode, eventId;
+	String description;
+
+	public EventCauseData() {
+
+	}
 
 	/**
 	 * @return the causeCode
@@ -59,7 +63,4 @@ public class EventCauseData {
 		this.description = description;
 	}
 
-	public EventCauseData() {
-
-	}
 }

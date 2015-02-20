@@ -19,7 +19,7 @@ public class Validator {
 	public static boolean validateDate(String dateString) {
 		boolean isRealDate = checkIfValidDate(dateString);
 		if (isRealDate)
-			checkIfFutureDate(dateString);
+			return checkIfFutureDate(dateString);
 		return false;
 	}
 

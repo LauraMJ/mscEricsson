@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.dataIOConsistencyChecks;
+package com.ericsson.msc.group5.dataIO.ConsistencyChecks;
 
 
 public class DateValidator {

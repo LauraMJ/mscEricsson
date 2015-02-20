@@ -23,8 +23,12 @@ public class FailureTraceTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(FailureTrace.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap
+				.create(WebArchive.class, "test.war")
+				.addPackage(FailureTrace.class.getPackage())
+				.addAsResource("test-persistence.xml",
+						"META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -55,18 +59,21 @@ public class FailureTraceTest {
 		em.joinTransaction();
 
 		ft = new FailureTrace();
-		UserEquipment ue = new UserEquipment(0, "marketing name", "manufacturer", new AccessCapability(0, "access capability"), "model", new UserEquipmentType(
-				0, "user equipment type"), new OS(0, "operating system"), new InputMode(0, "input mode"));
+		UserEquipment ue = new UserEquipment(0, "marketing name",
+				"manufacturer", new AccessCapability(0, "access capability"),
+				"model", new UserEquipmentType(0, "user equipment type"),
+				new OS(0, "operating system"), new InputMode(0, "input mode"));
 		ft.setUserEqipment(ue);
 		HierInfo hi = new HierInfo();
 		ft.setHierInfo(hi);
 		FailureClass fc = new FailureClass(0, "description");
 		ft.setFailureClass(fc);
 		EventCause ec = new EventCause(new EventCauseCK(0, 0), "desc");
-		ft.setCauseCode(ec);
-		CountryCodeNetworkCode mcc = new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(0, 0), "operator");
+		ft.setEventCause(ec);
+		CountryCodeNetworkCode mcc = new CountryCodeNetworkCode(
+				new CountryCodeNetworkCodeCK(0, 0), "operator");
 		mcc.setCountry(new Country(0, "country"));
-		ft.setMarketOperator(mcc);
+		ft.setCountryCodeNetworkCode(mcc);
 		ft.setDuration(INITIAL_DURATION);
 		em.persist(ft);
 		id = ft.getFailureTraceId();
@@ -78,11 +85,13 @@ public class FailureTraceTest {
 	@Test
 	public void basicCRUDTest() throws Exception {
 		FailureTrace loadedFT = em.find(FailureTrace.class, id);
-		assertEquals("Failed to insert", INITIAL_DURATION, (int) loadedFT.getDuration());
+		assertEquals("Failed to insert", INITIAL_DURATION,
+				(int) loadedFT.getDuration());
 
 		loadedFT.setDuration(UPDATED_DURATION);
 		FailureTrace updatedFT = em.find(FailureTrace.class, id);
-		assertEquals("Failed to update", UPDATED_DURATION, (int) updatedFT.getDuration());
+		assertEquals("Failed to update", UPDATED_DURATION,
+				(int) updatedFT.getDuration());
 
 		em.remove(updatedFT);
 		FailureTrace shouldBeNull = em.find(FailureTrace.class, id);
@@ -90,7 +99,8 @@ public class FailureTraceTest {
 	}
 
 	/*
-	 * Test to ensure that deletes cascade/don't cascade properly to the owned entities.
+	 * Test to ensure that deletes cascade/don't cascade properly to the owned
+	 * entities.
 	 */
 	@Test
 	@Ignore
@@ -156,7 +166,9 @@ public class FailureTraceTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.AccessCapability").executeUpdate();
+		em.createQuery(
+				"delete from com.ericsson.msc.group5.entities.AccessCapability")
+				.executeUpdate();
 		utx.commit();
 	}
 

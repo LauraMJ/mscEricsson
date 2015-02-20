@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import javax.persistence.EntityManager;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -19,11 +20,15 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
+import com.ericsson.msc.group5.entities.AccessCapability;
+import com.ericsson.msc.group5.entities.InputMode;
+import com.ericsson.msc.group5.entities.OS;
+import com.ericsson.msc.group5.entities.UserEquipmentType;
 
 public class DataImport {
 
 	// Change this to where you've stored the base data spreadsheet
-	private String fileName = "C:\\Users\\User\\Desktop\\baseData.xls";
+	private String fileName = "C:\\Users\\Harry\\Documents\\College\\Masters\\Semester 2\\Group Project\\data.xls";
 	private FileInputStream fileInputStream;
 	private ArrayList <BaseData> baseDataRows = new ArrayList <BaseData>();
 	private ArrayList <EventCauseData> eventCauseRows = new ArrayList <EventCauseData>();
@@ -45,7 +50,12 @@ public class DataImport {
 
 	private int counter = 0;
 	private HSSFCell description, country, mnc, mcc, tac, marketName;
-	private HSSFCell manufacturer, accessCapability, model, vendor, os, inputMode;
+	private HSSFCell manufacturer, accessCapability, model, vendor, os,
+			inputMode;
+	private AccessCapability accessCapabilityInstance;
+	private UserEquipmentType userEquipmentTypeInstance;
+	private OS osInstance;
+	private InputMode inputModeInstance;
 	private File file;
 	private JFileChooser fileChooser;
 	JFrame f = new JFrame();
@@ -85,6 +95,7 @@ public class DataImport {
 		System.out.println("Data formatted, starting export to database");
 		// PersistenceUtil.persistBaseData(baseDataRows);
 		PersistenceUtil.persistUEType(UETableRows);
+		PersistenceUtil.closeEM();
 
 		long duration = System.currentTimeMillis() - start;
 		System.out.println("Data imported from " + fileName);
@@ -186,6 +197,10 @@ public class DataImport {
 
 	private void readUETableSheet() {
 		worksheet = (HSSFSheet) workbook.getSheetAt(3);
+		AccessCapability newAccessCapabilityEntity = null;
+		UserEquipmentType newUserEquipmentTypeEntity = null;
+		OS newOsEntity = null;
+		InputMode newInputModeEntity = null;
 
 		// Get the number of rows in the input file
 		int numRows = worksheet.getLastRowNum();
@@ -205,10 +220,101 @@ public class DataImport {
 			os = row.getCell(7);
 			inputMode = row.getCell(8);
 
+			if (checkIfAccessCapabilityAlreadyExists(accessCapability
+					.getStringCellValue()) == null) {
+				newAccessCapabilityEntity.setAccessCapability(accessCapability
+						.getStringCellValue());
+				PersistenceUtil.persist(newAccessCapabilityEntity);
+				accessCapabilityInstance = newAccessCapabilityEntity;
+			}
+			else {
+				newAccessCapabilityEntity = new AccessCapability();
+				newAccessCapabilityEntity = checkIfAccessCapabilityAlreadyExists(accessCapability
+						.getStringCellValue());
+				PersistenceUtil.persist(newAccessCapabilityEntity);
+				accessCapabilityInstance = newAccessCapabilityEntity;
+			}
+
+			if (checkIfUserEquipmentTypeAlreadyExists(ueType
+					.getStringCellValue()) == null) {
+				newUserEquipmentTypeEntity.setUserEquipmentType(ueType
+						.getStringCellValue());
+				PersistenceUtil.persist(newUserEquipmentTypeEntity);
+				userEquipmentTypeInstance = newUserEquipmentTypeEntity;
+			}
+			else {
+				newUserEquipmentTypeEntity = new UserEquipmentType();
+				newUserEquipmentTypeEntity = checkIfUserEquipmentTypeAlreadyExists(ueType
+						.getStringCellValue());
+				PersistenceUtil.persist(newUserEquipmentTypeEntity);
+				userEquipmentTypeInstance = newUserEquipmentTypeEntity;
+			}
+
+			if (checkIfOsAlreadyExists(os.getStringCellValue()) == null) {
+				newOsEntity.setOs(os.getStringCellValue());
+				PersistenceUtil.persist(newOsEntity);
+				osInstance = newOsEntity;
+			}
+			else {
+				newOsEntity = new OS();
+				newOsEntity = checkIfOsAlreadyExists(os.getStringCellValue());
+				PersistenceUtil.persist(newOsEntity);
+				osInstance = newOsEntity;
+			}
+
+			if (checkIfInputModeAlreadyExists(inputMode.getStringCellValue()) == null) {
+				newInputModeEntity.setInputMode(inputMode.getStringCellValue());
+				PersistenceUtil.persist(newInputModeEntity);
+				inputModeInstance = newInputModeEntity;
+			}
+			else {
+				newInputModeEntity = new InputMode();
+				newInputModeEntity = checkIfInputModeAlreadyExists(inputMode
+						.getStringCellValue());
+				PersistenceUtil.persist(newInputModeEntity);
+				inputModeInstance = newInputModeEntity;
+			}
+
 			marketName.setCellType(Cell.CELL_TYPE_STRING);
 			model.setCellType(Cell.CELL_TYPE_STRING);
 			setRowData(Sheet.UE_TABLE);
 		}
+	}
+
+	private AccessCapability checkIfAccessCapabilityAlreadyExists(
+			String accessCapability) {
+		EntityManager em = PersistenceUtil.createEM();
+		AccessCapability ac = em.createQuery(
+				"select ac from AccessCapability ac where ac.accessCapabilityId = "
+						+ accessCapability, AccessCapability.class)
+				.getSingleResult();
+		return ac;
+	}
+
+	private UserEquipmentType checkIfUserEquipmentTypeAlreadyExists(
+			String ueType) {
+		EntityManager em = PersistenceUtil.createEM();
+		UserEquipmentType ueT = em.createQuery(
+				"select ueT from UserEquipmentType ueT where ueT.userEquipmentTypeId = "
+						+ accessCapability, UserEquipmentType.class)
+				.getSingleResult();
+		return ueT;
+	}
+
+	private OS checkIfOsAlreadyExists(String os) {
+		EntityManager em = PersistenceUtil.createEM();
+		OS oS = em.createQuery("select os from OS os where os.os = " + os,
+				OS.class).getSingleResult();
+		return oS;
+	}
+
+	private InputMode checkIfInputModeAlreadyExists(String inputMode) {
+		EntityManager em = PersistenceUtil.createEM();
+		InputMode createdInputMode = em
+				.createQuery(
+						"select im from inputMode im where im.inputMode = "
+								+ inputMode, InputMode.class).getSingleResult();
+		return createdInputMode;
 	}
 
 	private void readMCC_MNCSheet() {
@@ -302,7 +408,8 @@ public class DataImport {
 
 	private void setFailureClassRowData() {
 		FailureClassData failureClassData = new FailureClassData();
-		failureClassData.setFailureClass((int) failureClass.getNumericCellValue());
+		failureClassData.setFailureClass((int) failureClass
+				.getNumericCellValue());
 		failureClassData.setDescription(description.getStringCellValue());
 		failureClassRows.add(failureClassData);
 	}
@@ -312,12 +419,12 @@ public class DataImport {
 		ueTableData.setTac((int) tac.getNumericCellValue());
 		ueTableData.setMarketName(marketName.getStringCellValue());
 		ueTableData.setManufacturer(manufacturer.getStringCellValue());
-		ueTableData.setAccessCapability(accessCapability.getStringCellValue());
+		ueTableData.setAccessCapability(accessCapabilityInstance);
 		ueTableData.setModel(model.getStringCellValue());
 		ueTableData.setVendor(vendor.getStringCellValue());
-		ueTableData.setUeType(ueType.getStringCellValue());
-		ueTableData.setOs(os.getStringCellValue());
-		ueTableData.setInputMode(inputMode.getStringCellValue());
+		ueTableData.setUeType(userEquipmentTypeInstance);
+		ueTableData.setOs(osInstance);
+		ueTableData.setInputMode(inputModeInstance);
 		UETableRows.add(ueTableData);
 	}
 

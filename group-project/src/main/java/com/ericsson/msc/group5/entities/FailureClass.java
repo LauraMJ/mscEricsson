@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
  * @author szymon
  */
 @Entity(name = "failure_class")
+// @Cacheable
+// @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class FailureClass {
 
 	@Id

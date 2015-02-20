@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity(name = "event_cause")
+// @Cacheable
+// @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class EventCause {
 
 	@Id
@@ -14,7 +16,7 @@ public class EventCause {
 	private EventCauseCK causeCodeEventIdCK;
 	@Column(length = 100)
 	private String description;
-	@OneToMany(mappedBy = "causeCode", targetEntity = FailureTrace.class)
+	@OneToMany(mappedBy = "eventCause", targetEntity = FailureTrace.class)
 	private Collection <FailureTrace> failureTrace;
 
 	public EventCause() {

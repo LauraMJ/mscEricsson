@@ -39,12 +39,15 @@ public class FailureTrace {
 	@JoinColumn(name = "hierInfoId")
 	private HierInfo hierInfo;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumns({@JoinColumn(name = "causeCode", referencedColumnName = "causeCode"), @JoinColumn(name = "eventId", referencedColumnName = "eventId")})
-	private EventCause causeCode;
+	@JoinColumns({
+			@JoinColumn(name = "causeCode", referencedColumnName = "causeCode"),
+			@JoinColumn(name = "eventId", referencedColumnName = "eventId")})
+	private EventCause eventCause;
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumns({@JoinColumn(name = "countryCode", referencedColumnName = "countryCode"),
+	@JoinColumns({
+			@JoinColumn(name = "countryCode", referencedColumnName = "countryCode"),
 			@JoinColumn(name = "networkCode", referencedColumnName = "networkCode")})
-	private CountryCodeNetworkCode marketOperator;
+	private CountryCodeNetworkCode countryCodeNetworkCode;
 
 	public FailureTrace() {
 
@@ -94,12 +97,13 @@ public class FailureTrace {
 		this.userEqipment = userEqipment;
 	}
 
-	public CountryCodeNetworkCode getMarketOperator() {
-		return marketOperator;
+	public CountryCodeNetworkCode getCountryCodeNetworkCode() {
+		return countryCodeNetworkCode;
 	}
 
-	public void setMarketOperator(CountryCodeNetworkCode marketOperator) {
-		this.marketOperator = marketOperator;
+	public void setCountryCodeNetworkCode(
+			CountryCodeNetworkCode countryCodeNetworkCode) {
+		this.countryCodeNetworkCode = countryCodeNetworkCode;
 	}
 
 	public Integer getCellId() {
@@ -134,12 +138,12 @@ public class FailureTrace {
 		this.duration = duration;
 	}
 
-	public EventCause getCauseCode() {
-		return causeCode;
+	public EventCause getEventCause() {
+		return eventCause;
 	}
 
-	public void setCauseCode(EventCause causeCode) {
-		this.causeCode = causeCode;
+	public void setEventCause(EventCause eventCause) {
+		this.eventCause = eventCause;
 	}
 
 	public String getIMSI() {

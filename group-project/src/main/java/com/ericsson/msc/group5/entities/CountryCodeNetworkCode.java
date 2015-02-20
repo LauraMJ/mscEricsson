@@ -20,7 +20,7 @@ public class CountryCodeNetworkCode {
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "countryCode", insertable = false, updatable = false)
 	private Country country;
-	@OneToMany(mappedBy = "marketOperator", targetEntity = FailureTrace.class)
+	@OneToMany(mappedBy = "countryCodeNetworkCode", targetEntity = FailureTrace.class)
 	private Collection <FailureTrace> failureTrace;
 
 	public CountryCodeNetworkCode() {

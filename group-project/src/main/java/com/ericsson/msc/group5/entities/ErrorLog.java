@@ -6,36 +6,35 @@ import javax.persistence.Id;
 
 @Entity(name = "error_log")
 public class ErrorLog {
+	//Needs generating
 	@Id
 	@Column(name = "error_log_id")
-	//Needs generating
-	private int errorLogId;
-	//Do these need to be changed to wrapper classes?
+	private Integer errorLogId;
 	@Column(name = "date_and_time")
 	private String dateAndTime;
 	@Column(name = "event_id")
-	private int eventId;
+	private Integer eventId;
 	@Column(name = "failure_class")
-	private int failureClass;
+	private Integer failureClass;
 	@Column(name = "user_equipment_type")
-	private int userEquipmentType;
-	private int market;
-	private int operator;
+	private Integer userEquipmentType;
+	private Integer market;
+	private Integer operator;
 	@Column(name = "cell_id")
-	private int cellId;
-	private int duration;
+	private Integer cellId;
+	private Integer duration;
 	@Column(name = "cause_code")
-	private int causeCode;
+	private Integer causeCode;
 	@Column(name = "ne_version", length = 3)
 	private String neVersion;
 	@Column(length = 20)
-	private long imsi;
+	private Long imsi;
 	@Column(length = 20)
-	private long hier3Id;
+	private Long hier3Id;
 	@Column(length = 20)
-	private long hier32Id;
+	private Long hier32Id;
 	@Column(length = 20)
-	private long hier321Id;
+	private Long hier321Id;
 	
 
 	
@@ -43,9 +42,9 @@ public class ErrorLog {
 	
 	}
 	
-	public ErrorLog(int errorLogId, String dateAndTime, int eventId, int failureClass, int userEquipmentType,
-			int market, int operator, int cellId, int duration, int causeCode, String neVersion, long imsi,
-			long hier3Id, long hier32Id, long hier321Id){
+	public ErrorLog(Integer errorLogId, String dateAndTime, Integer eventId, Integer failureClass, Integer userEquipmentType,
+			Integer market, Integer operator, Integer cellId, Integer duration, Integer causeCode, String neVersion, Long imsi,
+			Long hier3Id, Long hier32Id, Long hier321Id){
 		this.errorLogId = errorLogId;
 		this.dateAndTime = dateAndTime;
 		this.eventId = eventId;
@@ -64,11 +63,11 @@ public class ErrorLog {
 		
 	}
 
-	public int getErrorLogId() {
+	public Integer getErrorLogId() {
 		return errorLogId;
 	}
 
-	public void setErrorLogId(int errorLogId) {
+	public void setErrorLogId(Integer errorLogId) {
 		this.errorLogId = errorLogId;
 	}
 
@@ -80,67 +79,67 @@ public class ErrorLog {
 		this.dateAndTime = dateAndTime;
 	}
 
-	public int getEventId() {
+	public Integer getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(int eventId) {
+	public void setEventId(Integer eventId) {
 		this.eventId = eventId;
 	}
 
-	public int getFailureClass() {
+	public Integer getFailureClass() {
 		return failureClass;
 	}
 
-	public void setFailureClass(int failureClass) {
+	public void setFailureClass(Integer failureClass) {
 		this.failureClass = failureClass;
 	}
 
-	public int getUserEquipmentType() {
+	public Integer getUserEquipmentType() {
 		return userEquipmentType;
 	}
 
-	public void setUserEquipmentType(int userEquipmentType) {
+	public void setUserEquipmentType(Integer userEquipmentType) {
 		this.userEquipmentType = userEquipmentType;
 	}
 
-	public int getMarket() {
+	public Integer getMarket() {
 		return market;
 	}
 
-	public void setMarket(int market) {
+	public void setMarket(Integer market) {
 		this.market = market;
 	}
 
-	public int getOperator() {
+	public Integer getOperator() {
 		return operator;
 	}
 
-	public void setOperator(int operator) {
+	public void setOperator(Integer operator) {
 		this.operator = operator;
 	}
 
-	public int getCellId() {
+	public Integer getCellId() {
 		return cellId;
 	}
 
-	public void setCellId(int cellId) {
+	public void setCellId(Integer cellId) {
 		this.cellId = cellId;
 	}
 
-	public int getDuration() {
+	public Integer getDuration() {
 		return duration;
 	}
 
-	public void setDuration(int duration) {
+	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
 
-	public int getCauseCode() {
+	public Integer getCauseCode() {
 		return causeCode;
 	}
 
-	public void setCauseCode(int causeCode) {
+	public void setCauseCode(Integer causeCode) {
 		this.causeCode = causeCode;
 	}
 
@@ -152,35 +151,35 @@ public class ErrorLog {
 		this.neVersion = neVersion;
 	}
 
-	public long getImsi() {
+	public Long getImsi() {
 		return imsi;
 	}
 
-	public void setImsi(long imsi) {
+	public void setImsi(Long imsi) {
 		this.imsi = imsi;
 	}
 
-	public long getHier3Id() {
+	public Long getHier3Id() {
 		return hier3Id;
 	}
 
-	public void setHier3Id(long hier3Id) {
+	public void setHier3Id(Long hier3Id) {
 		this.hier3Id = hier3Id;
 	}
 
-	public long getHier32Id() {
+	public Long getHier32Id() {
 		return hier32Id;
 	}
 
-	public void setHier32Id(long hier32Id) {
+	public void setHier32Id(Long hier32Id) {
 		this.hier32Id = hier32Id;
 	}
 
-	public long getHier321Id() {
+	public Long getHier321Id() {
 		return hier321Id;
 	}
 
-	public void setHier321Id(long hier321Id) {
+	public void setHier321Id(Long hier321Id) {
 		this.hier321Id = hier321Id;
 	}
 

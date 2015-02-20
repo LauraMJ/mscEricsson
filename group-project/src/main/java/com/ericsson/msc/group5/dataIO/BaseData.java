@@ -1,6 +1,5 @@
 package com.ericsson.msc.group5.dataIO;
 
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +11,7 @@ public class BaseData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	Date dateTimeVal;
+	// Date dateTimeVal;
 	String dateString, neVersionVal;;
 	Integer eventIdVal, failureClassVal, ueTypeVal, marketVal;
 	Integer cellIdVal, durationVal, causeCodeVal, operatorVal;
@@ -28,14 +27,6 @@ public class BaseData {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Date getDateTimeVal() {
-		return dateTimeVal;
-	}
-
-	public void setDateTimeVal(Date dateTimeVal) {
-		this.dateTimeVal = dateTimeVal;
 	}
 
 	public String getDateString() {

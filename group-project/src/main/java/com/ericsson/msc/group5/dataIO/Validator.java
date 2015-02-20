@@ -1,5 +1,11 @@
 package com.ericsson.msc.group5.dataIO;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Validator {
 
 	public static void main(String [] args) {
@@ -7,14 +13,41 @@ public class Validator {
 	}
 
 	public Validator() {
-		System.out.println(validateDate("29/02/15"));
+		validateDate("28/02/12");
 	}
 
-	public static boolean validateDate(String date) {
+	public static boolean validateDate(String dateString) {
+		boolean isRealDate = checkIfValidDate(dateString);
+		if (isRealDate)
+			checkIfFutureDate(dateString);
+		return false;
+	}
+
+	private static boolean checkIfFutureDate(String dateString) {
+		Calendar testDate = Calendar.getInstance();
+		Calendar currentDate = Calendar.getInstance();
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+		formatter.setLenient(false);
+		try {
+			Date date = formatter.parse(dateString);
+			testDate.setTime(date);
+			if (testDate.after(currentDate)) {
+				System.out.println("Date is in the future!");
+				return false;
+			}
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+			System.out.println("Couldn't parse date");
+		}
+		return true;
+	}
+
+	private static boolean checkIfValidDate(String dateString) {
 		// Assumes the short year format refers to years in the 21st century
-		int year = Integer.parseInt(date.substring(6, 8)) + 2000;
-		int day = Integer.parseInt(date.substring(0, 2));
-		int month = Integer.parseInt(date.substring(3, 5));
+		int year = Integer.parseInt(dateString.substring(6, 8)) + 2000;
+		int day = Integer.parseInt(dateString.substring(0, 2));
+		int month = Integer.parseInt(dateString.substring(3, 5));
 
 		if (day < 1 || day > 31 || month < 1 || month > 12) {
 			System.out.println("Invalid date");
@@ -47,8 +80,8 @@ public class Validator {
 		return true;
 	}
 
-	public static boolean validateEventId(Integer input) {
-		if (input >= 4000 && input <= 5000) {
+	public static boolean validateEventId(double d) {
+		if (d >= 4000 && d <= 5000) {
 			return true;
 		}
 		System.out.println("Invalid eventId");

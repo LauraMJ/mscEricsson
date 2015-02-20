@@ -58,7 +58,7 @@ public class DataImport {
 	public DataImport() {
 		// Opens a dialog to allow you to choose the file location
 		// Comment it out if you prefer to manually hard code the file location
-		getFileFromDialog();
+		// getFileFromDialog();
 
 		long start = System.currentTimeMillis();
 
@@ -79,13 +79,13 @@ public class DataImport {
 		time = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
 
 		// Import the data from the excel sheet
-		// readBaseDataSheet();
-		readUETableSheet();
+		readBaseDataSheet();
+		// readUETableSheet();
 
 		// Export the data to the database
 		System.out.println("Data formatted, starting export to database");
-		// PersistenceUtil.persistBaseData(baseDataRows);
-		PersistenceUtil.persistUEType(UETableRows);
+		PersistenceUtil.persistBaseData(baseDataRows);
+		// PersistenceUtil.persistUEType(UETableRows);
 
 		long duration = System.currentTimeMillis() - start;
 		System.out.println("Data imported from " + fileName);
@@ -237,6 +237,7 @@ public class DataImport {
 
 		dateTimeVal = dateTime.getDateCellValue();
 		dateString = date.format(dateTimeVal) + " " + time.format(dateTimeVal);
+		Validator.validateDate(dateString);
 		eventIdVal = (int) eventId.getNumericCellValue();
 		try {
 			failureClassVal = (int) failureClass.getNumericCellValue();
@@ -292,6 +293,25 @@ public class DataImport {
 		}
 	}
 
+	private void setBaseRowData() {
+		BaseData base = new BaseData();
+		base.setCauseCodeVal(causeCodeVal);
+		base.setCellIdVal(cellIdVal);
+		base.setDateString(dateString);
+		base.setDurationVal(durationVal);
+		base.setEventIdVal(eventIdVal);
+		base.setFailureClassVal(failureClassVal);
+		base.setHier321Val(hier321Val);
+		base.setHier32Val(hier32Val);
+		base.setHier3Val(hier3Val);
+		base.setImsiVal(imsiVal);
+		base.setMarketVal(marketVal);
+		base.setNeVersionVal(neVersionVal);
+		base.setOperatorVal(operatorVal);
+		base.setUeTypeVal(ueTypeVal);
+		baseDataRows.add(base);
+	}
+
 	private void setMccMncRowData() {
 		MccMncData mccMncData = new MccMncData();
 		mccMncData.setMcc((int) mcc.getNumericCellValue());
@@ -328,25 +348,6 @@ public class DataImport {
 		eventCauseData.setEventId((int) eventId.getNumericCellValue());
 		eventCauseData.setCauseCode((int) causeCode.getNumericCellValue());
 		eventCauseData.setDescription(description.getStringCellValue());
-	}
-
-	private void setBaseRowData() {
-		BaseData base = new BaseData();
-		base.setCauseCodeVal(causeCodeVal);
-		base.setCellIdVal(cellIdVal);
-		base.setDateString(dateString);
-		base.setDurationVal(durationVal);
-		base.setEventIdVal(eventIdVal);
-		base.setFailureClassVal(failureClassVal);
-		base.setHier321Val(hier321Val);
-		base.setHier32Val(hier32Val);
-		base.setHier3Val(hier3Val);
-		base.setImsiVal(imsiVal);
-		base.setMarketVal(marketVal);
-		base.setNeVersionVal(neVersionVal);
-		base.setOperatorVal(operatorVal);
-		base.setUeTypeVal(ueTypeVal);
-		baseDataRows.add(base);
 	}
 
 }

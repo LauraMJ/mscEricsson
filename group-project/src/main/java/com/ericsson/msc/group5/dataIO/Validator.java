@@ -19,7 +19,7 @@ public class Validator {
 		// Set the locale to european
 		dateFormatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
 		timeFormatter = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
-		validateDate("28/02/15");
+		validateDate("28/02/12");
 	}
 
 	public static boolean validateDate(String dateString) {

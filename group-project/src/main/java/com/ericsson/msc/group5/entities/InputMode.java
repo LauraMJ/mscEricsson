@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity(name = "input_mode")
+// @Cacheable
+// @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class InputMode {
 
 	@Id

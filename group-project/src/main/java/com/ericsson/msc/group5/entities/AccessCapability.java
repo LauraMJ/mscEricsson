@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
  * @author szymon
  */
 @Entity(name = "access_capability")
+// @Cacheable
+// @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class AccessCapability {
 
 	@Id

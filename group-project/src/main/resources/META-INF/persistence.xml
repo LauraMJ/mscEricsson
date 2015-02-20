@@ -6,6 +6,7 @@
 	<persistence-unit name="callFailureLogs"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+<!-- 		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode> -->
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.show.sql" value="true" />
@@ -16,6 +17,10 @@
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.url"
 				value="jdbc:mysql://localhost:3306/CALL_FAILURE_LOGS" />
+<!-- 			 <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml"/> -->
+<!-- 			 <property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider" /> -->
+<!-- 			<property name="hibernate.cache.use_second_level_cache" value="true"/> -->
+<!-- 			<property name = "hibernate.cache.use_query_cache" value ="true"/> -->
 		</properties>
 	</persistence-unit>
 </persistence>

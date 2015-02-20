@@ -47,8 +47,8 @@ public class Validator {
 		return true;
 	}
 
-	public static boolean validateEventId(Integer input) {
-		if (input >= 4000 && input <= 5000) {
+	public static boolean validateEventId(double d) {
+		if (d >= 4000 && d <= 5000) {
 			return true;
 		}
 		System.out.println("Invalid eventId");

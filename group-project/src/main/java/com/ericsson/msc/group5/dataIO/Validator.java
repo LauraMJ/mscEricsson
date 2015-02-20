@@ -121,7 +121,10 @@ public class Validator {
 	}
 
 	public static boolean validateIMSI(Integer input) {
-
+		if (input <= 999999999999999L) {
+			return true;
+		}
+		System.out.println("Invalid IMSI");
 		return false;
 	}
 

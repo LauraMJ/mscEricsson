@@ -1,13 +1,9 @@
 package com.ericsson.msc.group5.dataIOConsistencyChecks;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DateValidator {
 
 	private String dateString;
-	private Pattern pattern;
-	private Matcher matcher;
 
 	public DateValidator() {
 		validate("12/02/76");

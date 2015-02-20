@@ -23,7 +23,7 @@ import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
 public class DataImport {
 
 	// Change this to where you've stored the base data spreadsheet
-	private String fileName = "C:\\Users\\User\\Desktop\\baseData.xls";
+	private String fileName = "C:\\Users\\Siobhan\\Desktop\\baseData.xls";
 	private FileInputStream fileInputStream;
 	private ArrayList <BaseData> baseDataRows = new ArrayList <BaseData>();
 	private ArrayList <EventCauseData> eventCauseRows = new ArrayList <EventCauseData>();
@@ -45,7 +45,8 @@ public class DataImport {
 
 	private int counter = 0;
 	private HSSFCell description, country, mnc, mcc, tac, marketName;
-	private HSSFCell manufacturer, accessCapability, model, vendor, os, inputMode;
+	private HSSFCell manufacturer, accessCapability, model, vendor, os,
+			inputMode;
 	private File file;
 	private JFileChooser fileChooser;
 	JFrame f = new JFrame();
@@ -302,7 +303,8 @@ public class DataImport {
 
 	private void setFailureClassRowData() {
 		FailureClassData failureClassData = new FailureClassData();
-		failureClassData.setFailureClass((int) failureClass.getNumericCellValue());
+		failureClassData.setFailureClass((int) failureClass
+				.getNumericCellValue());
 		failureClassData.setDescription(description.getStringCellValue());
 		failureClassRows.add(failureClassData);
 	}

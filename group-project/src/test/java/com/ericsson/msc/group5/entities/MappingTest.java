@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class mappingTest {
+public class MappingTest {
 
 	public static void main(String [] args) {
 		HierInfo hi = new HierInfo();

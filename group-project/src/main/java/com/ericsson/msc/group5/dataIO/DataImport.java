@@ -57,7 +57,7 @@ public class DataImport {
 	public DataImport() {
 		// Opens a dialog to allow you to choose the file location
 		// Comment it out if you prefer to manually hard code the file location
-		getFileFromDialog();
+		// getFileFromDialog();
 
 		long start = System.currentTimeMillis();
 
@@ -78,13 +78,13 @@ public class DataImport {
 		time = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
 
 		// Import the data from the excel sheet
-		// readBaseDataSheet();
-		readUETableSheet();
+		readBaseDataSheet();
+		// readUETableSheet();
 
 		// Export the data to the database
 		System.out.println("Data formatted, starting export to database");
-		// PersistenceUtil.persistBaseData(baseDataRows);
-		PersistenceUtil.persistUEType(UETableRows);
+		PersistenceUtil.persistBaseData(baseDataRows);
+		// PersistenceUtil.persistUEType(UETableRows);
 
 		long duration = System.currentTimeMillis() - start;
 		System.out.println("Data imported from " + fileName);
@@ -238,6 +238,10 @@ public class DataImport {
 		dateString = date.format(dateTimeVal) + " " + time.format(dateTimeVal);
 		Validator.validateDate(dateString);
 		eventIdVal = (int) eventId.getNumericCellValue();
+		// if event id is valid according to consistency checks
+		if (Validator.validateEventId(eventId.getNumericCellValue()) == true) {
+			eventIdVal = (int) eventId.getNumericCellValue();
+		}
 		try {
 			failureClassVal = (int) failureClass.getNumericCellValue();
 		}

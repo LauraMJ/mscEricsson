@@ -13,7 +13,6 @@ import com.ericsson.msc.group5.entities.UserEquipmentType;
 
 public class PersistenceTest {
 
-	// Variables for laura's tests
 	EventCauseCK eventCauseCK = new EventCauseCK(4102, 203);
 	CountryCodeNetworkCodeCK mccmnc = new CountryCodeNetworkCodeCK(123, 456);
 

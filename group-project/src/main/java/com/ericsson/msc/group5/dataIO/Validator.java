@@ -5,20 +5,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class Validator {
-
-	private static DateFormat dateFormatter, timeFormatter;
 
 	public static void main(String [] args) {
 		new Validator();
 	}
 
 	public Validator() {
-		// Set the locale to european
-		dateFormatter = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
-		timeFormatter = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
 		validateDate("28/02/12");
 	}
 

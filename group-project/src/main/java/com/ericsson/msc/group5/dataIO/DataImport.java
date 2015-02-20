@@ -1,5 +1,7 @@
 package com.ericsson.msc.group5.dataIO;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,6 +9,9 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -41,12 +46,19 @@ public class DataImport {
 	private int counter = 0;
 	private HSSFCell description, country, mnc, mcc, tac, marketName;
 	private HSSFCell manufacturer, accessCapability, model, vendor, os, inputMode;
+	private File file;
+	private JFileChooser fileChooser;
+	JFrame f = new JFrame();
 
 	enum Sheet {
 		BASE, EVENT_CAUSE, FAILURE_CLASS, UE_TABLE, MCC_MNC_TABLE;
 	}
 
 	public DataImport() {
+		// Opens a dialog to allow you to choose the file location
+		// Comment it out if you prefer to manually hard code the file location
+		getFileFromDialog();
+
 		long start = System.currentTimeMillis();
 
 		try {
@@ -111,6 +123,26 @@ public class DataImport {
 			hier321 = row.getCell(13);
 			formatBaseData();
 			setRowData(Sheet.BASE);
+		}
+	}
+
+	private void getFileFromDialog() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		fileChooser = new JFileChooser();
+
+		if (fileChooser.showOpenDialog(f) == JFileChooser.APPROVE_OPTION) {
+			file = fileChooser.getSelectedFile();
+			try {
+				Desktop.getDesktop().open(file);
+			}
+			catch (IOException e) {
+				System.out.println("File not found");
+			}
 		}
 	}
 

@@ -38,6 +38,8 @@ public class CountryCodeNetworkCodeTest {
 
 	private static String INITIAL_OPERATOR = "Oklahoma Western Telephone Company US";
 	private static String UPDATED_OPERATOR = "Clearnet CA";
+	private static Country INITIAL_COUNTRY = new Country(555, "Dublin");
+	private static Country UPDATED_COUNTRY = new Country(222, "France");
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -69,6 +71,9 @@ public class CountryCodeNetworkCodeTest {
 
 		assertEquals("Failed to update", UPDATED_OPERATOR,
 				updatedCountryCodeNetworkCode.getOperator());
+		
+		loadedCountryCodeNetworkCode.setCountry(UPDATED_COUNTRY);
+		assertEquals("Failed to update", UPDATED_COUNTRY, updatedCountryCodeNetworkCode.getCountry());
 
 		em.remove(updatedCountryCodeNetworkCode);
 		CountryCodeNetworkCode shouldBeNull = em.find(

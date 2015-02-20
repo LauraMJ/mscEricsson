@@ -45,7 +45,8 @@ public class DataImport {
 
 	private int counter = 0;
 	private HSSFCell description, country, mnc, mcc, tac, marketName;
-	private HSSFCell manufacturer, accessCapability, model, vendor, os, inputMode;
+	private HSSFCell manufacturer, accessCapability, model, vendor, os,
+			inputMode;
 	private File file;
 	private JFileChooser fileChooser;
 	JFrame f = new JFrame();
@@ -238,10 +239,6 @@ public class DataImport {
 		dateString = date.format(dateTimeVal) + " " + time.format(dateTimeVal);
 		Validator.validateDate(dateString);
 		eventIdVal = (int) eventId.getNumericCellValue();
-		// if event id is valid according to consistency checks
-		if (Validator.validateEventId(eventId.getNumericCellValue()) == true) {
-			eventIdVal = (int) eventId.getNumericCellValue();
-		}
 		try {
 			failureClassVal = (int) failureClass.getNumericCellValue();
 		}
@@ -326,7 +323,8 @@ public class DataImport {
 
 	private void setFailureClassRowData() {
 		FailureClassData failureClassData = new FailureClassData();
-		failureClassData.setFailureClass((int) failureClass.getNumericCellValue());
+		failureClassData.setFailureClass((int) failureClass
+				.getNumericCellValue());
 		failureClassData.setDescription(description.getStringCellValue());
 		failureClassRows.add(failureClassData);
 	}

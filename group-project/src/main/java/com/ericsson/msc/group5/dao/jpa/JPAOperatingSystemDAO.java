@@ -9,14 +9,14 @@ public class JPAOperatingSystemDAO implements OperatingSystemDAO {
 
 	public OperatingSystem getManagedOs(String operatingSystem) {
 		EntityManager em = PersistenceUtil.createEM();
-		List <OperatingSystem> osList = em
+		List <OperatingSystem> operatingSystemList = em
 				.createQuery(
 						"select os from "
 								+ OperatingSystem.class.getName()
-								+ " os where os.operating_system = :operatingsys",
+								+ " os where os.operatingSystem = :operatingsys",
 						OperatingSystem.class)
 				.setParameter("operatingsys", operatingSystem).getResultList();
-		if (osList.isEmpty()) {
+		if (operatingSystemList.isEmpty()) {
 			System.out.println("os not found");
 			OperatingSystem newOS = new OperatingSystem();
 			newOS.setOperatingSystem(operatingSystem);
@@ -26,6 +26,6 @@ public class JPAOperatingSystemDAO implements OperatingSystemDAO {
 		}
 		System.out.println("os found");
 		em.close();
-		return osList.get(0);
+		return operatingSystemList.get(0);
 	}
 }

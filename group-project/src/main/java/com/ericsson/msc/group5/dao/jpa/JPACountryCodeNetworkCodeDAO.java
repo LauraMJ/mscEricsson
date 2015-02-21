@@ -1,9 +1,10 @@
 package com.ericsson.msc.group5.dao.jpa;
 
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import org.jboss.arquillian.core.api.annotation.Inject;
 import com.ericsson.msc.group5.dataAccessLayer.CountryCodeNetworkCodeDAO;
+import com.ericsson.msc.group5.dataAccessLayer.CountryDAO;
 import com.ericsson.msc.group5.entities.Country;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
@@ -11,7 +12,15 @@ import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
 public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 
 	@Inject
-	private JPACountryDAO countryDAO;
+	private CountryDAO countryDAO;
+
+	public CountryDAO getCountryDAO() {
+		return countryDAO;
+	}
+
+	public void setCountryDAO(CountryDAO countryDAO) {
+		this.countryDAO = countryDAO;
+	}
 
 	public CountryCodeNetworkCode getManagedCountryCodeNetworkCode(
 			int countryCode, int networkCode, String country, String operator) {

@@ -7,6 +7,10 @@ import com.ericsson.msc.group5.entities.AccessCapability;
 
 public class JPAAccessCapabilityDAO implements AccessCapabilityDAO {
 
+	public void checkExist() {
+		System.out.println("I exist");
+	}
+
 	public AccessCapability getManagedAccessCapability(String accessCapability) {
 		EntityManager em = PersistenceUtil.createEM();
 		List <AccessCapability> acList = em

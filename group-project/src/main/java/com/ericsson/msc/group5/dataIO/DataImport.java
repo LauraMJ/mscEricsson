@@ -4,20 +4,20 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.jboss.arquillian.core.api.annotation.Inject;
 import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
 import com.ericsson.msc.group5.dataAccessLayer.AccessCapabilityDAO;
 import com.ericsson.msc.group5.dataAccessLayer.CountryCodeNetworkCodeDAO;
 import com.ericsson.msc.group5.dataAccessLayer.CountryDAO;
+// import com.ericsson.msc.group5.dataAccessLayer.CountryDAO;
 import com.ericsson.msc.group5.dataAccessLayer.EventCauseDAO;
 import com.ericsson.msc.group5.dataAccessLayer.FailureClassDAO;
 import com.ericsson.msc.group5.dataAccessLayer.HierInfoDAO;
@@ -39,7 +39,7 @@ import com.ericsson.msc.group5.entities.UserEquipmentType;
 public class DataImport {
 
 	private static final String EXCEL_SHEET_LOCATION = "C:\\Users\\Harry\\Documents\\College\\Masters\\Semester 2\\Group Project\\data.xls";
-	private static ArrayList <Object> validData = new ArrayList <>();
+	// private static ArrayList <Object> validData = new ArrayList <>();
 	@Inject
 	private AccessCapabilityDAO accessCapabilityDAO;
 	@Inject
@@ -61,6 +61,80 @@ public class DataImport {
 	@Inject
 	private UserEquipmentTypeDAO userEquipmentTypeDAO;
 
+	public AccessCapabilityDAO getAccessCapabilityDAO() {
+		return accessCapabilityDAO;
+	}
+
+	public void setAccessCapabilityDAO(AccessCapabilityDAO accessCapabilityDAO) {
+		this.accessCapabilityDAO = accessCapabilityDAO;
+	}
+
+	public CountryCodeNetworkCodeDAO getCountryCodeNetworkCodeDAO() {
+		return countryCodeNetworkCodeDAO;
+	}
+
+	public void setCountryCodeNetworkCodeDAO(
+			CountryCodeNetworkCodeDAO countryCodeNetworkCodeDAO) {
+		this.countryCodeNetworkCodeDAO = countryCodeNetworkCodeDAO;
+	}
+
+	public EventCauseDAO getEventCauseDAO() {
+		return eventCauseDAO;
+	}
+
+	public void setEventCauseDAO(EventCauseDAO eventCauseDAO) {
+		this.eventCauseDAO = eventCauseDAO;
+	}
+
+	public FailureClassDAO getFailureClassDAO() {
+		return failureClassDAO;
+	}
+
+	public void setFailureClassDAO(FailureClassDAO failureClassDAO) {
+		this.failureClassDAO = failureClassDAO;
+	}
+
+	public HierInfoDAO getHierInfoDAO() {
+		return hierInfoDAO;
+	}
+
+	public void setHierInfoDAO(HierInfoDAO hierInfoDAO) {
+		this.hierInfoDAO = hierInfoDAO;
+	}
+
+	public InputModeDAO getInputModeDAO() {
+		return inputModeDAO;
+	}
+
+	public void setInputModeDAO(InputModeDAO inputModeDAO) {
+		this.inputModeDAO = inputModeDAO;
+	}
+
+	public OperatingSystemDAO getOperatingSystemDAO() {
+		return operatingSystemDAO;
+	}
+
+	public void setOperatingSystemDAO(OperatingSystemDAO operatingSystemDAO) {
+		this.operatingSystemDAO = operatingSystemDAO;
+	}
+
+	public UserEquipmentDAO getUserEquipmentDAO() {
+		return userEquipmentDAO;
+	}
+
+	public void setUserEquipmentDAO(UserEquipmentDAO userEquipmentDAO) {
+		this.userEquipmentDAO = userEquipmentDAO;
+	}
+
+	public UserEquipmentTypeDAO getUserEquipmentTypeDAO() {
+		return userEquipmentTypeDAO;
+	}
+
+	public void setUserEquipmentTypeDAO(
+			UserEquipmentTypeDAO userEquipmentTypeDAO) {
+		this.userEquipmentTypeDAO = userEquipmentTypeDAO;
+	}
+
 	// private Integer eventIdVal, ueTypeVal, marketVal, operatorVal;
 	// private Integer causeCodeVal, failureClassVal, cellIdVal, durationVal;
 	// private String dateString, neVersionVal;
@@ -81,7 +155,7 @@ public class DataImport {
 		}
 	}
 
-	public DataImport(String location) {
+	public void begin(String location) {
 		// long start = System.currentTimeMillis();
 		try (FileInputStream excelInputStream = new FileInputStream(
 				EXCEL_SHEET_LOCATION)) {
@@ -97,9 +171,9 @@ public class DataImport {
 		// long duration = System.currentTimeMillis() - start;
 	}
 
-	public static void main(String [] args) {
-		new DataImport(EXCEL_SHEET_LOCATION);
-	}
+	// public static void main(String [] args) {
+	// new DataImport(EXCEL_SHEET_LOCATION);
+	// }
 
 	private void readExcelDocument(Workbook excelWorkbook) {
 		readUserEquipmentDataSheet(excelWorkbook);
@@ -238,6 +312,10 @@ public class DataImport {
 			HSSFCell ueType = row.getCell(6);
 			HSSFCell os = row.getCell(7);
 			HSSFCell inputMode = row.getCell(8);
+			if (accessCapabilityDAO == null) {
+				System.out.println("NOT INJECTED");
+			}
+			accessCapabilityDAO.checkExist();
 			AccessCapability readAccessCapability = accessCapabilityDAO
 					.getManagedAccessCapability(accessCapability
 							.getStringCellValue());

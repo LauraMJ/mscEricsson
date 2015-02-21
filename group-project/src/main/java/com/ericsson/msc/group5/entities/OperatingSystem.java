@@ -15,7 +15,7 @@ public class OperatingSystem {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "operating_system_id")
 	private Integer operatingSystemId;
-	@Column(length = 45)
+	@Column(name = "operating_system", length = 45)
 	private String operatingSystem;
 	@OneToMany(mappedBy = "operatingSystem")
 	private Collection <UserEquipment> userEquipment;

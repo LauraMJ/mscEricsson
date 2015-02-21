@@ -22,6 +22,8 @@ import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.EventCauseCK;
 import com.ericsson.msc.group5.entities.FailureClass;
+import com.ericsson.msc.group5.entities.FailureTrace;
+import com.ericsson.msc.group5.entities.HierInfo;
 import com.ericsson.msc.group5.entities.InputMode;
 import com.ericsson.msc.group5.entities.OS;
 import com.ericsson.msc.group5.entities.UserEquipment;
@@ -75,7 +77,7 @@ public class DataImport {
 		readFailureClassDataSheet(excelWorkbook);
 		readEventCauseDataSheet(excelWorkbook);
 		readOperatorDataSheet(excelWorkbook);
-		// readBaseDataSheet(excelWorkbook);
+		readBaseDataSheet(excelWorkbook);
 	}
 
 	private void readBaseDataSheet(Workbook excelWorkbook) {
@@ -102,6 +104,33 @@ public class DataImport {
 			HSSFCell hier321 = row.getCell(13);
 
 			String date = formatDateAsString(dateTime);
+
+			try {
+				EventCause ec = getManagedEventCause((int) causeCode.getNumericCellValue(), (int) eventId.getNumericCellValue(), "");
+				CountryCodeNetworkCode ccnc = getManagedCountryCodeNetworkCode((int) market.getNumericCellValue(), (int) operator.getNumericCellValue(), "", "");
+				FailureClass fc = getManagedFailureClass((int) failureClass.getNumericCellValue(), "");
+				HierInfo hi = getManagedHierInfo((long) hier3.getNumericCellValue(), (long) hier32.getNumericCellValue(), (long) hier321.getNumericCellValue());
+				UserEquipment ue = getManagedUserEquipment((int) ueType.getNumericCellValue());
+
+				FailureTrace ft = new FailureTrace();
+				ft.setDateTime(date);
+				ft.setCountryCodeNetworkCode(ccnc);
+				ft.setDuration((int) duration.getNumericCellValue());
+				ft.setCellId((int) cellId.getNumericCellValue());
+				ft.setEventCause(ec);
+				ft.setFailureClass(fc);
+				ft.setHierInfo(hi);
+				ft.setIMSI(Long.toString((long) imsi.getNumericCellValue()));
+				ft.setNeVersion(neVersion.getStringCellValue());
+				ft.setUserEqipment(ue);
+				
+				PersistenceUtil.persist(ft);
+			}
+			catch (IllegalStateException e) {
+				e.printStackTrace();
+			}
+
+			// ??ft.setEventId(eventId);
 		}
 	}
 
@@ -116,7 +145,7 @@ public class DataImport {
 			HSSFCell eventId = row.getCell(1);
 			HSSFCell description = row.getCell(2);
 
-			EventCause eventCauseObject = getMangedEventCause((int) causeCode.getNumericCellValue(), (int) eventId.getNumericCellValue(),
+			EventCause eventCauseObject = getManagedEventCause((int) causeCode.getNumericCellValue(), (int) eventId.getNumericCellValue(),
 					description.getStringCellValue());
 		}
 	}
@@ -199,16 +228,52 @@ public class DataImport {
 		}
 	}
 
+	private UserEquipment getManagedUserEquipment(int tac) {
+		EntityManager em = PersistenceUtil.createEM();
+		UserEquipment ue = em.createQuery("select ue from " + UserEquipment.class.getName() + " ue where ue.typeAllocationCode = :tac", UserEquipment.class)
+				.setParameter("tac", tac).getSingleResult();
+		System.out.println("hi found");
+		em.close();
+		return ue;
+	}
+
+	private HierInfo getManagedHierInfo(long hier3Id, long hier32Id, long hier321Id) {
+		EntityManager em = PersistenceUtil.createEM();
+		List <HierInfo> hiList = em
+				.createQuery(
+						"select hi from " + HierInfo.class.getName()
+								+ " hi where hi.hier3Id = :hier3Id AND hi.hier32Id = :hier32Id AND hi.hier321Id = :hier321Id", HierInfo.class)
+				.setParameter("hier3Id", Long.toString(hier3Id)).setParameter("hier32Id", Long.toString(hier32Id))
+				.setParameter("hier321Id", Long.toString(hier321Id)).getResultList();
+		if (hiList.isEmpty()) {
+			System.out.println("hi not found");
+			HierInfo hi = new HierInfo();
+			hi.setHier3Id(Long.toString(hier3Id));
+			hi.setHier32Id(Long.toString(hier32Id));
+			hi.setHier321Id(Long.toString(hier321Id));
+
+			PersistenceUtil.persist(hi);
+			em.close();
+			return hi;
+		}
+		System.out.println("hi not found");
+		em.close();
+		return hiList.get(0);
+	}
+
 	private CountryCodeNetworkCode getManagedCountryCodeNetworkCode(int countryCode, int networkCode, String country, String operator) {
 		EntityManager em = PersistenceUtil.createEM();
+		System.out.println("trying cc " + countryCode + " nc " + networkCode);
 		List <CountryCodeNetworkCode> cnList = em
 				.createQuery(
-						"select cn from " + CountryCodeNetworkCode.class.getName()
+						"select cn from "
+								+ CountryCodeNetworkCode.class.getName()
 								+ " cn where cn.countryCodeNetworkCode.country.countryCode = :countryCode AND cn.countryCodeNetworkCode.networkCode = :networkCode",
 						CountryCodeNetworkCode.class).setParameter("countryCode", countryCode).setParameter("networkCode", networkCode).getResultList();
 		if (cnList.isEmpty()) {
 			System.out.println("cn not found");
-			Country countryEntity = getManagedCountry(country);
+			Country countryEntity = getManagedCountry(countryCode, country);
+			System.out.println("here" + countryEntity.getCountryCode() + countryEntity.getCountry());
 			CountryCodeNetworkCode cn = new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(countryEntity, networkCode), operator);
 
 			PersistenceUtil.persist(cn);
@@ -220,7 +285,7 @@ public class DataImport {
 		return cnList.get(0);
 	}
 
-	private Country getManagedCountry(String country) {
+	private Country getManagedCountry(int countryCode, String country) {
 		EntityManager em = PersistenceUtil.createEM();
 		List <Country> cList = em.createQuery("select c from " + Country.class.getName() + " c where c.country = :country", Country.class)
 				.setParameter("country", country).getResultList();
@@ -228,6 +293,7 @@ public class DataImport {
 			System.out.println("c not found");
 			Country c = new Country();
 			c.setCountry(country);
+			c.setCountryCode(countryCode);
 			PersistenceUtil.persist(c);
 			em.close();
 			return c;
@@ -237,7 +303,7 @@ public class DataImport {
 		return cList.get(0);
 	}
 
-	private EventCause getMangedEventCause(int causeCode, int eventId, String description) {
+	private EventCause getManagedEventCause(int causeCode, int eventId, String description) {
 		EntityManager em = PersistenceUtil.createEM();
 		List <EventCause> ecList = em
 				.createQuery(

@@ -1,6 +1,5 @@
 package com.ericsson.msc.group5.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,21 +28,21 @@ public class FailureTrace {
 	@Column(name = "imsi", length = 20)
 	private String IMSI;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "failureClass")
 	private FailureClass failureClass;
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumn(name = "typeAllocationCode")
+	@ManyToOne
+	@JoinColumn
 	private UserEquipment userEqipment;
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "hierInfoId")
 	private HierInfo hierInfo;
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "causeCode", referencedColumnName = "causeCode"),
 			@JoinColumn(name = "eventId", referencedColumnName = "eventId")})
 	private EventCause eventCause;
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "countryCode", referencedColumnName = "countryCode"),
 			@JoinColumn(name = "networkCode", referencedColumnName = "networkCode")})

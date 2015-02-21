@@ -48,10 +48,11 @@ public class CountryTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
+		int newId = 213;
 		Country createdC = new Country();
 		createdC.setCountry(INITIAL_COUNTRY);
+		createdC.setCountryCode(newId);
 		em.persist(createdC);
-		int newId = createdC.getCountryCode();
 
 		Country loadedC = em.find(Country.class, newId);
 		assertEquals("Failed to insert", INITIAL_COUNTRY, loadedC.getCountry());

@@ -54,6 +54,7 @@ public class CountryCodeNetworkCodeTest {
 	public void basicCRUDTest() throws Exception {
 		Country c = new Country();
 		c.setCountry("country");
+		c.setCountryCode(0);
 		em.persist(c);
 		CountryCodeNetworkCodeCK pk = new CountryCodeNetworkCodeCK(c, 1);
 		CountryCodeNetworkCode createdCountryCodeNetworkCode = new CountryCodeNetworkCode(

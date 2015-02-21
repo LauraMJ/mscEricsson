@@ -1,18 +1,13 @@
 package com.ericsson.msc.group5.entities;
 
-import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity(name = "country")
 public class Country {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "country_code")
 	private Integer countryCode; // PK
 	@Column(length = 45)
@@ -40,5 +35,9 @@ public class Country {
 
 	public Integer getCountryCode() {
 		return countryCode;
+	}
+
+	public void setCountryCode(Integer countryCode) {
+		this.countryCode = countryCode;
 	}
 }

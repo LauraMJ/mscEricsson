@@ -20,13 +20,17 @@ import com.ericsson.msc.group5.dataAccessLayer.CountryCodeNetworkCodeDAO;
 import com.ericsson.msc.group5.dataAccessLayer.CountryDAO;
 import com.ericsson.msc.group5.dataAccessLayer.EventCauseDAO;
 import com.ericsson.msc.group5.dataAccessLayer.FailureClassDAO;
+import com.ericsson.msc.group5.dataAccessLayer.HierInfoDAO;
 import com.ericsson.msc.group5.dataAccessLayer.InputModeDAO;
 import com.ericsson.msc.group5.dataAccessLayer.OperatingSystemDAO;
+import com.ericsson.msc.group5.dataAccessLayer.UserEquipmentDAO;
 import com.ericsson.msc.group5.dataAccessLayer.UserEquipmentTypeDAO;
 import com.ericsson.msc.group5.entities.AccessCapability;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureClass;
+import com.ericsson.msc.group5.entities.FailureTrace;
+import com.ericsson.msc.group5.entities.HierInfo;
 import com.ericsson.msc.group5.entities.InputMode;
 import com.ericsson.msc.group5.entities.OperatingSystem;
 import com.ericsson.msc.group5.entities.UserEquipment;
@@ -47,9 +51,13 @@ public class DataImport {
 	@Inject
 	private FailureClassDAO failureClassDAO;
 	@Inject
+	private HierInfoDAO hierInfoDAO;
+	@Inject
 	private InputModeDAO inputModeDAO;
 	@Inject
 	private OperatingSystemDAO operatingSystemDAO;
+	@Inject
+	private UserEquipmentDAO userEquipmentDAO;
 	@Inject
 	private UserEquipmentTypeDAO userEquipmentTypeDAO;
 
@@ -98,7 +106,7 @@ public class DataImport {
 		readFailureClassDataSheet(excelWorkbook);
 		readEventCauseDataSheet(excelWorkbook);
 		readOperatorDataSheet(excelWorkbook);
-		// readBaseDataSheet(excelWorkbook);
+		readBaseDataSheet(excelWorkbook);
 	}
 
 	private void readBaseDataSheet(Workbook excelWorkbook) {
@@ -126,6 +134,44 @@ public class DataImport {
 			HSSFCell hier321 = row.getCell(13);
 
 			String date = formatDateAsString(dateTime);
+
+			try {
+				EventCause ec = eventCauseDAO.getMangedEventCause(
+						(int) causeCode.getNumericCellValue(),
+						(int) eventId.getNumericCellValue(), "");
+				CountryCodeNetworkCode ccnc = countryCodeNetworkCodeDAO
+						.getManagedCountryCodeNetworkCode(
+								(int) market.getNumericCellValue(),
+								(int) operator.getNumericCellValue(), "", "");
+				FailureClass fc = failureClassDAO.getManagedFailureClass(
+						(int) failureClass.getNumericCellValue(), "");
+				HierInfo hi = hierInfoDAO.getManagedHierInfo(
+						(long) hier3.getNumericCellValue(),
+						(long) hier32.getNumericCellValue(),
+						(long) hier321.getNumericCellValue());
+				UserEquipment ue = userEquipmentDAO
+						.getManagedUserEquipment((int) ueType
+								.getNumericCellValue());
+
+				FailureTrace ft = new FailureTrace();
+				ft.setDateTime(date);
+				ft.setCountryCodeNetworkCode(ccnc);
+				ft.setDuration((int) duration.getNumericCellValue());
+				ft.setCellId((int) cellId.getNumericCellValue());
+				ft.setEventCause(ec);
+				ft.setFailureClass(fc);
+				ft.setHierInfo(hi);
+				ft.setIMSI(Long.toString((long) imsi.getNumericCellValue()));
+				ft.setNeVersion(neVersion.getStringCellValue());
+				ft.setUserEqipment(ue);
+
+				PersistenceUtil.persist(ft);
+			}
+			catch (IllegalStateException e) {
+				e.printStackTrace();
+			}
+
+			// ??ft.setEventId(eventId);
 		}
 	}
 

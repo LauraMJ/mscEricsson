@@ -47,7 +47,6 @@ public class mappingTest {
 		ft.setCellId(0);
 		ft.setDateTime("11/01/2013 17:15:00");
 		ft.setDuration(1000);
-		ft.setEventId(0);
 		ft.setFailureClass(fc);
 		ft.setHierInfoId(hi);
 		ft.setIMSI("2315312");

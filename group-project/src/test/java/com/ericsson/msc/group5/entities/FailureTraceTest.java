@@ -72,23 +72,29 @@ public class FailureTraceTest {
 
 		ft = new FailureTrace();
 		UserEquipment ue = new UserEquipment(0, "marketing name", "manufacturer", ac, "model", uet, os, im);
+		em.persist(ue);
 		ft.setUserEqipment(ue);
 		HierInfo hi = new HierInfo();
 		ft.setHierInfo(hi);
+		em.persist(hi);
 		FailureClass fc = new FailureClass(0, "description");
 		ft.setFailureClass(fc);
+		em.persist(fc);
 		EventCause ec = new EventCause(new EventCauseCK(0, 0), "desc");
 		em.persist(ec);
 		ft.setEventCause(ec);
 		
 		Country c = new Country();
 		c.setCountry("country");
+		c.setCountryCode(231);
 		em.persist(c);
 		CountryCodeNetworkCode mcc = new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(c, 0), "operator");
 		ft.setCountryCodeNetworkCode(mcc);
+		em.persist(mcc);
 		ft.setDuration(INITIAL_DURATION);
 		em.persist(ft);
 		id = ft.getFailureTraceId();
+		System.out.println("id =" + id);
 
 		utx.commit();
 		em.clear();

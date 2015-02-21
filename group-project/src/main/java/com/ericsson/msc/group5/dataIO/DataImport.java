@@ -16,6 +16,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
 import com.ericsson.msc.group5.entities.AccessCapability;
+import com.ericsson.msc.group5.entities.Country;
+import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
+import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.EventCauseCK;
 import com.ericsson.msc.group5.entities.FailureClass;
@@ -70,8 +73,8 @@ public class DataImport {
 	private void readExcelDocument(Workbook excelWorkbook) {
 		readUserEquipmentDataSheet(excelWorkbook);
 		readFailureClassDataSheet(excelWorkbook);
-		 readEventCauseDataSheet(excelWorkbook);
-		// readOperatorDataSheet(excelWorkbook);
+		readEventCauseDataSheet(excelWorkbook);
+		readOperatorDataSheet(excelWorkbook);
 		// readBaseDataSheet(excelWorkbook);
 	}
 
@@ -143,7 +146,7 @@ public class DataImport {
 
 			HSSFCell tac = row.getCell(0);
 			EntityManager em = PersistenceUtil.createEM();
-			if (em.find(UserEquipment.class, (int) tac.getNumericCellValue()) != null){
+			if (em.find(UserEquipment.class, (int) tac.getNumericCellValue()) != null) {
 				em.close();
 				continue;
 			}
@@ -190,13 +193,56 @@ public class DataImport {
 			HSSFCell mnc = row.getCell(1);
 			HSSFCell country = row.getCell(2);
 			HSSFCell operator = row.getCell(3);
+
+			CountryCodeNetworkCode countryNetworkCodeObject = getManagedCountryCodeNetworkCode((int) mcc.getNumericCellValue(),
+					(int) mnc.getNumericCellValue(), country.getStringCellValue(), operator.getStringCellValue());
 		}
+	}
+
+	private CountryCodeNetworkCode getManagedCountryCodeNetworkCode(int countryCode, int networkCode, String country, String operator) {
+		EntityManager em = PersistenceUtil.createEM();
+		List <CountryCodeNetworkCode> cnList = em
+				.createQuery(
+						"select cn from " + CountryCodeNetworkCode.class.getName()
+								+ " cn where cn.countryCodeNetworkCode.country.countryCode = :countryCode AND cn.countryCodeNetworkCode.networkCode = :networkCode",
+						CountryCodeNetworkCode.class).setParameter("countryCode", countryCode).setParameter("networkCode", networkCode).getResultList();
+		if (cnList.isEmpty()) {
+			System.out.println("cn not found");
+			Country countryEntity = getManagedCountry(country);
+			CountryCodeNetworkCode cn = new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(countryEntity, networkCode), operator);
+
+			PersistenceUtil.persist(cn);
+			em.close();
+			return cn;
+		}
+		System.out.println("cn not found");
+		em.close();
+		return cnList.get(0);
+	}
+
+	private Country getManagedCountry(String country) {
+		EntityManager em = PersistenceUtil.createEM();
+		List <Country> cList = em.createQuery("select c from " + Country.class.getName() + " c where c.country = :country", Country.class)
+				.setParameter("country", country).getResultList();
+		if (cList.isEmpty()) {
+			System.out.println("c not found");
+			Country c = new Country();
+			c.setCountry(country);
+			PersistenceUtil.persist(c);
+			em.close();
+			return c;
+		}
+		System.out.println("c found");
+		em.close();
+		return cList.get(0);
 	}
 
 	private EventCause getMangedEventCause(int causeCode, int eventId, String description) {
 		EntityManager em = PersistenceUtil.createEM();
 		List <EventCause> ecList = em
-				.createQuery("select ec from " + EventCause.class.getName() + " ec where ec.causeCodeEventIdCK.causeCode = :causeCode AND ec.causeCodeEventIdCK.eventId = :eventId", EventCause.class)
+				.createQuery(
+						"select ec from " + EventCause.class.getName()
+								+ " ec where ec.causeCodeEventIdCK.causeCode = :causeCode AND ec.causeCodeEventIdCK.eventId = :eventId", EventCause.class)
 				.setParameter("causeCode", causeCode).setParameter("eventId", eventId).getResultList();
 		if (ecList.isEmpty()) {
 			System.out.println("ec not found");

@@ -1,13 +1,13 @@
 package com.ericsson.msc.group5.dao.jpa;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class PersistenceUtil implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("callFailureLogs");
@@ -17,7 +17,7 @@ public class PersistenceUtil implements Serializable {
 		entityManager.getTransaction().begin();
 		entityManager.persist(entity);
 		entityManager.getTransaction().commit();
-		// entityManager.close();
+		entityManager.close();
 	}
 
 	public static void batchPersistData(List <Object> list) {
@@ -27,7 +27,7 @@ public class PersistenceUtil implements Serializable {
 			entityManager.persist(entity);
 		}
 		entityManager.getTransaction().commit();
-//		entityManager.close();
+		// entityManager.close();
 		// entityManagerFactory.close();
 	}
 

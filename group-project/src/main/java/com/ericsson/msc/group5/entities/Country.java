@@ -3,6 +3,8 @@ package com.ericsson.msc.group5.entities;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -10,13 +12,14 @@ import javax.persistence.OneToMany;
 public class Country {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "country_code")
 	private Integer countryCode; // PK
 	@Column(length = 45)
 	private String country;
 
-	@OneToMany(mappedBy = "country", targetEntity = CountryCodeNetworkCode.class)
-	private Collection <CountryCodeNetworkCode> countryCodeNetworkCode;
+//	@OneToMany(mappedBy = "country")
+//	private Collection <CountryCodeNetworkCode> countryCodeNetworkCode;
 
 	public Country() {
 		//

@@ -1,12 +1,9 @@
 package com.ericsson.msc.group5.entities;
 
 import java.util.Collection;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "country_code_network_code")
@@ -17,9 +14,6 @@ public class CountryCodeNetworkCode {
 	private CountryCodeNetworkCodeCK countryCodeNetworkCode;
 	@Column(length = 100)
 	private String operator;
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumn(name = "countryCode", insertable = false, updatable = false)
-	private Country country;
 	@OneToMany(mappedBy = "countryCodeNetworkCode", targetEntity = FailureTrace.class)
 	private Collection <FailureTrace> failureTrace;
 
@@ -40,13 +34,4 @@ public class CountryCodeNetworkCode {
 	public void setOperator(String operator) {
 		this.operator = operator;
 	}
-
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
-
 }

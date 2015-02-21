@@ -3,21 +3,22 @@ package com.ericsson.msc.group5.entities;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity(name = "input_mode")
-// @Cacheable
-// @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class InputMode {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "input_mode_id")
 	private Integer inputModeId;
 	@Column(name = "input_mode", length = 45)
 	private String inputMode;
 
-	@OneToMany(mappedBy = "inputModeClass", targetEntity = UserEquipment.class)
+	@OneToMany(mappedBy = "inputModeClass")
 	private Collection <UserEquipment> userEquipment;
 
 	public Collection <UserEquipment> getUserEquipment() {

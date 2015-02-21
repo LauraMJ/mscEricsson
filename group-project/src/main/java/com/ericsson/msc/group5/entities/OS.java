@@ -3,21 +3,22 @@ package com.ericsson.msc.group5.entities;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity(name = "os")
-// @Cacheable
-// @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class OS {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "os_id")
 	private Integer osId;
 	@Column(length = 45)
 	private String os;
 
-	@OneToMany(mappedBy = "os", targetEntity = UserEquipment.class)
+	@OneToMany(mappedBy = "os")
 	private Collection <UserEquipment> userEquipment;
 
 	public Collection <UserEquipment> getUserEquipment() {

@@ -3,27 +3,26 @@ package com.ericsson.msc.group5.entities;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
  * Access Capability JPA entity. Maps an integer id to a string representing the
  * access capabilities of a user device.
- * 
- * @author szymon
  */
 @Entity(name = "access_capability")
-// @Cacheable
-// @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class AccessCapability {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "access_capability_id")
 	private Integer accessCapabilityId;
-	@Column(name = "access_capability", length = 120)
+	@Column(name = "access_capability", length = 200)
 	private String accessCapability;
 
-	@OneToMany(mappedBy = "accessCapabilityClass", targetEntity = UserEquipment.class)
+	@OneToMany(mappedBy = "accessCapabilityClass")
 	private Collection <UserEquipment> userEquipment;
 
 	public Collection <UserEquipment> getUserEquipment() {

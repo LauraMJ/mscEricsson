@@ -3,6 +3,8 @@ package com.ericsson.msc.group5.entities;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -10,12 +12,13 @@ import javax.persistence.OneToMany;
 public class UserEquipmentType {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_equipment_type_id")
 	private Integer userEquipmentTypeId;
 	@Column(name = "user_equipment_type", length = 45)
 	private String userEquipmentType;
 
-	@OneToMany(mappedBy = "UserEquipmentType", targetEntity = UserEquipment.class)
+	@OneToMany(mappedBy = "UserEquipmentType")
 	private Collection <UserEquipment> userEquipment;
 
 	public Collection <UserEquipment> getUserEquipment() {

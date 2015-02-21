@@ -10,8 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "user_equipment")
-// @Cacheable
-// @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class UserEquipment {
 
 	@Id
@@ -21,21 +19,22 @@ public class UserEquipment {
 	private String marketingName;
 	@Column(name = "manufacturer", length = 60)
 	private String manufacturer;
-	@Column(name = "model", length = 45)
+	@Column(name = "model", length = 70)
 	private String model;
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "accessCapabilityId")
 	private AccessCapability accessCapabilityClass;
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "UserEquipmentTypeId")
 	private UserEquipmentType UserEquipmentType;
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "osId")
 	private OS os;
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "inputModeId")
 	private InputMode inputModeClass;
-	@OneToMany(mappedBy = "userEqipment", targetEntity = FailureTrace.class)
+	
+	@OneToMany(mappedBy = "userEqipment")
 	private Collection <FailureTrace> failureTrace;
 
 	public UserEquipment() {

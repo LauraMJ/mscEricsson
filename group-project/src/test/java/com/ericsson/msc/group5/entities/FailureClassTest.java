@@ -48,20 +48,23 @@ public class FailureClassTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		int newId = 0;
+		int id = 0;
+		int newId = 50;
 
-		FailureClass createdFC = new FailureClass(newId, INITIAL_DESCRIPTION);
+		FailureClass createdFC = new FailureClass(id, INITIAL_DESCRIPTION);
 		em.persist(createdFC);
 
-		FailureClass loadedFC = em.find(FailureClass.class, newId);
+		FailureClass loadedFC = em.find(FailureClass.class, id);
 		assertEquals("Failed to insert", INITIAL_DESCRIPTION, loadedFC.getDescription());
 
 		loadedFC.setDescription(UPDATED_DESCRIPTION);
-		FailureClass updatedFC = em.find(FailureClass.class, newId);
+		loadedFC.setFailureClass(newId);
+		FailureClass updatedFC = em.find(FailureClass.class, id);
 		assertEquals("Failed to update", UPDATED_DESCRIPTION, updatedFC.getDescription());
+		assertEquals("Failed to update", newId, (int) updatedFC.getFailureClass());
 
 		em.remove(updatedFC);
-		FailureClass shouldBeNull = em.find(FailureClass.class, newId);
+		FailureClass shouldBeNull = em.find(FailureClass.class, id);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 

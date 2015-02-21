@@ -48,8 +48,7 @@ public class AccessCapabilityTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		AccessCapability createdAC = new AccessCapability();
-		createdAC.setAccessCapability(INITIAL_ACCESS_CAPABILITY);
+		AccessCapability createdAC = new AccessCapability(INITIAL_ACCESS_CAPABILITY);
 		em.persist(createdAC);
 		int newId = createdAC.getAccessCapabilityId();
 

@@ -25,14 +25,6 @@ public class AccessCapability {
 	@OneToMany(mappedBy = "accessCapabilityClass")
 	private Collection <UserEquipment> userEquipment;
 
-	public Collection <UserEquipment> getUserEquipment() {
-		return userEquipment;
-	}
-
-	public void setUserEquipment(Collection <UserEquipment> userEquipment) {
-		this.userEquipment = userEquipment;
-	}
-
 	/**
 	 * No-args constructor used by the JPA.
 	 */
@@ -46,8 +38,7 @@ public class AccessCapability {
 	 * @param accessCapability
 	 *            A String listing all access capabilities of the user device.
 	 */
-	public AccessCapability(Integer accessCapabilityId, String accessCapability) {
-		this.accessCapabilityId = accessCapabilityId;
+	public AccessCapability(String accessCapability) {
 		this.accessCapability = accessCapability;
 	}
 
@@ -59,16 +50,6 @@ public class AccessCapability {
 	 */
 	public Integer getAccessCapabilityId() {
 		return accessCapabilityId;
-	}
-
-	/**
-	 * Set the unique identifier.
-	 * 
-	 * @param accessCapabilityId
-	 *            a unique integer identifier.
-	 */
-	public void setAccessCapabilityId(Integer accessCapabilityId) {
-		this.accessCapabilityId = accessCapabilityId;
 	}
 
 	/**

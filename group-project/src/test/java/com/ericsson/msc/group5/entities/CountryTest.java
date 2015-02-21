@@ -48,22 +48,22 @@ public class CountryTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		int newId = 213;
-		Country createdC = new Country();
-		createdC.setCountry(INITIAL_COUNTRY);
-		createdC.setCountryCode(newId);
+		int id = 213;
+		int newId = 2130;
+		Country createdC = new Country(id, INITIAL_COUNTRY);
 		em.persist(createdC);
 
-		Country loadedC = em.find(Country.class, newId);
+		Country loadedC = em.find(Country.class, id);
 		assertEquals("Failed to insert", INITIAL_COUNTRY, loadedC.getCountry());
 
 		loadedC.setCountry(UPDATED_COUNTRY);
-		Country updatedC = em.find(Country.class, newId);
-
+		loadedC.setCountryCode(newId);
+		Country updatedC = em.find(Country.class, id);
 		assertEquals("Failed to update", UPDATED_COUNTRY, updatedC.getCountry());
+		assertEquals("Failed to update", newId, (int) updatedC.getCountryCode());
 
 		em.remove(updatedC);
-		Country shouldBeNull = em.find(Country.class, newId);
+		Country shouldBeNull = em.find(Country.class, id);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 

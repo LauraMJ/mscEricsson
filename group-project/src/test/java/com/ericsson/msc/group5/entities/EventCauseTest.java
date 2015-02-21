@@ -65,6 +65,21 @@ public class EventCauseTest {
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
+	@Test
+	public void compositeKeyTest() {
+		int oldCauseCode = 21;
+		int oldEventId = 45;
+		Integer newCauseCode = 5000;
+		Integer newEventId = 241;
+		EventCauseCK ck = new EventCauseCK(oldCauseCode, oldEventId);
+		ck.setCauseCode(newCauseCode);
+		ck.setEventId(newEventId);
+		assertEquals("failed to set cause code", newCauseCode, ck.getCauseCode());
+		assertEquals("failed to set event id", newEventId, ck.getEventId());
+		EventCauseCK ckCopy = new EventCauseCK(newCauseCode, newEventId);
+		assertEquals("the two objects should be equal since they have the same state", ck, ckCopy);
+	}
+
 	private void clearData() throws Exception {
 		utx.begin();
 		em.joinTransaction();

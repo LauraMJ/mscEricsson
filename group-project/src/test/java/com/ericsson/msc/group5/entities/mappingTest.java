@@ -20,19 +20,15 @@ public class mappingTest {
 
 		AccessCapability ac = new AccessCapability();
 		ac.setAccessCapability("TEST ACCESS CAPABILITY");
-		ac.setAccessCapabilityId(0);
 
 		UserEquipmentType ue = new UserEquipmentType();
 		ue.setUserEquipmentType("TEST UE TYPE");
-		ue.setUserEquipmentTypeId(0);
 
 		OperatingSystem os = new OperatingSystem();
 		os.setOperatingSystem("TEST OS");
-		os.setOperatingSystemId(0);
 
 		InputMode input = new InputMode();
 		input.setInputMode(null);
-		input.setInputModeId(0);
 
 		UserEquipment userEquip = new UserEquipment(123, "market",
 				"manufacturerName", ac, "model1", ue, os, input);

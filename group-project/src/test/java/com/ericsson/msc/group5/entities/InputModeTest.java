@@ -48,8 +48,7 @@ public class InputModeTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		InputMode createdIM = new InputMode();
-		createdIM.setInputMode(INITIAL_INPUT_MODE);
+		InputMode createdIM = new InputMode(INITIAL_INPUT_MODE);
 		em.persist(createdIM);
 		int newId = createdIM.getInputModeId();
 

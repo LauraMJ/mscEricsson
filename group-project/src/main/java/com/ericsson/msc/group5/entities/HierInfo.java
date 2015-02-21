@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity(name = "hier_info")
-// @Cacheable
-// @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class HierInfo {
 
 	@Id
@@ -28,7 +26,6 @@ public class HierInfo {
 	private Collection <FailureTrace> failureTrace;
 
 	public HierInfo() {
-
 	}
 
 	public String getHier3Id() {
@@ -37,10 +34,6 @@ public class HierInfo {
 
 	public Integer getHierInfoId() {
 		return hierInfoId;
-	}
-
-	public void setHierInfoId(Integer hierInfoId) {
-		this.hierInfoId = hierInfoId;
 	}
 
 	public void setHier3Id(String hier3Id) {

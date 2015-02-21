@@ -8,7 +8,6 @@ import javax.persistence.ManyToOne;
 
 @Embeddable
 public class CountryCodeNetworkCodeCK implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 	private Integer networkCode;
 	@ManyToOne
@@ -29,10 +28,6 @@ public class CountryCodeNetworkCodeCK implements Serializable {
 
 	public void setCountry(Country country) {
 		this.country = country;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public Integer getNetworkCode() {

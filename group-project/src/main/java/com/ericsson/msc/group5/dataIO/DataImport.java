@@ -38,7 +38,7 @@ import com.ericsson.msc.group5.entities.UserEquipmentType;
 
 public class DataImport {
 
-	private static final String EXCEL_SHEET_LOCATION = "C:\\Users\\Harry\\Documents\\College\\Masters\\Semester 2\\Group Project\\data.xls";
+	private static final String EXCEL_SHEET_LOCATION = "C:\\Users\\Szymon\\Desktop\\sample.xls";
 	private static ArrayList <Object> validData = new ArrayList <>();
 	@Inject
 	private AccessCapabilityDAO accessCapabilityDAO;

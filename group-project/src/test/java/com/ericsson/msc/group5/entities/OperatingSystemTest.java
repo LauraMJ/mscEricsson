@@ -52,8 +52,7 @@ public class OperatingSystemTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		OperatingSystem createdOperatingSystem = new OperatingSystem();
-		createdOperatingSystem.setOperatingSystem(INITIAL_OS);
+		OperatingSystem createdOperatingSystem = new OperatingSystem(INITIAL_OS);
 		em.persist(createdOperatingSystem);
 		int newId = createdOperatingSystem.getOperatingSystemId();
 

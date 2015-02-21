@@ -47,19 +47,10 @@ public class FailureTrace {
 	private CountryCodeNetworkCode countryCodeNetworkCode;
 
 	public FailureTrace() {
-
-	}
-
-	public FailureTrace(Integer failureTraceId) {
-		this.setFailureTraceId(failureTraceId);
 	}
 
 	public Integer getFailureTraceId() {
 		return failureTraceId;
-	}
-
-	public void setFailureTraceId(Integer failureTraceId) {
-		this.failureTraceId = failureTraceId;
 	}
 
 	public String getDateTime() {

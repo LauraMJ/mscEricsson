@@ -22,7 +22,7 @@ public class PersistenceTest {
 	}
 
 	public PersistenceTest() {
-		PersistenceUtil.persist(new AccessCapability(1919191, "TEST"));
+		PersistenceUtil.persist(new AccessCapability("TEST"));
 		System.out.println("AccessCapability entity saved");
 		PersistenceUtil.persist(new FailureClass(4, "hello world"));
 		System.out.println("FailureClass entity saved");
@@ -32,11 +32,11 @@ public class PersistenceTest {
 		// System.out.println("Entity saved");
 		// PersistenceUtil.persist(new HierInfo());
 		// System.out.println("Entity saved");
-		PersistenceUtil.persist(new InputMode(1, "BASIC"));
+		PersistenceUtil.persist(new InputMode("BASIC"));
 		System.out.println("InputMode entity saved");
-		PersistenceUtil.persist(new OperatingSystem(2, "BLACKBERRY"));
+		PersistenceUtil.persist(new OperatingSystem("BLACKBERRY"));
 		System.out.println("OS entity saved");
-		PersistenceUtil.persist(new UserEquipmentType(3, "HANDHELD"));
+		PersistenceUtil.persist(new UserEquipmentType("HANDHELD"));
 		System.out.println("UserEquipmentType entity saved");
 
 		// laura's tests

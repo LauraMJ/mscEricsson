@@ -52,8 +52,7 @@ public class UserEquipmentTypeTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		UserEquipmentType createdUE = new UserEquipmentType();
-		createdUE.setUserEquipmentType(INITIAL_UserEquipmentType);
+		UserEquipmentType createdUE = new UserEquipmentType(INITIAL_UserEquipmentType);
 		em.persist(createdUE);
 		int newId  = createdUE.getUserEquipmentTypeId();
 

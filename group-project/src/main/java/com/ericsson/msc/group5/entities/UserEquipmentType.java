@@ -21,29 +21,15 @@ public class UserEquipmentType {
 	@OneToMany(mappedBy = "UserEquipmentType")
 	private Collection <UserEquipment> userEquipment;
 
-	public Collection <UserEquipment> getUserEquipment() {
-		return userEquipment;
-	}
-
-	public void setUserEquipment(Collection <UserEquipment> userEquipment) {
-		this.userEquipment = userEquipment;
-	}
-
 	public UserEquipmentType() {
 	}
 
-	public UserEquipmentType(Integer userEquipmentTypeId,
-			String userEquipmentType) {
-		this.userEquipmentTypeId = userEquipmentTypeId;
+	public UserEquipmentType(String userEquipmentType) {
 		this.userEquipmentType = userEquipmentType;
 	}
 
 	public Integer getUserEquipmentTypeId() {
 		return userEquipmentTypeId;
-	}
-
-	public void setUserEquipmentTypeId(Integer userEquipmentTypeId) {
-		this.userEquipmentTypeId = userEquipmentTypeId;
 	}
 
 	public String getUserEquipmentType() {

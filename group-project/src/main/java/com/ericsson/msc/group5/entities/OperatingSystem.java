@@ -21,20 +21,14 @@ public class OperatingSystem {
 	private Collection <UserEquipment> userEquipment;
 
 	public OperatingSystem() {
-
 	}
 
-	public OperatingSystem(Integer operatingSystemId, String operatingSystem) {
-		this.operatingSystemId = operatingSystemId;
+	public OperatingSystem(String operatingSystem) {
 		this.operatingSystem = operatingSystem;
 	}
 
 	public Integer getOperatingSystemId() {
 		return operatingSystemId;
-	}
-
-	public void setOperatingSystemId(Integer operatingSystemId) {
-		this.operatingSystemId = operatingSystemId;
 	}
 
 	public String getOperatingSystem() {
@@ -43,13 +37,5 @@ public class OperatingSystem {
 
 	public void setOperatingSystem(String operatingSystem) {
 		this.operatingSystem = operatingSystem;
-	}
-
-	public Collection <UserEquipment> getUserEquipment() {
-		return userEquipment;
-	}
-
-	public void setUserEquipment(Collection <UserEquipment> userEquipment) {
-		this.userEquipment = userEquipment;
 	}
 }

@@ -78,6 +78,19 @@ public class CountryCodeNetworkCodeTest {
 				CountryCodeNetworkCode.class, pk);
 		assertNull("Failed to delete", shouldBeNull);
 	}
+	
+	@Test
+	public void compositeKeyTest() {
+		int oldCode = 21;
+		int newCode = 5000;
+		Country newCountry = new Country(newCode, "new country");
+		
+		CountryCodeNetworkCodeCK ck = new CountryCodeNetworkCodeCK(new Country(oldCode, "country"), oldCode);
+		ck.setCountry(newCountry);
+		ck.setNetworkCode(newCode);
+		assertEquals("failed to set network code", newCode, (int)ck.getNetworkCode());
+		assertEquals("failed to set country", newCountry, ck.getCountry());
+	}
 
 	private void clearData() throws Exception {
 		utx.begin();

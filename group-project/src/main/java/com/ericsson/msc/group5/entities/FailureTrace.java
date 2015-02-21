@@ -18,8 +18,6 @@ public class FailureTrace {
 	private Integer failureTraceId;
 	@Column(name = "date_time")
 	private String dateTime;
-	@Column(name = "event_id")
-	private Integer eventId;
 	@Column(name = "cell_id")
 	private Integer cellId;
 	private Integer duration;
@@ -70,14 +68,6 @@ public class FailureTrace {
 
 	public void setDateTime(String dateTime) {
 		this.dateTime = dateTime;
-	}
-
-	public Integer getEventId() {
-		return eventId;
-	}
-
-	public void setEventId(Integer eventId) {
-		this.eventId = eventId;
 	}
 
 	public FailureClass getFailureClass() {

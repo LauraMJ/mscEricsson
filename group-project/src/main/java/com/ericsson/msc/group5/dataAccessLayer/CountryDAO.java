@@ -4,5 +4,5 @@ import com.ericsson.msc.group5.entities.Country;
 
 public interface CountryDAO {
 
-	public Country getManagedCountry(String country);
+	public Country getManagedCountry(int countryCode, String country);
 }

@@ -22,23 +22,18 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 		this.countryDAO = countryDAO;
 	}
 
-	public CountryCodeNetworkCode getManagedCountryCodeNetworkCode(
-			int countryCode, int networkCode, String country, String operator) {
+	public CountryCodeNetworkCode getManagedCountryCodeNetworkCode(int countryCode, int networkCode, String country, String operator) {
 		EntityManager em = PersistenceUtil.createEM();
 		List <CountryCodeNetworkCode> cnList = em
 				.createQuery(
 						"select cn from "
 								+ CountryCodeNetworkCode.class.getName()
 								+ " cn where cn.countryCodeNetworkCode.country.countryCode = :countryCode AND cn.countryCodeNetworkCode.networkCode = :networkCode",
-						CountryCodeNetworkCode.class)
-				.setParameter("countryCode", countryCode)
-				.setParameter("networkCode", networkCode).getResultList();
+						CountryCodeNetworkCode.class).setParameter("countryCode", countryCode).setParameter("networkCode", networkCode).getResultList();
 		if (cnList.isEmpty()) {
 			System.out.println("cn not found");
-			Country countryEntity = countryDAO.getManagedCountry(country);
-			CountryCodeNetworkCode cn = new CountryCodeNetworkCode(
-					new CountryCodeNetworkCodeCK(countryEntity, networkCode),
-					operator);
+			Country countryEntity = countryDAO.getManagedCountry(countryCode, country);
+			CountryCodeNetworkCode cn = new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(countryEntity, networkCode), operator);
 
 			PersistenceUtil.persist(cn);
 			em.close();

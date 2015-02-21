@@ -2,15 +2,12 @@ package com.ericsson.msc.group5.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "country")
 public class Country {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "country_code")
 	private Integer countryCode; // PK
 	@Column(length = 45)

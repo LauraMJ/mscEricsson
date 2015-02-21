@@ -45,8 +45,7 @@ public class DataImport {
 
 	private int counter = 0;
 	private HSSFCell description, country, mnc, mcc, tac, marketName;
-	private HSSFCell manufacturer, accessCapability, model, vendor, os,
-			inputMode;
+	private HSSFCell manufacturer, accessCapability, model, vendor, os, inputMode;
 	private File file;
 	private JFileChooser fileChooser;
 	JFrame f = new JFrame();
@@ -122,7 +121,6 @@ public class DataImport {
 			hier3 = row.getCell(11);
 			hier32 = row.getCell(12);
 			hier321 = row.getCell(13);
-			formatBaseData();
 			setRowData(Sheet.BASE);
 		}
 	}
@@ -232,45 +230,6 @@ public class DataImport {
 		}
 	}
 
-	private void formatBaseData() {
-		boolean isNull = false;
-
-		dateTimeVal = dateTime.getDateCellValue();
-		dateString = date.format(dateTimeVal) + " " + time.format(dateTimeVal);
-		Validator.validateDate(dateString);
-		eventIdVal = (int) eventId.getNumericCellValue();
-		try {
-			failureClassVal = (int) failureClass.getNumericCellValue();
-		}
-		catch (IllegalStateException e) {
-			if ( !isNull) {
-				isNull = true;
-				counter++;
-			}
-			// System.out.println("null detected in Failure Class");
-		}
-		ueTypeVal = (int) ueType.getNumericCellValue();
-		marketVal = (int) market.getNumericCellValue();
-		operatorVal = (int) operator.getNumericCellValue();
-		cellIdVal = (int) cellId.getNumericCellValue();
-		durationVal = (int) duration.getNumericCellValue();
-		try {
-			causeCodeVal = (int) causeCode.getNumericCellValue();
-		}
-		catch (IllegalStateException e) {
-			if ( !isNull) {
-				isNull = true;
-				counter++;
-			}
-			// System.out.println("null detected in Cause Code");
-		}
-		neVersionVal = neVersion.getStringCellValue();
-		imsiVal = (long) imsi.getNumericCellValue();
-		hier3Val = (long) hier3.getNumericCellValue();
-		hier32Val = (long) hier32.getNumericCellValue();
-		hier321Val = (long) hier321.getNumericCellValue();
-	}
-
 	public void setRowData(Sheet sheet) {
 		switch (sheet) {
 			case BASE:
@@ -295,20 +254,21 @@ public class DataImport {
 
 	private void setBaseRowData() {
 		BaseData base = new BaseData();
-		base.setCauseCodeVal(causeCodeVal);
-		base.setCellIdVal(cellIdVal);
-		base.setDateString(dateString);
-		base.setDurationVal(durationVal);
-		base.setEventIdVal(eventIdVal);
-		base.setFailureClassVal(failureClassVal);
-		base.setHier321Val(hier321Val);
-		base.setHier32Val(hier32Val);
-		base.setHier3Val(hier3Val);
-		base.setImsiVal(imsiVal);
-		base.setMarketVal(marketVal);
-		base.setNeVersionVal(neVersionVal);
-		base.setOperatorVal(operatorVal);
-		base.setUeTypeVal(ueTypeVal);
+		dateTimeVal = dateTime.getDateCellValue();
+		base.setDateString(date.format(dateTimeVal) + " " + time.format(dateTimeVal));
+		base.setCauseCodeVal((int) causeCode.getNumericCellValue());
+		base.setCellIdVal((int) cellId.getNumericCellValue());
+		base.setDurationVal((int) duration.getNumericCellValue());
+		base.setEventIdVal((int) eventId.getNumericCellValue());
+		base.setFailureClassVal(failureClassVal = (int) failureClass.getNumericCellValue());
+		base.setHier321Val((long) hier321.getNumericCellValue());
+		base.setHier32Val((long) hier32.getNumericCellValue());
+		base.setHier3Val((long) hier3.getNumericCellValue());
+		base.setImsiVal((long) imsi.getNumericCellValue());
+		base.setMarketVal((int) market.getNumericCellValue());
+		base.setNeVersionVal(neVersion.getStringCellValue());
+		base.setOperatorVal(operatorVal = (int) operator.getNumericCellValue());
+		base.setUeTypeVal(ueTypeVal = (int) ueType.getNumericCellValue());
 		baseDataRows.add(base);
 	}
 
@@ -323,8 +283,7 @@ public class DataImport {
 
 	private void setFailureClassRowData() {
 		FailureClassData failureClassData = new FailureClassData();
-		failureClassData.setFailureClass((int) failureClass
-				.getNumericCellValue());
+		failureClassData.setFailureClass((int) failureClass.getNumericCellValue());
 		failureClassData.setDescription(description.getStringCellValue());
 		failureClassRows.add(failureClassData);
 	}

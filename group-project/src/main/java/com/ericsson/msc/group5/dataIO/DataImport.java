@@ -16,6 +16,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
 import com.ericsson.msc.group5.entities.AccessCapability;
+import com.ericsson.msc.group5.entities.EventCause;
+import com.ericsson.msc.group5.entities.EventCauseCK;
+import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.InputMode;
 import com.ericsson.msc.group5.entities.OS;
 import com.ericsson.msc.group5.entities.UserEquipment;
@@ -66,9 +69,9 @@ public class DataImport {
 
 	private void readExcelDocument(Workbook excelWorkbook) {
 		readUserEquipmentDataSheet(excelWorkbook);
+		readFailureClassDataSheet(excelWorkbook);
+		 readEventCauseDataSheet(excelWorkbook);
 		// readOperatorDataSheet(excelWorkbook);
-		// readEventCauseDataSheet(excelWorkbook);
-		// readFailureClassDataSheet(excelWorkbook);
 		// readBaseDataSheet(excelWorkbook);
 	}
 
@@ -109,6 +112,9 @@ public class DataImport {
 			HSSFCell causeCode = row.getCell(0);
 			HSSFCell eventId = row.getCell(1);
 			HSSFCell description = row.getCell(2);
+
+			EventCause eventCauseObject = getMangedEventCause((int) causeCode.getNumericCellValue(), (int) eventId.getNumericCellValue(),
+					description.getStringCellValue());
 		}
 	}
 
@@ -121,6 +127,8 @@ public class DataImport {
 
 			HSSFCell failureClass = row.getCell(0);
 			HSSFCell description = row.getCell(1);
+
+			FailureClass failureClassObject = getManagedFailureClass((int) failureClass.getNumericCellValue(), description.getStringCellValue());
 		}
 	}
 
@@ -135,8 +143,10 @@ public class DataImport {
 
 			HSSFCell tac = row.getCell(0);
 			EntityManager em = PersistenceUtil.createEM();
-			if(em.find(UserEquipment.class, (int) tac.getNumericCellValue()) != null)
+			if (em.find(UserEquipment.class, (int) tac.getNumericCellValue()) != null){
+				em.close();
 				continue;
+			}
 			em.close();
 
 			HSSFCell marketName = row.getCell(1);
@@ -152,12 +162,13 @@ public class DataImport {
 			OS readOs = getManagedOs(os.getStringCellValue());
 			InputMode readInputMode = getManagedInputMode(inputMode.getStringCellValue());
 
-			try{
+			try {
 				UserEquipment ue = new UserEquipment((int) tac.getNumericCellValue(), marketName.getStringCellValue(), manufacturer.getStringCellValue(),
 						readAccessCapability, model.getStringCellValue(), readUserEquipmentType, readOs, readInputMode);
 				PersistenceUtil.persist(ue);
-			} catch(IllegalStateException e){
-				//TODO: decide how to handle B63 and E63 - coin flip
+			}
+			catch (IllegalStateException e) {
+				// TODO: decide how to handle B63 and E63 - coin flip
 
 				// marketName.setCellType(Cell.CELL_TYPE_STRING); // TODO ??
 				// model.setCellType(Cell.CELL_TYPE_STRING); // TODO ??
@@ -180,6 +191,42 @@ public class DataImport {
 			HSSFCell country = row.getCell(2);
 			HSSFCell operator = row.getCell(3);
 		}
+	}
+
+	private EventCause getMangedEventCause(int causeCode, int eventId, String description) {
+		EntityManager em = PersistenceUtil.createEM();
+		List <EventCause> ecList = em
+				.createQuery("select ec from " + EventCause.class.getName() + " ec where ec.causeCodeEventIdCK.causeCode = :causeCode AND ec.causeCodeEventIdCK.eventId = :eventId", EventCause.class)
+				.setParameter("causeCode", causeCode).setParameter("eventId", eventId).getResultList();
+		if (ecList.isEmpty()) {
+			System.out.println("ec not found");
+			EventCause ec = new EventCause(new EventCauseCK(causeCode, eventId), description);
+			PersistenceUtil.persist(ec);
+			em.close();
+			return ec;
+		}
+		System.out.println("ec not found");
+		em.close();
+		return ecList.get(0);
+	}
+
+	private FailureClass getManagedFailureClass(int failureClass, String description) {
+		EntityManager em = PersistenceUtil.createEM();
+		List <FailureClass> fcList = em
+				.createQuery("select fc from " + FailureClass.class.getName() + " fc where fc.failureClass = :failureClassId", FailureClass.class)
+				.setParameter("failureClassId", failureClass).getResultList();
+		if (fcList.isEmpty()) {
+			System.out.println("fc not found");
+			FailureClass fc = new FailureClass();
+			fc.setFailureClass(failureClass);
+			fc.setDescription(description);
+			PersistenceUtil.persist(fc);
+			em.close();
+			return fc;
+		}
+		System.out.println("fc not found");
+		em.close();
+		return fcList.get(0);
 	}
 
 	private AccessCapability getManagedAccessCapability(String accessCapability) {

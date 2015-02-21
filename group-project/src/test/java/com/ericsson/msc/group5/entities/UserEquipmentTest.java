@@ -23,8 +23,12 @@ public class UserEquipmentTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(UserEquipment.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap
+				.create(WebArchive.class, "test.war")
+				.addPackage(UserEquipment.class.getPackage())
+				.addAsResource("test-persistence.xml",
+						"META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -63,8 +67,8 @@ public class UserEquipmentTest {
 		InputMode im = new InputMode();
 		im.setInputMode("input mode");
 		ue.setInputModeClass(im);
-		OS os = new OS();
-		os.setOs("operating system");
+		OperatingSystem os = new OperatingSystem();
+		os.setOperatingSystem("operating system");
 		ue.setoS(os);
 		UserEquipmentType uet = new UserEquipmentType();
 		uet.setUserEquipmentType("user equipment type");
@@ -83,11 +87,13 @@ public class UserEquipmentTest {
 	@Test
 	public void basicCRUDTest() throws Exception {
 		UserEquipment loadedUE = em.find(UserEquipment.class, id);
-		assertEquals("Failed to insert", INITIAL_MANUFACTURER, loadedUE.getManufacturer());
+		assertEquals("Failed to insert", INITIAL_MANUFACTURER,
+				loadedUE.getManufacturer());
 
 		loadedUE.setManufacturer(UPDATED_MANUFACTURER);
 		UserEquipment updatedUE = em.find(UserEquipment.class, id);
-		assertEquals("Failed to update", UPDATED_MANUFACTURER, updatedUE.getManufacturer());
+		assertEquals("Failed to update", UPDATED_MANUFACTURER,
+				updatedUE.getManufacturer());
 
 		em.remove(updatedUE);
 		UserEquipment shouldBeNull = em.find(UserEquipment.class, id);
@@ -95,7 +101,8 @@ public class UserEquipmentTest {
 	}
 
 	/*
-	 * Test to ensure that deletes cascade/don't cascade properly to the owned entities.
+	 * Test to ensure that deletes cascade/don't cascade properly to the owned
+	 * entities.
 	 */
 	@Test
 	@Ignore
@@ -134,7 +141,9 @@ public class UserEquipmentTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.AccessCapability").executeUpdate();
+		em.createQuery(
+				"delete from com.ericsson.msc.group5.entities.AccessCapability")
+				.executeUpdate();
 		utx.commit();
 	}
 

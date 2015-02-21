@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import javax.persistence.EntityManager;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -14,23 +13,45 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.jboss.arquillian.core.api.annotation.Inject;
 import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
+import com.ericsson.msc.group5.dataAccessLayer.AccessCapabilityDAO;
+import com.ericsson.msc.group5.dataAccessLayer.CountryCodeNetworkCodeDAO;
+import com.ericsson.msc.group5.dataAccessLayer.CountryDAO;
+import com.ericsson.msc.group5.dataAccessLayer.EventCauseDAO;
+import com.ericsson.msc.group5.dataAccessLayer.FailureClassDAO;
+import com.ericsson.msc.group5.dataAccessLayer.InputModeDAO;
+import com.ericsson.msc.group5.dataAccessLayer.OperatingSystemDAO;
+import com.ericsson.msc.group5.dataAccessLayer.UserEquipmentTypeDAO;
 import com.ericsson.msc.group5.entities.AccessCapability;
-import com.ericsson.msc.group5.entities.Country;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
-import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
 import com.ericsson.msc.group5.entities.EventCause;
-import com.ericsson.msc.group5.entities.EventCauseCK;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.InputMode;
-import com.ericsson.msc.group5.entities.OS;
+import com.ericsson.msc.group5.entities.OperatingSystem;
 import com.ericsson.msc.group5.entities.UserEquipment;
 import com.ericsson.msc.group5.entities.UserEquipmentType;
 
 public class DataImport {
 
-	private static final String EXCEL_SHEET_LOCATION = "C:\\Users\\Szymon\\Desktop\\sample.xls";
+	private static final String EXCEL_SHEET_LOCATION = "C:\\Users\\Harry\\Documents\\College\\Masters\\Semester 2\\Group Project\\data.xls";
 	private static ArrayList <Object> validData = new ArrayList <>();
+	@Inject
+	private AccessCapabilityDAO accessCapabilityDAO;
+	@Inject
+	private CountryCodeNetworkCodeDAO countryCodeNetworkCodeDAO;
+	@Inject
+	private CountryDAO countryDAO;
+	@Inject
+	private EventCauseDAO eventCauseDAO;
+	@Inject
+	private FailureClassDAO failureClassDAO;
+	@Inject
+	private InputModeDAO inputModeDAO;
+	@Inject
+	private OperatingSystemDAO operatingSystemDAO;
+	@Inject
+	private UserEquipmentTypeDAO userEquipmentTypeDAO;
 
 	// private Integer eventIdVal, ueTypeVal, marketVal, operatorVal;
 	// private Integer causeCodeVal, failureClassVal, cellIdVal, durationVal;
@@ -38,7 +59,8 @@ public class DataImport {
 	// private Long imsiVal, hier3Val, hier32Val, hier321Val;
 
 	private enum ExcelDataSheet {
-		BASE_DATA_TABLE(0), EVENT_CAUSE_TABLE(1), FAILURE_CLASS_TABLE(2), UE_TABLE(3), MCC_MNC_TABLE(4);
+		BASE_DATA_TABLE(0), EVENT_CAUSE_TABLE(1), FAILURE_CLASS_TABLE(2), UE_TABLE(
+				3), MCC_MNC_TABLE(4);
 
 		private final int pageNumber;
 
@@ -53,7 +75,8 @@ public class DataImport {
 
 	public DataImport(String location) {
 		// long start = System.currentTimeMillis();
-		try (FileInputStream excelInputStream = new FileInputStream(EXCEL_SHEET_LOCATION)) {
+		try (FileInputStream excelInputStream = new FileInputStream(
+				EXCEL_SHEET_LOCATION)) {
 			Workbook excelWorkbook = new HSSFWorkbook(excelInputStream);
 			readExcelDocument(excelWorkbook);
 		}
@@ -79,7 +102,8 @@ public class DataImport {
 	}
 
 	private void readBaseDataSheet(Workbook excelWorkbook) {
-		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
+		HSSFSheet worksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
@@ -106,7 +130,8 @@ public class DataImport {
 	}
 
 	private void readEventCauseDataSheet(Workbook excelWorkbook) {
-		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.EVENT_CAUSE_TABLE.getPageNumber());
+		HSSFSheet worksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.EVENT_CAUSE_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
@@ -116,13 +141,16 @@ public class DataImport {
 			HSSFCell eventId = row.getCell(1);
 			HSSFCell description = row.getCell(2);
 
-			EventCause eventCauseObject = getMangedEventCause((int) causeCode.getNumericCellValue(), (int) eventId.getNumericCellValue(),
+			EventCause eventCauseObject = eventCauseDAO.getMangedEventCause(
+					(int) causeCode.getNumericCellValue(),
+					(int) eventId.getNumericCellValue(),
 					description.getStringCellValue());
 		}
 	}
 
 	private void readFailureClassDataSheet(Workbook excelWorkbook) {
-		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.FAILURE_CLASS_TABLE.getPageNumber());
+		HSSFSheet worksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.FAILURE_CLASS_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
@@ -131,12 +159,16 @@ public class DataImport {
 			HSSFCell failureClass = row.getCell(0);
 			HSSFCell description = row.getCell(1);
 
-			FailureClass failureClassObject = getManagedFailureClass((int) failureClass.getNumericCellValue(), description.getStringCellValue());
+			FailureClass failureClassObject = failureClassDAO
+					.getManagedFailureClass(
+							(int) failureClass.getNumericCellValue(),
+							description.getStringCellValue());
 		}
 	}
 
 	private void readUserEquipmentDataSheet(Workbook excelWorkbook) {
-		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.UE_TABLE.getPageNumber());
+		HSSFSheet worksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.UE_TABLE.getPageNumber());
 
 		System.out.println("here");
 		int numRows = worksheet.getLastRowNum();
@@ -160,14 +192,23 @@ public class DataImport {
 			HSSFCell ueType = row.getCell(6);
 			HSSFCell os = row.getCell(7);
 			HSSFCell inputMode = row.getCell(8);
-			AccessCapability readAccessCapability = getManagedAccessCapability(accessCapability.getStringCellValue());
-			UserEquipmentType readUserEquipmentType = getManagedUserEquipmentType(ueType.getStringCellValue());
-			OS readOs = getManagedOs(os.getStringCellValue());
-			InputMode readInputMode = getManagedInputMode(inputMode.getStringCellValue());
+			AccessCapability readAccessCapability = accessCapabilityDAO
+					.getManagedAccessCapability(accessCapability
+							.getStringCellValue());
+			UserEquipmentType readUserEquipmentType = userEquipmentTypeDAO
+					.getManagedUserEquipmentType(ueType.getStringCellValue());
+			OperatingSystem readOs = operatingSystemDAO.getManagedOs(os
+					.getStringCellValue());
+			InputMode readInputMode = inputModeDAO
+					.getManagedInputMode(inputMode.getStringCellValue());
 
 			try {
-				UserEquipment ue = new UserEquipment((int) tac.getNumericCellValue(), marketName.getStringCellValue(), manufacturer.getStringCellValue(),
-						readAccessCapability, model.getStringCellValue(), readUserEquipmentType, readOs, readInputMode);
+				UserEquipment ue = new UserEquipment(
+						(int) tac.getNumericCellValue(),
+						marketName.getStringCellValue(),
+						manufacturer.getStringCellValue(),
+						readAccessCapability, model.getStringCellValue(),
+						readUserEquipmentType, readOs, readInputMode);
 				PersistenceUtil.persist(ue);
 			}
 			catch (IllegalStateException e) {
@@ -183,7 +224,8 @@ public class DataImport {
 	}
 
 	private void readOperatorDataSheet(Workbook excelWorkbook) {
-		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.MCC_MNC_TABLE.getPageNumber());
+		HSSFSheet worksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.MCC_MNC_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
@@ -194,162 +236,22 @@ public class DataImport {
 			HSSFCell country = row.getCell(2);
 			HSSFCell operator = row.getCell(3);
 
-			CountryCodeNetworkCode countryNetworkCodeObject = getManagedCountryCodeNetworkCode((int) mcc.getNumericCellValue(),
-					(int) mnc.getNumericCellValue(), country.getStringCellValue(), operator.getStringCellValue());
+			CountryCodeNetworkCode countryNetworkCodeObject = countryCodeNetworkCodeDAO
+					.getManagedCountryCodeNetworkCode(
+							(int) mcc.getNumericCellValue(),
+							(int) mnc.getNumericCellValue(),
+							country.getStringCellValue(),
+							operator.getStringCellValue());
 		}
-	}
-
-	private CountryCodeNetworkCode getManagedCountryCodeNetworkCode(int countryCode, int networkCode, String country, String operator) {
-		EntityManager em = PersistenceUtil.createEM();
-		List <CountryCodeNetworkCode> cnList = em
-				.createQuery(
-						"select cn from " + CountryCodeNetworkCode.class.getName()
-								+ " cn where cn.countryCodeNetworkCode.country.countryCode = :countryCode AND cn.countryCodeNetworkCode.networkCode = :networkCode",
-						CountryCodeNetworkCode.class).setParameter("countryCode", countryCode).setParameter("networkCode", networkCode).getResultList();
-		if (cnList.isEmpty()) {
-			System.out.println("cn not found");
-			Country countryEntity = getManagedCountry(country);
-			CountryCodeNetworkCode cn = new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(countryEntity, networkCode), operator);
-
-			PersistenceUtil.persist(cn);
-			em.close();
-			return cn;
-		}
-		System.out.println("cn not found");
-		em.close();
-		return cnList.get(0);
-	}
-
-	private Country getManagedCountry(String country) {
-		EntityManager em = PersistenceUtil.createEM();
-		List <Country> cList = em.createQuery("select c from " + Country.class.getName() + " c where c.country = :country", Country.class)
-				.setParameter("country", country).getResultList();
-		if (cList.isEmpty()) {
-			System.out.println("c not found");
-			Country c = new Country();
-			c.setCountry(country);
-			PersistenceUtil.persist(c);
-			em.close();
-			return c;
-		}
-		System.out.println("c found");
-		em.close();
-		return cList.get(0);
-	}
-
-	private EventCause getMangedEventCause(int causeCode, int eventId, String description) {
-		EntityManager em = PersistenceUtil.createEM();
-		List <EventCause> ecList = em
-				.createQuery(
-						"select ec from " + EventCause.class.getName()
-								+ " ec where ec.causeCodeEventIdCK.causeCode = :causeCode AND ec.causeCodeEventIdCK.eventId = :eventId", EventCause.class)
-				.setParameter("causeCode", causeCode).setParameter("eventId", eventId).getResultList();
-		if (ecList.isEmpty()) {
-			System.out.println("ec not found");
-			EventCause ec = new EventCause(new EventCauseCK(causeCode, eventId), description);
-			PersistenceUtil.persist(ec);
-			em.close();
-			return ec;
-		}
-		System.out.println("ec not found");
-		em.close();
-		return ecList.get(0);
-	}
-
-	private FailureClass getManagedFailureClass(int failureClass, String description) {
-		EntityManager em = PersistenceUtil.createEM();
-		List <FailureClass> fcList = em
-				.createQuery("select fc from " + FailureClass.class.getName() + " fc where fc.failureClass = :failureClassId", FailureClass.class)
-				.setParameter("failureClassId", failureClass).getResultList();
-		if (fcList.isEmpty()) {
-			System.out.println("fc not found");
-			FailureClass fc = new FailureClass();
-			fc.setFailureClass(failureClass);
-			fc.setDescription(description);
-			PersistenceUtil.persist(fc);
-			em.close();
-			return fc;
-		}
-		System.out.println("fc not found");
-		em.close();
-		return fcList.get(0);
-	}
-
-	private AccessCapability getManagedAccessCapability(String accessCapability) {
-		EntityManager em = PersistenceUtil.createEM();
-		List <AccessCapability> acList = em
-				.createQuery("select ac from " + AccessCapability.class.getName() + " ac where ac.accessCapability = :access", AccessCapability.class)
-				.setParameter("access", accessCapability).getResultList();
-		if (acList.isEmpty()) {
-			System.out.println("ac not found");
-			AccessCapability ac = new AccessCapability();
-			ac.setAccessCapability(accessCapability);
-			PersistenceUtil.persist(ac);
-			em.close();
-			return ac;
-		}
-		System.out.println("ac found");
-		em.close();
-		return acList.get(0);
-	}
-
-	private UserEquipmentType getManagedUserEquipmentType(String ueType) {
-		EntityManager em = PersistenceUtil.createEM();
-		List <UserEquipmentType> userEqiupentTypeList = em
-				.createQuery("select ueT from " + UserEquipmentType.class.getName() + " ueT where ueT.userEquipmentType = :uetype", UserEquipmentType.class)
-				.setParameter("uetype", ueType).getResultList();
-		if (userEqiupentTypeList.isEmpty()) {
-			System.out.println("ue not found");
-			UserEquipmentType userEquipmentType = new UserEquipmentType();
-			userEquipmentType.setUserEquipmentType(ueType);
-			PersistenceUtil.persist(userEquipmentType);
-			em.close();
-			return userEquipmentType;
-		}
-		System.out.println("ue found");
-		em.close();
-		return userEqiupentTypeList.get(0);
-	}
-
-	private OS getManagedOs(String os) {
-		EntityManager em = PersistenceUtil.createEM();
-		List <OS> osList = em.createQuery("select os from " + OS.class.getName() + " os where os.os = :operatingsys", OS.class)
-				.setParameter("operatingsys", os).getResultList();
-		if (osList.isEmpty()) {
-			System.out.println("os not found");
-			OS newOS = new OS();
-			newOS.setOs(os);
-			PersistenceUtil.persist(newOS);
-			em.close();
-			return newOS;
-		}
-		System.out.println("os found");
-		em.close();
-		return osList.get(0);
-	}
-
-	private InputMode getManagedInputMode(String inputMode) {
-		EntityManager em = PersistenceUtil.createEM();
-		List <InputMode> inputModeList = em.createQuery("select im from " + InputMode.class.getName() + " im where im.inputMode = :imode", InputMode.class)
-				.setParameter("imode", inputMode).getResultList();
-		if (inputModeList.isEmpty()) {
-			System.out.println("im not found");
-			InputMode inputModeObject = new InputMode();
-			inputModeObject.setInputMode(inputMode);
-			PersistenceUtil.persist(inputModeObject);
-			em.close();
-			return inputModeObject;
-		}
-		System.out.println("im found");
-		em.close();
-		return inputModeList.get(0);
 	}
 
 	private String formatDateAsString(HSSFCell dateTime) {
-		DateFormat dateTimeFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
+		DateFormat dateTimeFormat = DateFormat.getDateInstance(
+				DateFormat.SHORT, Locale.UK);
 		Date dateTimeValue = dateTime.getDateCellValue();
 
-		String dateTimeString = dateTimeFormat.format(dateTimeValue) + " " + dateTimeFormat.format(dateTimeValue);
+		String dateTimeString = dateTimeFormat.format(dateTimeValue) + " "
+				+ dateTimeFormat.format(dateTimeValue);
 		return dateTimeString;
 	}
 }

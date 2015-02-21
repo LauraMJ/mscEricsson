@@ -1,7 +1,6 @@
 package com.ericsson.msc.group5.entities;
 
 import java.util.Collection;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -28,12 +27,12 @@ public class UserEquipment {
 	@JoinColumn(name = "UserEquipmentTypeId")
 	private UserEquipmentType UserEquipmentType;
 	@ManyToOne
-	@JoinColumn(name = "osId")
-	private OS os;
+	@JoinColumn(name = "operatingSystemId")
+	private OperatingSystem operatingSystem;
 	@ManyToOne
 	@JoinColumn(name = "inputModeId")
 	private InputMode inputModeClass;
-	
+
 	@OneToMany(mappedBy = "userEqipment")
 	private Collection <FailureTrace> failureTrace;
 
@@ -43,8 +42,8 @@ public class UserEquipment {
 
 	public UserEquipment(Integer typeAllocationCode, String marketingName,
 			String manufacturer, AccessCapability accessCapabilityClass,
-			String model, UserEquipmentType userEquipmentType, OS oS,
-			InputMode inputModeClass) {
+			String model, UserEquipmentType userEquipmentType,
+			OperatingSystem operatingSystem, InputMode inputModeClass) {
 		super();
 		this.typeAllocationCode = typeAllocationCode;
 		this.marketingName = marketingName;
@@ -52,7 +51,7 @@ public class UserEquipment {
 		this.accessCapabilityClass = accessCapabilityClass;
 		this.model = model;
 		this.UserEquipmentType = userEquipmentType;
-		this.os = oS;
+		this.operatingSystem = operatingSystem;
 		this.inputModeClass = inputModeClass;
 	}
 
@@ -104,12 +103,12 @@ public class UserEquipment {
 		this.accessCapabilityClass = accessCapabilityClass;
 	}
 
-	public OS getoS() {
-		return os;
+	public OperatingSystem getOperatingSystem() {
+		return operatingSystem;
 	}
 
-	public void setoS(OS oS) {
-		this.os = oS;
+	public void setoS(OperatingSystem operatingSystem) {
+		this.operatingSystem = operatingSystem;
 	}
 
 	public InputMode getInputModeClass() {

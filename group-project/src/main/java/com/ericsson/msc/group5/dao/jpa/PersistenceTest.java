@@ -8,7 +8,7 @@ import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.EventCauseCK;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.InputMode;
-import com.ericsson.msc.group5.entities.OS;
+import com.ericsson.msc.group5.entities.OperatingSystem;
 import com.ericsson.msc.group5.entities.UserEquipmentType;
 
 public class PersistenceTest {
@@ -34,7 +34,7 @@ public class PersistenceTest {
 		// System.out.println("Entity saved");
 		PersistenceUtil.persist(new InputMode(1, "BASIC"));
 		System.out.println("InputMode entity saved");
-		PersistenceUtil.persist(new OS(2, "BLACKBERRY"));
+		PersistenceUtil.persist(new OperatingSystem(2, "BLACKBERRY"));
 		System.out.println("OS entity saved");
 		PersistenceUtil.persist(new UserEquipmentType(3, "HANDHELD"));
 		System.out.println("UserEquipmentType entity saved");

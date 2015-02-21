@@ -18,12 +18,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class OSTest {
+public class OperatingSystemTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(OS.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap
+				.create(WebArchive.class, "test.war")
+				.addPackage(OperatingSystem.class.getPackage())
+				.addAsResource("test-persistence.xml",
+						"META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -48,20 +52,22 @@ public class OSTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		OS createdOS = new OS();
-		createdOS.setOs(INITIAL_OS);
-		em.persist(createdOS);
-		int newId = createdOS.getOsId();
+		OperatingSystem createdOperatingSystem = new OperatingSystem();
+		createdOperatingSystem.setOperatingSystem(INITIAL_OS);
+		em.persist(createdOperatingSystem);
+		int newId = createdOperatingSystem.getOperatingSystemId();
 
-		OS loadedOS = em.find(OS.class, newId);
-		assertEquals("Failed to insert", INITIAL_OS, loadedOS.getOs());
+		OperatingSystem loadedOS = em.find(OperatingSystem.class, newId);
+		assertEquals("Failed to insert", INITIAL_OS,
+				loadedOS.getOperatingSystem());
 
-		loadedOS.setOs(UPDATED_OS);
-		OS updatedOS = em.find(OS.class, newId);
-		assertEquals("Failed to update", UPDATED_OS, updatedOS.getOs());
+		loadedOS.setOperatingSystem(UPDATED_OS);
+		OperatingSystem updatedOS = em.find(OperatingSystem.class, newId);
+		assertEquals("Failed to update", UPDATED_OS,
+				updatedOS.getOperatingSystem());
 
 		em.remove(updatedOS);
-		OS shouldBeNull = em.find(OS.class, newId);
+		OperatingSystem shouldBeNull = em.find(OperatingSystem.class, newId);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 
@@ -69,7 +75,9 @@ public class OSTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.OS").executeUpdate();
+		em.createQuery(
+				"delete from com.ericsson.msc.group5.entities.OperatingSystem")
+				.executeUpdate();
 		utx.commit();
 	}
 

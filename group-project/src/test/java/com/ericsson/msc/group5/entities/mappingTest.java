@@ -15,7 +15,8 @@ public class mappingTest {
 		FailureClass fc = new FailureClass(0, "description");
 		EventCause ec = new EventCause(new EventCauseCK(0, 0), "description");
 		CountryCodeNetworkCode mcc = new CountryCodeNetworkCode(
-				new CountryCodeNetworkCodeCK(new Country(0, "country"), 0), "operator string");
+				new CountryCodeNetworkCodeCK(new Country(0, "country"), 0),
+				"operator string");
 
 		AccessCapability ac = new AccessCapability();
 		ac.setAccessCapability("TEST ACCESS CAPABILITY");
@@ -25,9 +26,9 @@ public class mappingTest {
 		ue.setUserEquipmentType("TEST UE TYPE");
 		ue.setUserEquipmentTypeId(0);
 
-		OS os = new OS();
-		os.setOs("TEST OS");
-		os.setOsId(0);
+		OperatingSystem os = new OperatingSystem();
+		os.setOperatingSystem("TEST OS");
+		os.setOperatingSystemId(0);
 
 		InputMode input = new InputMode();
 		input.setInputMode(null);

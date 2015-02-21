@@ -52,10 +52,12 @@ public class CountryCodeNetworkCodeTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		CountryCodeNetworkCodeCK pk = new CountryCodeNetworkCodeCK(1, 1);
+		Country c = new Country();
+		c.setCountry("country");
+		em.persist(c);
+		CountryCodeNetworkCodeCK pk = new CountryCodeNetworkCodeCK(c, 1);
 		CountryCodeNetworkCode createdCountryCodeNetworkCode = new CountryCodeNetworkCode(
 				pk, INITIAL_OPERATOR);
-		createdCountryCodeNetworkCode.setCountry(new Country(1, "Denmark"));
 		em.persist(createdCountryCodeNetworkCode);
 
 		CountryCodeNetworkCode loadedCountryCodeNetworkCode = em.find(

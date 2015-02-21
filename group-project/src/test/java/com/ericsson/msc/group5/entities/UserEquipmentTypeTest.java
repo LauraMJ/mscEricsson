@@ -52,11 +52,10 @@ public class UserEquipmentTypeTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		int newId = 1;
 		UserEquipmentType createdUE = new UserEquipmentType();
 		createdUE.setUserEquipmentType(INITIAL_UserEquipmentType);
-		createdUE.setUserEquipmentTypeId(newId);
 		em.persist(createdUE);
+		int newId  = createdUE.getUserEquipmentTypeId();
 
 		UserEquipmentType loadedUE = em.find(UserEquipmentType.class, newId);
 		assertEquals("Failed to insert", INITIAL_UserEquipmentType,

@@ -48,9 +48,10 @@ public class InputModeTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		int newId = 1;
-		InputMode createdIM = new InputMode(newId, INITIAL_INPUT_MODE);
+		InputMode createdIM = new InputMode();
+		createdIM.setInputMode(INITIAL_INPUT_MODE);
 		em.persist(createdIM);
+		int newId = createdIM.getInputModeId();
 
 		InputMode loadedIM = em.find(InputMode.class, newId);
 		assertEquals("Failed to insert", INITIAL_INPUT_MODE, loadedIM.getInputMode());

@@ -15,7 +15,7 @@ public class PersistenceTest {
 
 	// Variables for laura's tests
 	EventCauseCK eventCauseCK = new EventCauseCK(4102, 203);
-	CountryCodeNetworkCodeCK mccmnc = new CountryCodeNetworkCodeCK(123, 456);
+	CountryCodeNetworkCodeCK mccmnc = new CountryCodeNetworkCodeCK(new Country(123, "Denmark"), 456);
 
 	public static void main(String [] args) {
 		new PersistenceTest();

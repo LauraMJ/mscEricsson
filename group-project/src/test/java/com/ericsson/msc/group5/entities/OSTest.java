@@ -48,9 +48,10 @@ public class OSTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		int newId = 1;
-		OS createdOS = new OS(newId, INITIAL_OS);
+		OS createdOS = new OS();
+		createdOS.setOs(INITIAL_OS);
 		em.persist(createdOS);
+		int newId = createdOS.getOsId();
 
 		OS loadedOS = em.find(OS.class, newId);
 		assertEquals("Failed to insert", INITIAL_OS, loadedOS.getOs());

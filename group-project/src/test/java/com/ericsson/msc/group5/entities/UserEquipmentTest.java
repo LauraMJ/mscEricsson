@@ -57,10 +57,23 @@ public class UserEquipmentTest {
 		ue = new UserEquipment();
 		ue.setTypeAllocationCode(id);
 		ue.setManufacturer(INITIAL_MANUFACTURER);
-		ue.setAccessCapabilityClass(new AccessCapability(0, "access capability"));
-		ue.setInputModeClass(new InputMode(0, "input mode"));
-		ue.setoS(new OS(0, "operating system"));
-		ue.setUserEquipmentType(new UserEquipmentType(0, "user equipment type"));
+		AccessCapability ac = new AccessCapability();
+		ac.setAccessCapability("access capability");
+		ue.setAccessCapabilityClass(ac);
+		InputMode im = new InputMode();
+		im.setInputMode("input mode");
+		ue.setInputModeClass(im);
+		OS os = new OS();
+		os.setOs("operating system");
+		ue.setoS(os);
+		UserEquipmentType uet = new UserEquipmentType();
+		uet.setUserEquipmentType("user equipment type");
+		ue.setUserEquipmentType(uet);
+
+		em.persist(ac);
+		em.persist(im);
+		em.persist(os);
+		em.persist(uet);
 		em.persist(ue);
 
 		utx.commit();

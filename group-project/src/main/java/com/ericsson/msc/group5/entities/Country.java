@@ -18,8 +18,8 @@ public class Country {
 	@Column(length = 45)
 	private String country;
 
-//	@OneToMany(mappedBy = "country")
-//	private Collection <CountryCodeNetworkCode> countryCodeNetworkCode;
+	// @OneToMany(mappedBy = "country")
+	// private Collection <CountryCodeNetworkCode> countryCodeNetworkCode;
 
 	public Country() {
 		//
@@ -36,5 +36,9 @@ public class Country {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public Integer getCountryCode() {
+		return countryCode;
 	}
 }

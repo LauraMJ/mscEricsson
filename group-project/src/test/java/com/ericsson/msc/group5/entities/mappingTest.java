@@ -15,9 +15,7 @@ public class mappingTest {
 		FailureClass fc = new FailureClass(0, "description");
 		EventCause ec = new EventCause(new EventCauseCK(0, 0), "description");
 		CountryCodeNetworkCode mcc = new CountryCodeNetworkCode(
-				new CountryCodeNetworkCodeCK(0, 0), "operator string");
-		Country c = new Country(0, "country");
-		mcc.setCountry(c);
+				new CountryCodeNetworkCodeCK(new Country(0, "country"), 0), "operator string");
 
 		AccessCapability ac = new AccessCapability();
 		ac.setAccessCapability("TEST ACCESS CAPABILITY");

@@ -188,36 +188,47 @@ public class Validator {
 	private static boolean validateFailureTraceRowFieldValues(HSSFRow row) {
 
 		if ( !validateDate(DataImport.formatDateAsString(row.getCell(0)))) {
+			System.out.println("Date not ok");
 			return false;
 		}
 		if ( !validateEventId(row.getCell(1).getNumericCellValue())) {
+			System.out.println("Event ID not ok");
 			return false;
 		}
-		if ( !validateFailureClass(row.getCell(2).getNumericCellValue())) {
+		if ( !validateFailureClass((int) row.getCell(2).getNumericCellValue())) {
+			System.out.println("Failure class not ok");
 			return false;
 		}
-		if ( !validateUEType(row.getCell(3).getNumericCellValue())) {
+		if ( !validateUEType((int) row.getCell(3).getNumericCellValue())) {
+			System.out.println("Ue type not ok");
 			return false;
 		}
-		if ( !validateMarket(row.getCell(4).getNumericCellValue())) {
+		if ( !validateMarket((int) row.getCell(4).getNumericCellValue())) {
+			System.out.println("Market not ok");
 			return false;
 		}
-		if ( !validateOperator(row.getCell(5).getNumericCellValue())) {
+		if ( !validateOperator((int) row.getCell(5).getNumericCellValue())) {
+			System.out.println("operator not ok");
 			return false;
 		}
-		if ( !validateCellId(row.getCell(6).getNumericCellValue())) {
+		if ( !validateCellId((int) row.getCell(6).getNumericCellValue())) {
+			System.out.println("cell id not ok");
 			return false;
 		}
-		if ( !validateDuration(row.getCell(7).getNumericCellValue())) {
+		if ( !validateDuration((int) row.getCell(7).getNumericCellValue())) {
+			System.out.println("duration not ok");
 			return false;
 		}
-		if ( !validateCauseCode(row.getCell(8).getNumericCellValue())) {
+		if ( !validateCauseCode((int) row.getCell(8).getNumericCellValue())) {
+			System.out.println("cause code not ok");
 			return false;
 		}
 		if ( !validateNEVersione(row.getCell(9).getStringCellValue())) {
+			System.out.println("ne version not ok");
 			return false;
 		}
-		if ( !validateIMSI(row.getCell(10).getNumericCellValue())) {
+		if ( !validateIMSI((int) row.getCell(10).getNumericCellValue())) {
+			System.out.println("imsi not ok");
 			return false;
 		}
 		return true;
@@ -288,7 +299,7 @@ public class Validator {
 		return true;
 	}
 
-	public static boolean validateEventId(Double d) {
+	public static boolean validateEventId(double d) {
 		if (d >= 4000 && d <= 5000) {
 			return true;
 		}
@@ -296,7 +307,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateFailureClass(Double input) {
+	public static boolean validateFailureClass(Integer input) {
 		if (input >= 0 && input <= 4) {
 			return true;
 		}
@@ -304,15 +315,15 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateUEType(Double input) {
-		if (input >= 100000 && input <= 29999999) {
+	public static boolean validateUEType(Integer input) {
+		if (input >= 100000 && input <= 99999999) {
 			return true;
 		}
 		System.out.println("Invalid ue type");
 		return false;
 	}
 
-	public static boolean validateMarket(Double input) {
+	public static boolean validateMarket(Integer input) {
 		if (input >= 001 && input <= 999) {
 			return true;
 		}
@@ -320,7 +331,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateOperator(Double input) {
+	public static boolean validateOperator(Integer input) {
 		if (input >= 01 && input <= 999) {
 			return true;
 		}
@@ -328,7 +339,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateCellId(Double input) {
+	public static boolean validateCellId(Integer input) {
 		if (input < 3843) {
 			return true;
 		}
@@ -336,7 +347,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateDuration(Double input) {
+	public static boolean validateDuration(Integer input) {
 		// 60000 = 60 mins
 		if (input < 3.6e+6) {
 			return true;
@@ -345,7 +356,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateCauseCode(Double input) {
+	public static boolean validateCauseCode(Integer input) {
 		if (input <= 27) {
 			return true;
 		}
@@ -361,7 +372,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateIMSI(Double input) {
+	public static boolean validateIMSI(Integer input) {
 		if (input <= 999999999999999L) {
 			return true;
 		}

@@ -16,6 +16,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
 import com.ericsson.msc.group5.dataAccessLayer.AccessCapabilityDAO;
@@ -242,19 +243,19 @@ public class DataImport {
 					System.out.println("here");
 					writer.println("Invalid BASE_DATA entry found: ");
 					writer.println("date: " + date);
-					writer.println("eventId: " + (int) eventId.getNumericCellValue());
+					writer.println("eventId: " + (long) eventId.getNumericCellValue());
 					writer.println("failureClass: " + failureClass.getStringCellValue());
-					writer.println("ueType: " + (int) ueType.getNumericCellValue());
-					writer.println("market: " + (int) market.getNumericCellValue());
-					writer.println("operator: " + (int) operator.getNumericCellValue());
-					writer.println("cellId: " + (int) cellId.getNumericCellValue());
-					writer.println("duration: " + (int) duration.getNumericCellValue());
+					writer.println("ueType: " + (long) ueType.getNumericCellValue());
+					writer.println("market: " + (long) market.getNumericCellValue());
+					writer.println("operator: " + (long) operator.getNumericCellValue());
+					writer.println("cellId: " + (long) cellId.getNumericCellValue());
+					writer.println("duration: " + (long) duration.getNumericCellValue());
 					writer.println("causeCode: " + causeCode.getStringCellValue());
 					writer.println("neVersion: " + neVersion.getStringCellValue());
-					writer.println("imsi: " + (int) imsi.getNumericCellValue());
-					writer.println("hier3: " + (int) hier3.getNumericCellValue());
-					writer.println("hier32: " + (int) hier32.getNumericCellValue());
-					writer.println("hier321: " + (int) hier321.getNumericCellValue());
+					writer.println("imsi: " + (long) imsi.getNumericCellValue());
+					writer.println("hier3: " + (long) hier3.getNumericCellValue());
+					writer.println("hier32: " + (long) hier32.getNumericCellValue());
+					writer.println("hier321: " + (long) hier321.getNumericCellValue());
 					writer.println();
 				}
 				catch (FileNotFoundException e1) {
@@ -339,9 +340,11 @@ public class DataImport {
 			}
 			catch (IllegalStateException e) {
 				// TODO: decide how to handle B63 and E63 - coin flip
-
-				// marketName.setCellType(Cell.CELL_TYPE_STRING); // TODO ??
-				// model.setCellType(Cell.CELL_TYPE_STRING); // TODO ??
+				marketName.setCellType(Cell.CELL_TYPE_STRING); 
+				model.setCellType(Cell.CELL_TYPE_STRING); 
+				UserEquipment ue = new UserEquipment((int) tac.getNumericCellValue(), marketName.getStringCellValue(), manufacturer.getStringCellValue(),
+						readAccessCapability, model.getStringCellValue(), readUserEquipmentType, readOs, readInputMode);
+				PersistenceUtil.persist(ue);
 			}
 			// validData.add(ue);
 			// if(validData.size() > 10)
@@ -367,10 +370,11 @@ public class DataImport {
 	}
 
 	private String formatDateAsString(HSSFCell dateTime) {
-		DateFormat dateTimeFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
+		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
+		DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
 		Date dateTimeValue = dateTime.getDateCellValue();
 
-		String dateTimeString = dateTimeFormat.format(dateTimeValue) + " " + dateTimeFormat.format(dateTimeValue);
+		String dateTimeString = dateFormat.format(dateTimeValue) + " " + timeFormat.format(dateTimeValue);
 		return dateTimeString;
 	}
 }

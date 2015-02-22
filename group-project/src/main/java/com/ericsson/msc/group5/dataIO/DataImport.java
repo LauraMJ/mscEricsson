@@ -3,11 +3,8 @@ package com.ericsson.msc.group5.dataIO;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import javax.inject.Inject;
@@ -33,6 +30,8 @@ import com.ericsson.msc.group5.dataAccessLayer.InputModeDAO;
 import com.ericsson.msc.group5.dataAccessLayer.OperatingSystemDAO;
 import com.ericsson.msc.group5.dataAccessLayer.UserEquipmentDAO;
 import com.ericsson.msc.group5.dataAccessLayer.UserEquipmentTypeDAO;
+import com.ericsson.msc.group5.dataIOConsistencyChecks.ErrorLogWriter;
+import com.ericsson.msc.group5.dataIOConsistencyChecks.Validator;
 import com.ericsson.msc.group5.entities.AccessCapability;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
 import com.ericsson.msc.group5.entities.EventCause;
@@ -242,87 +241,52 @@ public class DataImport {
 			HSSFCell hier321 = row.getCell(13);
 
 			String date = formatDateAsString(dateTime);
+			if (Validator.validateFieldTypes(row, new FailureTrace())) {
+				try {
+					if (Validator.validateFieldValues(row, new FailureTrace())) {
+						EventCause ec = eventCauseDAO.getMangedEventCause(
+								(int) causeCode.getNumericCellValue(),
+								(int) eventId.getNumericCellValue(), "");
+						CountryCodeNetworkCode ccnc = countryCodeNetworkCodeDAO
+								.getManagedCountryCodeNetworkCode(
+										(int) market.getNumericCellValue(),
+										(int) operator.getNumericCellValue(),
+										"", "");
+						FailureClass fc = failureClassDAO
+								.getManagedFailureClass((int) failureClass
+										.getNumericCellValue(), "");
+						HierInfo hi = hierInfoDAO.getManagedHierInfo(
+								(long) hier3.getNumericCellValue(),
+								(long) hier32.getNumericCellValue(),
+								(long) hier321.getNumericCellValue());
+						UserEquipment ue = userEquipmentDAO
+								.getManagedUserEquipment((int) ueType
+										.getNumericCellValue());
 
-			try {
-				EventCause ec = eventCauseDAO.getMangedEventCause(
-						(int) causeCode.getNumericCellValue(),
-						(int) eventId.getNumericCellValue(), "");
-				CountryCodeNetworkCode ccnc = countryCodeNetworkCodeDAO
-						.getManagedCountryCodeNetworkCode(
-								(int) market.getNumericCellValue(),
-								(int) operator.getNumericCellValue(), "", "");
-				FailureClass fc = failureClassDAO.getManagedFailureClass(
-						(int) failureClass.getNumericCellValue(), "");
-				HierInfo hi = hierInfoDAO.getManagedHierInfo(
-						(long) hier3.getNumericCellValue(),
-						(long) hier32.getNumericCellValue(),
-						(long) hier321.getNumericCellValue());
-				UserEquipment ue = userEquipmentDAO
-						.getManagedUserEquipment((int) ueType
-								.getNumericCellValue());
+						FailureTrace ft = new FailureTrace();
+						ft.setDateTime(date);
+						ft.setCountryCodeNetworkCode(ccnc);
+						ft.setDuration((int) duration.getNumericCellValue());
+						ft.setCellId((int) cellId.getNumericCellValue());
+						ft.setEventCause(ec);
+						ft.setFailureClass(fc);
+						ft.setHierInfo(hi);
+						ft.setIMSI(Long.toString((long) imsi
+								.getNumericCellValue()));
+						ft.setNeVersion(neVersion.getStringCellValue());
+						ft.setUserEqipment(ue);
 
-				FailureTrace ft = new FailureTrace();
-				ft.setDateTime(date);
-				ft.setCountryCodeNetworkCode(ccnc);
-				ft.setDuration((int) duration.getNumericCellValue());
-				ft.setCellId((int) cellId.getNumericCellValue());
-				ft.setEventCause(ec);
-				ft.setFailureClass(fc);
-				ft.setHierInfo(hi);
-				ft.setIMSI(Long.toString((long) imsi.getNumericCellValue()));
-				ft.setNeVersion(neVersion.getStringCellValue());
-				ft.setUserEqipment(ue);
-
-				PersistenceUtil.persist(ft);
-			}
-			catch (IllegalStateException e) {
-				e.printStackTrace();
-
-				DateFormat dateFormat = new SimpleDateFormat(
-						"yyyy.MM.dd.HH.mm.ss");
-				System.out.println(dateFormat.format(dateObj)); // 2014/08/06
-																// 15:59:48
-
-				try (PrintWriter writer = new PrintWriter(new FileOutputStream(
-						new File("tempErrorLog" + dateFormat.format(dateObj)
-								+ ".txt"), true))) {
-					System.out.println("here");
-					writer.println("Invalid BASE_DATA entry found: ");
-					writer.println("date: " + date);
-					writer.println("eventId: "
-							+ (long) eventId.getNumericCellValue());
-					writer.println("failureClass: "
-							+ failureClass.getStringCellValue());
-					writer.println("ueType: "
-							+ (long) ueType.getNumericCellValue());
-					writer.println("market: "
-							+ (long) market.getNumericCellValue());
-					writer.println("operator: "
-							+ (long) operator.getNumericCellValue());
-					writer.println("cellId: "
-							+ (long) cellId.getNumericCellValue());
-					writer.println("duration: "
-							+ (long) duration.getNumericCellValue());
-					writer.println("causeCode: "
-							+ causeCode.getStringCellValue());
-					writer.println("neVersion: "
-							+ neVersion.getStringCellValue());
-					writer.println("imsi: " + (long) imsi.getNumericCellValue());
-					writer.println("hier3: "
-							+ (long) hier3.getNumericCellValue());
-					writer.println("hier32: "
-							+ (long) hier32.getNumericCellValue());
-					writer.println("hier321: "
-							+ (long) hier321.getNumericCellValue());
-					writer.println();
+						PersistenceUtil.persist(ft);
+					}
 				}
-				catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				catch (IllegalStateException e) {
+					e.printStackTrace();
+					ErrorLogWriter.writeToErrorLog(row, new FailureTrace());
 				}
 			}
-
-			// ??ft.setEventId(eventId);
+			else {
+				ErrorLogWriter.writeToErrorLog(row, new FailureTrace());
+			}
 		}
 	}
 
@@ -367,7 +331,6 @@ public class DataImport {
 		HSSFSheet worksheet = (HSSFSheet) excelWorkbook
 				.getSheetAt(ExcelDataSheet.UE_TABLE.getPageNumber());
 
-		System.out.println("here");
 		int numRows = worksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
 			System.out.println("current row is: " + i);
@@ -389,10 +352,6 @@ public class DataImport {
 			HSSFCell ueType = row.getCell(6);
 			HSSFCell os = row.getCell(7);
 			HSSFCell inputMode = row.getCell(8);
-			if (accessCapabilityDAO == null) {
-				System.out.println("NOT INJECTED");
-			}
-			accessCapabilityDAO.checkExist();
 			AccessCapability readAccessCapability = accessCapabilityDAO
 					.getManagedAccessCapability(accessCapability
 							.getStringCellValue());
@@ -452,7 +411,7 @@ public class DataImport {
 		}
 	}
 
-	private String formatDateAsString(HSSFCell dateTime) {
+	public static String formatDateAsString(HSSFCell dateTime) {
 		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT,
 				Locale.UK);
 		DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT,

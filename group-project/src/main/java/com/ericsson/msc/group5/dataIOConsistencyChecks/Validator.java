@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.ss.usermodel.Cell;
+import com.ericsson.msc.group5.dataIO.DataImport;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureClass;
@@ -26,110 +27,28 @@ public class Validator {
 
 	public static boolean validateFieldTypes(HSSFRow row, Object entity) {
 		if (entity instanceof FailureTrace) {
-			return validFailureTraceRowFields(row);
+			return validateFailureTraceRowFieldTypes(row);
 		}
 		if (entity instanceof UserEquipment) {
-			return validUserEquipmentRowFields(row);
+			return validateUserEquipmentRowFieldTypes(row);
 		}
 		if (entity instanceof EventCause) {
-			return validEventCauseRowFields(row);
+			return validateEventCauseRowFieldTypes(row);
 		}
 		if (entity instanceof FailureClass) {
-			return validFailureClassRowFields(row);
+			return validateFailureClassRowFieldTypes(row);
 		}
 		if (entity instanceof CountryCodeNetworkCode) {
-			return validCountryCodeNetworkCodeRowFields(row);
+			return validateCountryCodeNetworkCodeRowFieldTypes(row);
 		}
 		if (entity instanceof HierInfo) {
-			return validHierInfoRowFields(row);
+			return validateHierInfoRowFieldTypes(row);
 		}
 		return false;
 	}
 
-	private static boolean validCountryCodeNetworkCodeRowFields(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return false;
-	}
+	private static boolean validateFailureTraceRowFieldTypes(HSSFRow row) {
 
-	private static boolean validHierInfoRowFields(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return true;
-		}
-		return false;
-	}
-
-	private static boolean validUserEquipmentRowFields(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(4).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(5).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(6).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(7).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(8).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return true;
-	}
-
-	private static boolean validFailureClassRowFields(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return true;
-	}
-
-	private static boolean validEventCauseRowFields(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return true;
-	}
-
-	private static boolean validFailureTraceRowFields(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}
@@ -175,6 +94,135 @@ public class Validator {
 		return true;
 	}
 
+	private static boolean validateUserEquipmentRowFieldTypes(HSSFRow row) {
+		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(4).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(5).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(6).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(7).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(8).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		return true;
+	}
+
+	private static boolean validateCountryCodeNetworkCodeRowFieldTypes(
+			HSSFRow row) {
+		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		return false;
+	}
+
+	private static boolean validateHierInfoRowFieldTypes(HSSFRow row) {
+		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return true;
+		}
+		return false;
+	}
+
+	private static boolean validateFailureClassRowFieldTypes(HSSFRow row) {
+		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		return true;
+	}
+
+	private static boolean validateEventCauseRowFieldTypes(HSSFRow row) {
+		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		return true;
+	}
+
+	public static boolean validateFieldValues(HSSFRow row, Object entity) {
+		if (entity instanceof FailureTrace) {
+			return validateFailureTraceRowFieldValues(row);
+		}
+		return true;
+	}
+
+	private static boolean validateFailureTraceRowFieldValues(HSSFRow row) {
+
+		if ( !validateDate(DataImport.formatDateAsString(row.getCell(0)))) {
+			return false;
+		}
+		if ( !validateEventId(row.getCell(1).getNumericCellValue())) {
+			return false;
+		}
+		if ( !validateFailureClass(row.getCell(2).getNumericCellValue())) {
+			return false;
+		}
+		if ( !validateUEType(row.getCell(3).getNumericCellValue())) {
+			return false;
+		}
+		if ( !validateMarket(row.getCell(4).getNumericCellValue())) {
+			return false;
+		}
+		if ( !validateOperator(row.getCell(5).getNumericCellValue())) {
+			return false;
+		}
+		if ( !validateCellId(row.getCell(6).getNumericCellValue())) {
+			return false;
+		}
+		if ( !validateDuration(row.getCell(7).getNumericCellValue())) {
+			return false;
+		}
+		if ( !validateCauseCode(row.getCell(8).getNumericCellValue())) {
+			return false;
+		}
+		if ( !validateNEVersione(row.getCell(9).getStringCellValue())) {
+			return false;
+		}
+		if ( !validateIMSI(row.getCell(10).getNumericCellValue())) {
+			return false;
+		}
+		return true;
+	}
+
 	public static boolean validateDate(String dateString) {
 		boolean isRealDate = checkIfValidDate(dateString);
 		if (isRealDate)
@@ -198,6 +246,7 @@ public class Validator {
 		catch (ParseException e) {
 			e.printStackTrace();
 			System.out.println("Couldn't parse date");
+			return false;
 		}
 		return true;
 	}
@@ -239,7 +288,7 @@ public class Validator {
 		return true;
 	}
 
-	public static boolean validateEventId(double d) {
+	public static boolean validateEventId(Double d) {
 		if (d >= 4000 && d <= 5000) {
 			return true;
 		}
@@ -247,7 +296,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateFailureClass(Integer input) {
+	public static boolean validateFailureClass(Double input) {
 		if (input >= 0 && input <= 4) {
 			return true;
 		}
@@ -255,7 +304,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateUEType(Integer input) {
+	public static boolean validateUEType(Double input) {
 		if (input >= 100000 && input <= 29999999) {
 			return true;
 		}
@@ -263,7 +312,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateMarket(Integer input) {
+	public static boolean validateMarket(Double input) {
 		if (input >= 001 && input <= 999) {
 			return true;
 		}
@@ -271,7 +320,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateOperator(Integer input) {
+	public static boolean validateOperator(Double input) {
 		if (input >= 01 && input <= 999) {
 			return true;
 		}
@@ -279,7 +328,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateCellId(Integer input) {
+	public static boolean validateCellId(Double input) {
 		if (input < 3843) {
 			return true;
 		}
@@ -287,7 +336,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateDuration(Integer input) {
+	public static boolean validateDuration(Double input) {
 		// 60000 = 60 mins
 		if (input < 3.6e+6) {
 			return true;
@@ -296,7 +345,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateCauseCode(Integer input) {
+	public static boolean validateCauseCode(Double input) {
 		if (input <= 27) {
 			return true;
 		}
@@ -312,7 +361,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateIMSI(Integer input) {
+	public static boolean validateIMSI(Double input) {
 		if (input <= 999999999999999L) {
 			return true;
 		}

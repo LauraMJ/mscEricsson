@@ -6,5 +6,4 @@ public interface AccessCapabilityDAO {
 
 	public AccessCapability getManagedAccessCapability(String accessCapability);
 
-	public void checkExist();
 }

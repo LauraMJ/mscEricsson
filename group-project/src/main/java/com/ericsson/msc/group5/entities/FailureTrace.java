@@ -141,5 +141,4 @@ public class FailureTrace {
 	public void setHierInfo(HierInfo hierInfo) {
 		this.hierInfo = hierInfo;
 	}
-
 }

@@ -22,12 +22,8 @@ public class CountryCodeNetworkCodeTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap
-				.create(WebArchive.class, "test.war")
-				.addPackage(CountryCodeNetworkCode.class.getPackage())
-				.addAsResource("test-persistence.xml",
-						"META-INF/persistence.xml")
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(CountryCodeNetworkCode.class.getPackage())
+				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -57,38 +53,32 @@ public class CountryCodeNetworkCodeTest {
 		c.setCountryCode(0);
 		em.persist(c);
 		CountryCodeNetworkCodeCK pk = new CountryCodeNetworkCodeCK(c, 1);
-		CountryCodeNetworkCode createdCountryCodeNetworkCode = new CountryCodeNetworkCode(
-				pk, INITIAL_OPERATOR);
+		CountryCodeNetworkCode createdCountryCodeNetworkCode = new CountryCodeNetworkCode(pk, INITIAL_OPERATOR);
 		em.persist(createdCountryCodeNetworkCode);
 
-		CountryCodeNetworkCode loadedCountryCodeNetworkCode = em.find(
-				CountryCodeNetworkCode.class, pk);
-		assertEquals("Failed to insert", INITIAL_OPERATOR,
-				loadedCountryCodeNetworkCode.getOperator());
+		CountryCodeNetworkCode loadedCountryCodeNetworkCode = em.find(CountryCodeNetworkCode.class, pk);
+		assertEquals("Failed to insert", INITIAL_OPERATOR, loadedCountryCodeNetworkCode.getOperator());
 
 		loadedCountryCodeNetworkCode.setOperator(UPDATED_OPERATOR);
-		CountryCodeNetworkCode updatedCountryCodeNetworkCode = em.find(
-				CountryCodeNetworkCode.class, pk);
+		CountryCodeNetworkCode updatedCountryCodeNetworkCode = em.find(CountryCodeNetworkCode.class, pk);
 
-		assertEquals("Failed to update", UPDATED_OPERATOR,
-				updatedCountryCodeNetworkCode.getOperator());
+		assertEquals("Failed to update", UPDATED_OPERATOR, updatedCountryCodeNetworkCode.getOperator());
 
 		em.remove(updatedCountryCodeNetworkCode);
-		CountryCodeNetworkCode shouldBeNull = em.find(
-				CountryCodeNetworkCode.class, pk);
+		CountryCodeNetworkCode shouldBeNull = em.find(CountryCodeNetworkCode.class, pk);
 		assertNull("Failed to delete", shouldBeNull);
 	}
-	
+
 	@Test
 	public void compositeKeyTest() {
 		int oldCode = 21;
 		int newCode = 5000;
 		Country newCountry = new Country(newCode, "new country");
-		
+
 		CountryCodeNetworkCodeCK ck = new CountryCodeNetworkCodeCK(new Country(oldCode, "country"), oldCode);
 		ck.setCountry(newCountry);
 		ck.setNetworkCode(newCode);
-		assertEquals("failed to set network code", newCode, (int)ck.getNetworkCode());
+		assertEquals("failed to set network code", newCode, (int) ck.getNetworkCode());
 		assertEquals("failed to set country", newCountry, ck.getCountry());
 	}
 
@@ -96,9 +86,7 @@ public class CountryCodeNetworkCodeTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery(
-				"delete from com.ericsson.msc.group5.entities.CountryCodeNetworkCode")
-				.executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.CountryCodeNetworkCode").executeUpdate();
 		utx.commit();
 	}
 

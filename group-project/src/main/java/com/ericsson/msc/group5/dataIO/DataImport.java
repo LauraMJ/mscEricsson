@@ -1,9 +1,13 @@
 package com.ericsson.msc.group5.dataIO;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import javax.inject.Inject;
@@ -60,6 +64,7 @@ public class DataImport {
 	private UserEquipmentDAO userEquipmentDAO;
 	@Inject
 	private UserEquipmentTypeDAO userEquipmentTypeDAO;
+	private Date dateObj = new Date();
 
 	public AccessCapabilityDAO getAccessCapabilityDAO() {
 		return accessCapabilityDAO;
@@ -229,6 +234,33 @@ public class DataImport {
 			}
 			catch (IllegalStateException e) {
 				e.printStackTrace();
+
+				DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+				System.out.println(dateFormat.format(dateObj)); // 2014/08/06 15:59:48
+
+				try (PrintWriter writer = new PrintWriter(new FileOutputStream(new File("tempErrorLog" + dateFormat.format(dateObj) + ".txt"), true))) {
+					System.out.println("here");
+					writer.println("Invalid BASE_DATA entry found: ");
+					writer.println("date: " + date);
+					writer.println("eventId: " + (int) eventId.getNumericCellValue());
+					writer.println("failureClass: " + failureClass.getStringCellValue());
+					writer.println("ueType: " + (int) ueType.getNumericCellValue());
+					writer.println("market: " + (int) market.getNumericCellValue());
+					writer.println("operator: " + (int) operator.getNumericCellValue());
+					writer.println("cellId: " + (int) cellId.getNumericCellValue());
+					writer.println("duration: " + (int) duration.getNumericCellValue());
+					writer.println("causeCode: " + causeCode.getStringCellValue());
+					writer.println("neVersion: " + neVersion.getStringCellValue());
+					writer.println("imsi: " + (int) imsi.getNumericCellValue());
+					writer.println("hier3: " + (int) hier3.getNumericCellValue());
+					writer.println("hier32: " + (int) hier32.getNumericCellValue());
+					writer.println("hier321: " + (int) hier321.getNumericCellValue());
+					writer.println();
+				}
+				catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 
 			// ??ft.setEventId(eventId);

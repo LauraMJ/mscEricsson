@@ -1,5 +1,6 @@
 package com.ericsson.msc.group5.dataIO;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,6 +13,9 @@ import java.util.Date;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -155,6 +159,27 @@ public class DataImport {
 
 		int getPageNumber() {
 			return pageNumber;
+		}
+	}
+
+	private void getFileFromDialog() {
+		JFrame f = new JFrame();
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		JFileChooser fileChooser = new JFileChooser();
+
+		if (fileChooser.showOpenDialog(f) == JFileChooser.APPROVE_OPTION) {
+			File file = fileChooser.getSelectedFile();
+			try {
+				Desktop.getDesktop().open(file);
+			}
+			catch (IOException e) {
+				System.out.println("File not found");
+			}
 		}
 	}
 
@@ -340,8 +365,8 @@ public class DataImport {
 			}
 			catch (IllegalStateException e) {
 				// TODO: decide how to handle B63 and E63 - coin flip
-				marketName.setCellType(Cell.CELL_TYPE_STRING); 
-				model.setCellType(Cell.CELL_TYPE_STRING); 
+				marketName.setCellType(Cell.CELL_TYPE_STRING);
+				model.setCellType(Cell.CELL_TYPE_STRING);
 				UserEquipment ue = new UserEquipment((int) tac.getNumericCellValue(), marketName.getStringCellValue(), manufacturer.getStringCellValue(),
 						readAccessCapability, model.getStringCellValue(), readUserEquipmentType, readOs, readInputMode);
 				PersistenceUtil.persist(ue);

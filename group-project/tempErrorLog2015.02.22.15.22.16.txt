@@ -1,0 +1,352 @@
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:15
+eventId: 4099
+failureClass: (null)
+ueType: 21060800
+market: 344
+operator: 930
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 344930000000011
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:16
+eventId: 4099
+failureClass: (null)
+ueType: 33000153
+market: 310
+operator: 560
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 310560000000012
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:17
+eventId: 4099
+failureClass: (null)
+ueType: 33000253
+market: 240
+operator: 21
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 240210000000013
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:18
+eventId: 4099
+failureClass: (null)
+ueType: 21060800
+market: 344
+operator: 930
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 344930000000011
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:19
+eventId: 4099
+failureClass: (null)
+ueType: 33000153
+market: 310
+operator: 560
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 310560000000012
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:15
+eventId: 4099
+failureClass: (null)
+ueType: 33000253
+market: 240
+operator: 21
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 240210000000013
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:16
+eventId: 4099
+failureClass: (null)
+ueType: 21060800
+market: 344
+operator: 930
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 344930000000011
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:17
+eventId: 4099
+failureClass: (null)
+ueType: 33000153
+market: 310
+operator: 560
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 310560000000012
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:18
+eventId: 4099
+failureClass: (null)
+ueType: 33000253
+market: 240
+operator: 21
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 240210000000013
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:19
+eventId: 4099
+failureClass: (null)
+ueType: 21060800
+market: 344
+operator: 930
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 344930000000011
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:20
+eventId: 4099
+failureClass: (null)
+ueType: 21060800
+market: 344
+operator: 930
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 344930000000011
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:21
+eventId: 4099
+failureClass: (null)
+ueType: 33000153
+market: 310
+operator: 560
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 310560000000012
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:22
+eventId: 4099
+failureClass: (null)
+ueType: 33000253
+market: 240
+operator: 21
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 240210000000013
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:23
+eventId: 4099
+failureClass: (null)
+ueType: 21060800
+market: 344
+operator: 930
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 344930000000011
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:24
+eventId: 4099
+failureClass: (null)
+ueType: 33000153
+market: 310
+operator: 560
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 310560000000012
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:20
+eventId: 4099
+failureClass: (null)
+ueType: 33000253
+market: 240
+operator: 21
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 240210000000013
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:21
+eventId: 4099
+failureClass: (null)
+ueType: 21060800
+market: 344
+operator: 930
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 344930000000011
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:22
+eventId: 4099
+failureClass: (null)
+ueType: 33000153
+market: 310
+operator: 560
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 310560000000012
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:23
+eventId: 4099
+failureClass: (null)
+ueType: 33000253
+market: 240
+operator: 21
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 240210000000013
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:24
+eventId: 4099
+failureClass: (null)
+ueType: 21060800
+market: 344
+operator: 930
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 344930000000011
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:25
+eventId: 4099
+failureClass: (null)
+ueType: 21060800
+market: 344
+operator: 930
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 344930000000011
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+
+Invalid BASE_DATA entry found: 
+date: 11/01/13 17:26
+eventId: 4099
+failureClass: (null)
+ueType: 33000153
+market: 310
+operator: 560
+cellId: 4
+duration: 1000
+causeCode: (null)
+neVersion: 11B
+imsi: 310560000000012
+hier3: 4809532081614990336
+hier32: 8226896360947470336
+hier321: 1150444940909479936
+

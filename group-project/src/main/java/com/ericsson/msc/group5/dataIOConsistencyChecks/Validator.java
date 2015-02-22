@@ -48,17 +48,48 @@ public class Validator {
 	}
 
 	private static boolean validateFailureTraceRowFieldTypes(HSSFRow row) {
-		for (int i = 0; i <= 13; i++) {
-			if (i == 9) {
-				if (row.getCell(9).getCellType() != Cell.CELL_TYPE_STRING) {
-					return false;
-				}
-			}
-			else {
-				if (row.getCell(i).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-					return false;
-				}
-			}
+
+		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(4).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(5).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(6).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(7).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(8).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(9).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(10).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(11).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(12).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
+		}
+		if (row.getCell(13).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			return false;
 		}
 		return true;
 	}
@@ -67,15 +98,35 @@ public class Validator {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}
-		for (int i = 1; i <= 8; i++) {
-			if (row.getCell(i).getCellType() != Cell.CELL_TYPE_STRING) {
-				return false;
-			}
+		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(4).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(5).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(6).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(7).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
+		}
+		if (row.getCell(8).getCellType() != Cell.CELL_TYPE_STRING) {
+			return false;
 		}
 		return true;
 	}
 
-	private static boolean validateCountryCodeNetworkCodeRowFieldTypes(HSSFRow row) {
+	private static boolean validateCountryCodeNetworkCodeRowFieldTypes(
+			HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}

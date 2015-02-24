@@ -148,24 +148,28 @@ public class DataImport {
 		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
+		HSSFRow row;
+		HSSFCell dateTime, eventId, failureClass, ueType, market;
+		HSSFCell operator, cellId, duration, causeCode;
+		HSSFCell neVersion, imsi, hier3, hier32, hier321;
 		for (int i = 1; i <= numRows; i++) {
-			HSSFRow row = (HSSFRow) worksheet.getRow(i);
+			row = (HSSFRow) worksheet.getRow(i);
 
 			// builder pattern?
-			HSSFCell dateTime = row.getCell(0);
-			HSSFCell eventId = row.getCell(1);
-			HSSFCell failureClass = row.getCell(2);
-			HSSFCell ueType = row.getCell(3);
-			HSSFCell market = row.getCell(4);
-			HSSFCell operator = row.getCell(5);
-			HSSFCell cellId = row.getCell(6);
-			HSSFCell duration = row.getCell(7);
-			HSSFCell causeCode = row.getCell(8);
-			HSSFCell neVersion = row.getCell(9);
-			HSSFCell imsi = row.getCell(10);
-			HSSFCell hier3 = row.getCell(11);
-			HSSFCell hier32 = row.getCell(12);
-			HSSFCell hier321 = row.getCell(13);
+			dateTime = row.getCell(0);
+			eventId = row.getCell(1);
+			failureClass = row.getCell(2);
+			ueType = row.getCell(3);
+			market = row.getCell(4);
+			operator = row.getCell(5);
+			cellId = row.getCell(6);
+			duration = row.getCell(7);
+			causeCode = row.getCell(8);
+			neVersion = row.getCell(9);
+			imsi = row.getCell(10);
+			hier3 = row.getCell(11);
+			hier32 = row.getCell(12);
+			hier321 = row.getCell(13);
 
 			String date = formatDateAsString(dateTime);
 			if (Validator.validateFieldTypes(row, new FailureTrace())) {
@@ -209,12 +213,14 @@ public class DataImport {
 		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.EVENT_CAUSE_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
+		HSSFRow row;
+		HSSFCell causeCode, eventId, description;
 		for (int i = 1; i <= numRows; i++) {
-			HSSFRow row = (HSSFRow) worksheet.getRow(i);
+			row = (HSSFRow) worksheet.getRow(i);
 
-			HSSFCell causeCode = row.getCell(0);
-			HSSFCell eventId = row.getCell(1);
-			HSSFCell description = row.getCell(2);
+			causeCode = row.getCell(0);
+			eventId = row.getCell(1);
+			description = row.getCell(2);
 
 			EventCause eventCauseObject = eventCauseDAO.getMangedEventCause((int) causeCode.getNumericCellValue(), (int) eventId.getNumericCellValue(),
 					description.getStringCellValue());
@@ -225,11 +231,13 @@ public class DataImport {
 		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.FAILURE_CLASS_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
+		HSSFRow row;
+		HSSFCell failureClass, description;
 		for (int i = 1; i <= numRows; i++) {
-			HSSFRow row = (HSSFRow) worksheet.getRow(i);
+			row = (HSSFRow) worksheet.getRow(i);
 
-			HSSFCell failureClass = row.getCell(0);
-			HSSFCell description = row.getCell(1);
+			failureClass = row.getCell(0);
+			description = row.getCell(1);
 
 			FailureClass failureClassObject = failureClassDAO
 					.getManagedFailureClass((int) failureClass.getNumericCellValue(), description.getStringCellValue());
@@ -240,11 +248,14 @@ public class DataImport {
 		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.UE_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
+		HSSFRow row;
+		HSSFCell tac, marketName, manufacturer, accessCapability, model;
+		HSSFCell vendor, ueType, os, inputMode;
 		for (int i = 1; i <= numRows; i++) {
 			System.out.println("current row is: " + i);
-			HSSFRow row = (HSSFRow) worksheet.getRow(i);
+			row = (HSSFRow) worksheet.getRow(i);
 
-			HSSFCell tac = row.getCell(0);
+			tac = row.getCell(0);
 			EntityManager em = PersistenceUtil.createEM();
 			if (em.find(UserEquipment.class, (int) tac.getNumericCellValue()) != null) {
 				em.close();
@@ -252,14 +263,14 @@ public class DataImport {
 			}
 			em.close();
 
-			HSSFCell marketName = row.getCell(1);
-			HSSFCell manufacturer = row.getCell(2);
-			HSSFCell accessCapability = row.getCell(3);
-			HSSFCell model = row.getCell(4);
-			HSSFCell vendor = row.getCell(5); // ue.set TODO NO VENDOR FIELD!!!
-			HSSFCell ueType = row.getCell(6);
-			HSSFCell os = row.getCell(7);
-			HSSFCell inputMode = row.getCell(8);
+			marketName = row.getCell(1);
+			manufacturer = row.getCell(2);
+			accessCapability = row.getCell(3);
+			model = row.getCell(4);
+			vendor = row.getCell(5); // ue.set TODO NO VENDOR FIELD!!!
+			ueType = row.getCell(6);
+			os = row.getCell(7);
+			inputMode = row.getCell(8);
 			AccessCapability readAccessCapability = accessCapabilityDAO.getManagedAccessCapability(accessCapability.getStringCellValue());
 			UserEquipmentType readUserEquipmentType = userEquipmentTypeDAO.getManagedUserEquipmentType(ueType.getStringCellValue());
 			OperatingSystem readOs = operatingSystemDAO.getManagedOs(os.getStringCellValue());

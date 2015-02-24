@@ -10,18 +10,21 @@ public class PersistenceUtil implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("callFailureLogs");
+	protected static EntityManagerFactory entityManagerFactory = Persistence
+			.createEntityManagerFactory("callFailureLogs");
 
 	public static void persist(Object entity) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = entityManagerFactory
+				.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(entity);
 		entityManager.getTransaction().commit();
-		entityManager.close();
+		// entityManager.close();
 	}
 
 	public static void batchPersistData(List <Object> list) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = entityManagerFactory
+				.createEntityManager();
 		entityManager.getTransaction().begin();
 		for (Object entity : list) {
 			entityManager.persist(entity);
@@ -32,7 +35,8 @@ public class PersistenceUtil implements Serializable {
 	}
 
 	public static void remove(Object entity) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = entityManagerFactory
+				.createEntityManager();
 		entityManager.getTransaction().begin();
 		Object mergedEntity = entityManager.merge(entity);
 		entityManager.remove(mergedEntity);
@@ -41,7 +45,8 @@ public class PersistenceUtil implements Serializable {
 	}
 
 	public static Object merge(Object entity) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = entityManagerFactory
+				.createEntityManager();
 		entityManager.getTransaction().begin();
 		entity = entityManager.merge(entity);
 		entityManager.getTransaction().commit();

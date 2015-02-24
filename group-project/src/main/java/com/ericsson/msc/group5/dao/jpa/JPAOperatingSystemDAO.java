@@ -1,11 +1,19 @@
 package com.ericsson.msc.group5.dao.jpa;
 
 import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dataAccessLayer.OperatingSystemDAO;
 import com.ericsson.msc.group5.entities.OperatingSystem;
 
+@Local
+@Stateless
 public class JPAOperatingSystemDAO implements OperatingSystemDAO {
+
+	@PersistenceContext
+	private EntityManager em;
 
 	public OperatingSystem getManagedOs(String operatingSystem) {
 		EntityManager em = PersistenceUtil.createEM();

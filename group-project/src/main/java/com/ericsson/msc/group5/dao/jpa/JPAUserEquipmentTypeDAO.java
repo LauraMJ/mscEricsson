@@ -1,11 +1,19 @@
 package com.ericsson.msc.group5.dao.jpa;
 
 import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dataAccessLayer.UserEquipmentTypeDAO;
 import com.ericsson.msc.group5.entities.UserEquipmentType;
 
+@Local
+@Stateless
 public class JPAUserEquipmentTypeDAO implements UserEquipmentTypeDAO {
+
+	@PersistenceContext
+	private EntityManager em;
 
 	public UserEquipmentType getManagedUserEquipmentType(String ueType) {
 		EntityManager em = PersistenceUtil.createEM();

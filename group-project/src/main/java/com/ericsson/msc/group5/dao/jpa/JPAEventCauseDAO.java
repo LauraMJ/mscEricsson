@@ -1,12 +1,20 @@
 package com.ericsson.msc.group5.dao.jpa;
 
 import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dataAccessLayer.EventCauseDAO;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.EventCauseCK;
 
+@Local
+@Stateless
 public class JPAEventCauseDAO implements EventCauseDAO {
+
+	@PersistenceContext
+	private EntityManager em;
 
 	public EventCause getMangedEventCause(int causeCode, int eventId,
 			String description) {

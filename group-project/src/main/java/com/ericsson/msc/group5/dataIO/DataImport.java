@@ -71,7 +71,8 @@ public class DataImport {
 	private Date dateObj = new Date();
 
 	private enum ExcelDataSheet {
-		BASE_DATA_TABLE(0), EVENT_CAUSE_TABLE(1), FAILURE_CLASS_TABLE(2), UE_TABLE(3), MCC_MNC_TABLE(4);
+		BASE_DATA_TABLE(0), EVENT_CAUSE_TABLE(1), FAILURE_CLASS_TABLE(2), UE_TABLE(
+				3), MCC_MNC_TABLE(4);
 
 		private final int pageNumber;
 
@@ -85,18 +86,22 @@ public class DataImport {
 	}
 
 	public static String formatDateAsString(HSSFCell dateTime) {
-		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
-		DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
+		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT,
+				Locale.UK);
+		DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT,
+				Locale.UK);
 		Date dateTimeValue = dateTime.getDateCellValue();
 
-		String dateTimeString = dateFormat.format(dateTimeValue) + " " + timeFormat.format(dateTimeValue);
+		String dateTimeString = dateFormat.format(dateTimeValue) + " "
+				+ timeFormat.format(dateTimeValue);
 		return dateTimeString;
 	}
 
 	public void begin(String location) {
 		// long start = System.currentTimeMillis();
 		getFileFromDialog();
-		try (FileInputStream excelInputStream = new FileInputStream(EXCEL_SHEET_LOCATION)) {
+		try (FileInputStream excelInputStream = new FileInputStream(
+				EXCEL_SHEET_LOCATION)) {
 			Workbook excelWorkbook = new HSSFWorkbook(excelInputStream);
 			readExcelDocument(excelWorkbook);
 		}
@@ -145,7 +150,8 @@ public class DataImport {
 	}
 
 	private void readBaseDataSheet(Workbook excelWorkbook) {
-		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
+		HSSFSheet worksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
 		HSSFRow row;
@@ -175,13 +181,24 @@ public class DataImport {
 			if (Validator.validateFieldTypes(row, new FailureTrace())) {
 				try {
 					if (Validator.validateFieldValues(row, new FailureTrace())) {
-						EventCause ec = eventCauseDAO.getMangedEventCause((int) causeCode.getNumericCellValue(), (int) eventId.getNumericCellValue(), "");
-						CountryCodeNetworkCode ccnc = countryCodeNetworkCodeDAO.getManagedCountryCodeNetworkCode((int) market.getNumericCellValue(),
-								(int) operator.getNumericCellValue(), "", "");
-						FailureClass fc = failureClassDAO.getManagedFailureClass((int) failureClass.getNumericCellValue(), "");
-						HierInfo hi = hierInfoDAO.getManagedHierInfo((long) hier3.getNumericCellValue(), (long) hier32.getNumericCellValue(),
+						EventCause ec = eventCauseDAO.getMangedEventCause(
+								(int) causeCode.getNumericCellValue(),
+								(int) eventId.getNumericCellValue(), "");
+						CountryCodeNetworkCode ccnc = countryCodeNetworkCodeDAO
+								.getManagedCountryCodeNetworkCode(
+										(int) market.getNumericCellValue(),
+										(int) operator.getNumericCellValue(),
+										"", "");
+						FailureClass fc = failureClassDAO
+								.getManagedFailureClass((int) failureClass
+										.getNumericCellValue(), "");
+						HierInfo hi = hierInfoDAO.getManagedHierInfo(
+								(long) hier3.getNumericCellValue(),
+								(long) hier32.getNumericCellValue(),
 								(long) hier321.getNumericCellValue());
-						UserEquipment ue = userEquipmentDAO.getManagedUserEquipment((int) ueType.getNumericCellValue());
+						UserEquipment ue = userEquipmentDAO
+								.getManagedUserEquipment((int) ueType
+										.getNumericCellValue());
 
 						FailureTrace ft = new FailureTrace();
 						ft.setDateTime(date);
@@ -191,7 +208,8 @@ public class DataImport {
 						ft.setEventCause(ec);
 						ft.setFailureClass(fc);
 						ft.setHierInfo(hi);
-						ft.setIMSI(Long.toString((long) imsi.getNumericCellValue()));
+						ft.setIMSI(Long.toString((long) imsi
+								.getNumericCellValue()));
 						ft.setNeVersion(neVersion.getStringCellValue());
 						ft.setUserEqipment(ue);
 
@@ -199,7 +217,7 @@ public class DataImport {
 					}
 				}
 				catch (IllegalStateException e) {
-//					e.printStackTrace();
+					// e.printStackTrace();
 					ErrorLogWriter.writeToErrorLog(row, "");
 				}
 			}
@@ -210,7 +228,8 @@ public class DataImport {
 	}
 
 	private void readEventCauseDataSheet(Workbook excelWorkbook) {
-		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.EVENT_CAUSE_TABLE.getPageNumber());
+		HSSFSheet worksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.EVENT_CAUSE_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
 		HSSFRow row;
@@ -222,13 +241,16 @@ public class DataImport {
 			eventId = row.getCell(1);
 			description = row.getCell(2);
 
-			EventCause eventCauseObject = eventCauseDAO.getMangedEventCause((int) causeCode.getNumericCellValue(), (int) eventId.getNumericCellValue(),
+			EventCause eventCauseObject = eventCauseDAO.getMangedEventCause(
+					(int) causeCode.getNumericCellValue(),
+					(int) eventId.getNumericCellValue(),
 					description.getStringCellValue());
 		}
 	}
 
 	private void readFailureClassDataSheet(Workbook excelWorkbook) {
-		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.FAILURE_CLASS_TABLE.getPageNumber());
+		HSSFSheet worksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.FAILURE_CLASS_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
 		HSSFRow row;
@@ -240,12 +262,15 @@ public class DataImport {
 			description = row.getCell(1);
 
 			FailureClass failureClassObject = failureClassDAO
-					.getManagedFailureClass((int) failureClass.getNumericCellValue(), description.getStringCellValue());
+					.getManagedFailureClass(
+							(int) failureClass.getNumericCellValue(),
+							description.getStringCellValue());
 		}
 	}
 
 	private void readUserEquipmentDataSheet(Workbook excelWorkbook) {
-		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.UE_TABLE.getPageNumber());
+		HSSFSheet worksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.UE_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
 		HSSFRow row;
@@ -270,22 +295,35 @@ public class DataImport {
 			ueType = row.getCell(6);
 			os = row.getCell(7);
 			inputMode = row.getCell(8);
-			AccessCapability readAccessCapability = accessCapabilityDAO.getManagedAccessCapability(accessCapability.getStringCellValue());
-			UserEquipmentType readUserEquipmentType = userEquipmentTypeDAO.getManagedUserEquipmentType(ueType.getStringCellValue());
-			OperatingSystem readOs = operatingSystemDAO.getManagedOs(os.getStringCellValue());
-			InputMode readInputMode = inputModeDAO.getManagedInputMode(inputMode.getStringCellValue());
+			AccessCapability readAccessCapability = accessCapabilityDAO
+					.getManagedAccessCapability(accessCapability
+							.getStringCellValue());
+			UserEquipmentType readUserEquipmentType = userEquipmentTypeDAO
+					.getManagedUserEquipmentType(ueType.getStringCellValue());
+			OperatingSystem readOs = operatingSystemDAO.getManagedOs(os
+					.getStringCellValue());
+			InputMode readInputMode = inputModeDAO
+					.getManagedInputMode(inputMode.getStringCellValue());
 
 			try {
-				UserEquipment ue = new UserEquipment((int) tac.getNumericCellValue(), marketName.getStringCellValue(), manufacturer.getStringCellValue(),
-						readAccessCapability, model.getStringCellValue(), readUserEquipmentType, readOs, readInputMode);
+				UserEquipment ue = new UserEquipment(
+						(int) tac.getNumericCellValue(),
+						marketName.getStringCellValue(),
+						manufacturer.getStringCellValue(),
+						readAccessCapability, model.getStringCellValue(),
+						readUserEquipmentType, readOs, readInputMode);
 				PersistenceUtil.persist(ue);
 			}
 			catch (IllegalStateException e) {
 				// TODO: decide how to handle B63 and E63 - coin flip
 				marketName.setCellType(Cell.CELL_TYPE_STRING);
 				model.setCellType(Cell.CELL_TYPE_STRING);
-				UserEquipment ue = new UserEquipment((int) tac.getNumericCellValue(), marketName.getStringCellValue(), manufacturer.getStringCellValue(),
-						readAccessCapability, model.getStringCellValue(), readUserEquipmentType, readOs, readInputMode);
+				UserEquipment ue = new UserEquipment(
+						(int) tac.getNumericCellValue(),
+						marketName.getStringCellValue(),
+						manufacturer.getStringCellValue(),
+						readAccessCapability, model.getStringCellValue(),
+						readUserEquipmentType, readOs, readInputMode);
 				PersistenceUtil.persist(ue);
 			}
 			// validData.add(ue);
@@ -295,7 +333,8 @@ public class DataImport {
 	}
 
 	private void readOperatorDataSheet(Workbook excelWorkbook) {
-		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.MCC_MNC_TABLE.getPageNumber());
+		HSSFSheet worksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.MCC_MNC_TABLE.getPageNumber());
 
 		int numRows = worksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
@@ -306,8 +345,12 @@ public class DataImport {
 			HSSFCell country = row.getCell(2);
 			HSSFCell operator = row.getCell(3);
 
-			CountryCodeNetworkCode countryNetworkCodeObject = countryCodeNetworkCodeDAO.getManagedCountryCodeNetworkCode((int) mcc.getNumericCellValue(),
-					(int) mnc.getNumericCellValue(), country.getStringCellValue(), operator.getStringCellValue());
+			CountryCodeNetworkCode countryNetworkCodeObject = countryCodeNetworkCodeDAO
+					.getManagedCountryCodeNetworkCode(
+							(int) mcc.getNumericCellValue(),
+							(int) mnc.getNumericCellValue(),
+							country.getStringCellValue(),
+							operator.getStringCellValue());
 		}
 	}
 
@@ -323,7 +366,8 @@ public class DataImport {
 		return countryCodeNetworkCodeDAO;
 	}
 
-	public void setCountryCodeNetworkCodeDAO(CountryCodeNetworkCodeDAO countryCodeNetworkCodeDAO) {
+	public void setCountryCodeNetworkCodeDAO(
+			CountryCodeNetworkCodeDAO countryCodeNetworkCodeDAO) {
 		this.countryCodeNetworkCodeDAO = countryCodeNetworkCodeDAO;
 	}
 
@@ -379,7 +423,8 @@ public class DataImport {
 		return userEquipmentTypeDAO;
 	}
 
-	public void setUserEquipmentTypeDAO(UserEquipmentTypeDAO userEquipmentTypeDAO) {
+	public void setUserEquipmentTypeDAO(
+			UserEquipmentTypeDAO userEquipmentTypeDAO) {
 		this.userEquipmentTypeDAO = userEquipmentTypeDAO;
 	}
 }

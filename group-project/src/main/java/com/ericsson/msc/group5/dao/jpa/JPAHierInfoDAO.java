@@ -1,11 +1,19 @@
 package com.ericsson.msc.group5.dao.jpa;
 
 import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dataAccessLayer.HierInfoDAO;
 import com.ericsson.msc.group5.entities.HierInfo;
 
+@Local
+@Stateless
 public class JPAHierInfoDAO implements HierInfoDAO {
+
+	@PersistenceContext
+	private EntityManager em;
 
 	public HierInfo getManagedHierInfo(long hier3Id, long hier32Id,
 			long hier321Id) {

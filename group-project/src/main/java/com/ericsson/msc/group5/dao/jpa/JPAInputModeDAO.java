@@ -1,11 +1,19 @@
 package com.ericsson.msc.group5.dao.jpa;
 
 import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dataAccessLayer.InputModeDAO;
 import com.ericsson.msc.group5.entities.InputMode;
 
+@Local
+@Stateless
 public class JPAInputModeDAO implements InputModeDAO {
+
+	@PersistenceContext
+	private EntityManager em;
 
 	public InputMode getManagedInputMode(String inputMode) {
 		EntityManager em = PersistenceUtil.createEM();

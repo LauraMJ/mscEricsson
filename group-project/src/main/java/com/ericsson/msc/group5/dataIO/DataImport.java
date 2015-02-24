@@ -200,11 +200,11 @@ public class DataImport {
 				}
 				catch (IllegalStateException e) {
 //					e.printStackTrace();
-					ErrorLogWriter.writeToErrorLog(row, new FailureTrace());
+					ErrorLogWriter.writeToErrorLog(row, "");
 				}
 			}
 			else {
-				ErrorLogWriter.writeToErrorLog(row, new FailureTrace());
+				ErrorLogWriter.writeToErrorLog(row, "");
 			}
 		}
 	}

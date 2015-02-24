@@ -14,7 +14,6 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 								+ " ue where ue.typeAllocationCode = :tac",
 						UserEquipment.class).setParameter("tac", tac)
 				.getSingleResult();
-		System.out.println("hi found");
 		em.close();
 		return ue;
 	}

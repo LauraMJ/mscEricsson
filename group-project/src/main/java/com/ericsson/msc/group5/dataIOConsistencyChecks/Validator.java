@@ -185,7 +185,7 @@ public class Validator {
 				numDaysInMonth = 31;
 				break;
 		}
-		System.out.println(numDaysInMonth);
+		// System.out.println(numDaysInMonth);
 		if (day > numDaysInMonth) {
 			System.out.println("Invalid date");
 			return false;

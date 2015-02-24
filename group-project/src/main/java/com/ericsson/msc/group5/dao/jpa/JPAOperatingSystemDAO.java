@@ -17,14 +17,12 @@ public class JPAOperatingSystemDAO implements OperatingSystemDAO {
 						OperatingSystem.class)
 				.setParameter("operatingsys", operatingSystem).getResultList();
 		if (operatingSystemList.isEmpty()) {
-			System.out.println("os not found");
 			OperatingSystem newOS = new OperatingSystem();
 			newOS.setOperatingSystem(operatingSystem);
 			PersistenceUtil.persist(newOS);
 			em.close();
 			return newOS;
 		}
-		System.out.println("os found");
 		em.close();
 		return operatingSystemList.get(0);
 	}

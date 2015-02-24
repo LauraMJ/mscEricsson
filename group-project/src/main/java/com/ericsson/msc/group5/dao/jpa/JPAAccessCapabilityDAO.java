@@ -16,14 +16,12 @@ public class JPAAccessCapabilityDAO implements AccessCapabilityDAO {
 						AccessCapability.class)
 				.setParameter("access", accessCapability).getResultList();
 		if (acList.isEmpty()) {
-			System.out.println("ac not found");
 			AccessCapability ac = new AccessCapability();
 			ac.setAccessCapability(accessCapability);
 			PersistenceUtil.persist(ac);
 			em.close();
 			return ac;
 		}
-		System.out.println("ac found");
 		em.close();
 		return acList.get(0);
 	}

@@ -31,7 +31,6 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 								+ " cn where cn.countryCodeNetworkCode.country.countryCode = :countryCode AND cn.countryCodeNetworkCode.networkCode = :networkCode",
 						CountryCodeNetworkCode.class).setParameter("countryCode", countryCode).setParameter("networkCode", networkCode).getResultList();
 		if (cnList.isEmpty()) {
-			System.out.println("cn not found");
 			Country countryEntity = countryDAO.getManagedCountry(countryCode, country);
 			CountryCodeNetworkCode cn = new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(countryEntity, networkCode), operator);
 
@@ -39,7 +38,6 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 			em.close();
 			return cn;
 		}
-		System.out.println("cn not found");
 		em.close();
 		return cnList.get(0);
 	}

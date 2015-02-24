@@ -17,7 +17,6 @@
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.url"
 				value="jdbc:mysql://localhost:3306/CALL_FAILURE_LOGS" />
-<!-- 			<property name="hibernate.show_sql" value="true" /> -->
 		</properties>
 	</persistence-unit>
 </persistence>

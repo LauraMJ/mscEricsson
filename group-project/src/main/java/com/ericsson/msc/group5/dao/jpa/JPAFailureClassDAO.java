@@ -21,7 +21,6 @@ public class JPAFailureClassDAO implements FailureClassDAO {
 						FailureClass.class)
 				.setParameter("failureClassId", failureClass).getResultList();
 		if (fcList.isEmpty()) {
-			System.out.println("fc not found");
 			FailureClass fc = new FailureClass();
 			fc.setFailureClass(failureClass);
 			fc.setDescription(description);
@@ -29,7 +28,6 @@ public class JPAFailureClassDAO implements FailureClassDAO {
 			em.close();
 			return fc;
 		}
-		System.out.println("fc not found");
 		em.close();
 		return fcList.get(0);
 	}

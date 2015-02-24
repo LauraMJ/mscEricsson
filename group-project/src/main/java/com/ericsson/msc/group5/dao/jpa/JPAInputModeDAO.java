@@ -16,14 +16,12 @@ public class JPAInputModeDAO implements InputModeDAO {
 						InputMode.class).setParameter("imode", inputMode)
 				.getResultList();
 		if (inputModeList.isEmpty()) {
-			System.out.println("im not found");
 			InputMode inputModeObject = new InputMode();
 			inputModeObject.setInputMode(inputMode);
 			PersistenceUtil.persist(inputModeObject);
 			em.close();
 			return inputModeObject;
 		}
-		System.out.println("im found");
 		em.close();
 		return inputModeList.get(0);
 	}

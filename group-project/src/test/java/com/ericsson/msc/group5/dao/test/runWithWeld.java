@@ -21,14 +21,14 @@ public class runWithWeld {
 		if (container != null) {
 			System.out.println("Weld not null");
 		}
-		DataImport service = container.instance().select(DataImport.class)
-				.get();
+		DataImport service = container.instance().select(DataImport.class).get();
 		if (service != null) {
 			System.out.println("Service not null");
 		}
 
 		service.begin(EXCEL_SHEET_LOCATION);
 		weld.shutdown();
+		System.out.println("finito");
 	}
 	// @Before
 	// public void setUp() throws Exception {

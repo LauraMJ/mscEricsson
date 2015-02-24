@@ -16,14 +16,12 @@ public class JPAUserEquipmentTypeDAO implements UserEquipmentTypeDAO {
 						UserEquipmentType.class).setParameter("uetype", ueType)
 				.getResultList();
 		if (userEqiupentTypeList.isEmpty()) {
-			System.out.println("ue not found");
 			UserEquipmentType userEquipmentType = new UserEquipmentType();
 			userEquipmentType.setUserEquipmentType(ueType);
 			PersistenceUtil.persist(userEquipmentType);
 			em.close();
 			return userEquipmentType;
 		}
-		System.out.println("ue found");
 		em.close();
 		return userEqiupentTypeList.get(0);
 	}

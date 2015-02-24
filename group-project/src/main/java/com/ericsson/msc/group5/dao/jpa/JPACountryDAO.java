@@ -12,7 +12,6 @@ public class JPACountryDAO implements CountryDAO {
 		List <Country> cList = em.createQuery("select c from " + Country.class.getName() + " c where c.countryCode = :countryCode", Country.class)
 				.setParameter("countryCode", countryCode).getResultList();
 		if (cList.isEmpty()) {
-			System.out.println("c not found");
 			Country c = new Country();
 			c.setCountryCode(countryCode);
 			c.setCountry(country);
@@ -20,7 +19,6 @@ public class JPACountryDAO implements CountryDAO {
 			em.close();
 			return c;
 		}
-		System.out.println("c found");
 		em.close();
 		return cList.get(0);
 	}

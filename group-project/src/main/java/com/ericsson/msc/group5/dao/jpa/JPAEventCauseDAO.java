@@ -19,14 +19,12 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 						EventCause.class).setParameter("causeCode", causeCode)
 				.setParameter("eventId", eventId).getResultList();
 		if (ecList.isEmpty()) {
-			System.out.println("ec not found");
 			EventCause ec = new EventCause(
 					new EventCauseCK(causeCode, eventId), description);
 			PersistenceUtil.persist(ec);
 			em.close();
 			return ec;
 		}
-		System.out.println("ec not found");
 		em.close();
 		return ecList.get(0);
 	}

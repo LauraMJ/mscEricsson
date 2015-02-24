@@ -21,7 +21,6 @@ public class JPAHierInfoDAO implements HierInfoDAO {
 				.setParameter("hier321Id", Long.toString(hier321Id))
 				.getResultList();
 		if (hiList.isEmpty()) {
-			System.out.println("hi not found");
 			HierInfo hi = new HierInfo();
 			hi.setHier3Id(Long.toString(hier3Id));
 			hi.setHier32Id(Long.toString(hier32Id));
@@ -31,7 +30,6 @@ public class JPAHierInfoDAO implements HierInfoDAO {
 			em.close();
 			return hi;
 		}
-		System.out.println("hi not found");
 		em.close();
 		return hiList.get(0);
 	}

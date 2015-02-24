@@ -199,7 +199,7 @@ public class DataImport {
 					}
 				}
 				catch (IllegalStateException e) {
-					e.printStackTrace();
+//					e.printStackTrace();
 					ErrorLogWriter.writeToErrorLog(row, new FailureTrace());
 				}
 			}
@@ -252,7 +252,6 @@ public class DataImport {
 		HSSFCell tac, marketName, manufacturer, accessCapability, model;
 		HSSFCell vendor, ueType, os, inputMode;
 		for (int i = 1; i <= numRows; i++) {
-			System.out.println("current row is: " + i);
 			row = (HSSFRow) worksheet.getRow(i);
 
 			tac = row.getCell(0);

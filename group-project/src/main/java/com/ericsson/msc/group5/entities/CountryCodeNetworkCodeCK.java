@@ -2,16 +2,19 @@
 package com.ericsson.msc.group5.entities;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
 public class CountryCodeNetworkCodeCK implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+	@Column(name = "network_code")
 	private Integer networkCode;
 	@ManyToOne
-	@JoinColumn(name = "countryCode")
+	@JoinColumn(name = "country_code")
 	private Country country;
 
 	public CountryCodeNetworkCodeCK() {

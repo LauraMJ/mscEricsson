@@ -38,14 +38,14 @@ public class ErrorLogTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_dateAndTime = "1/11/2013 17:15:00";
-	private static String UPDATED_dateAndTime = "1/11/2013 17:34:00";
-	private static Integer INITIAL_eventId = 4098;
-	private static Integer UPDATED_eventId = 4099;
-	private static Integer INITIAL_failureClass = 1;
-	private static Integer UPDATED_failureClass = 0;
-	private static Integer INITIAL_userEquipmentType = 21060800;
-	private static Integer UPDATED_userEquipmentType = 33000253;
+	private static String INITIAL_DATE_AND_TIME = "1/11/2013 17:15:00";
+	private static String UPDATED_DATE_AND_TIME = "1/11/2013 17:34:00";
+	private static Integer INITIAL_EVENT_ID = 4098;
+	private static Integer UPDATED_EVENT_ID = 4099;
+	private static Integer INITIAL_FAILURE_CLASS = 1;
+	private static Integer UPDATED_FAILURE_CLASS = 0;
+	private static Integer INITIAL_USER_EQUIPMENT_TYPE = 21060800;
+	private static Integer UPDATED_USER_EQUIPMENT_TYPE = 33000253;
 	private static Integer INITIAL_market = 344;
 	private static Integer UPDATED_market = 240;
 	private static Integer INITIAL_OPERATOR = 930;
@@ -80,9 +80,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestDateAndTime() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -91,12 +91,12 @@ public class ErrorLogTest {
 		int newId = createdEL.getErrorLogId();
 
 		ErrorLog loadedEL = em.find(ErrorLog.class, newId);
-		assertEquals("Failed to insert", INITIAL_dateAndTime,
+		assertEquals("Failed to insert", INITIAL_DATE_AND_TIME,
 				loadedEL.getDateAndTime());
 
-		loadedEL.setDateAndTime(UPDATED_dateAndTime);
+		loadedEL.setDateAndTime(UPDATED_DATE_AND_TIME);
 		ErrorLog updatedAC = em.find(ErrorLog.class, newId);
-		assertEquals("Failed to update", UPDATED_dateAndTime,
+		assertEquals("Failed to update", UPDATED_DATE_AND_TIME,
 				loadedEL.getDateAndTime());
 
 		em.remove(updatedAC);
@@ -107,9 +107,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestEventId() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -118,11 +118,11 @@ public class ErrorLogTest {
 		int newId = createdEL.getErrorLogId();
 
 		ErrorLog loadedEL = em.find(ErrorLog.class, newId);
-		assertEquals("Failed to insert", INITIAL_eventId, loadedEL.getEventId());
+		assertEquals("Failed to insert", INITIAL_EVENT_ID, loadedEL.getEventId());
 
-		loadedEL.setEventId(UPDATED_eventId);
+		loadedEL.setEventId(UPDATED_EVENT_ID);
 		ErrorLog updatedEL = em.find(ErrorLog.class, newId);
-		assertEquals("Failed to update", UPDATED_eventId, loadedEL.getEventId());
+		assertEquals("Failed to update", UPDATED_EVENT_ID, loadedEL.getEventId());
 
 		em.remove(updatedEL);
 		ErrorLog shouldBeNull = em.find(ErrorLog.class, newId);
@@ -132,9 +132,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestFailureClass() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -143,12 +143,12 @@ public class ErrorLogTest {
 		int newId = createdEL.getErrorLogId();
 
 		ErrorLog loadedEL = em.find(ErrorLog.class, newId);
-		assertEquals("Failed to insert", INITIAL_failureClass,
+		assertEquals("Failed to insert", INITIAL_FAILURE_CLASS,
 				loadedEL.getFailureClass());
 
-		loadedEL.setFailureClass(UPDATED_failureClass);
+		loadedEL.setFailureClass(UPDATED_FAILURE_CLASS);
 		ErrorLog updatedEL = em.find(ErrorLog.class, newId);
-		assertEquals("Failed to update", UPDATED_failureClass,
+		assertEquals("Failed to update", UPDATED_FAILURE_CLASS,
 				loadedEL.getFailureClass());
 
 		em.remove(updatedEL);
@@ -159,9 +159,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestUserEquipmentType() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -170,12 +170,12 @@ public class ErrorLogTest {
 		int newId = createdEL.getErrorLogId();
 
 		ErrorLog loadedEL = em.find(ErrorLog.class, newId);
-		assertEquals("Failed to insert", INITIAL_userEquipmentType,
+		assertEquals("Failed to insert", INITIAL_USER_EQUIPMENT_TYPE,
 				loadedEL.getUserEquipmentType());
 
-		loadedEL.setUserEquipmentType(UPDATED_userEquipmentType);
+		loadedEL.setUserEquipmentType(UPDATED_USER_EQUIPMENT_TYPE);
 		ErrorLog updatedEL = em.find(ErrorLog.class, newId);
-		assertEquals("Failed to update", UPDATED_userEquipmentType,
+		assertEquals("Failed to update", UPDATED_USER_EQUIPMENT_TYPE,
 				loadedEL.getUserEquipmentType());
 
 		em.remove(updatedEL);
@@ -186,9 +186,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestMarket() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -211,9 +211,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestOperator() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -238,9 +238,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestCellId() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -263,9 +263,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestDuration() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -290,9 +290,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestCauseCode() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -317,9 +317,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestNEVersion() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -344,9 +344,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestIMSI() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -369,9 +369,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestHier3Id() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -394,9 +394,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestHier32Id() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);
@@ -421,9 +421,9 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTestHier321Id() throws Exception {
-		ErrorLog createdEL = new ErrorLog(0, INITIAL_dateAndTime,
-				INITIAL_eventId, INITIAL_failureClass,
-				INITIAL_userEquipmentType, INITIAL_market, INITIAL_OPERATOR,
+		ErrorLog createdEL = new ErrorLog(0, INITIAL_DATE_AND_TIME,
+				INITIAL_EVENT_ID, INITIAL_FAILURE_CLASS,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_market, INITIAL_OPERATOR,
 				INITIAL_CELL_ID, INITIAL_DURATION, INITIAL_CAUSE_CODE,
 				INITIAL_NE_VERSION, INITIAL_IMSI, INITIAL_HIER3_ID,
 				INITIAL_HIER32_ID, INITIAL_HIER321_ID);

@@ -10,7 +10,7 @@
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.show.sql" value="false" />
-			<property name="hibernate.format.sql" value="true" />
+			<property name="hibernate.format.sql" value="false" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.connection.username" value="root" />
 			<property name="hibernate.connection.password" value="toor" />

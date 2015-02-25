@@ -21,16 +21,16 @@ public class UserEquipment {
 	@Column(name = "model", length = 70)
 	private String model;
 	@ManyToOne
-	@JoinColumn(name = "access_capability_id")
+	@JoinColumn(name = "accessCapabilityId")
 	private AccessCapability accessCapabilityClass;
 	@ManyToOne
-	@JoinColumn(name = "user_equipment_type_id")
+	@JoinColumn(name = "UserEquipmentTypeId")
 	private UserEquipmentType UserEquipmentType;
 	@ManyToOne
-	@JoinColumn(name = "operating_system_id")
+	@JoinColumn(name = "operatingSystemId")
 	private OperatingSystem operatingSystem;
 	@ManyToOne
-	@JoinColumn(name = "input_mode")
+	@JoinColumn(name = "inputModeId")
 	private InputMode inputModeClass;
 
 	@OneToMany(mappedBy = "userEqipment")

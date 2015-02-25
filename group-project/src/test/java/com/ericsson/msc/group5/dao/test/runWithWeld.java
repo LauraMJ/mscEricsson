@@ -9,7 +9,7 @@ public class runWithWeld {
 	Weld weld = new Weld();
 	WeldContainer container;
 
-	private static final String EXCEL_SHEET_LOCATION = "C:\\Users\\Siobhan\\Dropbox\\MyFiles\\DIT\\DT340A\\FinalProject.xls";
+	private static final String EXCEL_SHEET_LOCATION = "C:\\Users\\Harry\\Documents\\College\\Masters\\Semester 2\\Group Project\\data.xls";
 
 	public static void main(String [] args) {
 		new runWithWeld();
@@ -21,8 +21,7 @@ public class runWithWeld {
 		if (container != null) {
 			System.out.println("Weld not null");
 		}
-		DataImport service = container.instance().select(DataImport.class)
-				.get();
+		DataImport service = container.instance().select(DataImport.class).get();
 		if (service != null) {
 			System.out.println("Service not null");
 		}

@@ -22,7 +22,7 @@ public class Validator {
 	// }
 	//
 	// public Validator() {
-	// validateDate("28/02/12");
+	// System.out.println(validateDate("19/02/75"));
 	// }
 
 	public static boolean validateFieldTypes(HSSFRow row, Object entity) {
@@ -136,34 +136,39 @@ public class Validator {
 	}
 
 	private static boolean checkIfFutureDate(String dateString) {
+		dateString = correctLengthOfDateString(dateString);
+		dateString = dateString.substring(0, 6) + "20" + dateString.substring(6);
 		Calendar testDate = Calendar.getInstance();
 		Calendar currentDate = Calendar.getInstance();
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		formatter.setLenient(false);
 		try {
 			Date date = formatter.parse(dateString);
+			// System.out.println(formatter.format(date));
 			testDate.setTime(date);
 			if (testDate.after(currentDate)) {
-				System.out.println("Date is in the future!");
+				// System.out.println("Date is in the future!");
 				return false;
 			}
 		}
 		catch (ParseException e) {
 			e.printStackTrace();
-			System.out.println("Couldn't parse date");
+			// System.out.println("Couldn't parse date");
 			return false;
 		}
 		return true;
 	}
 
 	private static boolean checkIfValidDate(String dateString) {
+		dateString = correctLengthOfDateString(dateString);
+
 		// Assumes the short year format refers to years in the 21st century
 		int year = Integer.parseInt(dateString.substring(6, 8)) + 2000;
 		int day = Integer.parseInt(dateString.substring(0, 2));
 		int month = Integer.parseInt(dateString.substring(3, 5));
 
 		if (day < 1 || day > 31 || month < 1 || month > 12) {
-			System.out.println("Invalid date");
+			// System.out.println("Invalid date");
 			return false;
 		}
 
@@ -187,10 +192,27 @@ public class Validator {
 		}
 		// System.out.println(numDaysInMonth);
 		if (day > numDaysInMonth) {
-			System.out.println("Invalid date");
+			// System.out.println("Invalid date");
 			return false;
 		}
 		return true;
+	}
+
+	private static String correctLengthOfDateString(String dateString) {
+		// Pad single digit day with a zero
+		if ((int) dateString.charAt(1) < 48 || (int) dateString.charAt(1) > 57) {
+			String temp = dateString;
+			dateString = new String();
+			dateString = "0" + temp;
+		}
+		// Pad single digit month with a zero
+		if ((int) dateString.charAt(4) < 48 || (int) dateString.charAt(4) > 57) {
+			String temp = dateString;
+			dateString = new String();
+			dateString = temp.substring(0, 3) + "0" + temp.substring(3);
+		}
+
+		return dateString;
 	}
 
 	private static boolean validateFailureTraceRowFieldTypes(HSSFRow row) {

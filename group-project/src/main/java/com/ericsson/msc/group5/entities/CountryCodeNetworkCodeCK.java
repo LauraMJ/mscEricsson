@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 @Embeddable
 public class CountryCodeNetworkCodeCK implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private Integer networkCode;
 	@ManyToOne

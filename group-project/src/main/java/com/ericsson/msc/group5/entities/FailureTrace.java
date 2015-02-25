@@ -37,7 +37,7 @@ public class FailureTrace {
 	private HierInfo hierInfo;
 	@ManyToOne
 	@JoinColumns({
-			@JoinColumn(name = "causeCode", referencedColumnName = "causeCode"),
+			@JoinColumn(name = "cause_code", referencedColumnName = "cause_code"),
 			@JoinColumn(name = "eventId", referencedColumnName = "eventId")})
 	private EventCause eventCause;
 	@ManyToOne

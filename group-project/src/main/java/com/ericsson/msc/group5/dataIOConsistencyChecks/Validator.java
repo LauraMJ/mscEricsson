@@ -47,11 +47,11 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateEventId(double d) {
+	public static boolean validateEventId(Integer d) {
 		if (d >= 4000 && d <= 5000) {
 			return true;
 		}
-		System.out.println("Invalid eventId");
+		// System.out.println("Invalid eventId");
 		return false;
 	}
 
@@ -59,7 +59,7 @@ public class Validator {
 		if (input >= 0 && input <= 4) {
 			return true;
 		}
-		System.out.println("Invalid failureclass");
+		// System.out.println("Invalid failureclass");
 		return false;
 	}
 
@@ -67,7 +67,7 @@ public class Validator {
 		if (input >= 100000 && input <= 99999999) {
 			return true;
 		}
-		System.out.println("Invalid ue type");
+		// System.out.println("Invalid ue type");
 		return false;
 	}
 
@@ -75,7 +75,7 @@ public class Validator {
 		if (input >= 001 && input <= 999) {
 			return true;
 		}
-		System.out.println("Invalid market");
+		// System.out.println("Invalid market");
 		return false;
 	}
 
@@ -83,7 +83,7 @@ public class Validator {
 		if (input >= 01 && input <= 999) {
 			return true;
 		}
-		System.out.println("Invalid operator");
+		// System.out.println("Invalid operator");
 		return false;
 	}
 
@@ -91,7 +91,7 @@ public class Validator {
 		if (input < 3843) {
 			return true;
 		}
-		System.out.println("Invalid cell id");
+		// System.out.println("Invalid cell id");
 		return false;
 	}
 
@@ -100,7 +100,7 @@ public class Validator {
 		if (input < 3.6e+6) {
 			return true;
 		}
-		System.out.println("Invalid duration");
+		// System.out.println("Invalid duration");
 		return false;
 	}
 
@@ -108,23 +108,23 @@ public class Validator {
 		if (input <= 27) {
 			return true;
 		}
-		System.out.println("Invalid cause code");
+		// System.out.println("Invalid cause code");
 		return false;
 	}
 
-	public static boolean validateNEVersione(String input) {
+	public static boolean validateNEVersion(String input) {
 		if (input.equals("11B") || input.equals("12A")) {
 			return true;
 		}
-		System.out.println("Invalid NE version");
+		// System.out.println("Invalid NE version");
 		return false;
 	}
 
-	public static boolean validateIMSI(Integer input) {
+	public static boolean validateIMSI(Long input) {
 		if (input <= 999999999999999L) {
 			return true;
 		}
-		System.out.println("Invalid IMSI");
+		// System.out.println("Invalid IMSI");
 		return false;
 	}
 
@@ -355,47 +355,47 @@ public class Validator {
 	private static boolean validateFailureTraceRowFieldValues(HSSFRow row) {
 
 		if ( !validateDate(DataImport.formatDateAsString(row.getCell(0)))) {
-			System.out.println("Date not ok");
+			// System.out.println("Date not ok");
 			return false;
 		}
-		if ( !validateEventId(row.getCell(1).getNumericCellValue())) {
-			System.out.println("Event ID not ok");
+		if ( !validateEventId((int) row.getCell(1).getNumericCellValue())) {
+			// System.out.println("Event ID not ok");
 			return false;
 		}
 		if ( !validateFailureClass((int) row.getCell(2).getNumericCellValue())) {
-			System.out.println("Failure class not ok");
+			// System.out.println("Failure class not ok");
 			return false;
 		}
 		if ( !validateUEType((int) row.getCell(3).getNumericCellValue())) {
-			System.out.println("Ue type not ok");
+			// System.out.println("Ue type not ok");
 			return false;
 		}
 		if ( !validateMarket((int) row.getCell(4).getNumericCellValue())) {
-			System.out.println("Market not ok");
+			// System.out.println("Market not ok");
 			return false;
 		}
 		if ( !validateOperator((int) row.getCell(5).getNumericCellValue())) {
-			System.out.println("operator not ok");
+			// System.out.println("operator not ok");
 			return false;
 		}
 		if ( !validateCellId((int) row.getCell(6).getNumericCellValue())) {
-			System.out.println("cell id not ok");
+			// System.out.println("cell id not ok");
 			return false;
 		}
 		if ( !validateDuration((int) row.getCell(7).getNumericCellValue())) {
-			System.out.println("duration not ok");
+			// System.out.println("duration not ok");
 			return false;
 		}
 		if ( !validateCauseCode((int) row.getCell(8).getNumericCellValue())) {
-			System.out.println("cause code not ok");
+			// System.out.println("cause code not ok");
 			return false;
 		}
-		if ( !validateNEVersione(row.getCell(9).getStringCellValue())) {
-			System.out.println("ne version not ok");
+		if ( !validateNEVersion(row.getCell(9).getStringCellValue())) {
+			// System.out.println("ne version not ok");
 			return false;
 		}
-		if ( !validateIMSI((int) row.getCell(10).getNumericCellValue())) {
-			System.out.println("imsi not ok");
+		if ( !validateIMSI((long) row.getCell(10).getNumericCellValue())) {
+			// System.out.println("imsi not ok");
 			return false;
 		}
 		return true;

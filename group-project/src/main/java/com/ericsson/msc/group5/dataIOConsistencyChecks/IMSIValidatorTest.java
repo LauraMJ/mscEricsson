@@ -9,25 +9,24 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class DateValidatorTest {
+public class IMSIValidatorTest {
 
 	private boolean expectedResult;
-	private String dateString;
+	private Long imsi;
 
 	@Parameters
 	public static List <Object []> params() {
-		Object [][] data = new Object[][] { {true, "1/1/11"}, {true, "31/1/12"}, {true, "29/02/12"}, {false, "29/02/15"}, {false, "31/04/15"},
-				{false, "00/02/15"}, {false, "19/02/75"}};
+		Object [][] data = new Object[][] { {false, 1000000000000000L}, {true, 500000000L}};
 		return Arrays.asList(data);
 	}
 
-	public DateValidatorTest(boolean expectedResult, String dateString) {
-		this.dateString = dateString;
+	public IMSIValidatorTest(boolean expectedResult, Long imsi) {
+		this.imsi = imsi;
 		this.expectedResult = expectedResult;
 	}
 
 	@Test
-	public void checkIfValidDate() {
-		assertEquals(expectedResult, Validator.validateDate(dateString));
+	public void validateIMSI() {
+		assertEquals(expectedResult, Validator.validateIMSI(imsi));
 	}
 }

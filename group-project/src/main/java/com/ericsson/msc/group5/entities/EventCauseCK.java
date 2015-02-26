@@ -10,6 +10,7 @@ public class EventCauseCK implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Column(name = "cause_code")
 	private Integer causeCode;
+	@Column(name = "event_id")
 	private Integer eventId;
 
 	public EventCauseCK() {

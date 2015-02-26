@@ -27,23 +27,23 @@ public class FailureTrace {
 	private String IMSI;
 
 	@ManyToOne
-	@JoinColumn(name = "failureClass")
+	@JoinColumn(name = "failure_class")
 	private FailureClass failureClass;
 	@ManyToOne
 	@JoinColumn
 	private UserEquipment userEqipment;
 	@ManyToOne
-	@JoinColumn(name = "hierInfoId")
+	@JoinColumn(name = "hier_info_id")
 	private HierInfo hierInfo;
 	@ManyToOne
 	@JoinColumns({
 			@JoinColumn(name = "cause_code", referencedColumnName = "cause_code"),
-			@JoinColumn(name = "eventId", referencedColumnName = "eventId")})
+			@JoinColumn(name = "event_id", referencedColumnName = "event_id")})
 	private EventCause eventCause;
 	@ManyToOne
 	@JoinColumns({
-			@JoinColumn(name = "countryCode", referencedColumnName = "countryCode"),
-			@JoinColumn(name = "networkCode", referencedColumnName = "networkCode")})
+			@JoinColumn(name = "country_code", referencedColumnName = "country_code"),
+			@JoinColumn(name = "network_code", referencedColumnName = "network_code")})
 	private CountryCodeNetworkCode countryCodeNetworkCode;
 
 	public FailureTrace() {

@@ -3,17 +3,33 @@ package com.ericsson.msc.group5.entities;
 import java.io.Serializable;
 import javax.persistence.Embeddable;
 
+/**
+ * Composite Key that helps to map/uniquely identify an event using a combination of Cause Code/Event id.
+ */
 @Embeddable
 public class EventCauseCK implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3373166981656864744L;
+
 	private Integer causeCode;
 	private Integer eventId;
 
+	/**
+	 * No-args constructor used by the JPA.
+	 */
 	public EventCauseCK() {
-		//
 	}
 
+	/**
+	 * Create a composite key made up of a Cause Code and an Event id. Together they can be used to uniquely identify an event.
+	 * 
+	 * @param causeCode
+	 *            The first part of the composite key - a non-unique Cause Code. This key is non-unique by itself, but forms a unique composite key when
+	 *            combined with the Event id.
+	 * @param eventId
+	 *            The second part of the composite key - a non-unique Event id. This key is non-unique by itself, but forms a unique composite key when combined
+	 *            with the Cause Code.
+	 */
 	public EventCauseCK(Integer causeCode, Integer eventId) {
 		super();
 		this.causeCode = causeCode;
@@ -60,5 +76,4 @@ public class EventCauseCK implements Serializable {
 	public void setEventId(Integer eventId) {
 		this.eventId = eventId;
 	}
-
 }

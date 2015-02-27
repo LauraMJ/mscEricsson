@@ -6,9 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+/**
+ * Event Cause JPA entity. Uses an embedded natural composite key made up of a Cause Code and Event identifiers to map to a textual description of the cause.
+ */
 @Entity(name = "event_cause")
-// @Cacheable
-// @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class EventCause {
 
 	@Id
@@ -19,10 +20,20 @@ public class EventCause {
 	@OneToMany(mappedBy = "eventCause", targetEntity = FailureTrace.class)
 	private Collection <FailureTrace> failureTrace;
 
+	/**
+	 * No-args constructor used by the JPA.
+	 */
 	public EventCause() {
-		//
 	}
 
+	/**
+	 * Create a Cause Code/Event combination given a composite key and String description.
+	 * 
+	 * @param causeCodeEventIdCK
+	 *            Composite Cause Code/Event key.
+	 * @param description
+	 *            Textual description of the event.
+	 */
 	public EventCause(EventCauseCK causeCodeEventIdCK, String description) {
 		this.causeCodeEventIdCK = causeCodeEventIdCK;
 		this.description = description;

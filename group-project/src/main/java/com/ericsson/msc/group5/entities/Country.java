@@ -4,21 +4,32 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * Country JPA entity. Matches an integer id to a String country name. Links to the CountryCodeNetworkCode in a 1:many fashion.
+ */
 @Entity(name = "country")
 public class Country {
 
 	@Id
 	@Column(name = "country_code")
-	private Integer countryCode; // PK
+	private Integer countryCode;
 	@Column(length = 45)
 	private String country;
 
-	// @OneToMany(mappedBy = "country.")
-	// private Collection <CountryCodeNetworkCode> countryCodeNetworkCode;
-
+	/**
+	 * No-args constructor used by the JPA.
+	 */
 	public Country() {
 	}
 
+	/**
+	 * Create a country with the given country code (unique) and country name as a String.
+	 * 
+	 * @param countryCode
+	 *            Integer id of the country.
+	 * @param country
+	 *            Name of the country as a String.
+	 */
 	public Country(Integer countryCode, String country) {
 		this.countryCode = countryCode;
 		this.country = country;

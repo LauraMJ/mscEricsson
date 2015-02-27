@@ -7,14 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
- * Failure Class JPA entity. Matches an integer id of a failure to a string
- * description.
- * 
- * @author szymon
+ * Failure Class JPA entity. Matches an integer id of a failure to a string description.
  */
 @Entity(name = "failure_class")
-// @Cacheable
-// @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class FailureClass {
 
 	@Id

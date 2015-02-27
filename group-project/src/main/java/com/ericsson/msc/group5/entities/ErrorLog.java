@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * Error log JPA entity. Used to store any erroneous data that is rejected by the data validation tests when the data arrives in the system.
+ */
 @Entity(name = "error_log")
 public class ErrorLog {
 
@@ -20,10 +23,23 @@ public class ErrorLog {
 	@Column(name = "base_data", length = 350)
 	private String baseData;
 
+	/**
+	 * No-args constructor used by the JPA.
+	 */
 	public ErrorLog() {
-
 	}
 
+	/**
+	 * Create an error log entity.
+	 * 
+	 * @param generationTime
+	 *            Date and time as a String used to identify when the data was read in. Ideally all items acquired through in a single batch import of data will
+	 *            have the same date/time combination.
+	 * @param errorDescription
+	 *            Error description associated with the entry - human-readable reason for rejection.
+	 * @param baseData
+	 *            The base data as it was read in by the application concatenated into a single String.
+	 */
 	public ErrorLog(String generationTime, String errorDescription, String baseData) {
 		this.generationTime = generationTime;
 		this.errorDescription = errorDescription;

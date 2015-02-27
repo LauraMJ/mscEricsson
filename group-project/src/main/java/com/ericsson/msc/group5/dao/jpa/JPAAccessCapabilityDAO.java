@@ -16,12 +16,9 @@ public class JPAAccessCapabilityDAO implements AccessCapabilityDAO {
 	private EntityManager em;
 
 	public AccessCapability getManagedAccessCapability(String accessCapability) {
-		// EntityManager em = PersistenceUtil.createEM();
+		EntityManager em = PersistenceUtil.createEM();
 		List <AccessCapability> acList = em
-				.createQuery(
-						"select ac from " + AccessCapability.class.getName()
-								+ " ac where ac.accessCapability = :access",
-						AccessCapability.class)
+				.createQuery("select ac from " + AccessCapability.class.getName() + " ac where ac.accessCapability = :access", AccessCapability.class)
 				.setParameter("access", accessCapability).getResultList();
 		if (acList.isEmpty()) {
 			AccessCapability ac = new AccessCapability();

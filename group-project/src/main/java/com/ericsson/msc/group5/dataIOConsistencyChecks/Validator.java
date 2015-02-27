@@ -17,13 +17,16 @@ import com.ericsson.msc.group5.entities.UserEquipment;
 
 public class Validator {
 
-	// public static void main(String [] args) {
-	// new Validator();
-	// }
-	//
-	// public Validator() {
-	// System.out.println(validateDate("19/02/75"));
-	// }
+	public static void main(String [] args) {
+		new Validator();
+	}
+
+	public Validator() {
+		// System.out.println(validateDate("19/02/75"));
+		int x = 123456;
+		int l = Integer.toString(x).length();
+		System.out.println(l);
+	}
 
 	public static boolean validateFieldTypes(HSSFRow row, Object entity) {
 		if (entity instanceof FailureTrace) {
@@ -49,7 +52,7 @@ public class Validator {
 
 	public static boolean validateEventId(Integer d) {
 		try {
-			if (d >= 4000 && d <= 5000) {
+			if (d >= 4000 && d < 5000) {
 				return true;
 			}
 		}
@@ -75,7 +78,8 @@ public class Validator {
 
 	public static boolean validateUEType(Integer input) {
 		try {
-			if (input >= 100000 && input <= 99999999) {
+			int numDigits = Integer.toString(input).length();
+			if (numDigits >= 6 && numDigits <= 8) {
 				return true;
 			}
 		}
@@ -89,7 +93,8 @@ public class Validator {
 
 	public static boolean validateMarket(Integer input) {
 		try {
-			if (input >= 001 && input <= 999) {
+			int numDigits = Integer.toString(input).length();
+			if (numDigits == 3 && input >= 001 && input <= 999) {
 				return true;
 			}
 		}
@@ -102,7 +107,9 @@ public class Validator {
 
 	public static boolean validateOperator(Integer input) {
 		try {
-			if (input >= 01 && input <= 999) {
+			// Not entirely sure about checking the number of digits. Is it needed?
+			int numDigits = Integer.toString(input).length();
+			if (numDigits >= 2 && numDigits <= 3 && input >= 01 && input <= 999) {
 				return true;
 			}
 		}
@@ -115,7 +122,7 @@ public class Validator {
 
 	public static boolean validateCellId(Integer input) {
 		try {
-			if (input < 3843) {
+			if (input < Integer.MAX_VALUE) {
 				return true;
 			}
 		}
@@ -128,8 +135,7 @@ public class Validator {
 
 	public static boolean validateDuration(Integer input) {
 		try {
-			// 60000 = 60 mins
-			if (input < 3.6e+6) {
+			if (input < Integer.MAX_VALUE) {
 				return true;
 			}
 		}
@@ -142,33 +148,34 @@ public class Validator {
 
 	public static boolean validateCauseCode(Integer input) {
 		try {
-			if (input <= 27) {
-				return true;
+			if (input < 0 || input > 33) {
+				return false;
 			}
 		}
 		catch (NullPointerException e) {
 			return false;
 		}
 		// System.out.println("Invalid cause code");
-		return false;
+		return true;
 	}
 
 	public static boolean validateNEVersion(String input) {
 		try {
-			if (input.equals("11B") || input.equals("12A")) {
-				return true;
+			if (input.length() != 3) {
+				return false;
 			}
 		}
 		catch (NullPointerException e) {
 			return false;
 		}
 		// System.out.println("Invalid NE version");
-		return false;
+		return true;
 	}
 
 	public static boolean validateIMSI(Long input) {
 		try {
-			if (input <= 999999999999999L) {
+			int numDigits = Long.toString(input).length();
+			if (numDigits == 14 || numDigits == 15) {
 				return true;
 			}
 		}

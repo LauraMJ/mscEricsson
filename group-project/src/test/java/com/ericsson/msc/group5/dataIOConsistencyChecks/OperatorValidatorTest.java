@@ -9,25 +9,25 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class CellIdValidatorTest {
+public class OperatorValidatorTest {
 
 	private boolean expectedResult;
-	private Integer cellId;
+	private Integer operator;
 
 	@Parameters
 	public static List <Object []> params() {
-		Object [][] data = new Object[][] { {true, 4000}, {true, 3200},
-				{false, 12000}};
+		Object [][] data = new Object[][] { {false, 0}, {true, 01},
+				{true, 999}, {false, 1011}};
 		return Arrays.asList(data);
 	}
 
-	public CellIdValidatorTest(boolean expectedResult, Integer cellId) {
-		this.cellId = cellId;
+	public OperatorValidatorTest(boolean expectedResult, Integer operator) {
+		this.operator = operator;
 		this.expectedResult = expectedResult;
 	}
 
 	@Test
-	public void validateCellId() {
-		assertEquals(expectedResult, Validator.validateCellId(cellId));
+	public void validateOperator() {
+		assertEquals(expectedResult, Validator.validateOperator(operator));
 	}
 }

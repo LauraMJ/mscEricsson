@@ -16,7 +16,8 @@ public class EventIdValidatorTest {
 
 	@Parameters
 	public static List <Object []> eventIds() {
-		Object [][] vals = { {false, 2000}, {false, 6000}, {true, 4000}, {true, 5000}};
+		Object [][] vals = { {false, 2000}, {false, 6000}, {true, 4000},
+				{false, 5000}};
 		return Arrays.asList(vals);
 	}
 

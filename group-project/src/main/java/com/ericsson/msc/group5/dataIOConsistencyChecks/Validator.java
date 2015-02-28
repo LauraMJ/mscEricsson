@@ -107,9 +107,10 @@ public class Validator {
 
 	public static boolean validateOperator(Integer input) {
 		try {
-			// Not entirely sure about checking the number of digits. Is it needed?
+			// Not entirely sure about checking the number of digits. Is it
+			// needed?
 			int numDigits = Integer.toString(input).length();
-			if (numDigits >= 2 && numDigits <= 3 && input >= 01 && input <= 999) {
+			if (numDigits >= 1 && numDigits <= 3 && input >= 01 && input <= 999) {
 				return true;
 			}
 		}
@@ -122,7 +123,7 @@ public class Validator {
 
 	public static boolean validateCellId(Integer input) {
 		try {
-			if (input < Integer.MAX_VALUE) {
+			if (input < 10000) {
 				return true;
 			}
 		}
@@ -135,7 +136,7 @@ public class Validator {
 
 	public static boolean validateDuration(Integer input) {
 		try {
-			if (input < Integer.MAX_VALUE) {
+			if (input == 1000) {
 				return true;
 			}
 		}
@@ -208,14 +209,16 @@ public class Validator {
 	 */
 	private static boolean validateTime(String time) {
 		String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
-		Pattern pattern = Pattern.compile(timePattern, Pattern.CASE_INSENSITIVE);
+		Pattern pattern = Pattern
+				.compile(timePattern, Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(time);
 		return matcher.find();
 	}
 
 	private static boolean checkIfFutureDate(String dateString) {
 		dateString = correctLengthOfDateString(dateString);
-		dateString = dateString.substring(0, 6) + "20" + dateString.substring(6);
+		dateString = dateString.substring(0, 6) + "20"
+				+ dateString.substring(6);
 		Calendar testDate = Calendar.getInstance();
 		Calendar currentDate = Calendar.getInstance();
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -368,7 +371,8 @@ public class Validator {
 		return true;
 	}
 
-	private static boolean validateCountryCodeNetworkCodeRowFieldTypes(HSSFRow row) {
+	private static boolean validateCountryCodeNetworkCodeRowFieldTypes(
+			HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}

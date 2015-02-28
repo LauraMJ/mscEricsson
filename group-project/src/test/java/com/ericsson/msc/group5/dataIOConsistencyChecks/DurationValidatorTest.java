@@ -16,7 +16,8 @@ public class DurationValidatorTest {
 
 	@Parameters
 	public static List <Object []> params() {
-		Object [][] data = new Object[][] { {false, 4000000}, {true, 3200}};
+		Object [][] data = new Object[][] { {false, 4000000}, {false, 3200},
+				{true, 1000}};
 		return Arrays.asList(data);
 	}
 

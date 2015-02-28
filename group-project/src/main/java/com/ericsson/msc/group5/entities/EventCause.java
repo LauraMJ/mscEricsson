@@ -13,10 +13,11 @@ import javax.persistence.Table;
  * Event Cause JPA entity. Uses an embedded natural composite key made up of a Cause Code and Event identifiers to map to a textual description of the cause.
  */
 @Entity
-@Table(name = "error_log")
+@Table(name = "event_cause")
 @NamedQueries({@NamedQuery(name = "findAllEventCauses", query = "SELECT e FROM EventCause e")})
 public class EventCause {
 
+//	@EmbeddedId
 	@Id
 	@Column(name = "cause_code_event_id")
 	private EventCauseCK causeCodeEventIdCK;

@@ -22,7 +22,7 @@ public class ErrorLogTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(AccessCapability.class.getPackage())
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(ErrorLog.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -80,7 +80,7 @@ public class ErrorLogTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.AccessCapability").executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.ErrorLog").executeUpdate();
 		utx.commit();
 	}
 

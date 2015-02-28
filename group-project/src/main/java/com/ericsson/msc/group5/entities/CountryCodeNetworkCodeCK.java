@@ -38,6 +38,39 @@ public class CountryCodeNetworkCodeCK implements Serializable {
 		this.networkCode = networkCode;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((country == null) ? 0 : country.hashCode());
+		result = prime * result + ((networkCode == null) ? 0 : networkCode.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CountryCodeNetworkCodeCK other = (CountryCodeNetworkCodeCK) obj;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		}
+		else if ( !country.equals(other.country))
+			return false;
+		if (networkCode == null) {
+			if (other.networkCode != null)
+				return false;
+		}
+		else if ( !networkCode.equals(other.networkCode))
+			return false;
+		return true;
+	}
+
 	public Country getCountry() {
 		return country;
 	}

@@ -1,5 +1,6 @@
 package com.ericsson.msc.group5.entities;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,10 +12,12 @@ import javax.persistence.Table;
  * Country JPA entity. Matches an integer id to a String country name. Links to the CountryCodeNetworkCode in a 1:many fashion.
  */
 @Entity
-@Table(name = "user_equipment")
+@Table(name = "country")
 @NamedQueries({@NamedQuery(name = "findAllCountries", query = "SELECT c FROM Country c")})
-public class Country {
+public class Country implements Serializable{
 
+	private static final long serialVersionUID = 529321768960748141L;
+	
 	@Id
 	@Column(name = "country_code")
 	private Integer countryCode;
@@ -54,5 +57,31 @@ public class Country {
 
 	public void setCountryCode(Integer countryCode) {
 		this.countryCode = countryCode;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((countryCode == null) ? 0 : countryCode.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Country other = (Country) obj;
+		if (countryCode == null) {
+			if (other.countryCode != null)
+				return false;
+		}
+		else if ( !countryCode.equals(other.countryCode))
+			return false;
+		return true;
 	}
 }

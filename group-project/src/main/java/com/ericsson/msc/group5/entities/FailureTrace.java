@@ -44,7 +44,7 @@ public class FailureTrace {
 	@JoinColumn(name = "failureClass")
 	private FailureClass failureClass;
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "typeAllocationCode")
 	private UserEquipment userEqipment;
 	@ManyToOne
 	@JoinColumns({

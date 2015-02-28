@@ -23,12 +23,8 @@ public class UserEquipmentTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap
-				.create(WebArchive.class, "test.war")
-				.addPackage(UserEquipment.class.getPackage())
-				.addAsResource("test-persistence.xml",
-						"META-INF/persistence.xml")
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(UserEquipment.class.getPackage())
+				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -61,23 +57,10 @@ public class UserEquipmentTest {
 		ue = new UserEquipment();
 		ue.setTypeAllocationCode(id);
 		ue.setManufacturer(INITIAL_MANUFACTURER);
-		AccessCapability ac = new AccessCapability();
-		ac.setAccessCapability("access capability");
-		ue.setAccessCapabilityClass(ac);
-		InputMode im = new InputMode();
-		im.setInputMode("input mode");
-		ue.setInputModeClass(im);
-		OperatingSystem os = new OperatingSystem();
-		os.setOperatingSystem("operating system");
-		ue.setoS(os);
-		UserEquipmentType uet = new UserEquipmentType();
-		uet.setUserEquipmentType("user equipment type");
-		ue.setUserEquipmentType(uet);
-
-		em.persist(ac);
-		em.persist(im);
-		em.persist(os);
-		em.persist(uet);
+		ue.setAccessCapability("access capability");
+		ue.setInputMode("input mode");
+		ue.setOperatingSystem("operating system");
+		ue.setUserEquipmentType("user equipment type");
 		em.persist(ue);
 
 		utx.commit();
@@ -87,13 +70,11 @@ public class UserEquipmentTest {
 	@Test
 	public void basicCRUDTest() throws Exception {
 		UserEquipment loadedUE = em.find(UserEquipment.class, id);
-		assertEquals("Failed to insert", INITIAL_MANUFACTURER,
-				loadedUE.getManufacturer());
+		assertEquals("Failed to insert", INITIAL_MANUFACTURER, loadedUE.getManufacturer());
 
 		loadedUE.setManufacturer(UPDATED_MANUFACTURER);
 		UserEquipment updatedUE = em.find(UserEquipment.class, id);
-		assertEquals("Failed to update", UPDATED_MANUFACTURER,
-				updatedUE.getManufacturer());
+		assertEquals("Failed to update", UPDATED_MANUFACTURER, updatedUE.getManufacturer());
 
 		em.remove(updatedUE);
 		UserEquipment shouldBeNull = em.find(UserEquipment.class, id);
@@ -101,8 +82,7 @@ public class UserEquipmentTest {
 	}
 
 	/*
-	 * Test to ensure that deletes cascade/don't cascade properly to the owned
-	 * entities.
+	 * Test to ensure that deletes cascade/don't cascade properly to the owned entities.
 	 */
 	@Test
 	@Ignore
@@ -141,9 +121,7 @@ public class UserEquipmentTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery(
-				"delete from com.ericsson.msc.group5.entities.AccessCapability")
-				.executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.UserEquipment").executeUpdate();
 		utx.commit();
 	}
 

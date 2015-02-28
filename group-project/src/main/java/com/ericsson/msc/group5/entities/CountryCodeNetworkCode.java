@@ -4,12 +4,17 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * Country and Network code JPA entity. Uses an embedded natural composite key made up of the network and country identifiers to map to an operator.
  */
-@Entity(name = "country_code_network_code")
+@Entity
+@Table(name = "country_code_network_code")
+@NamedQueries({@NamedQuery(name = "findAllCountryCodeNetworkCodes", query = "SELECT c FROM CountryCodeNetworkCode c")})
 public class CountryCodeNetworkCode {
 
 	@Id
@@ -17,7 +22,7 @@ public class CountryCodeNetworkCode {
 	private CountryCodeNetworkCodeCK countryCodeNetworkCode;
 	@Column(length = 100)
 	private String operator;
-	
+
 	@OneToMany(mappedBy = "countryCodeNetworkCode", targetEntity = FailureTrace.class)
 	private Collection <FailureTrace> failureTrace;
 

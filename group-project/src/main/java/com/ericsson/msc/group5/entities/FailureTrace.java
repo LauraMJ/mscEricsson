@@ -8,11 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * Failure Trace JPA entity. The main entity in the application, maps to the Base Data table.
  */
-@Entity(name = "failure_trace")
+@Entity
+@Table(name = "failure_trace")
+@NamedQueries({@NamedQuery(name = "findAllFailureTraces", query = "SELECT f FROM FailureTrace f")})
 public class FailureTrace {
 
 	@Id

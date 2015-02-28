@@ -4,12 +4,17 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * User equipment JPA entity. Uses a natural primary key (TAC - type allocation code) to store information about user devices.
  */
-@Entity(name = "user_equipment")
+@Entity
+@Table(name = "user_equipment")
+@NamedQueries({@NamedQuery(name = "findAllUserEquipment", query = "SELECT u FROM UserEquipment u")})
 public class UserEquipment {
 
 	@Id

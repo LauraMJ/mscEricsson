@@ -1,13 +1,11 @@
 package com.ericsson.msc.group5.dao;
 
 import java.util.List;
-import javax.ejb.Local;
 import com.ericsson.msc.group5.entities.UserEquipment;
 
 /**
  * A Data Access Object interface for the UserEquipment entity. Defines common DAO methods.
  */
-@Local
 public interface UserEquipmentDAO {
 
 	/**

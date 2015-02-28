@@ -1,14 +1,12 @@
 package com.ericsson.msc.group5.dao;
 
 import java.util.List;
-import javax.ejb.Local;
 import com.ericsson.msc.group5.entities.Country;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
 
 /**
  * A Data Access Object interface for the CountryCodeNetworkCode entity. Defines common DAO methods.
  */
-@Local
 public interface CountryCodeNetworkCodeDAO {
 
 	/**

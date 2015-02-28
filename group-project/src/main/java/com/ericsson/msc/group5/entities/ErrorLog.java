@@ -5,11 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * Error log JPA entity. Used to store any erroneous data that is rejected by the data validation tests when the data arrives in the system.
  */
-@Entity(name = "error_log")
+@Entity
+@Table(name = "error_log")
+@NamedQueries({@NamedQuery(name = "findAllErrorLogs", query = "SELECT e FROM ErrorLog e")})
 public class ErrorLog {
 
 	@Id

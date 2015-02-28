@@ -1,13 +1,11 @@
 package com.ericsson.msc.group5.dao;
 
 import java.util.List;
-import javax.ejb.Local;
 import com.ericsson.msc.group5.entities.EventCause;
 
 /**
  * A Data Access Object interface for the EventCause entity. Defines common DAO methods.
  */
-@Local
 public interface EventCauseDAO {
 
 	/**

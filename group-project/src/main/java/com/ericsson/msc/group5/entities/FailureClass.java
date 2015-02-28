@@ -4,12 +4,17 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * Failure Class JPA entity. Matches an integer id of a failure to a string description.
  */
-@Entity(name = "failure_class")
+@Entity
+@Table(name = "failure_class")
+@NamedQueries({@NamedQuery(name = "findAllFailureClasses", query = "SELECT f FROM FailureClass f")})
 public class FailureClass {
 
 	@Id

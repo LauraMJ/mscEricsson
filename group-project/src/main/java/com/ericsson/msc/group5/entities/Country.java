@@ -3,11 +3,16 @@ package com.ericsson.msc.group5.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * Country JPA entity. Matches an integer id to a String country name. Links to the CountryCodeNetworkCode in a 1:many fashion.
  */
-@Entity(name = "country")
+@Entity
+@Table(name = "user_equipment")
+@NamedQueries({@NamedQuery(name = "findAllCountries", query = "SELECT c FROM Country c")})
 public class Country {
 
 	@Id

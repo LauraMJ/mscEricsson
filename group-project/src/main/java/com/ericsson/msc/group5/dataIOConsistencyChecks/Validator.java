@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.ss.usermodel.Cell;
 import com.ericsson.msc.group5.dataIO.DataImport;
@@ -17,16 +19,14 @@ import com.ericsson.msc.group5.entities.UserEquipment;
 
 public class Validator {
 
-	public static void main(String [] args) {
-		new Validator();
-	}
-
-	public Validator() {
-		// System.out.println(validateDate("19/02/75"));
-		int x = 123456;
-		int l = Integer.toString(x).length();
-		System.out.println(l);
-	}
+	// public static void main(String [] args) {
+	// new Validator();
+	// }
+	//
+	// public Validator() {
+	// validateDate("5/5/2109 15:23");
+	// validateTime("5/5/19 15:89");
+	// }
 
 	public static boolean validateFieldTypes(HSSFRow row, Object entity) {
 		if (entity instanceof FailureTrace) {
@@ -188,14 +188,29 @@ public class Validator {
 
 	public static boolean validateDate(String dateString) {
 		try {
-			boolean isRealDate = checkIfValidDate(dateString);
-			if (isRealDate)
-				return checkIfFutureDate(dateString);
+			boolean isValidDate = checkIfValidDate(dateString);
+			boolean isValidTime = validateTime(dateString);
+			boolean isNotFutureDate = checkIfFutureDate(dateString);
+
+			return isValidDate && isValidTime && isNotFutureDate;
 		}
 		catch (NullPointerException e) {
 			return false;
 		}
-		return false;
+	}
+
+	/**
+	 * Validate time in 24 hours format with regular expression
+	 * 
+	 * @param time
+	 *            time address for validation
+	 * @return true valid time fromat, false invalid time format
+	 */
+	private static boolean validateTime(String time) {
+		String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+		Pattern pattern = Pattern.compile(timePattern, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(time);
+		return matcher.find();
 	}
 
 	private static boolean checkIfFutureDate(String dateString) {
@@ -207,7 +222,6 @@ public class Validator {
 		formatter.setLenient(false);
 		try {
 			Date date = formatter.parse(dateString);
-			// System.out.println(formatter.format(date));
 			testDate.setTime(date);
 			if (testDate.after(currentDate)) {
 				// System.out.println("Date is in the future!");
@@ -215,8 +229,6 @@ public class Validator {
 			}
 		}
 		catch (ParseException e) {
-			e.printStackTrace();
-			// System.out.println("Couldn't parse date");
 			return false;
 		}
 		return true;

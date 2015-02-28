@@ -2,8 +2,8 @@ package com.ericsson.msc.group5.entities;
 
 import java.util.Collection;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @NamedQueries({@NamedQuery(name = "findAllCountryCodeNetworkCodes", query = "SELECT c FROM CountryCodeNetworkCode c")})
 public class CountryCodeNetworkCode {
 
-	@EmbeddedId
+	@Id
 	@Column(name = "country_code_network_code")
 	private CountryCodeNetworkCodeCK countryCodeNetworkCode;
 	@Column(length = 100)

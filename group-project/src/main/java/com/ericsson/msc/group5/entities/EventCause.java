@@ -17,7 +17,6 @@ import javax.persistence.Table;
 @NamedQueries({@NamedQuery(name = "findAllEventCauses", query = "SELECT e FROM EventCause e")})
 public class EventCause {
 
-//	@EmbeddedId
 	@Id
 	@Column(name = "cause_code_event_id")
 	private EventCauseCK causeCodeEventIdCK;

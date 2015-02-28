@@ -9,7 +9,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class EventCauseCK implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3373166981656864744L;
 
 	private Integer causeCode;
 	private Integer eventId;

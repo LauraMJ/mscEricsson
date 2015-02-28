@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.dataAccessLayer;
+package com.ericsson.msc.group5.dao;
 
 import javax.ejb.Local;
 import com.ericsson.msc.group5.entities.Country;

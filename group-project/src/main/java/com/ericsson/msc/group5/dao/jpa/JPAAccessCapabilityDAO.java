@@ -5,7 +5,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.ericsson.msc.group5.dataAccessLayer.AccessCapabilityDAO;
+import com.ericsson.msc.group5.dao.AccessCapabilityDAO;
 import com.ericsson.msc.group5.entities.AccessCapability;
 
 @Local

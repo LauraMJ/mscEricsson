@@ -17,6 +17,7 @@ public class EventCause {
 	private EventCauseCK causeCodeEventIdCK;
 	@Column(length = 100)
 	private String description;
+	
 	@OneToMany(mappedBy = "eventCause", targetEntity = FailureTrace.class)
 	private Collection <FailureTrace> failureTrace;
 

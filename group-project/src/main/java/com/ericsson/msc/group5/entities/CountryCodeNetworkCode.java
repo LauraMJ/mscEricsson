@@ -17,6 +17,7 @@ public class CountryCodeNetworkCode {
 	private CountryCodeNetworkCodeCK countryCodeNetworkCode;
 	@Column(length = 100)
 	private String operator;
+	
 	@OneToMany(mappedBy = "countryCodeNetworkCode", targetEntity = FailureTrace.class)
 	private Collection <FailureTrace> failureTrace;
 

@@ -5,7 +5,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.ericsson.msc.group5.dataAccessLayer.EventCauseDAO;
+import com.ericsson.msc.group5.dao.EventCauseDAO;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.EventCauseCK;
 

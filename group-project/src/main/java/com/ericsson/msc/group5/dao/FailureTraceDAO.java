@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.dao;
 
-import java.util.List;
+import java.util.Collection;
 import com.ericsson.msc.group5.entities.FailureTrace;
 
 /**
@@ -11,9 +11,9 @@ public interface FailureTraceDAO {
 	/**
 	 * Retrieve all FailureTrace objects present in the data store.
 	 * 
-	 * @return a List of FailureTrace objects; empty list if no FailureTrace objects are present in the data store.
+	 * @return a Collection of FailureTrace objects; empty collection if no FailureTrace objects are present in the data store.
 	 */
-	public List <FailureTrace> getAllFailureTraces();
+	public Collection <FailureTrace> getAllFailureTraces();
 
 	/**
 	 * Insert a new FailureTrace object into the data store.
@@ -40,10 +40,10 @@ public interface FailureTraceDAO {
 	public void deleteFailureTrace(FailureTrace failureTrace);
 
 	/**
-	 * Batch insert a list of FailureTrace objects into the data store. Optimized for handling large volumes of data.
+	 * Batch insert a Collection of FailureTrace objects into the data store. Optimized for handling large volumes of data.
 	 * 
 	 * @param failureTraceList
-	 *            A list of new FailureTrace objects.
+	 *            A collection of new FailureTrace objects.
 	 */
-	public void batchInsertFailureTrace(List <FailureTrace> failureTraceList);
+	public void batchInsertFailureTrace(Collection <FailureTrace> failureTraceList);
 }

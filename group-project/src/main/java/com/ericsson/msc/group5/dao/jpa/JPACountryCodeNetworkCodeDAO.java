@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.dao.jpa;
 
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.CountryCodeNetworkCodeDAO;
@@ -13,7 +13,7 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 	private EntityManager em;
 
 	@Override
-	public List <CountryCodeNetworkCode> getAllCountryCodeNetworkCodes() {
+	public Collection<CountryCodeNetworkCode> getAllCountryCodeNetworkCodes() {
 		return em.createNamedQuery("findAllCountryCodeNetworkCodes").getResultList();
 	}
 
@@ -40,7 +40,7 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 	}
 
 	@Override
-	public void batchInsertCountryCodeNetworkCode(List <CountryCodeNetworkCode> countryCodeNetworkCodeList) {
+	public void batchInsertCountryCodeNetworkCode(Collection <CountryCodeNetworkCode> countryCodeNetworkCodeList) {
 		// TODO Auto-generated method stub
 	}
 

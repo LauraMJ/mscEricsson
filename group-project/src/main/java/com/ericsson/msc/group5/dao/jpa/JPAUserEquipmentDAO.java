@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.dao.jpa;
 
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.UserEquipmentDAO;
@@ -12,7 +12,7 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 	private EntityManager em;
 
 	@Override
-	public List <UserEquipment> getAllUserEquipment() {
+	public Collection <UserEquipment> getAllUserEquipment() {
 		return em.createNamedQuery("findAllUserEquipment").getResultList();
 	}
 
@@ -41,7 +41,7 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 	}
 
 	@Override
-	public void batchInsertUserEquipment(List <UserEquipment> userEquipmentList) {
+	public void batchInsertUserEquipment(Collection <UserEquipment> userEquipmentList) {
 		// TODO Auto-generated method stub
 		
 	}

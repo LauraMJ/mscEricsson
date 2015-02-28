@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.dao.jpa;
 
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
@@ -13,7 +13,7 @@ public class JPAFailureTraceDAO implements FailureTraceDAO  {
 	private EntityManager em;
 
 	@Override
-	public List <FailureTrace> getAllFailureTraces() {
+	public Collection <FailureTrace> getAllFailureTraces() {
 		return em.createNamedQuery("findAllFailureTraces").getResultList();
 	}
 
@@ -36,7 +36,7 @@ public class JPAFailureTraceDAO implements FailureTraceDAO  {
 	}
 
 	@Override
-	public void batchInsertFailureTrace(List <FailureTrace> failureTraceList) {
+	public void batchInsertFailureTrace(Collection <FailureTrace> failureTraceList) {
 		// TODO Auto-generated method stub
 		
 	}

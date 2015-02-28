@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.dao;
 
-import java.util.List;
+import java.util.Collection;
 import com.ericsson.msc.group5.entities.FailureClass;
 
 /**
@@ -11,9 +11,9 @@ public interface FailureClassDAO {
 	/**
 	 * Retrieve all FailureClass objects present in the data store.
 	 * 
-	 * @return a List of FailureClass objects; empty list if no FailureClass objects are present in the data store.
+	 * @return a Collection of FailureClass objects; empty collection if no FailureClass objects are present in the data store.
 	 */
-	public List <FailureClass> getAllFailureClasses();
+	public Collection <FailureClass> getAllFailureClasses();
 
 	/**
 	 * Retrieve the FailureClass associated with the unique id passed in as a parameter.
@@ -49,10 +49,10 @@ public interface FailureClassDAO {
 	public void deleteFailureClass(FailureClass failureClass);
 
 	/**
-	 * Batch insert a list of FailureClass objects into the data store. Optimized for handling large volumes of data.
+	 * Batch insert a collection of FailureClass objects into the data store. Optimized for handling large volumes of data.
 	 * 
 	 * @param failureClassList
-	 *            A list of new FailureClass objects.
+	 *            A collection of new FailureClass objects.
 	 */
-	public void batchInsertFailureClasses(List <FailureClass> failureClassList);
+	public void batchInsertFailureClasses(Collection <FailureClass> failureClassList);
 }

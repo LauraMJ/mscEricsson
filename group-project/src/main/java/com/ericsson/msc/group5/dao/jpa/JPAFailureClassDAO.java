@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.dao.jpa;
 
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.FailureClassDAO;
@@ -12,7 +12,7 @@ public class JPAFailureClassDAO implements FailureClassDAO {
 	private EntityManager em;
 
 	@Override
-	public List <FailureClass> getAllFailureClasses() {
+	public Collection <FailureClass> getAllFailureClasses() {
 		return em.createNamedQuery("findAllFailureClasses").getResultList();
 	}
 
@@ -41,9 +41,8 @@ public class JPAFailureClassDAO implements FailureClassDAO {
 	}
 
 	@Override
-	public void batchInsertFailureClasses(List <FailureClass> failureClassList) {
-		// TODO Auto-generated method stub
-		
+	public void batchInsertFailureClasses(Collection <FailureClass> failureClassList) {
+		for(FailureClass failureClass : failureClassList)
+			em.persist(failureClass);
 	}
-
 }

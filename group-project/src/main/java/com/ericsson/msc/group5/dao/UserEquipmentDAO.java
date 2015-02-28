@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.dao;
 
-import java.util.List;
+import java.util.Collection;
 import com.ericsson.msc.group5.entities.UserEquipment;
 
 /**
@@ -11,9 +11,9 @@ public interface UserEquipmentDAO {
 	/**
 	 * Retrieve all UserEquipment objects present in the data store.
 	 * 
-	 * @return a List of UserEquipment objects; empty list if no UserEquipment objects are present in the data store.
+	 * @return a Collection of UserEquipment objects; empty collection if no UserEquipment objects are present in the data store.
 	 */
-	public List <UserEquipment> getAllUserEquipment();
+	public Collection <UserEquipment> getAllUserEquipment();
 
 	/**
 	 * Retrieve the UserEquipment associated with the unique id passed in as a parameter.
@@ -49,10 +49,10 @@ public interface UserEquipmentDAO {
 	public void deleteUserEquipment(UserEquipment userEquipment);
 
 	/**
-	 * Batch insert a list of UserEquipment objects into the data store. Optimized for handling large volumes of data.
+	 * Batch insert a Collection of UserEquipment objects into the data store. Optimized for handling large volumes of data.
 	 * 
 	 * @param userEquipmentList
-	 *            A list of new UserEquipment objects.
+	 *            A Collection of new UserEquipment objects.
 	 */
-	public void batchInsertUserEquipment(List <UserEquipment> userEquipmentList);
+	public void batchInsertUserEquipment(Collection <UserEquipment> userEquipmentList);
 }

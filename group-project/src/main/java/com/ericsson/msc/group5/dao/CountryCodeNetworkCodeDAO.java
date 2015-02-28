@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.dao;
 
-import java.util.List;
+import java.util.Collection;
 import com.ericsson.msc.group5.entities.Country;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
 
@@ -12,9 +12,9 @@ public interface CountryCodeNetworkCodeDAO {
 	/**
 	 * Retrieve all CountryCodeNetworkCode objects present in the data store.
 	 * 
-	 * @return a List of CountryCodeNetworkCode objects; empty list if no CountryCodeNetworkCode objects are present in the data store.
+	 * @return a Collection of CountryCodeNetworkCode objects; empty collection if no CountryCodeNetworkCode objects are present in the data store.
 	 */
-	public List <CountryCodeNetworkCode> getAllCountryCodeNetworkCodes();
+	public Collection <CountryCodeNetworkCode> getAllCountryCodeNetworkCodes();
 
 	/**
 	 * Retrieve the CountryCodeNetworkCode associated with the 2-part composite key passed in as a parameter.
@@ -56,12 +56,12 @@ public interface CountryCodeNetworkCodeDAO {
 	public void deleteCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode);
 
 	/**
-	 * Batch insert a list of CountryCodeNetworkCode objects into the data store. Optimized for handling large volumes of data.
+	 * Batch insert a collection of CountryCodeNetworkCode objects into the data store. Optimized for handling large volumes of data.
 	 * 
 	 * @param countryCodeNetworkCodeList
-	 *            A list of new CountryCodeNetworkCode objects.
+	 *            A collection of new CountryCodeNetworkCode objects.
 	 */
-	public void batchInsertCountryCodeNetworkCode(List <CountryCodeNetworkCode> countryCodeNetworkCodeList);
+	public void batchInsertCountryCodeNetworkCode(Collection <CountryCodeNetworkCode> countryCodeNetworkCodeList);
 
 	/**
 	 * Insert a new Country object into the data store.

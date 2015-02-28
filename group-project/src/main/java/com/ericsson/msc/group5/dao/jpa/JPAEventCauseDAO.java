@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.dao.jpa;
 
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.EventCauseDAO;
@@ -12,7 +12,7 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 	private EntityManager em;
 
 	@Override
-	public List <EventCause> getAllEventCauses() {
+	public Collection <EventCause> getAllEventCauses() {
 		return em.createNamedQuery("findAllEventCauses").getResultList();
 	}
 
@@ -41,7 +41,7 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 	}
 
 	@Override
-	public void batchInsertEventCause(List <EventCause> eventCauseList) {
+	public void batchInsertEventCause(Collection <EventCause> eventCauseList) {
 		// TODO Auto-generated method stub
 		
 	}

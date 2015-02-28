@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.dao;
 
-import java.util.List;
+import java.util.Collection;
 import com.ericsson.msc.group5.entities.EventCause;
 
 /**
@@ -11,9 +11,9 @@ public interface EventCauseDAO {
 	/**
 	 * Retrieve all EventCause objects present in the data store.
 	 * 
-	 * @return a List of EventCause objects; empty list if no EventCause objects are present in the data store.
+	 * @return a Collection of EventCause objects; empty collection if no EventCause objects are present in the data store.
 	 */
-	public List <EventCause> getAllEventCauses();
+	public Collection <EventCause> getAllEventCauses();
 
 	/**
 	 * Retrieve the EventCause associated with the 2-part composite key passed in as a parameter.
@@ -51,10 +51,10 @@ public interface EventCauseDAO {
 	public void deleteEventCause(EventCause eventCause);
 
 	/**
-	 * Batch insert a list of EventCause objects into the data store. Optimized for handling large volumes of data.
+	 * Batch insert a Collection of EventCause objects into the data store. Optimized for handling large volumes of data.
 	 * 
 	 * @param eventCauseList
-	 *            A list of new EventCause objects.
+	 *            A Collection of new EventCause objects.
 	 */
-	public void batchInsertEventCause(List <EventCause> eventCauseList);
+	public void batchInsertEventCause(Collection <EventCause> eventCauseList);
 }

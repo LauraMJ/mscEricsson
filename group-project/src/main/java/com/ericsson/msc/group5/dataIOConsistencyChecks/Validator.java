@@ -59,7 +59,6 @@ public class Validator {
 		catch (NullPointerException e) {
 			return false;
 		}
-		// System.out.println("Invalid eventId");
 		return false;
 	}
 
@@ -72,7 +71,6 @@ public class Validator {
 		catch (NullPointerException e) {
 			return false;
 		}
-		// System.out.println("Invalid failureclass");
 		return false;
 	}
 
@@ -86,8 +84,6 @@ public class Validator {
 		catch (NullPointerException e) {
 			return false;
 		}
-
-		// System.out.println("Invalid ue type");
 		return false;
 	}
 
@@ -101,14 +97,11 @@ public class Validator {
 		catch (NullPointerException e) {
 			return false;
 		}
-		// System.out.println("Invalid market");
 		return false;
 	}
 
 	public static boolean validateOperator(Integer input) {
 		try {
-			// Not entirely sure about checking the number of digits. Is it
-			// needed?
 			int numDigits = Integer.toString(input).length();
 			if (numDigits >= 1 && numDigits <= 3 && input >= 01 && input <= 999) {
 				return true;
@@ -117,7 +110,6 @@ public class Validator {
 		catch (NullPointerException e) {
 			return false;
 		}
-		// System.out.println("Invalid operator");
 		return false;
 	}
 
@@ -130,7 +122,6 @@ public class Validator {
 		catch (NullPointerException e) {
 			return false;
 		}
-		// System.out.println("Invalid cell id");
 		return false;
 	}
 
@@ -143,7 +134,6 @@ public class Validator {
 		catch (NullPointerException e) {
 			return false;
 		}
-		// System.out.println("Invalid duration");
 		return false;
 	}
 
@@ -156,7 +146,6 @@ public class Validator {
 		catch (NullPointerException e) {
 			return false;
 		}
-		// System.out.println("Invalid cause code");
 		return true;
 	}
 
@@ -169,7 +158,6 @@ public class Validator {
 		catch (NullPointerException e) {
 			return false;
 		}
-		// System.out.println("Invalid NE version");
 		return true;
 	}
 
@@ -183,7 +171,6 @@ public class Validator {
 		catch (NullPointerException e) {
 			return false;
 		}
-		// System.out.println("Invalid IMSI");
 		return false;
 	}
 
@@ -209,16 +196,14 @@ public class Validator {
 	 */
 	private static boolean validateTime(String time) {
 		String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
-		Pattern pattern = Pattern
-				.compile(timePattern, Pattern.CASE_INSENSITIVE);
+		Pattern pattern = Pattern.compile(timePattern, Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(time);
 		return matcher.find();
 	}
 
 	private static boolean checkIfFutureDate(String dateString) {
 		dateString = correctLengthOfDateString(dateString);
-		dateString = dateString.substring(0, 6) + "20"
-				+ dateString.substring(6);
+		dateString = dateString.substring(0, 6) + "20" + dateString.substring(6);
 		Calendar testDate = Calendar.getInstance();
 		Calendar currentDate = Calendar.getInstance();
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -227,7 +212,6 @@ public class Validator {
 			Date date = formatter.parse(dateString);
 			testDate.setTime(date);
 			if (testDate.after(currentDate)) {
-				// System.out.println("Date is in the future!");
 				return false;
 			}
 		}
@@ -246,7 +230,6 @@ public class Validator {
 		int month = Integer.parseInt(dateString.substring(3, 5));
 
 		if (day < 1 || day > 31 || month < 1 || month > 12) {
-			// System.out.println("Invalid date");
 			return false;
 		}
 
@@ -268,9 +251,7 @@ public class Validator {
 				numDaysInMonth = 31;
 				break;
 		}
-		// System.out.println(numDaysInMonth);
 		if (day > numDaysInMonth) {
-			// System.out.println("Invalid date");
 			return false;
 		}
 		return true;
@@ -371,8 +352,7 @@ public class Validator {
 		return true;
 	}
 
-	private static boolean validateCountryCodeNetworkCodeRowFieldTypes(
-			HSSFRow row) {
+	private static boolean validateCountryCodeNetworkCodeRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}

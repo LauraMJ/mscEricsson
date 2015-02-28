@@ -16,7 +16,8 @@ public class MarketValidatorTest {
 
 	@Parameters
 	public static List <Object []> params() {
-		Object [][] vals = { {false, 0}, {true, 001}, {true, 999}, {false, 1011}};
+		Object [][] vals = { {false, 0}, {false, 001}, {true, 999},
+				{false, 1011}};
 		return Arrays.asList(vals);
 	}
 

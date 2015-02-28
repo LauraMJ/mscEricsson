@@ -94,7 +94,7 @@ public class Validator {
 	public static boolean validateMarket(Integer input) {
 		try {
 			int numDigits = Integer.toString(input).length();
-			if (numDigits == 3 && input >= 001 && input <= 999) {
+			if (numDigits == 3) {
 				return true;
 			}
 		}

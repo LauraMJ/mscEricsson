@@ -12,7 +12,6 @@
 //import com.ericsson.msc.group5.entities.EventCause;
 //import com.ericsson.msc.group5.entities.FailureClass;
 //import com.ericsson.msc.group5.entities.FailureTrace;
-//import com.ericsson.msc.group5.entities.HierInfo;
 //import com.ericsson.msc.group5.entities.UserEquipment;
 //
 //public class Validator {
@@ -25,27 +24,27 @@
 //	// validateDate("28/02/12");
 //	// }
 //
-//	public static boolean validateFieldTypes(HSSFRow row, Object entity) {
-//		if (entity instanceof FailureTrace) {
-//			return validateFailureTraceRowFieldTypes(row);
-//		}
-//		if (entity instanceof UserEquipment) {
-//			return validateUserEquipmentRowFieldTypes(row);
-//		}
-//		if (entity instanceof EventCause) {
-//			return validateEventCauseRowFieldTypes(row);
-//		}
-//		if (entity instanceof FailureClass) {
-//			return validateFailureClassRowFieldTypes(row);
-//		}
-//		if (entity instanceof CountryCodeNetworkCode) {
-//			return validateCountryCodeNetworkCodeRowFieldTypes(row);
-//		}
-//		if (entity instanceof HierInfo) {
-//			return validateHierInfoRowFieldTypes(row);
-//		}
-//		return false;
-//	}
+////	public static boolean validateFieldTypes(HSSFRow row, Object entity) {
+////		if (entity instanceof FailureTrace) {
+////			return validateFailureTraceRowFieldTypes(row);
+////		}
+//////		if (entity instanceof UserEquipment) {
+//////			return validateUserEquipmentRowFieldTypes(row);
+//////		}
+//////		if (entity instanceof EventCause) {
+//////			return validateEventCauseRowFieldTypes(row);
+//////		}
+//////		if (entity instanceof FailureClass) {
+//////			return validateFailureClassRowFieldTypes(row);
+//////		}
+//////		if (entity instanceof CountryCodeNetworkCode) {
+//////			return validateCountryCodeNetworkCodeRowFieldTypes(row);
+//////		}
+//////		if (entity instanceof HierInfo) {
+//////			return validateHierInfoRowFieldTypes(row);
+//////		}
+////		return false;
+////	}
 //
 //	public static boolean validateEventId(double d) {
 //		if (d >= 4000 && d <= 5000) {
@@ -193,7 +192,7 @@
 //		return true;
 //	}
 //
-//	private static boolean validateFailureTraceRowFieldTypes(HSSFRow row) {
+//	public static boolean validateFailureTraceRowFieldTypes(HSSFRow row) {
 //
 //		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 //			return false;
@@ -240,88 +239,88 @@
 //		return true;
 //	}
 //
-//	private static boolean validateUserEquipmentRowFieldTypes(HSSFRow row) {
-//		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-//			return false;
-//		}
-//		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		if (row.getCell(4).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		if (row.getCell(5).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		if (row.getCell(6).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		if (row.getCell(7).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		if (row.getCell(8).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		return true;
-//	}
+////	private static boolean validateUserEquipmentRowFieldTypes(HSSFRow row) {
+////		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+////			return false;
+////		}
+////		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		if (row.getCell(4).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		if (row.getCell(5).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		if (row.getCell(6).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		if (row.getCell(7).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		if (row.getCell(8).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		return true;
+////	}
 //
-//	private static boolean validateCountryCodeNetworkCodeRowFieldTypes(HSSFRow row) {
-//		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-//			return false;
-//		}
-//		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-//			return false;
-//		}
-//		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		return false;
-//	}
-//
-//	private static boolean validateHierInfoRowFieldTypes(HSSFRow row) {
-//		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-//			return false;
-//		}
-//		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-//			return false;
-//		}
-//		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-//			return true;
-//		}
-//		return false;
-//	}
-//
-//	private static boolean validateFailureClassRowFieldTypes(HSSFRow row) {
-//		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-//			return false;
-//		}
-//		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		return true;
-//	}
-//
-//	private static boolean validateEventCauseRowFieldTypes(HSSFRow row) {
-//		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-//			return false;
-//		}
-//		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-//			return false;
-//		}
-//		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-//			return false;
-//		}
-//		return true;
-//	}
+////	private static boolean validateCountryCodeNetworkCodeRowFieldTypes(HSSFRow row) {
+////		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+////			return false;
+////		}
+////		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+////			return false;
+////		}
+////		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		return false;
+////	}
+////
+////	private static boolean validateHierInfoRowFieldTypes(HSSFRow row) {
+////		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+////			return false;
+////		}
+////		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+////			return false;
+////		}
+////		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+////			return true;
+////		}
+////		return false;
+////	}
+////
+////	private static boolean validateFailureClassRowFieldTypes(HSSFRow row) {
+////		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+////			return false;
+////		}
+////		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		return true;
+////	}
+////
+////	private static boolean validateEventCauseRowFieldTypes(HSSFRow row) {
+////		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+////			return false;
+////		}
+////		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+////			return false;
+////		}
+////		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
+////			return false;
+////		}
+////		return true;
+////	}
 //
 //	public static boolean validateFieldValues(HSSFRow row, Object entity) {
 //		if (entity instanceof FailureTrace) {

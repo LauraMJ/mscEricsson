@@ -5,7 +5,6 @@
 //import java.util.Date;
 //import org.apache.poi.hssf.usermodel.HSSFCell;
 //import org.apache.poi.hssf.usermodel.HSSFRow;
-//import com.ericsson.msc.group5.dao.jpa.PersistenceUtil;
 //import com.ericsson.msc.group5.dataIO.DataImport;
 //import com.ericsson.msc.group5.entities.ErrorLog;
 //

@@ -1,9 +1,10 @@
 package com.ericsson.msc.group5.dataAccessLayer;
 
-import com.ericsson.msc.group5.entities.EventCause;
+import java.util.Collection;
+import com.ericsson.msc.group5.users.User;
 
 public interface UserDAO {
 
-	public EventCause getUsers(int causeCode, int eventId, String description);
+	public Collection <User> getUsers();
 
 }

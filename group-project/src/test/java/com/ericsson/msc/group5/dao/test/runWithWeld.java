@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.dao.test;
+/*package com.ericsson.msc.group5.dao.test;
 
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
@@ -61,3 +61,4 @@ public class runWithWeld {
 	// assertTrue(c.getTitle().equals("Bob Dole"));
 
 }
+*/

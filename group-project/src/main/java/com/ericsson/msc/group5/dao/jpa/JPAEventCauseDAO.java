@@ -1,31 +1,49 @@
 package com.ericsson.msc.group5.dao.jpa;
 
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.EntityManager;
-import com.ericsson.msc.group5.dataAccessLayer.EventCauseDAO;
+import javax.persistence.PersistenceContext;
+import com.ericsson.msc.group5.dao.EventCauseDAO;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.EventCauseCK;
 
 public class JPAEventCauseDAO implements EventCauseDAO {
 
-	public EventCause getMangedEventCause(int causeCode, int eventId,
-			String description) {
-		EntityManager em = PersistenceUtil.createEM();
-		List <EventCause> ecList = em
-				.createQuery(
-						"select ec from "
-								+ EventCause.class.getName()
-								+ " ec where ec.causeCodeEventIdCK.causeCode = :causeCode AND ec.causeCodeEventIdCK.eventId = :eventId",
-						EventCause.class).setParameter("causeCode", causeCode)
-				.setParameter("eventId", eventId).getResultList();
-		if (ecList.isEmpty()) {
-			EventCause ec = new EventCause(
-					new EventCauseCK(causeCode, eventId), description);
-			PersistenceUtil.persist(ec);
-			em.close();
-			return ec;
-		}
-		em.close();
-		return ecList.get(0);
+	@PersistenceContext
+	private EntityManager em;
+
+	@Override
+	public Collection <EventCause> getAllEventCauses() {
+		return em.createNamedQuery("findAllEventCauses").getResultList();
 	}
+
+	@Override
+	public EventCause getEventCause(int causeCode, int eventId) {
+		return em.find(EventCause.class, new EventCauseCK(causeCode, eventId));
+	}
+
+	@Override
+	public void insertEventCause(EventCause eventCause) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateEventCause(EventCause eventCause) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteEventCause(EventCause eventCause) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void batchInsertEventCause(Collection <EventCause> eventCauseList) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

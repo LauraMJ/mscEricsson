@@ -1,44 +1,57 @@
 package com.ericsson.msc.group5.dao.jpa;
 
-import java.util.List;
-import javax.inject.Inject;
+import java.util.Collection;
 import javax.persistence.EntityManager;
-import com.ericsson.msc.group5.dataAccessLayer.CountryCodeNetworkCodeDAO;
-import com.ericsson.msc.group5.dataAccessLayer.CountryDAO;
+import javax.persistence.PersistenceContext;
+import com.ericsson.msc.group5.dao.CountryCodeNetworkCodeDAO;
 import com.ericsson.msc.group5.entities.Country;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
-import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
 
 public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 
-	@Inject
-	private CountryDAO countryDAO;
+	@PersistenceContext
+	private EntityManager em;
 
-	public CountryDAO getCountryDAO() {
-		return countryDAO;
+	@Override
+	public Collection<CountryCodeNetworkCode> getAllCountryCodeNetworkCodes() {
+		return em.createNamedQuery("findAllCountryCodeNetworkCodes").getResultList();
 	}
 
-	public void setCountryDAO(CountryDAO countryDAO) {
-		this.countryDAO = countryDAO;
+	@Override
+	public CountryCodeNetworkCode getCountryCodeNetworkCode(int networkCode, int countryCode) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public CountryCodeNetworkCode getManagedCountryCodeNetworkCode(int countryCode, int networkCode, String country, String operator) {
-		EntityManager em = PersistenceUtil.createEM();
-		List <CountryCodeNetworkCode> cnList = em
-				.createQuery(
-						"select cn from "
-								+ CountryCodeNetworkCode.class.getName()
-								+ " cn where cn.countryCodeNetworkCode.country.countryCode = :countryCode AND cn.countryCodeNetworkCode.networkCode = :networkCode",
-						CountryCodeNetworkCode.class).setParameter("countryCode", countryCode).setParameter("networkCode", networkCode).getResultList();
-		if (cnList.isEmpty()) {
-			Country countryEntity = countryDAO.getManagedCountry(countryCode, country);
-			CountryCodeNetworkCode cn = new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(countryEntity, networkCode), operator);
+	@Override
+	public void insertCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode) {
+		// TODO Auto-generated method stub
 
-			PersistenceUtil.persist(cn);
-			em.close();
-			return cn;
-		}
-		em.close();
-		return cnList.get(0);
+	}
+
+	@Override
+	public void updateCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void deleteCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void batchInsertCountryCodeNetworkCode(Collection <CountryCodeNetworkCode> countryCodeNetworkCodeList) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void insertCountry(Country country) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public Country getCountry(int countryCode) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

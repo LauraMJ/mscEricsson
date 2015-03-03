@@ -54,30 +54,14 @@ public class FailureTraceTest {
 		utx.begin();
 		em.joinTransaction();
 
-		AccessCapability ac = new AccessCapability();
-		ac.setAccessCapability("access capability");
-		em.persist(ac);
-
-		UserEquipmentType uet = new UserEquipmentType();
-		uet.setUserEquipmentType("user equipment type");
-		em.persist(uet);
-
-		OperatingSystem os = new OperatingSystem();
-		os.setOperatingSystem("operating system");
-		em.persist(os);
-
-		InputMode im = new InputMode();
-		im.setInputMode("input mode");
-		em.persist(im);
-
 		ft = new FailureTrace();
 
-		UserEquipment ue = new UserEquipment(0, "marketing name", "manufacturer", ac, "model", uet, os, im);
+		UserEquipment ue = new UserEquipment(0, "marketing name", "manufacturer", "access capability", "model", "user equipment type", "operating system",
+				"input mode");
 		em.persist(ue);
+
 		ft.setUserEqipment(ue);
-		HierInfo hi = new HierInfo();
-		ft.setHierInfo(hi);
-		em.persist(hi);
+
 		FailureClass fc = new FailureClass(0, "description");
 		ft.setFailureClass(fc);
 		em.persist(fc);
@@ -182,7 +166,7 @@ public class FailureTraceTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.AccessCapability").executeUpdate();
+		em.createQuery("delete from com.ericsson.msc.group5.entities.FailureTrace").executeUpdate();
 		utx.commit();
 	}
 

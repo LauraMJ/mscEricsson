@@ -7,8 +7,9 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Path;
-import com.ericsson.msc.group5.dataAccessLayer.UserDAO;
+import com.ericsson.msc.group5.dao.UserDAO;
 
+// Business logic here
 @Stateless
 @Local
 @Path("/user-service")
@@ -28,5 +29,6 @@ public class UserServiceEJB implements UserService {
 
 	@Override
 	public void addUsers(Collection <User> users) {
+
 	}
 }

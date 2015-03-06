@@ -1,5 +1,6 @@
 package com.ericsson.msc.group5.users;
 
+// This is the entity
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+// This class is the entity just for storing/ retrieving data
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlRootElement(name = "user")
 public class User implements Serializable {

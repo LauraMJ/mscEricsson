@@ -5,27 +5,20 @@
 *.class
 
 # eclipse specific git ignore
-.project
-.metadata
-bin/**
+group-project/.metadata
+group-project/.settings/
+group-project/bin/
+group-project/target/
+group-project/.classpath
+group-project/.project
 tmp/**
-target/**
+
 *.tmp
 *.bak
 *.swp
 *~.nib
 local.properties
-.classpath
-.settings/
 .loadpath
-
-# External tool builders
-.externalToolBuilders/
 
 # Locally stored "Eclipse launch configurations"
 *.launch
-
-# ignore temp test folders and the eclipse settings file
-group-project/test
-group-project/.settings
-group-project/.classpath

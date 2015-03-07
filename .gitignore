@@ -10,7 +10,6 @@ group-project/.settings/
 group-project/bin/
 group-project/target/
 group-project/.classpath
-group-project/.project
 tmp/**
 
 *.tmp

@@ -56,7 +56,7 @@ public class FailureTraceTest {
 
 		ft = new FailureTrace();
 
-		UserEquipment ue = new UserEquipment(0, "marketing name", "manufacturer", "access capability", "model", "user equipment type", "operating system",
+		UserEquipment ue = new UserEquipment(0, "marketing name", "manufacturer", "access capability", "model", "vendor", "user equipment type", "operating system",
 				"input mode");
 		em.persist(ue);
 

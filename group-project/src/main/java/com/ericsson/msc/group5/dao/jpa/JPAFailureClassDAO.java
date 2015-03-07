@@ -18,26 +18,22 @@ public class JPAFailureClassDAO implements FailureClassDAO {
 
 	@Override
 	public FailureClass getFailureClass(int failureClassId) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(FailureClass.class, failureClassId);
 	}
 
 	@Override
 	public void insertFailureClass(FailureClass failureClass) {
-		// TODO Auto-generated method stub
-		
+		em.persist(failureClass);
 	}
 
 	@Override
 	public void updateFailureClass(FailureClass failureClass) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void deleteFailureClass(FailureClass failureClass) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

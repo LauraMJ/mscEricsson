@@ -30,13 +30,11 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 	@Override
 	public void updateEventCause(EventCause eventCause) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void deleteEventCause(EventCause eventCause) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

@@ -3,11 +3,10 @@ package com.ericsson.msc.group5.services;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Locale;
+import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -22,6 +21,7 @@ import com.ericsson.msc.group5.dao.EventCauseDAO;
 import com.ericsson.msc.group5.dao.FailureClassDAO;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.dao.UserEquipmentDAO;
+import com.ericsson.msc.group5.dataIOConsistencyChecks.Validator;
 import com.ericsson.msc.group5.entities.Country;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
@@ -30,6 +30,7 @@ import com.ericsson.msc.group5.entities.EventCauseCK;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.entities.UserEquipment;
+import com.ericsson.msc.group5.utils.DateUtil;
 
 @Stateless
 @Local
@@ -45,6 +46,8 @@ public class DataImportServiceEJB implements DataImportService {
 	private FailureTraceDAO failureTraceDAO;
 	@Inject
 	private UserEquipmentDAO userEquipmentDAO;
+	@EJB
+	private ErrorLogWriterService errorLogWriterService;
 
 	private enum ExcelDataSheet {
 		BASE_DATA_TABLE(0), EVENT_CAUSE_TABLE(1), FAILURE_CLASS_TABLE(2), UE_TABLE(3), MCC_MNC_TABLE(4);
@@ -94,10 +97,6 @@ public class DataImportServiceEJB implements DataImportService {
 		int numRows = baseDataWorksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
 			HSSFRow row = (HSSFRow) baseDataWorksheet.getRow(i);
-			// if ( !Validator.validateFailureTraceRowFieldTypes(row)) {
-			// ErrorLogWriter.writeToErrorLog(row, "");
-			// continue;
-			// }
 			try {
 				Date dateTime = row.getCell(0).getDateCellValue();
 				int eventId = (int) row.getCell(1).getNumericCellValue();
@@ -114,7 +113,7 @@ public class DataImportServiceEJB implements DataImportService {
 				String hier32 = Long.toString((long) row.getCell(12).getNumericCellValue());
 				String hier321 = Long.toString((long) row.getCell(13).getNumericCellValue());
 
-				String date = formatDateAsString(dateTime);
+				String date = DateUtil.formatDateAsString(dateTime);
 
 				EventCause existingEventCause = eventCauseDAO.getEventCause(causeCode, eventId);
 				CountryCodeNetworkCode exisingCountryCodeNetworkCode = countryCodeNetworkCodeDAO.getCountryCodeNetworkCode(operator, market);
@@ -135,11 +134,15 @@ public class DataImportServiceEJB implements DataImportService {
 				newFailureTrace.setNeVersion(neVersion);
 				newFailureTrace.setUserEqipment(existingUserEquipment);
 
+				if ( !Validator.validateFailureTrace(newFailureTrace)) {
+					errorLogWriterService.writeToErrorLog(row, "");
+					continue;
+				}
+
 				failureTraceDAO.insertFailureTrace(newFailureTrace);
 			}
 			catch (IllegalStateException e) {
-				// e.printStackTrace();
-				// ErrorLogWriter.writeToErrorLog(row, "");
+				errorLogWriterService.writeToErrorLog(row, "");
 			}
 		}
 	}
@@ -240,13 +243,5 @@ public class DataImportServiceEJB implements DataImportService {
 			countryCodeNetworkCodeDAO.insertCountryCodeNetworkCode(new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(new Country(countryCode, country),
 					networkCode), operator));
 		}
-	}
-
-	private static String formatDateAsString(Date dateTime) {
-		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
-		DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
-
-		String dateTimeString = dateFormat.format(dateTime) + " " + timeFormat.format(dateTime);
-		return dateTimeString;
 	}
 }

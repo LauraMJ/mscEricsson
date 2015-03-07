@@ -9,40 +9,33 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.ss.usermodel.Cell;
-import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
-import com.ericsson.msc.group5.entities.EventCause;
-import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
-import com.ericsson.msc.group5.entities.UserEquipment;
+import com.ericsson.msc.group5.utils.DateUtil;
 
 public class Validator {
 
-	// public static void main(String [] args) {
-	// new Validator();
+	// public static boolean validateFieldTypes(HSSFRow row, Object entity) {
+	// if (entity instanceof FailureTrace) {
+	// return validateFailureTraceRowFieldTypes(row);
 	// }
-	//
-	// public Validator() {
-	// validateDate("5/5/2109 15:23");
-	// validateTime("5/5/19 15:89");
+	// if (entity instanceof UserEquipment) {
+	// return validateUserEquipmentRowFieldTypes(row);
 	// }
-
-	public static boolean validateFieldTypes(HSSFRow row, Object entity) {
-		if (entity instanceof FailureTrace) {
-			return validateFailureTraceRowFieldTypes(row);
-		}
-		if (entity instanceof UserEquipment) {
-			return validateUserEquipmentRowFieldTypes(row);
-		}
-		if (entity instanceof EventCause) {
-			return validateEventCauseRowFieldTypes(row);
-		}
-		if (entity instanceof FailureClass) {
-			return validateFailureClassRowFieldTypes(row);
-		}
-		if (entity instanceof CountryCodeNetworkCode) {
-			return validateCountryCodeNetworkCodeRowFieldTypes(row);
-		}
-		return false;
+	// if (entity instanceof EventCause) {
+	// return validateEventCauseRowFieldTypes(row);
+	// }
+	// if (entity instanceof FailureClass) {
+	// return validateFailureClassRowFieldTypes(row);
+	// }
+	// if (entity instanceof CountryCodeNetworkCode) {
+	// return validateCountryCodeNetworkCodeRowFieldTypes(row);
+	// }
+	// return false;
+	// }
+	
+	public static boolean validateFailureTrace(FailureTrace failureTrace){
+		//TODO: input list of tests that are relevant to FailureTrace.
+		return true;
 	}
 
 	public static boolean validateEventId(Integer d) {
@@ -316,102 +309,12 @@ public class Validator {
 		return true;
 	}
 
-	private static boolean validateUserEquipmentRowFieldTypes(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(4).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(5).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(6).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(7).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(8).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return true;
-	}
-
-	private static boolean validateCountryCodeNetworkCodeRowFieldTypes(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return false;
-	}
-
-	private static boolean validateHierInfoRowFieldTypes(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return true;
-		}
-		return false;
-	}
-
-	private static boolean validateFailureClassRowFieldTypes(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return true;
-	}
-
-	private static boolean validateEventCauseRowFieldTypes(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return true;
-	}
-
-	public static boolean validateFieldValues(HSSFRow row, Object entity) {
-		if (entity instanceof FailureTrace) {
-			return validateFailureTraceRowFieldValues(row);
-		}
-		return true;
-	}
-
 	private static boolean validateFailureTraceRowFieldValues(HSSFRow row) {
 
-//		if ( !validateDate(DataImport.formatDateAsString(row.getCell(0)))) {
-//			// System.out.println("Date not ok");
-//			return false;
-//		}
+		if ( !validateDate(DateUtil.formatDateAsString(row.getCell(0).getDateCellValue()))) {
+			// System.out.println("Date not ok");
+			return false;
+		}
 		if ( !validateEventId((int) row.getCell(1).getNumericCellValue())) {
 			// System.out.println("Event ID not ok");
 			return false;
@@ -454,4 +357,94 @@ public class Validator {
 		}
 		return true;
 	}
+
+	// private static boolean validateUserEquipmentRowFieldTypes(HSSFRow row) {
+	// if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+	// return false;
+	// }
+	// if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// if (row.getCell(4).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// if (row.getCell(5).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// if (row.getCell(6).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// if (row.getCell(7).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// if (row.getCell(8).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// return true;
+	// }
+	//
+	// private static boolean validateCountryCodeNetworkCodeRowFieldTypes(HSSFRow row) {
+	// if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+	// return false;
+	// }
+	// if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+	// return false;
+	// }
+	// if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// return false;
+	// }
+	//
+	// private static boolean validateHierInfoRowFieldTypes(HSSFRow row) {
+	// if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+	// return false;
+	// }
+	// if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+	// return false;
+	// }
+	// if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+	// return true;
+	// }
+	// return false;
+	// }
+	//
+	// private static boolean validateFailureClassRowFieldTypes(HSSFRow row) {
+	// if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+	// return false;
+	// }
+	// if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// return true;
+	// }
+	//
+	// private static boolean validateEventCauseRowFieldTypes(HSSFRow row) {
+	// if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+	// return false;
+	// }
+	// if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+	// return false;
+	// }
+	// if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
+	// return false;
+	// }
+	// return true;
+	// }
+	//
+	// public static boolean validateFieldValues(HSSFRow row, Object entity) {
+	// if (entity instanceof FailureTrace) {
+	// return validateFailureTraceRowFieldValues(row);
+	// }
+	// return true;
+	// }
 }

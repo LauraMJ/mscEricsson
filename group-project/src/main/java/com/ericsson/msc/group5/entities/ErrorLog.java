@@ -5,8 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
-@Entity(name = "error_log")
+@Entity
+@Table(name = "error_log")
+@NamedQueries({@NamedQuery(name = "findAllErrorLogs", query = "SELECT e FROM ErrorLog e"),
+		@NamedQuery(name = "deleteAllErrorLogs", query = "DELETE FROM ErrorLog")})
 public class ErrorLog {
 
 	@Id
@@ -21,7 +27,6 @@ public class ErrorLog {
 	private String baseData;
 
 	public ErrorLog() {
-
 	}
 
 	public ErrorLog(String generationTime, String errorDescription, String baseData) {

@@ -9,12 +9,12 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.1</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
-					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -49,16 +49,16 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.jboss.weld</groupId> -->
-<!-- 			<artifactId>weld-core-jsf</artifactId> -->
-<!-- 			<version>2.2.4.Final</version> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.jboss.weld.se</groupId> -->
-<!-- 			<artifactId>weld-se</artifactId> -->
-<!-- 			<version>2.2.4.Final</version> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.jboss.weld</groupId> -->
+		<!-- <artifactId>weld-core-jsf</artifactId> -->
+		<!-- <version>2.2.4.Final</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.jboss.weld.se</groupId> -->
+		<!-- <artifactId>weld-se</artifactId> -->
+		<!-- <version>2.2.4.Final</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.jboss.arquillian</groupId>
 			<artifactId>arquillian-bom</artifactId>

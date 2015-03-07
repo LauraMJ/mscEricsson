@@ -5,7 +5,7 @@ import java.util.Collection;
 import javax.ejb.Local;
 
 import com.ericsson.msc.group5.entities.EventCause;
-import com.ericsson.msc.group5.entities.EventCauseCK;
+
 @Local
 public interface EventCauseService {
 

@@ -17,15 +17,6 @@ import com.ericsson.msc.group5.entities.UserEquipment;
 
 public class Validator {
 
-	// public static void main(String [] args) {
-	// new Validator();
-	// }
-	//
-	// public Validator() {
-	// validateDate("5/5/2109 15:23");
-	// validateTime("5/5/19 15:89");
-	// }
-
 	public static boolean validateFieldTypes(HSSFRow row, Object entity) {
 		if (entity instanceof FailureTrace) {
 			return validateFailureTraceRowFieldTypes(row);
@@ -359,19 +350,6 @@ public class Validator {
 		}
 		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
 			return false;
-		}
-		return false;
-	}
-
-	private static boolean validateHierInfoRowFieldTypes(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return true;
 		}
 		return false;
 	}

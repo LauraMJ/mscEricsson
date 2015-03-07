@@ -5,7 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.entities.FailureTrace;
-import com.ericsson.msc.group5.entities.UserEquipment;
 
 
 public class JPAFailureTraceDAO implements FailureTraceDAO  {

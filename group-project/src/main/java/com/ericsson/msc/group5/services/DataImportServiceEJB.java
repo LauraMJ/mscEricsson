@@ -79,10 +79,10 @@ public class DataImportServiceEJB implements DataImportService {
 	}
 
 	private void readExcelDocument(Workbook excelWorkbook) {
-		readUserEquipmentDataSheet(excelWorkbook);
-		readFailureClassDataSheet(excelWorkbook);
-		readEventCauseDataSheet(excelWorkbook);
-		// readOperatorDataSheet(excelWorkbook);
+		// readUserEquipmentDataSheet(excelWorkbook);
+		// readFailureClassDataSheet(excelWorkbook);
+		// readEventCauseDataSheet(excelWorkbook);
+		readOperatorDataSheet(excelWorkbook);
 		// readBaseDataSheet(excelWorkbook);
 	}
 

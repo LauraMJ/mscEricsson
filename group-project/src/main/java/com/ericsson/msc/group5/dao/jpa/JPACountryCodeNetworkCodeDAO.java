@@ -6,6 +6,7 @@ import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.CountryCodeNetworkCodeDAO;
 import com.ericsson.msc.group5.entities.Country;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
+import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
 
 public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 
@@ -13,19 +14,21 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 	private EntityManager em;
 
 	@Override
-	public Collection<CountryCodeNetworkCode> getAllCountryCodeNetworkCodes() {
+	public Collection <CountryCodeNetworkCode> getAllCountryCodeNetworkCodes() {
 		return em.createNamedQuery("findAllCountryCodeNetworkCodes").getResultList();
 	}
 
 	@Override
 	public CountryCodeNetworkCode getCountryCodeNetworkCode(int networkCode, int countryCode) {
-		return null;
+		Country country = new Country();
+		country.setCountryCode(countryCode);
+		return em.find(CountryCodeNetworkCode.class, new CountryCodeNetworkCodeCK(country, networkCode));
 	}
 
 	@Override
 	public void insertCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode) {
 		Country country = countryCodeNetworkCode.getCountryCodeNetworkCode().getCountry();
-		if(em.find(Country.class, country.getCountryCode()) == null)
+		if (em.find(Country.class, country.getCountryCode()) == null)
 			em.persist(country);
 		em.persist(countryCodeNetworkCode);
 	}
@@ -42,9 +45,9 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 
 	@Override
 	public void batchInsertCountryCodeNetworkCode(Collection <CountryCodeNetworkCode> countryCodeNetworkCodeList) {
-		for(CountryCodeNetworkCode countryCodeNetworkCode : countryCodeNetworkCodeList){
+		for (CountryCodeNetworkCode countryCodeNetworkCode : countryCodeNetworkCodeList) {
 			Country country = countryCodeNetworkCode.getCountryCodeNetworkCode().getCountry();
-			if(em.find(Country.class, country) == null)
+			if (em.find(Country.class, country) == null)
 				em.persist(country);
 			em.persist(countryCodeNetworkCode);
 		}

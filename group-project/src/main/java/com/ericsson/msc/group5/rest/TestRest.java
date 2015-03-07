@@ -25,7 +25,7 @@ public class TestRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection <FailureClass> getFailureClass() {
-		dataImport.importSpreadsheet("C:\\Users\\Szymon\\Desktop\\sample.xls");
+		dataImport.importSpreadsheet("C:\\Users\\Szymon\\Desktop\\Sprint 1 dataset.xls");
 		
 //		List<FailureClass> ls = new ArrayList<FailureClass>();
 //		ls.add(new FailureClass(1, "hello1"));

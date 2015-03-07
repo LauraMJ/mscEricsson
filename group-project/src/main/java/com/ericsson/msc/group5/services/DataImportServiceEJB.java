@@ -79,64 +79,63 @@ public class DataImportServiceEJB implements DataImportService {
 	}
 
 	private void readExcelDocument(Workbook excelWorkbook) {
-		// readUserEquipmentDataSheet(excelWorkbook);
-		// readFailureClassDataSheet(excelWorkbook);
-		// readEventCauseDataSheet(excelWorkbook);
+		readUserEquipmentDataSheet(excelWorkbook);
+		readFailureClassDataSheet(excelWorkbook);
+		readEventCauseDataSheet(excelWorkbook);
 		readOperatorDataSheet(excelWorkbook);
-		// readBaseDataSheet(excelWorkbook);
+		readBaseDataSheet(excelWorkbook);
 	}
 
 	private void readBaseDataSheet(Workbook excelWorkbook) {
-		HSSFSheet worksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
+		HSSFSheet baseDataWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
 
 		Collection <FailureClass> failureClasses = new ArrayList <FailureClass>(500);
 
-		int numRows = worksheet.getLastRowNum();
-		HSSFRow row;
-		HSSFCell dateTime, eventId, failureClass, ueType, market, operator, cellId, duration, causeCode, neVersion, imsi, hier3, hier32, hier321;
+		int numRows = baseDataWorksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
-			row = (HSSFRow) worksheet.getRow(i);
+			HSSFRow row = (HSSFRow) baseDataWorksheet.getRow(i);
 			// if ( !Validator.validateFailureTraceRowFieldTypes(row)) {
 			// ErrorLogWriter.writeToErrorLog(row, "");
 			// continue;
 			// }
-			dateTime = row.getCell(0);
-			eventId = row.getCell(1);
-			failureClass = row.getCell(2);
-			ueType = row.getCell(3);
-			market = row.getCell(4);
-			operator = row.getCell(5);
-			cellId = row.getCell(6);
-			duration = row.getCell(7);
-			causeCode = row.getCell(8);
-			neVersion = row.getCell(9);
-			imsi = row.getCell(10);
-			hier3 = row.getCell(11);
-			hier32 = row.getCell(12);
-			hier321 = row.getCell(13);
-
-			String date = formatDateAsString(dateTime);
 			try {
-				EventCause existingEventCause = eventCauseDAO.getEventCause((int) causeCode.getNumericCellValue(), (int) eventId.getNumericCellValue());
-				CountryCodeNetworkCode exisingCountryCodeNetworkCode = countryCodeNetworkCodeDAO.getCountryCodeNetworkCode(
-						(int) operator.getNumericCellValue(), (int) market.getNumericCellValue());
-				FailureClass existingFailureClass = failureClassDAO.getFailureClass((int) failureClass.getNumericCellValue());
-				UserEquipment existingUserEquipment = userEquipmentDAO.getUserEquipment((int) ueType.getNumericCellValue());
+				Date dateTime = row.getCell(0).getDateCellValue();
+				int eventId = (int) row.getCell(1).getNumericCellValue();
+				int failureClass = (int) row.getCell(2).getNumericCellValue();
+				int ueType = (int) row.getCell(3).getNumericCellValue();
+				int market = (int) row.getCell(4).getNumericCellValue();
+				int operator = (int) row.getCell(5).getNumericCellValue();
+				int cellId = (int) row.getCell(6).getNumericCellValue();
+				int duration = (int) row.getCell(7).getNumericCellValue();
+				int causeCode = (int) row.getCell(8).getNumericCellValue();
+				String neVersion = row.getCell(9).getStringCellValue();
+				String imsi = Long.toString((long) row.getCell(10).getNumericCellValue());
+				String hier3 = Long.toString((long) row.getCell(11).getNumericCellValue());
+				String hier32 = Long.toString((long) row.getCell(12).getNumericCellValue());
+				String hier321 = Long.toString((long) row.getCell(13).getNumericCellValue());
+
+				String date = formatDateAsString(dateTime);
+
+				EventCause existingEventCause = eventCauseDAO.getEventCause(causeCode, eventId);
+				CountryCodeNetworkCode exisingCountryCodeNetworkCode = countryCodeNetworkCodeDAO.getCountryCodeNetworkCode(operator, market);
+				FailureClass existingFailureClass = failureClassDAO.getFailureClass(failureClass);
+				UserEquipment existingUserEquipment = userEquipmentDAO.getUserEquipment(ueType);
 
 				FailureTrace newFailureTrace = new FailureTrace();
 				newFailureTrace.setDateTime(date);
 				newFailureTrace.setCountryCodeNetworkCode(exisingCountryCodeNetworkCode);
-				newFailureTrace.setDuration((int) duration.getNumericCellValue());
-				newFailureTrace.setCellId((int) cellId.getNumericCellValue());
+				newFailureTrace.setDuration(duration);
+				newFailureTrace.setCellId(cellId);
 				newFailureTrace.setEventCause(existingEventCause);
 				newFailureTrace.setFailureClass(existingFailureClass);
-				// newFailureTrace.setHier3Id(hier3.getNumericCellValue());
-				// newFailureTrace.setHier32Id(hier32Id);
-				// newFailureTrace.setHier321Id(hier321Id);
-				newFailureTrace.setIMSI(Long.toString((long) imsi.getNumericCellValue()));
-				newFailureTrace.setNeVersion(neVersion.getStringCellValue());
+				newFailureTrace.setHier3Id(hier3);
+				newFailureTrace.setHier32Id(hier32);
+				newFailureTrace.setHier321Id(hier321);
+				newFailureTrace.setIMSI(imsi);
+				newFailureTrace.setNeVersion(neVersion);
 				newFailureTrace.setUserEqipment(existingUserEquipment);
 
+				failureTraceDAO.insertFailureTrace(newFailureTrace);
 			}
 			catch (IllegalStateException e) {
 				// e.printStackTrace();
@@ -243,10 +242,9 @@ public class DataImportServiceEJB implements DataImportService {
 		}
 	}
 
-	private static String formatDateAsString(HSSFCell dateTimeHSSFCell) {
+	private static String formatDateAsString(Date dateTime) {
 		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
 		DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.UK);
-		Date dateTime = dateTimeHSSFCell.getDateCellValue();
 
 		String dateTimeString = dateFormat.format(dateTime) + " " + timeFormat.format(dateTime);
 		return dateTimeString;

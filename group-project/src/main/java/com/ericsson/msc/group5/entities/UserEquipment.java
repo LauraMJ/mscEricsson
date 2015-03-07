@@ -28,6 +28,8 @@ public class UserEquipment {
 	private String accessCapability;
 	@Column(name = "model", length = 70)
 	private String model;
+	@Column(name = "vendor_name", length = 60)
+	private String vendor;
 	@Column(name = "user_equipment_type", length = 45)
 	private String userEquipmentType;
 	@Column(name = "operating_system", length = 45)
@@ -57,6 +59,8 @@ public class UserEquipment {
 	 *            String list of frequency bands supported by the user device.
 	 * @param model
 	 *            Model name of the device.
+	 * @param vendor
+	 *            The vendor's name.
 	 * @param userEquipmentType
 	 *            Device type.
 	 * @param operatingSystem
@@ -64,7 +68,7 @@ public class UserEquipment {
 	 * @param inputMode
 	 *            Input modes accepted by the device.
 	 */
-	public UserEquipment(Integer typeAllocationCode, String marketingName, String manufacturer, String accessCapability, String model,
+	public UserEquipment(Integer typeAllocationCode, String marketingName, String manufacturer, String accessCapability, String model, String vendor,
 			String userEquipmentType, String operatingSystem, String inputMode) {
 		super();
 		this.typeAllocationCode = typeAllocationCode;
@@ -72,6 +76,7 @@ public class UserEquipment {
 		this.manufacturer = manufacturer;
 		this.accessCapability = accessCapability;
 		this.model = model;
+		this.vendor = vendor;
 		this.userEquipmentType = userEquipmentType;
 		this.operatingSystem = operatingSystem;
 		this.inputMode = inputMode;
@@ -115,6 +120,14 @@ public class UserEquipment {
 
 	public void setModel(String model) {
 		this.model = model;
+	}
+
+	public String getVendor() {
+		return vendor;
+	}
+
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
 	}
 
 	public String getUserEquipmentType() {

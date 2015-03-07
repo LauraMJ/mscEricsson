@@ -18,14 +18,12 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 
 	@Override
 	public UserEquipment getUserEquipment(int typeAllocationCode) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(UserEquipment.class, typeAllocationCode);
 	}
 
 	@Override
 	public void insertUserEquipment(UserEquipment userEquipment) {
-		// TODO Auto-generated method stub
-		
+		em.persist(userEquipment);
 	}
 
 	@Override
@@ -42,8 +40,7 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 
 	@Override
 	public void batchInsertUserEquipment(Collection <UserEquipment> userEquipmentList) {
-		// TODO Auto-generated method stub
-		
+		for(UserEquipment userEquipment : userEquipmentList)
+			em.persist(userEquipment);
 	}
-
 }

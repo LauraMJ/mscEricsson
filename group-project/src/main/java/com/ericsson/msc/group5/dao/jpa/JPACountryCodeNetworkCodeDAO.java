@@ -6,6 +6,7 @@ import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.CountryCodeNetworkCodeDAO;
 import com.ericsson.msc.group5.entities.Country;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
+import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
 
 public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 
@@ -19,7 +20,6 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 
 	@Override
 	public CountryCodeNetworkCode getCountryCodeNetworkCode(int networkCode, int countryCode) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

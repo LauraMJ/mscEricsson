@@ -24,8 +24,7 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 
 	@Override
 	public void insertEventCause(EventCause eventCause) {
-		// TODO Auto-generated method stub
-		
+		em.persist(eventCause);
 	}
 
 	@Override
@@ -42,8 +41,7 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 
 	@Override
 	public void batchInsertEventCause(Collection <EventCause> eventCauseList) {
-		// TODO Auto-generated method stub
-		
+		for(EventCause eventCause : eventCauseList)
+			em.persist(eventCause);
 	}
-
 }

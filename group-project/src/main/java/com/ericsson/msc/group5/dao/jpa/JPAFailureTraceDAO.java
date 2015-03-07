@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.entities.FailureTrace;
+import com.ericsson.msc.group5.entities.UserEquipment;
 
 
 public class JPAFailureTraceDAO implements FailureTraceDAO  {
@@ -19,26 +20,23 @@ public class JPAFailureTraceDAO implements FailureTraceDAO  {
 
 	@Override
 	public void insertFailureTrace(FailureTrace failureTrace) {
-		// TODO Auto-generated method stub
-		
+		em.persist(failureTrace);
 	}
 
 	@Override
 	public void updateFailureTrace(FailureTrace failureTrace) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void deleteFailureTrace(FailureTrace failureTrace) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void batchInsertFailureTrace(Collection <FailureTrace> failureTraceList) {
-		// TODO Auto-generated method stub
-		
+		for(FailureTrace failureTrace : failureTraceList)
+			em.persist(failureTrace);
 	}
 
 }

@@ -52,4 +52,12 @@ public class CountryCodeNetworkCode {
 	public void setOperator(String operator) {
 		this.operator = operator;
 	}
+
+	public CountryCodeNetworkCodeCK getCountryCodeNetworkCode() {
+		return countryCodeNetworkCode;
+	}
+
+	public void setCountryCodeNetworkCode(CountryCodeNetworkCodeCK countryCodeNetworkCode) {
+		this.countryCodeNetworkCode = countryCodeNetworkCode;
+	}
 }

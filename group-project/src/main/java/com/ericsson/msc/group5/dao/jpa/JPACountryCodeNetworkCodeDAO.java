@@ -6,7 +6,6 @@ import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.CountryCodeNetworkCodeDAO;
 import com.ericsson.msc.group5.entities.Country;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
-import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
 
 public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 
@@ -25,8 +24,10 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 
 	@Override
 	public void insertCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode) {
-		// TODO Auto-generated method stub
-
+		Country country = countryCodeNetworkCode.getCountryCodeNetworkCode().getCountry();
+		if(em.find(Country.class, country.getCountryCode()) == null)
+			em.persist(country);
+		em.persist(countryCodeNetworkCode);
 	}
 
 	@Override
@@ -41,7 +42,12 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 
 	@Override
 	public void batchInsertCountryCodeNetworkCode(Collection <CountryCodeNetworkCode> countryCodeNetworkCodeList) {
-		// TODO Auto-generated method stub
+		for(CountryCodeNetworkCode countryCodeNetworkCode : countryCodeNetworkCodeList){
+			Country country = countryCodeNetworkCode.getCountryCodeNetworkCode().getCountry();
+			if(em.find(Country.class, country) == null)
+				em.persist(country);
+			em.persist(countryCodeNetworkCode);
+		}
 	}
 
 	@Override

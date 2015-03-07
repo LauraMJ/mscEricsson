@@ -27,9 +27,9 @@ public class EventCauseServiceEJB implements EventCauseService{
 	public Collection <EventCause> getCauseCode() {
 		return dao.getAllEventCauses();
 	}
-
+	
 	@Override
-	public void addEventCause(Collection<EventCauseCK> eventCauses) {
+	public void addEventCause(Collection<EventCause> eventCauses) {
 		dao.batchInsertEventCause(eventCauses);
 		
 	}

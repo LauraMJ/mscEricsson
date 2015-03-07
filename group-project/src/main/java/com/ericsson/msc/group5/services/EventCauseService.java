@@ -11,5 +11,5 @@ public interface EventCauseService {
 
 	public Collection<EventCause> getCauseCode();
 	
-	public void addEventCause(Collection <EventCauseCK> eventCauses);
+	public void addEventCause(Collection <EventCause> eventCauses);
 }

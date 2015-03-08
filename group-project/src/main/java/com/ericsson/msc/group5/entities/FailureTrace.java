@@ -13,11 +13,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- * Failure Trace JPA entity. The main entity in the application, maps to the Base Data table.
+ * Failure Trace JPA entity. The main entity in the application, maps to the
+ * Base Data table.
  */
 @Entity
 @Table(name = "failure_trace")
-@NamedQueries({@NamedQuery(name = "findAllFailureTraces", query = "SELECT f FROM FailureTrace f")})
+@NamedQueries({
+		@NamedQuery(name = "findAllFailureTraces", query = "SELECT f FROM FailureTrace f"),
+		@NamedQuery(name = "getEventCauseCombinations", query = "SELECT f.eventCause FROM FailureTrace AS f WHERE f.IMSI = :givenImsi "),})
 public class FailureTrace {
 
 	@Id
@@ -47,10 +50,13 @@ public class FailureTrace {
 	@JoinColumn(name = "typeAllocationCode")
 	private UserEquipment userEqipment;
 	@ManyToOne
-	@JoinColumns({@JoinColumn(name = "cause_code", referencedColumnName = "cause_code"), @JoinColumn(name = "event_id", referencedColumnName = "event_id")})
+	@JoinColumns({
+			@JoinColumn(name = "cause_code", referencedColumnName = "cause_code"),
+			@JoinColumn(name = "event_id", referencedColumnName = "event_id")})
 	private EventCause eventCause;
 	@ManyToOne
-	@JoinColumns({@JoinColumn(name = "country_code", referencedColumnName = "country_code"),
+	@JoinColumns({
+			@JoinColumn(name = "country_code", referencedColumnName = "country_code"),
 			@JoinColumn(name = "network_code", referencedColumnName = "network_code")})
 	private CountryCodeNetworkCode countryCodeNetworkCode;
 
@@ -160,7 +166,8 @@ public class FailureTrace {
 		return countryCodeNetworkCode;
 	}
 
-	public void setCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode) {
+	public void setCountryCodeNetworkCode(
+			CountryCodeNetworkCode countryCodeNetworkCode) {
 		this.countryCodeNetworkCode = countryCodeNetworkCode;
 	}
 }

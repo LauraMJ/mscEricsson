@@ -22,8 +22,12 @@ public class ErrorLogTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(ErrorLog.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap
+				.create(WebArchive.class, "test.war")
+				.addPackage(ErrorLog.class.getPackage())
+				.addAsResource("test-persistence.xml",
+						"META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -41,7 +45,7 @@ public class ErrorLogTest {
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
-		clearData();
+		// clearData();
 		startTransaction();
 	}
 
@@ -52,22 +56,27 @@ public class ErrorLogTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		ErrorLog createdEL = new ErrorLog(INITIAL_DATE_AND_TIME, INITIAL_ERROR_MESSAGE, INITIAL_DATA);
+		ErrorLog createdEL = new ErrorLog(INITIAL_DATE_AND_TIME,
+				INITIAL_ERROR_MESSAGE, INITIAL_DATA);
 
 		em.persist(createdEL);
 		int newId = createdEL.getErrorLogId();
 
 		ErrorLog loadedEL = em.find(ErrorLog.class, newId);
-		assertEquals("Failed to insert", INITIAL_DATE_AND_TIME, loadedEL.getGenerationTime());
-		assertEquals("Failed to insert", INITIAL_ERROR_MESSAGE, loadedEL.getErrorDescription());
+		assertEquals("Failed to insert", INITIAL_DATE_AND_TIME,
+				loadedEL.getGenerationTime());
+		assertEquals("Failed to insert", INITIAL_ERROR_MESSAGE,
+				loadedEL.getErrorDescription());
 		assertEquals("Failed to insert", INITIAL_DATA, loadedEL.getBaseData());
 
 		loadedEL.setBaseData(UPDATED_DATA);
 		loadedEL.setErrorDescription(UPDATED_ERROR_MESSAGE);
 		loadedEL.setGenerationTime(UPDATED_DATE_AND_TIME);
 		ErrorLog updatedEL = em.find(ErrorLog.class, newId);
-		assertEquals("Failed to insert", UPDATED_DATE_AND_TIME, updatedEL.getGenerationTime());
-		assertEquals("Failed to insert", UPDATED_ERROR_MESSAGE, updatedEL.getErrorDescription());
+		assertEquals("Failed to insert", UPDATED_DATE_AND_TIME,
+				updatedEL.getGenerationTime());
+		assertEquals("Failed to insert", UPDATED_ERROR_MESSAGE,
+				updatedEL.getErrorDescription());
 		assertEquals("Failed to insert", UPDATED_DATA, updatedEL.getBaseData());
 
 		em.remove(updatedEL);
@@ -80,7 +89,9 @@ public class ErrorLogTest {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.AccessCapability").executeUpdate();
+		em.createQuery(
+				"delete from com.ericsson.msc.group5.entities.AccessCapability")
+				.executeUpdate();
 		utx.commit();
 	}
 

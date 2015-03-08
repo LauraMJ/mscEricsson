@@ -194,4 +194,5 @@
 			</build>
 		</profile>
 	</profiles>
+	<url>mscproject</url>
 </project>

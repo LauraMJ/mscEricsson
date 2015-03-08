@@ -50,7 +50,8 @@ public class DataImportServiceEJB implements DataImportService {
 	private ErrorLogWriterService errorLogWriterService;
 
 	private enum ExcelDataSheet {
-		BASE_DATA_TABLE(0), EVENT_CAUSE_TABLE(1), FAILURE_CLASS_TABLE(2), UE_TABLE(3), MCC_MNC_TABLE(4);
+		BASE_DATA_TABLE(0), EVENT_CAUSE_TABLE(1), FAILURE_CLASS_TABLE(2), UE_TABLE(
+				3), MCC_MNC_TABLE(4);
 
 		private final int pageNumber;
 
@@ -90,9 +91,11 @@ public class DataImportServiceEJB implements DataImportService {
 	}
 
 	private void readBaseDataSheet(Workbook excelWorkbook) {
-		HSSFSheet baseDataWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
+		HSSFSheet baseDataWorksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
 
-		Collection <FailureClass> failureClasses = new ArrayList <FailureClass>(500);
+		Collection <FailureClass> failureClasses = new ArrayList <FailureClass>(
+				500);
 
 		int numRows = baseDataWorksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
@@ -108,21 +111,30 @@ public class DataImportServiceEJB implements DataImportService {
 				int duration = (int) row.getCell(7).getNumericCellValue();
 				int causeCode = (int) row.getCell(8).getNumericCellValue();
 				String neVersion = row.getCell(9).getStringCellValue();
-				String imsi = Long.toString((long) row.getCell(10).getNumericCellValue());
-				String hier3 = Long.toString((long) row.getCell(11).getNumericCellValue());
-				String hier32 = Long.toString((long) row.getCell(12).getNumericCellValue());
-				String hier321 = Long.toString((long) row.getCell(13).getNumericCellValue());
+				String imsi = Long.toString((long) row.getCell(10)
+						.getNumericCellValue());
+				String hier3 = Long.toString((long) row.getCell(11)
+						.getNumericCellValue());
+				String hier32 = Long.toString((long) row.getCell(12)
+						.getNumericCellValue());
+				String hier321 = Long.toString((long) row.getCell(13)
+						.getNumericCellValue());
 
 				String date = DateUtil.formatDateAsString(dateTime);
 
-				EventCause existingEventCause = eventCauseDAO.getEventCause(causeCode, eventId);
-				CountryCodeNetworkCode exisingCountryCodeNetworkCode = countryCodeNetworkCodeDAO.getCountryCodeNetworkCode(operator, market);
-				FailureClass existingFailureClass = failureClassDAO.getFailureClass(failureClass);
-				UserEquipment existingUserEquipment = userEquipmentDAO.getUserEquipment(ueType);
+				EventCause existingEventCause = eventCauseDAO.getEventCause(
+						causeCode, eventId);
+				CountryCodeNetworkCode exisingCountryCodeNetworkCode = countryCodeNetworkCodeDAO
+						.getCountryCodeNetworkCode(operator, market);
+				FailureClass existingFailureClass = failureClassDAO
+						.getFailureClass(failureClass);
+				UserEquipment existingUserEquipment = userEquipmentDAO
+						.getUserEquipment(ueType);
 
 				FailureTrace newFailureTrace = new FailureTrace();
 				newFailureTrace.setDateTime(date);
-				newFailureTrace.setCountryCodeNetworkCode(exisingCountryCodeNetworkCode);
+				newFailureTrace
+						.setCountryCodeNetworkCode(exisingCountryCodeNetworkCode);
 				newFailureTrace.setDuration(duration);
 				newFailureTrace.setCellId(cellId);
 				newFailureTrace.setEventCause(existingEventCause);
@@ -148,7 +160,8 @@ public class DataImportServiceEJB implements DataImportService {
 	}
 
 	private void readEventCauseDataSheet(Workbook excelWorkbook) {
-		HSSFSheet eventCauseWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.EVENT_CAUSE_TABLE.getPageNumber());
+		HSSFSheet eventCauseWorksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.EVENT_CAUSE_TABLE.getPageNumber());
 
 		int numRows = eventCauseWorksheet.getLastRowNum();
 		HSSFRow row;
@@ -163,12 +176,14 @@ public class DataImportServiceEJB implements DataImportService {
 			}
 
 			String description = row.getCell(2).getStringCellValue();
-			eventCauseDAO.insertEventCause(new EventCause((new EventCauseCK(causeCode, eventId)), description));
+			eventCauseDAO.insertEventCause(new EventCause((new EventCauseCK(
+					causeCode, eventId)), description));
 		}
 	}
 
 	private void readFailureClassDataSheet(Workbook excelWorkbook) {
-		HSSFSheet failureClassWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.FAILURE_CLASS_TABLE.getPageNumber());
+		HSSFSheet failureClassWorksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.FAILURE_CLASS_TABLE.getPageNumber());
 
 		int numRows = failureClassWorksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
@@ -180,12 +195,14 @@ public class DataImportServiceEJB implements DataImportService {
 			}
 
 			String description = row.getCell(1).getStringCellValue();
-			failureClassDAO.insertFailureClass(new FailureClass(failureClass, description));
+			failureClassDAO.insertFailureClass(new FailureClass(failureClass,
+					description));
 		}
 	}
 
 	private void readUserEquipmentDataSheet(Workbook excelWorkbook) {
-		HSSFSheet userEquipmentWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.UE_TABLE.getPageNumber());
+		HSSFSheet userEquipmentWorksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.UE_TABLE.getPageNumber());
 
 		int numRows = userEquipmentWorksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
@@ -219,13 +236,15 @@ public class DataImportServiceEJB implements DataImportService {
 				model = modelNameCell.getStringCellValue();
 			}
 
-			userEquipmentDAO.insertUserEquipment(new UserEquipment(typeAllocationCode, marketName, manufacturer, accessCapability, model, vendor, ueType, os,
-					inputMode));
+			userEquipmentDAO.insertUserEquipment(new UserEquipment(
+					typeAllocationCode, marketName, manufacturer,
+					accessCapability, model, vendor, ueType, os, inputMode));
 		}
 	}
 
 	private void readOperatorDataSheet(Workbook excelWorkbook) {
-		HSSFSheet operatorWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.MCC_MNC_TABLE.getPageNumber());
+		HSSFSheet operatorWorksheet = (HSSFSheet) excelWorkbook
+				.getSheetAt(ExcelDataSheet.MCC_MNC_TABLE.getPageNumber());
 
 		int numRows = operatorWorksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
@@ -233,15 +252,19 @@ public class DataImportServiceEJB implements DataImportService {
 
 			int countryCode = (int) row.getCell(0).getNumericCellValue();
 			int networkCode = (int) row.getCell(1).getNumericCellValue();
-			if (countryCodeNetworkCodeDAO.getCountryCodeNetworkCode(networkCode, countryCode) != null) {
+			if (countryCodeNetworkCodeDAO.getCountryCodeNetworkCode(
+					networkCode, countryCode) != null) {
 				continue;
 			}
 
 			String country = row.getCell(2).getStringCellValue();
 			String operator = row.getCell(3).getStringCellValue();
 
-			countryCodeNetworkCodeDAO.insertCountryCodeNetworkCode(new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(new Country(countryCode, country),
-					networkCode), operator));
+			countryCodeNetworkCodeDAO
+					.insertCountryCodeNetworkCode(new CountryCodeNetworkCode(
+							new CountryCodeNetworkCodeCK(new Country(
+									countryCode, country), networkCode),
+							operator));
 		}
 	}
 }

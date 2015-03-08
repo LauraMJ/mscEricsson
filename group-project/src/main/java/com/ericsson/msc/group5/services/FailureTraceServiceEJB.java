@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.entities.FailureTrace;
 
@@ -28,6 +29,11 @@ public class FailureTraceServiceEJB implements FailureTraceService{
 	@Override
 	public void addFailureTraces(Collection<FailureTrace> failureTraces) {
 		dao.batchInsertFailureTrace(failureTraces);
+	}
+
+	@Override
+	public Collection<FailureTrace> getEventCauseCombinations(String string) {
+		return dao.getEventCauseForImsi(string);
 	}
 
 }

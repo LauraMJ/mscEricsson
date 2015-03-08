@@ -12,5 +12,7 @@ public interface FailureTraceService {
 	public Collection <FailureTrace> getFailureTraces();
 
 	public void addFailureTraces(Collection <FailureTrace> failureTraces);
+
+	public Collection<FailureTrace> getEventCauseCombinations(String string);
 	
 }

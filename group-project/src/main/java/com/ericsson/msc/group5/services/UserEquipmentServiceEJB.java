@@ -32,4 +32,102 @@ public class UserEquipmentServiceEJB implements UserEquipmentService{
 		
 	}
 
+	@Override
+	public Collection<UserEquipment> getMarketingName() {
+		return null;
+	}
+
+	@Override
+	public void addMarketingName(Collection<UserEquipment> marketingNames) {
+		dao.batchInsertUserEquipment(marketingNames);
+		
+	}
+
+	@Override
+	public Collection<UserEquipment> getManufacturer() {
+		return null;
+	}
+
+	@Override
+	public void addManufacturer(Collection<UserEquipment> manufacturers) {
+		dao.batchInsertUserEquipment(manufacturers);
+		
+	}
+
+	@Override
+	public Collection<UserEquipment> getAccessCapability() {
+		return null;
+	}
+
+	@Override
+	public void addAccessCapability(Collection<UserEquipment> accessCapabilities) {
+		dao.batchInsertUserEquipment(accessCapabilities);
+		
+	}
+
+	@Override
+	public Collection<UserEquipment> getModel() {
+		return null;
+	}
+
+	@Override
+	public void addModel(Collection<UserEquipment> models) {
+		dao.batchInsertUserEquipment(models);
+		
+	}
+
+	@Override
+	public Collection<UserEquipment> getVendor() {
+		return null;
+	}
+
+	@Override
+	public void addVendor(Collection<UserEquipment> vendors) {
+		dao.batchInsertUserEquipment(vendors);		
+	}
+
+	@Override
+	public Collection<UserEquipment> getUserEquipmentType() {
+		return null;
+	}
+
+	@Override
+	public void addUserEquipmentType(
+			Collection<UserEquipment> userEquipmentTypes) {
+		dao.batchInsertUserEquipment(userEquipmentTypes);
+		
+	}
+
+	@Override
+	public Collection<UserEquipment> getOperatingSystem() {
+		return null;
+	}
+
+	@Override
+	public void addOperatingSystem(Collection<UserEquipment> operatingSystems) {
+		dao.batchInsertUserEquipment(operatingSystems);
+		
+	}
+
+	@Override
+	public Collection<UserEquipment> getInputMode() {
+		return null;
+	}
+
+	@Override
+	public void addInputMode(Collection<UserEquipment> inputModes) {
+		dao.batchInsertUserEquipment(inputModes);
+		
+	}
+
+	@Override
+	public Collection<UserEquipment> getFailureTrace() {
+		return null;
+	}
+
+	@Override
+	public void addFailureTrace(Collection<UserEquipment> failureTraces) {
+		dao.batchInsertUserEquipment(failureTraces);
+	}
+
 }

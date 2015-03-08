@@ -16,7 +16,8 @@ public class IMSIValidatorTest {
 
 	@Parameters
 	public static List <Object []> params() {
-		Object [][] data = new Object[][] { {false, 1000000000000000L}, {true, 500000000L}};
+		Object [][] data = new Object[][] { {false, 1000000000000000L},
+				{true, 132435465768798L}};
 		return Arrays.asList(data);
 	}
 

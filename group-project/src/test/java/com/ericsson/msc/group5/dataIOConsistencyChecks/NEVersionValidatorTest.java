@@ -16,7 +16,8 @@ public class NEVersionValidatorTest {
 
 	@Parameters
 	public static List <Object []> params() {
-		Object [][] data = new Object[][] { {true, "11B"}, {true, "12A"}, {false, "10C"},};
+		Object [][] data = new Object[][] { {true, "11B"}, {true, "12A"},
+				{true, "10C"},};
 		return Arrays.asList(data);
 	}
 

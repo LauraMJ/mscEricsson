@@ -21,6 +21,10 @@ public class User {
 
 	private int userType;
 	
+	public User(){
+		
+	}
+	
 	public User(String username, String password, int userType){
 		this.username = username;
 		this.password = password;

@@ -131,8 +131,10 @@ public class DataImportServiceEJB implements DataImportService {
 				UserEquipment existingUserEquipment = userEquipmentDAO
 						.getUserEquipment(ueType);
 
+				// DateFormat myDF = new DateFormat();
+
 				FailureTrace newFailureTrace = new FailureTrace();
-				newFailureTrace.setDateTime(date);
+				newFailureTrace.setDateTime(new java.sql.Date(1, 1, 1));
 				newFailureTrace
 						.setCountryCodeNetworkCode(exisingCountryCodeNetworkCode);
 				newFailureTrace.setDuration(duration);

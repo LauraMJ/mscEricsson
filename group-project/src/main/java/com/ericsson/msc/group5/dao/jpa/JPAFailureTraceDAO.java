@@ -4,6 +4,7 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
+import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureTrace;
 
 public class JPAFailureTraceDAO implements FailureTraceDAO {
@@ -11,10 +12,16 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 	@PersistenceContext
 	private EntityManager em;
 
-	public Collection <FailureTrace> getEventCauseForImsi(String imsi) {
-		System.out.println("tried to run query");
+	public Collection <EventCause> getEventCauseForImsi(String imsi) {
 		return em.createNamedQuery("getEventCauseCombinations")
 				.setParameter("givenImsi", imsi).getResultList();
+	}
+
+	public Collection <FailureTrace> getImsiOfFailureWithinTimePeriod(
+			String startTime, String endTime) {
+		return em.createNamedQuery("findImsiOfFailureByTimePeriod")
+				.setParameter("startTime", startTime)
+				.setParameter("endTime", endTime).getResultList();
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.ericsson.msc.group5.rest;
 
 import java.util.Collection;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -13,17 +14,22 @@ import com.ericsson.msc.group5.services.FailureTraceService;
 @Path("/testingQueries")
 public class TestRest {
 
-	@Inject
+	@EJB
 	private FailureTraceService failureTraceEJB;
 
 	@Inject
 	private DataImportService dataImport;
 
+	// dataImport.importSpreadsheet("C:\\Users\\Harry\\Documents\\data.xls");
+	// return failureTraceEJB.findImsiOfFailureByTimePeriod(
+	// "11/01/2013  17:15:00", "11/01/2013  17:39:00");
+	// return failureTraceEJB.getEventCauseCombinations("344930000000011");
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection <FailureTrace> getEventCauses() {
-		dataImport.importSpreadsheet("C:\\Users\\Harry\\Documents\\data.xls");
-		return failureTraceEJB.getEventCauseCombinations("344930000000011");
+	public Collection <FailureTrace> getAllFailureTraces() {
+
+		return failureTraceEJB.getAllFailureTraces();
 
 	}
 	// @GET

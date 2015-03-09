@@ -3,6 +3,7 @@ package com.ericsson.msc.group5.users;
 // This is the entity
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,19 +20,19 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@XmlAttribute(name = "id")
-	private int id;
+	@XmlAttribute(name = "username")
+	private String username;
 
-	@XmlAttribute(name = "uri")
-	private String uri;
+	@XmlElement(name = "password")
+	private String password;
 
-	@XmlElement(name = "firstName")
-	private String firstName;
-
-	@XmlElement(name = "lastName")
-	private String lastName;
-
-	@XmlElement(name = "lastModified")
-	private Date lastModified;
+	@XmlElement(name = "userType")
+	private int userType;
+	
+	public User(String username, String password, int userType){
+		this.username = username;
+		this.password = password;
+		this.userType = userType;
+	}
 
 }

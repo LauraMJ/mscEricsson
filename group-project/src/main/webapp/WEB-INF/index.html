@@ -6,7 +6,6 @@
 <script>
 window.onload = function(){
 	document.getElementById('userField').onkeydown = function(event) {
-	//var event = event || window.event;
 	var key = event.keyCode || event.which;
 	
 	if (key == 32){
@@ -26,9 +25,8 @@ window.onload = function(){
 
 <p id="demo">Please enter your username and password. Details are case sensitive.</p>
 
-<!-- action="admin.html" for now, will be changed to specific user type area nav-->
-<form name="loginForm" method="link" action="admin.html">
 
+<form name="loginForm" method="link" action="admin.html">
 Username:
 <br>
 <input id="userField" type="text" name="username">
@@ -38,8 +36,6 @@ Password:
 <input type="password" password="password">
 <br><br>
 <input type="submit" value="Login" />
-<!--<button>Login</button>-->
-
 </form>
 
 </div>

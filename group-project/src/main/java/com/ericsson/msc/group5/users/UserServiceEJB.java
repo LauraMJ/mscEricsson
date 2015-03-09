@@ -22,7 +22,7 @@ public class UserServiceEJB implements UserService {
 	private UserDAO dao;
 
 	@Override
-	public Collection <User> getUserss() {
+	public Collection <User> getUsers() {
 		return dao.getUsers();
 
 	}

@@ -19,19 +19,13 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@XmlAttribute(name = "id")
-	private int id;
+	@XmlAttribute(name = "username")
+	private int username;
 
-	@XmlAttribute(name = "uri")
-	private String uri;
+	@XmlElement(name = "password")
+	private String password;
 
-	@XmlElement(name = "firstName")
-	private String firstName;
-
-	@XmlElement(name = "lastName")
-	private String lastName;
-
-	@XmlElement(name = "lastModified")
-	private Date lastModified;
+	@XmlElement(name = "userType")
+	private String userType;
 
 }

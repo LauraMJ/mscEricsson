@@ -6,7 +6,7 @@ import javax.ejb.Local;
 @Local
 public interface UserService {
 
-	public Collection <User> getUserss();
+	public Collection <User> getUsers();
 
 	public void addUsers(Collection <User> users);
 }

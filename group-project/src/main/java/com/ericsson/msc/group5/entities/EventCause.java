@@ -10,7 +10,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Event Cause JPA entity. Uses an embedded natural composite key made up of a Cause Code and Event identifiers to map to a textual description of the cause.
+ * Event Cause JPA entity. Uses an embedded natural composite key made up of a
+ * Cause Code and Event identifiers to map to a textual description of the
+ * cause.
  */
 @Entity
 @Table(name = "event_cause")
@@ -20,9 +22,10 @@ public class EventCause {
 	@Id
 	@Column(name = "cause_code_event_id")
 	private EventCauseCK causeCodeEventIdCK;
+
 	@Column(length = 100)
 	private String description;
-	
+
 	@OneToMany(mappedBy = "eventCause", targetEntity = FailureTrace.class)
 	private Collection <FailureTrace> failureTrace;
 
@@ -33,7 +36,8 @@ public class EventCause {
 	}
 
 	/**
-	 * Create a Cause Code/Event combination given a composite key and String description.
+	 * Create a Cause Code/Event combination given a composite key and String
+	 * description.
 	 * 
 	 * @param causeCodeEventIdCK
 	 *            Composite Cause Code/Event key.
@@ -51,5 +55,9 @@ public class EventCause {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public EventCauseCK getCauseCodeEventIdCK() {
+		return causeCodeEventIdCK;
 	}
 }

@@ -8,9 +8,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
- * User equipment JPA entity. Uses a natural primary key (TAC - type allocation code) to store information about user devices.
+ * User equipment JPA entity. Uses a natural primary key (TAC - type allocation
+ * code) to store information about user devices.
  */
 @Entity
 @Table(name = "user_equipment")
@@ -68,8 +70,10 @@ public class UserEquipment {
 	 * @param inputMode
 	 *            Input modes accepted by the device.
 	 */
-	public UserEquipment(Integer typeAllocationCode, String marketingName, String manufacturer, String accessCapability, String model, String vendor,
-			String userEquipmentType, String operatingSystem, String inputMode) {
+	public UserEquipment(Integer typeAllocationCode, String marketingName,
+			String manufacturer, String accessCapability, String model,
+			String vendor, String userEquipmentType, String operatingSystem,
+			String inputMode) {
 		super();
 		this.typeAllocationCode = typeAllocationCode;
 		this.marketingName = marketingName;
@@ -154,6 +158,7 @@ public class UserEquipment {
 		this.inputMode = inputMode;
 	}
 
+	@JsonIgnore
 	public Collection <FailureTrace> getFailureTrace() {
 		return failureTrace;
 	}

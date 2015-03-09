@@ -1,18 +1,17 @@
 package com.ericsson.msc.group5.services;
 
 import java.util.Collection;
-
 import javax.ejb.Local;
-
+import org.json.simple.JSONObject;
 import com.ericsson.msc.group5.entities.FailureTrace;
 
 @Local
 public interface FailureTraceService {
 
-	public Collection <FailureTrace> getFailureTraces();
+	public Collection <FailureTrace> findImsiOfFailureByTimePeriod(
+			String startTime, String endTime);
 
-	public void addFailureTraces(Collection <FailureTrace> failureTraces);
+	public Collection <JSONObject> getEventCauseCombinations(String imsi);
 
-	public Collection<FailureTrace> getEventCauseCombinations(String string);
-	
+	public Collection <FailureTrace> getAllFailureTraces();
 }

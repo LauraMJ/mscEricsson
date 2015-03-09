@@ -1,5 +1,6 @@
 package com.ericsson.msc.group5.entities;
 
+import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,11 +17,18 @@ import javax.persistence.Table;
  * Failure Trace JPA entity. The main entity in the application, maps to the
  * Base Data table.
  */
+
+// .causeCode, f.eventCause.causeCodeEventIdCK.eventId,
+// .description
+// f.eventCause.causeCodeEventIdCK.causeCode,
+// f.eventCause.causeCodeEventIdCK.eventId, "
+// + "f.eventCause.description
 @Entity
 @Table(name = "failure_trace")
 @NamedQueries({
 		@NamedQuery(name = "findAllFailureTraces", query = "SELECT f FROM FailureTrace f"),
-		@NamedQuery(name = "getEventCauseCombinations", query = "SELECT f.eventCause FROM FailureTrace AS f WHERE f.IMSI = :givenImsi "),})
+		@NamedQuery(name = "getEventCauseCombinations", query = "SELECT DISTINCT (f.eventCause) FROM FailureTrace AS f WHERE f.IMSI = :givenImsi "),
+		@NamedQuery(name = "findImsiOfFailureByTimePeriod", query = "SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime ")})
 public class FailureTrace {
 
 	@Id
@@ -28,7 +36,7 @@ public class FailureTrace {
 	@Column(name = "failure_trace_id")
 	private Integer failureTraceId;
 	@Column(name = "date_time")
-	private String dateTime;
+	private Date dateTime;
 	@Column(name = "cell_id")
 	private Integer cellId;
 	private Integer duration;
@@ -75,10 +83,10 @@ public class FailureTrace {
 	}
 
 	public String getDateTime() {
-		return dateTime;
+		return dateTime.toString();
 	}
 
-	public void setDateTime(String dateTime) {
+	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
 	}
 

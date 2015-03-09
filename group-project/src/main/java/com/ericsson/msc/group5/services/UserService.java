@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.users;
+package com.ericsson.msc.group5.services;
 
 import java.util.Collection;
 

@@ -1,18 +1,16 @@
-package com.ericsson.msc.group5.users;
+package com.ericsson.msc.group5.services;
 
-import java.util.Collection;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.Path;
-import com.ericsson.msc.group5.dao.UserDAO;
 
-// Business logic here
+import com.ericsson.msc.group5.dao.UserDAO;
+import com.ericsson.msc.group5.entities.User;
+
 @Stateless
 @Local
-@Path("/user-service")
 public class UserServiceEJB implements UserService {
 
 	@PersistenceContext
@@ -26,7 +24,4 @@ public class UserServiceEJB implements UserService {
 		User user = new User(username, password, userType);
 		dao.addUser(user);
 	}
-
-
-
 }

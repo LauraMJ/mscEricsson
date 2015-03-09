@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login Page</title>
+
+<script>
+	// 	window.onload = function() {
+	// 		document.getElementById('userField').onkeydown = function(event) {
+	// 			var key = event.keyCode || event.which;
+
+	// 			if (key == 32) {
+	// 				if (event.preventDefault)
+	// 					event.preventDefault();
+	// 				event.returnValue = false;
+	// 			}
+	// 		};
+	// 	}
+</script>
+</head>
+
+<body>
+	<div align="left">
+		<h1>Login Page</h1>
+
+		<p id="demo">Please enter your username and password. Details are
+			case sensitive.</p>
+
+
+		<form enctype='application/json' action="rest/login" method=post>
+			<p>
+				<strong>Please Enter Your User Name: </strong> <input type="text"
+					name="j_username" size="25">
+			<p>
+			<p>
+				<strong>Please Enter Your Password: </strong> <input type="password"
+					size="15" name="j_password">
+			<p>
+			<p>
+				<input type="submit" value="Submit"> <input type="reset"
+					value="Reset">
+		</form>
+	</div>
+</body>
+</html>

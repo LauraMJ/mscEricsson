@@ -24,28 +24,18 @@ function delineate(str){
 
 function change(selection){
 if(selection=="import"){
-	//alert("Import Selected");
-	//SHOULD SHOW IMPORT WINDOW IN JS CHANGE AREA
 	var text = document.getElementById("jsChangeArea");
 	text.innerHTML = "";
 	text.innerHTML="<form id='importForm' method='post'>\n\<b>Please choose a file to import</b><br><br><input type='file' name='datafile' value='' /><br><br><input id='importButton' type='submit' value='Import'/></form><hr>";
+	//should show the amount of imports failed after pressing import button
 }
-//Error log count should show when import is finished, or maybe change this to a list of previous imports and their fail info
-//else if(selection=="errors"){
-//	alert("Error Log Count Selected");
-//	//SHOULD SHOW LOG OF IMPORT DATA COUNT AND ERRORED COUNT
-//	var text = document.getElementById("jsChangeArea");
-//	text.innerHTML=s"Error Log Count Selected";
-//}
+
 else if(selection=="users"){
-	//alert("Users Selected");
-	//DISPLAY AREA TO CREATE USERS
 	var text = document.getElementById("jsChangeArea");
 	text.innerHTML = "";
 	text.innerHTML="<form id='createUserForm' method='post'>\n\<b>Add New User</b><br><br>Type:<select><option value='admin'>Admin</option><option value='servRep'>Customer Service Representative</option><option value='supEng'>Support Engineer</option><option value='netMGMT'>Network Management Engineer</option></select><br><br>Username:<input id='usernameField' type='text' username='Username'><br><br>Password:<input type='password' password1='Password'><br><br>Password:<input type='password' password2='Password'><br><br><input id='addUserButton' type='submit' value='Add User'/></form>";
 	//needs to be check to make sure both fields have entered the same password on button click
 	document.getElementById('usernameField').onkeydown = function(event) {
-	//var event = event || window.event;
 	var key = event.keyCode || event.which;
 	
 	if (key == 32){
@@ -54,24 +44,18 @@ else if(selection=="users"){
 	}
 };
 	
-	
-	}
+}
 else if(selection=="custIMSI"){
-	//alert("custIMSI Selected");
 	var text = document.getElementById("jsChangeArea");
 	text.innerHTML = "";
 	text.innerHTML="<form id='enterIMSIForm' method='post'>\n\<b>Please Enter IMSI</b><br><br>IMSI:<input type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit'/></form><hr>";
 	//Needs to display table when button is clicked
 }
 else if(selection=="suppIMSI"){
-	//alert("suppIMSI Selected");
-	//needs day/month/year and time x2
 	var text = document.getElementById("jsChangeArea");
-	//text.innerHTML="<b>Please Choose Range<b><br><br><input type='text' name='datetime' id='datetime' size='30'><a href=javascript:NewCssCal('demo8','yyyyMMdd','arrow',true,'24','','past');><img src='images/cal.jpg'</a>";
 	text.innerHTML="<form id='timedate' method='post'>\n\<b>Please Select Time Range</b><br><br>From:<input type='date' name='date1'/><input type='time' name='time1'/>To:<input type='date' name='date2'/><input type='time' name='time2'/><br><br><input id='submitButton' type='submit' value='Submit'/></form><hr>";
 }
 else if(selection=="mgmtIMSI"){
-	//alert("mgmtIMSI Selected");
 	var text = document.getElementById("jsChangeArea");
 	text.innerHTML="<form id='IMSISelect' method='post'>\n\<b>Please Choose IMSI</b><br><br><select><option value='12334556677'>12334556677</option><option value='43694379433'>43694379433</option><option value='26394792711'>26394792711</option></select><input id='IMSISelectButton' type='Submit' value='Submit'/></form><hr>";
 }
@@ -79,7 +63,6 @@ else{
 	alert("Problemoooo!");
 }
 }
-
 </script>
 
 <style>
@@ -94,11 +77,9 @@ html, body {
 	height: 100%;
 }
 </style>
-
 </head>
 
 <body>
-
 <table style="width:100%; height:98%; border:1px;">
   <tr>
     <th id="header" colspan="3" style="height:100px">header</td>
@@ -119,9 +100,7 @@ html, body {
 	<b>Net. Mgmg Eng.:</b><br>
 	<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI Failures</a><br><br>
 	</td>
-	
     <td id="jsChangeArea" >JS changing area</td>
-	
   </tr>
   <tr>
     <td colspan="3" style="height:20px">footer</td>

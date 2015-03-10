@@ -57,7 +57,7 @@ else if(selection=="suppIMSI"){
 }
 else if(selection=="mgmtIMSI"){
 	var text = document.getElementById("jsChangeArea");
-	text.innerHTML="<form id='IMSISelect' method='post'>\n\<b>Please Choose IMSI</b><br><br><select><option value='12334556677'>12334556677</option><option value='43694379433'>43694379433</option><option value='26394792711'>26394792711</option></select><input id='IMSISelectButton' type='Submit' value='Submit'/></form><hr>";
+	text.innerHTML="<form id='IMSISelect' method='post'>\n\<b>Please Choose IMSI</b><br><br><select><option value='12334556677'>12334556677</option><option value='43694379433'>43694379433</option><option value='26394792711'>26394792711</option></select><b>Please Select Time Range</b><br><br>From:<input type='date' name='date1'/><input type='time' name='time1'/>To:<input type='date' name='date2'/><input type='time' name='time2'/><input id='IMSISelectButton' type='Submit' value='Submit'/></form><hr>";
 }
 else{
 	alert("Problemoooo!");

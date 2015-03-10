@@ -3,6 +3,7 @@ package com.ericsson.msc.group5.services;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -120,7 +121,9 @@ public class DataImportServiceEJB implements DataImportService {
 				String hier321 = Long.toString((long) row.getCell(13)
 						.getNumericCellValue());
 
-				String date = DateUtil.formatDateAsString(dateTime);
+				String dateAsString = DateUtil.formatDateAsString(dateTime);
+				Timestamp dateAsTimestamp = DateUtil
+						.formatDateStringAsTimestamp(dateAsString);
 
 				EventCause existingEventCause = eventCauseDAO.getEventCause(
 						causeCode, eventId);
@@ -134,7 +137,7 @@ public class DataImportServiceEJB implements DataImportService {
 				// DateFormat myDF = new DateFormat();
 
 				FailureTrace newFailureTrace = new FailureTrace();
-				newFailureTrace.setDateTime(new java.sql.Date(1, 1, 1));
+				newFailureTrace.setDateTime(dateAsTimestamp);
 				newFailureTrace
 						.setCountryCodeNetworkCode(exisingCountryCodeNetworkCode);
 				newFailureTrace.setDuration(duration);

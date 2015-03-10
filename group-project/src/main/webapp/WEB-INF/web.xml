@@ -25,7 +25,8 @@
 		<display-name>pages_auth</display-name>
 		<web-resource-collection>
 			<web-resource-name>pages_auth</web-resource-name>
-			<url-pattern>/*</url-pattern>
+<!-- 			<url-pattern>/*</url-pattern> -->
+			<url-pattern>/login.html</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>administrator</role-name>

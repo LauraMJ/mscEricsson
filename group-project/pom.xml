@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ericsson.msc.group5</groupId>
-	<artifactId>mscproject</artifactId>
+	<artifactId>group-project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mscProject</name>
 	<packaging>war</packaging>
@@ -196,6 +196,11 @@
 							<artifactId>xalan</artifactId>
 						</exclusion>
 					</exclusions>
+				</dependency>
+				<dependency>
+					<groupId>javax.ws.rs</groupId>
+					<artifactId>jsr311-api</artifactId>
+					<version>1.1.1</version>
 				</dependency>
 			</dependencies>
 			<build>

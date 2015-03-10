@@ -3,7 +3,6 @@ package com.ericsson.msc.group5.services;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -11,6 +10,9 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -31,10 +33,10 @@ import com.ericsson.msc.group5.entities.EventCauseCK;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.entities.UserEquipment;
-import com.ericsson.msc.group5.utils.DateUtil;
 
 @Stateless
 @Local
+@Path("/import")
 public class DataImportServiceEJB implements DataImportService {
 
 	@Inject
@@ -65,7 +67,9 @@ public class DataImportServiceEJB implements DataImportService {
 		}
 	}
 
-	public void importSpreadsheet(String location) {
+	@POST
+	@Path("{loc}")
+	public void importSpreadsheet(@PathParam("loc") String location) {
 		long start = System.currentTimeMillis();
 
 		try (FileInputStream excelInputStream = new FileInputStream(location)) {
@@ -121,9 +125,9 @@ public class DataImportServiceEJB implements DataImportService {
 				String hier321 = Long.toString((long) row.getCell(13)
 						.getNumericCellValue());
 
-				String dateAsString = DateUtil.formatDateAsString(dateTime);
-				Timestamp dateAsTimestamp = DateUtil
-						.formatDateStringAsTimestamp(dateAsString);
+				// String dateAsString = DateUtil.formatDateAsString(dateTime);
+				// Timestamp dateAsTimestamp = DateUtil
+				// .formatDateStringAsTimestamp(dateAsString);
 
 				EventCause existingEventCause = eventCauseDAO.getEventCause(
 						causeCode, eventId);
@@ -137,7 +141,7 @@ public class DataImportServiceEJB implements DataImportService {
 				// DateFormat myDF = new DateFormat();
 
 				FailureTrace newFailureTrace = new FailureTrace();
-				newFailureTrace.setDateTime(dateAsTimestamp);
+				newFailureTrace.setDateTime(dateTime);
 				newFailureTrace
 						.setCountryCodeNetworkCode(exisingCountryCodeNetworkCode);
 				newFailureTrace.setDuration(duration);

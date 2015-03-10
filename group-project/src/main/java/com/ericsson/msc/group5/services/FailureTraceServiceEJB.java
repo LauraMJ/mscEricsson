@@ -2,6 +2,7 @@ package com.ericsson.msc.group5.services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -40,8 +41,17 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 		return specifiedResultFieldCollection;
 	}
 
-	public Collection <FailureTrace> findImsiOfFailureByTimePeriod(
-			String startTime, String endTime) {
+	public Collection <String> getImsiOfFailureByTimePeriod(Date startTime,
+			Date endTime) {
+		// Collection <String> collectionOfFailureTraceObjects = dao
+		// .getImsiOfFailureWithinTimePeriod(startTime, endTime);
+		// Collection <String> imsiCollection = new ArrayList <String>();
+		// for (java.util.Iterator <FailureTrace> it =
+		// collectionOfFailureTraceObjects
+		// .iterator(); it.hasNext();) {
+		// FailureTrace ft = it.next();
+		// imsiCollection.add(ft.getIMSI());
+		// }
 		return dao.getImsiOfFailureWithinTimePeriod(startTime, endTime);
 	}
 

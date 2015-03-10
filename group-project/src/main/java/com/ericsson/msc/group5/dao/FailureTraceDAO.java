@@ -1,6 +1,7 @@
 package com.ericsson.msc.group5.dao;
 
 import java.util.Collection;
+import java.util.Date;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureTrace;
 
@@ -10,8 +11,8 @@ import com.ericsson.msc.group5.entities.FailureTrace;
  */
 public interface FailureTraceDAO {
 
-	public Collection <FailureTrace> getImsiOfFailureWithinTimePeriod(
-			String startTime, String endTime);
+	public Collection <String> getImsiOfFailureWithinTimePeriod(Date startTime,
+			Date endTime);
 
 	public Collection <EventCause> getEventCauseForImsi(String imsi);
 

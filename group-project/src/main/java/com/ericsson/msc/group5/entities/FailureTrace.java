@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.entities;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,9 +26,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "failure_trace")
 @NamedQueries({
-		@NamedQuery(name = "findAllFailureTraces", query = "SELECT f FROM FailureTrace f"),
+		@NamedQuery(name = "getAllFailureTraces", query = "SELECT f FROM FailureTrace f"),
 		@NamedQuery(name = "getEventCauseCombinations", query = "SELECT DISTINCT (f.eventCause) FROM FailureTrace AS f WHERE f.IMSI = :givenImsi "),
-		@NamedQuery(name = "findImsiOfFailureByTimePeriod", query = "SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime ")})
+		@NamedQuery(name = "getImsiOfFailureByTimePeriod", query = "SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime ")})
 public class FailureTrace {
 
 	@Id
@@ -36,7 +36,7 @@ public class FailureTrace {
 	@Column(name = "failure_trace_id")
 	private Integer failureTraceId;
 	@Column(name = "date_time")
-	private Timestamp dateTime;
+	private Date dateTime;
 	@Column(name = "cell_id")
 	private Integer cellId;
 	private Integer duration;
@@ -82,11 +82,11 @@ public class FailureTrace {
 		this.failureTraceId = failureTraceId;
 	}
 
-	public Timestamp getDateTime() {
+	public Date getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(Timestamp dateTime) {
+	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
 	}
 

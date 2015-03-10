@@ -1,6 +1,7 @@
 package com.ericsson.msc.group5.dao.jpa;
 
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
@@ -17,16 +18,16 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 				.setParameter("givenImsi", imsi).getResultList();
 	}
 
-	public Collection <FailureTrace> getImsiOfFailureWithinTimePeriod(
-			String startTime, String endTime) {
-		return em.createNamedQuery("findImsiOfFailureByTimePeriod")
+	public Collection <String> getImsiOfFailureWithinTimePeriod(Date startTime,
+			Date endTime) {
+		return em.createNamedQuery("getImsiOfFailureByTimePeriod")
 				.setParameter("startTime", startTime)
 				.setParameter("endTime", endTime).getResultList();
 	}
 
 	@Override
 	public Collection <FailureTrace> getAllFailureTraces() {
-		return em.createNamedQuery("findAllFailureTraces").getResultList();
+		return em.createNamedQuery("getAllFailureTraces").getResultList();
 	}
 
 	@Override

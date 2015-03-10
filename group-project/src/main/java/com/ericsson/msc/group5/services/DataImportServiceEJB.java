@@ -11,11 +11,9 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -70,9 +68,8 @@ public class DataImportServiceEJB implements DataImportService {
 		}
 	}
 
-	@GET
+	@POST
 	@Path("{loc}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public void importSpreadsheet(@PathParam("loc") String location) {
 		long start = System.currentTimeMillis();
 

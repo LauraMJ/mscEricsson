@@ -197,6 +197,11 @@
 						</exclusion>
 					</exclusions>
 				</dependency>
+				<dependency>
+					<groupId>javax.ws.rs</groupId>
+					<artifactId>jsr311-api</artifactId>
+					<version>1.1.1</version>
+				</dependency>
 			</dependencies>
 			<build>
 				<testResources>

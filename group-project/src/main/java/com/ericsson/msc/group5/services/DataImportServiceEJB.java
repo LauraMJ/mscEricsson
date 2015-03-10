@@ -10,6 +10,9 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -33,6 +36,7 @@ import com.ericsson.msc.group5.entities.UserEquipment;
 
 @Stateless
 @Local
+@Path("/import")
 public class DataImportServiceEJB implements DataImportService {
 
 	@Inject
@@ -63,7 +67,9 @@ public class DataImportServiceEJB implements DataImportService {
 		}
 	}
 
-	public void importSpreadsheet(String location) {
+	@POST
+	@Path("{loc}")
+	public void importSpreadsheet(@PathParam("loc") String location) {
 		long start = System.currentTimeMillis();
 
 		try (FileInputStream excelInputStream = new FileInputStream(location)) {

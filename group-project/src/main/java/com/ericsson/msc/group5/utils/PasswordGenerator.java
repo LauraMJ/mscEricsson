@@ -4,7 +4,7 @@ import org.jboss.security.auth.spi.Util;
 
 public class PasswordGenerator {
 	public static void main(String[] args) {
-		String password = "admin";
+		String password = "tester";
 		System.out.println(new PasswordGenerator().generate(password));
 	}
 

@@ -1,6 +1,9 @@
 package com.ericsson.msc.group5.utils;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -25,19 +28,27 @@ public class DateUtil {
 
 		String dateTimeString = dateFormat.format(dateTime) + " "
 				+ timeFormat.format(dateTime);
-
-		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
-				"yyyy-MM-dd HH:mm");
-
-		String date = sdf.format(dateTimeString);
-		return date;
+		//
+		// java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+		// "dd/MM/yyyy, HH:mm");
+		//
+		// String date = sdf.format(dateTimeString);
+		return dateTimeString;
 	}
 
-	public static java.sql.Date formatDateStringAsMySQLDate(
-			String inputDateString) {
-		// java.sql.Date mySQLDateObject = new java.sql.Date(date)
+	public static Timestamp formatDateStringAsTimestamp(String inputDateString) {
 
-		return null;
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Date parsedDate = null;
+		try {
+			parsedDate = dateFormat.parse(inputDateString);
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Timestamp timestamp = new Timestamp(parsedDate.getTime());
+
+		return timestamp;
 
 	}
 }

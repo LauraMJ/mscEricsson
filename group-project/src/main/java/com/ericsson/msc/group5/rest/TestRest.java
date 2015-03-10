@@ -24,6 +24,7 @@ public class TestRest {
 	// return failureTraceEJB.findImsiOfFailureByTimePeriod(
 	// "11/01/2013  17:15:00", "11/01/2013  17:39:00");
 	// return failureTraceEJB.getEventCauseCombinations("344930000000011");
+	// dataImport.importSpreadsheet("C:\\Users\\Harry\\Documents\\data.xls");
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

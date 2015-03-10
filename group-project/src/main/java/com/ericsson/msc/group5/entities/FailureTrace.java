@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.entities;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +36,7 @@ public class FailureTrace {
 	@Column(name = "failure_trace_id")
 	private Integer failureTraceId;
 	@Column(name = "date_time")
-	private Date dateTime;
+	private Timestamp dateTime;
 	@Column(name = "cell_id")
 	private Integer cellId;
 	private Integer duration;
@@ -82,11 +82,11 @@ public class FailureTrace {
 		this.failureTraceId = failureTraceId;
 	}
 
-	public String getDateTime() {
-		return dateTime.toString();
+	public Timestamp getDateTime() {
+		return dateTime;
 	}
 
-	public void setDateTime(Date dateTime) {
+	public void setDateTime(Timestamp dateTime) {
 		this.dateTime = dateTime;
 	}
 

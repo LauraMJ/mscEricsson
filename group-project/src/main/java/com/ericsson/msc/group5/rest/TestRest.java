@@ -29,6 +29,7 @@ public class TestRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection <String> getImsiOfFailureByTimePeriod() {
+		dataImport.importSpreadsheet("C:\\Users\\D14125353\\Desktop\\data.xls");
 		System.out.println("OMG THINGS");
 		System.out.println("FUCK JBOSS");
 		Date startTime = new Date(1357924500000L);

@@ -4,7 +4,7 @@
 	<groupId>com.ericsson.msc.group5</groupId>
 	<artifactId>group-project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mscProject</name>
+	<name>group-project</name>
 	<packaging>war</packaging>
 	<build>
 		<plugins>
@@ -215,5 +215,5 @@
 			</build>
 		</profile>
 	</profiles>
-	<url>mscproject</url>
+	<url>group-project</url>
 </project>

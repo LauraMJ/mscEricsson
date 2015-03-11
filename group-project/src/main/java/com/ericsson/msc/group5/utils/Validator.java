@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.dataIOConsistencyChecks;
+package com.ericsson.msc.group5.utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,7 +14,6 @@ import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.entities.UserEquipment;
-import com.ericsson.msc.group5.utils.DateUtil;
 
 public class Validator {
 

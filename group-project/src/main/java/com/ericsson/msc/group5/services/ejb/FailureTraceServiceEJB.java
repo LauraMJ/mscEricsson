@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.services;
+package com.ericsson.msc.group5.services.ejb;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureTrace;
+import com.ericsson.msc.group5.services.FailureTraceService;
 
 @Stateless
 @Local

@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import com.ericsson.msc.group5.utils.Validator;
 
 @RunWith(Parameterized.class)
 public class FailureClassValidatorTest {

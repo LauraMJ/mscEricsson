@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.services;
+package com.ericsson.msc.group5.services.ejb;
 
 import java.util.Collection;
 import javax.ejb.Local;
@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.FailureClassDAO;
 import com.ericsson.msc.group5.entities.FailureClass;
+import com.ericsson.msc.group5.services.FailureClassService;
 
 @Stateless
 @Local

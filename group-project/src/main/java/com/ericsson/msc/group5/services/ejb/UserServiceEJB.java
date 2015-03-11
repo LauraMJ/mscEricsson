@@ -1,13 +1,13 @@
-package com.ericsson.msc.group5.services;
+package com.ericsson.msc.group5.services.ejb;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import com.ericsson.msc.group5.dao.UserDAO;
 import com.ericsson.msc.group5.entities.User;
+import com.ericsson.msc.group5.services.UserService;
 
 @Stateless
 @Local

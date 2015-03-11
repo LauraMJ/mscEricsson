@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.services;
+package com.ericsson.msc.group5.services.ejb;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,7 +24,6 @@ import com.ericsson.msc.group5.dao.EventCauseDAO;
 import com.ericsson.msc.group5.dao.FailureClassDAO;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.dao.UserEquipmentDAO;
-import com.ericsson.msc.group5.dataIOConsistencyChecks.Validator;
 import com.ericsson.msc.group5.entities.Country;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
@@ -33,6 +32,9 @@ import com.ericsson.msc.group5.entities.EventCauseCK;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.entities.UserEquipment;
+import com.ericsson.msc.group5.services.DataImportService;
+import com.ericsson.msc.group5.services.ErrorLogWriterService;
+import com.ericsson.msc.group5.utils.Validator;
 
 @Stateless
 @Local

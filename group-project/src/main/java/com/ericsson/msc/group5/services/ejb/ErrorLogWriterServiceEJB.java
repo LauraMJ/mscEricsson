@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.services;
+package com.ericsson.msc.group5.services.ejb;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,6 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import com.ericsson.msc.group5.dao.ErrorLogDAO;
 import com.ericsson.msc.group5.entities.ErrorLog;
+import com.ericsson.msc.group5.services.ErrorLogWriterService;
 import com.ericsson.msc.group5.utils.DateUtil;
 
 @Stateless

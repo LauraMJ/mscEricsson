@@ -30,11 +30,16 @@ public class TestRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection <String> getImsiOfFailureByTimePeriod() {
 		dataImport.importSpreadsheet("C:\\Users\\D14125353\\Desktop\\data.xls");
-		System.out.println("OMG THINGS");
-		System.out.println("FUCK JBOSS");
+		// dataImport.importSpreadsheet("C:\\Users\\Harry\\Documents\\data.xls");
+		long start = System.currentTimeMillis();
 		Date startTime = new Date(1357924500000L);
-		Date endTime = new Date(1357924920000L);;
-		return failureTraceEJB.getImsiOfFailureByTimePeriod(startTime, endTime);
+		Date endTime = new Date(1357924920000L);
+		Collection <String> returnCollection = failureTraceEJB
+				.getImsiOfFailureByTimePeriod(startTime, endTime);
+		long end = System.currentTimeMillis();
+		long total = end - start;
+		System.out.println("Time take %d milliseconds.\n" + total);
+		return returnCollection;
 	}
 
 	// @GET

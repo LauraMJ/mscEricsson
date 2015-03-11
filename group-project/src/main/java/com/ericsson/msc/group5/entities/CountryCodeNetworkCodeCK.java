@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Composite Key that helps to map/uniquely identify an operator using a combination of Country/Network.
@@ -15,7 +16,7 @@ public class CountryCodeNetworkCodeCK implements Serializable {
 
 	@Column(name = "network_code")
 	private Integer networkCode;
-	// @ManyToOne
+	@ManyToOne
 	@JoinColumn(name = "country_code")
 	private Country country;
 

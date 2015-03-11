@@ -8,6 +8,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ * User JPA entity. Uses username as primary key.
+ */
 @Entity
 @Table(name="user")
 @NamedQueries({@NamedQuery(name = "findUserByUsername", query = "SELECT u FROM User u WHERE u.username = :username")})
@@ -21,6 +24,9 @@ public class User {
 
 	private int userType;
 	
+	/**
+	 * No-args constructor used by the JPA.
+	 */
 	public User(){
 		
 	}

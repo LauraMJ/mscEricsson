@@ -9,6 +9,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ * Error Log JPA entity. Uses error_log_id as PK
+ */
 @Entity
 @Table(name = "error_log")
 @NamedQueries({@NamedQuery(name = "findAllErrorLogs", query = "SELECT e FROM ErrorLog e"),
@@ -26,6 +29,9 @@ public class ErrorLog {
 	@Column(name = "base_data", length = 350)
 	private String baseData;
 
+	/**
+	 * No-args constructor used by the JPA.
+	 */
 	public ErrorLog() {
 	}
 

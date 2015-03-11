@@ -4,10 +4,9 @@ import java.util.Collection;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.FailureTraceService;
 
@@ -26,16 +25,15 @@ public class TestRest {
 	// return failureTraceEJB.getEventCauseCombinations("344930000000011");
 	// dataImport.importSpreadsheet("C:\\Users\\Harry\\Documents\\data.xls");
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Collection <String> getImsiOfFailureByTimePeriod() {
-		dataImport.importSpreadsheet("C:\\Users\\D14125353\\Desktop\\data.xls");
-		// dataImport.importSpreadsheet("C:\\Users\\Harry\\Documents\\data.xls");
+	@POST
+	@Path("/import")
+	public Collection <String> getImsiOfFailureByTimePeriod(@FormParam("dataFile") String path) {
+		// dataImport.importSpreadsheet("C:\\Users\\D14125353\\Desktop\\data.xls");
+		dataImport.importSpreadsheet(path);
 		long start = System.currentTimeMillis();
 		Date startTime = new Date(1357924500000L);
 		Date endTime = new Date(1357924920000L);
-		Collection <String> returnCollection = failureTraceEJB
-				.getImsiOfFailureByTimePeriod(startTime, endTime);
+		Collection <String> returnCollection = failureTraceEJB.getImsiOfFailureByTimePeriod(startTime, endTime);
 		long end = System.currentTimeMillis();
 		long total = end - start;
 		System.out.println("Time take %d milliseconds.\n" + total);

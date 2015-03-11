@@ -33,7 +33,10 @@ function change(selection){
 if(selection=="import"){
 	var text = document.getElementById("jsChangeArea");
 	text.innerHTML = "";
-	text.innerHTML="<form id='importForm' method='post'>\n\<b>Please choose a file to import</b><br><br><input type='file' name='datafile' value='' /><br><br><input id='importButton' type='submit' value='Import'/></form><hr>";
+	text.innerHTML="<form action = 'rest/testingQueries/import' id='importForm' method='post'>\n\<b>Please choose a file to import</b><br><br>\
+						<input type='file' name='datafile' value='' /><br><br>\
+						<input id='importButton' type='submit' value='Import'/>\
+					</form><hr>";
 	//should show the amount of imports failed after pressing import button
 }
 

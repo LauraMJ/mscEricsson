@@ -1,7 +1,9 @@
 package com.ericsson.msc.group5.utils;
 
 import org.jboss.security.auth.spi.Util;
-
+/**
+ * Password Generator containing password generating methods.
+ */
 public class PasswordGenerator {
 	public static void main(String[] args) {
 		String password = "tester";

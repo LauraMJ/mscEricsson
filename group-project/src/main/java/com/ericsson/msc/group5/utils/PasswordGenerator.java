@@ -10,7 +10,7 @@ public class PasswordGenerator {
 		System.out.println(new PasswordGenerator().generate(password));
 	}
 
-	private String generate(String password) {
+	public static String generate(String password) {
 		return Util.createPasswordHash("SHA-256", "BASE64", null, null,
 				password);
 	}

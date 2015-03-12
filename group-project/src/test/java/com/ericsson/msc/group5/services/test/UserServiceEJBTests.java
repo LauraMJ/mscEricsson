@@ -30,7 +30,7 @@ public class UserServiceEJBTests {
 	UserService service;
 	
 	
-	User newUser = new User("SAM", "password", 1);
+	User newUser = new User("SAM", "password", "administrator");
 	
 	@Test
 	public void testUserIsAdded(){

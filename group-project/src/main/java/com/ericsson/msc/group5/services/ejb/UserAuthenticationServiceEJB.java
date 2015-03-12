@@ -9,15 +9,15 @@ import com.ericsson.msc.group5.services.UserAuthenticationService;
 
 @Stateless
 @Local
-public class UserAuthenticationServiceEJB implements UserAuthenticationService{
-	
+public class UserAuthenticationServiceEJB implements UserAuthenticationService {
+
 	@Inject
 	private UserDAO userDAO;
-	
-	public int authenticateUser(String username, String password){
+
+	public String authenticateUser(String username, String password) {
 		User user = userDAO.getUser(username);
-		if(user != null && user.getPassword().equals(password))
-			return user.getUserType();
-		return -1;
+		if (user != null && user.getPassword().equals(password))
+			return user.getRole();
+		return null;
 	}
 }

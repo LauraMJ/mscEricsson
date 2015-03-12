@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add user</title>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function User(username, password, role) {
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
+
+	function addNewUser() {
+		var user = new User($("#username"), $("#password"), $("#role"));
+
+		$.ajax({
+			type : 'POST',
+			url : 'rest/add/user',
+			data : JSON.stringify(user),
+			success : handlePost,
+			contentType : 'application/json'
+		});
+	}
+
+	function handlePost() {
+		alert("successfully added a new user");
+	}
+</script>
+</head>
+<body>
+	<form method="POST" action="addNewUser()">
+		<label for="username">user name:</label> <input id="username"
+			autofocus="autofocus" placeholder="username" required="required"
+			type="text" name="username" /> <label for="password">password:</label>
+		<input id="password" placeholder="password" required="required"
+			type="password" name="password" /> <input id="role"
+			placeholder="role" required="required" type="text" name="role" />
+		<button type="submit">Add user</button>
+	</form>
+</body>
+</html>

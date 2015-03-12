@@ -6,5 +6,5 @@ import javax.ejb.Local;
  */
 @Local
 public interface UserAuthenticationService {
-	public int authenticateUser(String username, String password);
+	public String authenticateUser(String username, String password);
 }

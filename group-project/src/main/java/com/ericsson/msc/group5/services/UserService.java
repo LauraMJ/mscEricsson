@@ -1,7 +1,5 @@
 package com.ericsson.msc.group5.services;
 
-import java.util.Collection;
-
 import javax.ejb.Local;
 /**
  * User service EJB interface.
@@ -9,5 +7,5 @@ import javax.ejb.Local;
 @Local
 public interface UserService {
 
-	public void addUser(String username, String password, int type);
+	public boolean addUser(String username, String password, String userRole);
 }

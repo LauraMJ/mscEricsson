@@ -1,8 +1,7 @@
 package com.ericsson.msc.group5.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -12,29 +11,28 @@ import javax.persistence.Table;
  * User JPA entity. Uses username as primary key.
  */
 @Entity
-@Table(name="user")
+@Table(name = "user")
 @NamedQueries({@NamedQuery(name = "findUserByUsername", query = "SELECT u FROM User u WHERE u.username = :username")})
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(length = 32)
 	private String username;
-
+	@Column(length = 64)
 	private String password;
+	@Column(length = 32)
+	private String role;
 
-	private int userType;
-	
 	/**
 	 * No-args constructor used by the JPA.
 	 */
-	public User(){
-		
+	public User() {
 	}
-	
-	public User(String username, String password, int userType){
+
+	public User(String username, String password, String role) {
 		this.username = username;
 		this.password = password;
-		this.userType = userType;
+		this.role = role;
 	}
 
 	public String getUsername() {
@@ -53,11 +51,11 @@ public class User {
 		this.password = password;
 	}
 
-	public int getUserType() {
-		return userType;
+	public String getRole() {
+		return role;
 	}
 
-	public void setUserType(int userType) {
-		this.userType = userType;
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

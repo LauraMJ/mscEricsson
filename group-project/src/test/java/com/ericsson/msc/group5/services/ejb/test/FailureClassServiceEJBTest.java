@@ -1,4 +1,4 @@
-package com.ericsson.group5.services.ejb;
+package com.ericsson.msc.group5.services.ejb.test;
 
 import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import com.ericsson.msc.group5.services.FailureClassService;
 import com.ericsson.msc.group5.services.ejb.FailureClassServiceEJB;
 
 @RunWith(Arquillian.class)
-public class FailuteClassServiceEJBTest {
+public class FailureClassServiceEJBTest {
 
 	@Deployment
 	public static JavaArchive createDeployment() {

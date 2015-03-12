@@ -1,6 +1,7 @@
 package com.ericsson.msc.group5.entities;
 
 import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -59,5 +60,31 @@ public class EventCause {
 
 	public EventCauseCK getCauseCodeEventIdCK() {
 		return causeCodeEventIdCK;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((causeCodeEventIdCK == null) ? 0 : causeCodeEventIdCK.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EventCause other = (EventCause) obj;
+		if (causeCodeEventIdCK == null) {
+			if (other.causeCodeEventIdCK != null)
+				return false;
+		}
+		else if ( !causeCodeEventIdCK.equals(other.causeCodeEventIdCK))
+			return false;
+		return true;
 	}
 }

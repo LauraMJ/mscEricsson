@@ -61,24 +61,29 @@ function delineate(str){
 
 	
 
-function passFilePath(){
-	var filePathChosen = document.getElementById("filePath").value;
-	alert("fuck you");
-	$.ajax({
-		type: 'POST',
-		url: 'rest/testingQueries/import',
-		//contentType: 'application/json',
-		data: JSON.stringify(filePathChosen)
-	})
-}	
+//function passFilePath(){
+//	var filePathChosen = document.getElementById("filePath").value;
+//	alert(filePathChosen);
+	//var pathToSend = JSON.parse(filePathChosen);
+	//alert(pathToSend);
+	//<input value='Import' type='submit'/>\
+//	$.ajax({
+//		type: 'POST',
+//		url: 'rest/testingQueries/import',
+//		contentType: 'application/json',
+//		data: JSON.stringify(filePathChosen)
+//	})
+//}	
 	
 function change(selection){
 if(selection=="import"){
 	var text = document.getElementById("jsChangeArea");
 	text.innerHTML = "";
-	text.innerHTML="<form id='importForm' method = 'post'>\n\<b>Please choose a file to import</b><br><br>\
+	//this eeds to be multipart/form-data
+						
+	text.innerHTML="<form id='importForm' action='rest/testingQueries/import' method='post' enctype='multipart/form-data'>\n\<b>Please choose a file to import</b><br><br>\
 						<input id='filePath' type='file' name='datafile' value='' /><br><br>\
-						<input id='submitButton' type='submit' onclick='passFilePath()'/>\
+						<button type='submit' id='testButton' onclick='passFilePath()'>import</button>\
 					</form><hr>";
 	
 	//should show the amount of imports failed after pressing import button

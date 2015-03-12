@@ -31,28 +31,27 @@ function delineate(str){
 
 	
 
-function passFilePath(){
-	var filePathChosen = document.getElementById("filePath").value;
-	alert(filePathChosen);
+//function passFilePath(){
+//	var filePathChosen = document.getElementById("filePath").value;
+//	alert(filePathChosen);
 	//var pathToSend = JSON.parse(filePathChosen);
 	//alert(pathToSend);
 	//<input value='Import' type='submit'/>\
-	$.ajax({
-		type: 'POST',
-		url: 'rest/testingQueries/import',
-		contentType: 'application/json',
-		data: JSON.stringify(filePathChosen)
-	})
-}	
+//	$.ajax({
+//		type: 'POST',
+//		url: 'rest/testingQueries/import',
+//		contentType: 'application/json',
+//		data: JSON.stringify(filePathChosen)
+//	})
+//}	
 	
 function change(selection){
 if(selection=="import"){
 	var text = document.getElementById("jsChangeArea");
 	text.innerHTML = "";
 	//this eeds to be multipart/form-data
-	//text.innerHTML="<form id='importForm' action='rest/testingQueries/import' method='post'>\n\<b>Please choose a file to import</b><br><br>\
-
-	text.innerHTML="<form id='importForm'>\n\<b>Please choose a file to import</b><br><br>\
+						
+	text.innerHTML="<form id='importForm' action='rest/testingQueries/import' method='post' enctype='multipart/form-data'>\n\<b>Please choose a file to import</b><br><br>\
 						<input id='filePath' type='file' name='datafile' value='' /><br><br>\
 						<button type='submit' id='testButton' onclick='passFilePath()'>import</button>\
 					</form><hr>";

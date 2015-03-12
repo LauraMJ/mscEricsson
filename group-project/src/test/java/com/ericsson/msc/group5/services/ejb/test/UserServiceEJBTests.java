@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.services.test;
+package com.ericsson.msc.group5.services.ejb.test;
 
 import static org.junit.Assert.*;
 import javax.inject.Inject;

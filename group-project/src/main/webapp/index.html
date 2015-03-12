@@ -19,6 +19,12 @@ function passSelectedIMSI(){
 	alert(text);
 }
 
+function passFilePath(){
+	alert("passing file path");
+	var filePathChosen = document.getElementById("filePath").value;
+	alert(filePathChosen);
+}
+
 function delineate(str){
 	theleft = str.indexOf("=")+1;
 	theright = str.length;
@@ -34,9 +40,10 @@ if(selection=="import"){
 	var text = document.getElementById("jsChangeArea");
 	text.innerHTML = "";
 	text.innerHTML="<form action = 'rest/testingQueries/import' id='importForm' method='post'>\n\<b>Please choose a file to import</b><br><br>\
-						<input type='file' name='datafile' value='' /><br><br>\
-						<input id='importButton' type='submit' value='Import'/>\
+						<input id='filePath' type='file' name='datafile' value='' /><br><br>\
+						<button id='importButton' onclick='passFilePath()'>Import</button>\
 					</form><hr>";
+	
 	//should show the amount of imports failed after pressing import button
 }
 

@@ -28,9 +28,9 @@ public class TestRest {
 	// dataImport.importSpreadsheet("C:\\Users\\Harry\\Documents\\data.xls");
 
 	@POST
-	@Path("/import/{id}")
+	@Path("/import")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Collection <String> getImsiOfFailureByTimePeriod(@PathParam("id") String path) {
+	public Collection <String> getImsiOfFailureByTimePeriod(String path) {
 		// dataImport.importSpreadsheet("C:\\Users\\D14125353\\Desktop\\data.xls");
 		dataImport.importSpreadsheet(path);
 		long start = System.currentTimeMillis();

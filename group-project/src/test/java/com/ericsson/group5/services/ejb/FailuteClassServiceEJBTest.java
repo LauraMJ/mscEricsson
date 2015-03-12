@@ -28,7 +28,7 @@ public class FailuteClassServiceEJBTest {
 	}
 
 	@EJB
-	FailureClassServiceEJB failureClassServiceEJB;
+	FailureClassService failureClassServiceEJB;
 
 	@Test
 	public void addFailureClassesTest() {
@@ -41,8 +41,10 @@ public class FailuteClassServiceEJBTest {
 
 		failureClassServiceEJB.addFailureClasses(failureClasses);
 
-		for (FailureClass f : failureClassArray) {
-			assertTrue(failureClassServiceEJB.getFailureClasses().contains(f));
+		Collection <FailureClass> retrievedFailureClasses = failureClassServiceEJB.getFailureClasses();
+
+		for(FailureClass f : retrievedFailureClasses){
+			assertTrue("An object failed to be retrieved", failureClasses.contains(f));
 		}
 	}
 }

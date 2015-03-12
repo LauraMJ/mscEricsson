@@ -20,9 +20,14 @@ function passSelectedIMSI(){
 }
 
 function passFilePath(){
-	alert("passing file path");
 	var filePathChosen = document.getElementById("filePath").value;
-	alert(filePathChosen);
+	alert("fuck you");
+	$.ajax({
+		type: 'POST',
+		url: 'rest/testingQueries/import',
+		//contentType: 'application/json',
+		data: JSON.stringify(filePathChosen)
+	})
 }
 
 function delineate(str){
@@ -39,9 +44,9 @@ function change(selection){
 if(selection=="import"){
 	var text = document.getElementById("jsChangeArea");
 	text.innerHTML = "";
-	text.innerHTML="<form action = 'rest/testingQueries/import' id='importForm' method='post'>\n\<b>Please choose a file to import</b><br><br>\
+	text.innerHTML="<form id='importForm' action='passFilePath()'>\n\<b>Please choose a file to import</b><br><br>\
 						<input id='filePath' type='file' name='datafile' value='' /><br><br>\
-						<button id='importButton' onclick='passFilePath()'>Import</button>\
+						<input id='submitButton' type='submit' value='Import'/>\
 					</form><hr>";
 	
 	//should show the amount of imports failed after pressing import button

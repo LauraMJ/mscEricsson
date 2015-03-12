@@ -2,11 +2,15 @@ package com.ericsson.msc.group5.rest;
 
 import java.util.Collection;
 import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
+
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.FailureTraceService;
 
@@ -27,7 +31,8 @@ public class TestRest {
 
 	@POST
 	@Path("/import")
-	public Collection <String> getImsiOfFailureByTimePeriod(@FormParam("dataFile") String path) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Collection <String> getImsiOfFailureByTimePeriod(String path) {
 		// dataImport.importSpreadsheet("C:\\Users\\D14125353\\Desktop\\data.xls");
 		dataImport.importSpreadsheet(path);
 		long start = System.currentTimeMillis();

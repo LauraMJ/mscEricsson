@@ -55,7 +55,7 @@ public class TestRest {
 
 	@POST
 	@Path("/import")
-	//@Consumes("multipart/form-data")
+	@Consumes("multipart/form-data")
 	public Collection <String> getImsiOfFailureByTimePeriod(@MultipartForm FileUploadForm form) {
 		try {
 			HSSFWorkbook wb = new HSSFWorkbook(new ByteArrayInputStream(form.getFileData()));

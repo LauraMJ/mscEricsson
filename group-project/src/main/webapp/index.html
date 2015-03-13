@@ -74,6 +74,37 @@ function delineate(str){
 //		data: JSON.stringify(filePathChosen)
 //	})
 //}	
+
+function help(){
+	var selected = document.getElementById('inputtedImsi').value;
+	var url = 'rest/query/eventCause';
+
+	
+	$.ajax({
+        url: url,
+        type: "POST",
+        data: selected,
+        contentType: "application/json",
+        dataType: 'json',
+        success: function (data) {
+        	var text = "<b> Results for IMSI '" + selected + "' </b><br>";
+            //if(data.length == 0){
+           // 	text = "<b> No results for IMSI '" + selected + "' </b><br>";
+           // }
+            
+            for(var i=0; i<data.length;i++){
+                	var obj = data[i];
+                	var printable = "Event ID: " + obj.causeCodeEventIdCK.eventId + 
+                	", Cause Code: " + obj.causeCodeEventIdCK.causeCode + 
+                	", Description: " + obj.description + "<br>";
+                	 text = text + printable;
+                }
+           		document.getElementById("jsChangeArea").innerHTML = text; 
+        }
+    });
+
+	
+}
 	
 function change(selection){
 if(selection=="import"){
@@ -109,7 +140,7 @@ else if(selection=="users"){
 else if(selection=="custIMSI"){
 	var text = document.getElementById("jsChangeArea");
 	text.innerHTML = "";
-	text.innerHTML="<form id='enterIMSIForm' method='post'>\n\<b>Please Enter IMSI</b><br><br>IMSI:<input type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit'/></form><hr>";
+	text.innerHTML="<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit' onclick='help()'/></form><hr>";
 	//Needs to display table when button is clicked
 }
 else if(selection=="suppIMSI"){

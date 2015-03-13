@@ -9,6 +9,10 @@ import com.ericsson.msc.group5.entities.UserEquipment;
 @Local
 public interface UserEquipmentService {
 
+	public Collection <UserEquipment> getUserEquipment();
+	
+	public void addUserEquipment(Collection <UserEquipment> userEquipments);
+		
 	public Collection <UserEquipment> getTypeAllocationCode();
 
 	public void addTypeAllocationCode(Collection <UserEquipment> allocationCodes);

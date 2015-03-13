@@ -21,6 +21,16 @@ public class UserEquipmentServiceEJB implements UserEquipmentService{
 	private UserEquipmentDAO dao;
 	
 	@Override
+	public Collection<UserEquipment> getUserEquipment() {
+		return dao.getAllUserEquipment();
+	}
+	
+	@Override
+	public void addUserEquipment(Collection<UserEquipment> userEquipments) {
+		dao.batchInsertUserEquipment(userEquipments);
+	}
+	
+	@Override
 	public Collection<UserEquipment> getTypeAllocationCode() {
 		return null;
 	}
@@ -128,5 +138,9 @@ public class UserEquipmentServiceEJB implements UserEquipmentService{
 	public void addFailureTrace(Collection<UserEquipment> failureTraces) {
 		dao.batchInsertUserEquipment(failureTraces);
 	}
+
+	
+
+	
 
 }

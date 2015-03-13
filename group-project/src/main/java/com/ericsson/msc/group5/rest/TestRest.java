@@ -1,18 +1,25 @@
 package com.ericsson.msc.group5.rest;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
+
+import org.jboss.resteasy.annotations.Form;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 //http://stackoverflow.com/questions/25797650/fileupload-with-jaxrs **this one is being used**
 //http://stackoverflow.com/questions/14740727/upload-excel-file-into-database-using-apache-poi-and-spring-framework
@@ -22,7 +29,12 @@ import javax.ws.rs.core.MediaType;
 //http://stackoverflow.com/questions/22985809/upload-read-an-excel-file-in-a-jsp-using-poi
 //http://www.juniper.net/techpubs/en_US/junos-space-sdk/13.1/apiref/com.juniper.junos_space.sdk.help/html/guides/appdevguide/fileupload.html
 
-import org.apache.struts.upload.FormFile;
+
+
+
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.FailureTraceService;
 
@@ -43,24 +55,30 @@ public class TestRest {
 
 	@POST
 	@Path("/import")
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Collection <String> getImsiOfFailureByTimePeriod(File file) {
-		// dataImport.importSpreadsheet("C:\\Users\\D14125353\\Desktop\\data.xls");
+	//@Consumes("multipart/form-data")
+	public Collection <String> getImsiOfFailureByTimePeriod(@MultipartForm FileUploadForm form) {
+		try {
+			HSSFWorkbook wb = new HSSFWorkbook(new ByteArrayInputStream(form.getFileData()));
+			dataImport.importSpreadsheet(wb);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
 		
 		//LAURA'S WORK*******************************************************
 
 		System.out.println("trying to read");
 
 		
-		try {
-			FormFile formfile = new FormFile(file);
-			System.out.println("Path: "+formfile.getCanonicalPath());
-			String path = formfile.getCanonicalPath();
+/*		try {			
+			System.out.println("Path: "+file.getCanonicalPath());
+			String path = file.getCanonicalPath();
 			dataImport.importSpreadsheet(path);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		//END****************************************************************
 		
 		

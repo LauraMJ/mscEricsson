@@ -76,25 +76,13 @@ public class DataImportServiceEJB implements DataImportService {
 		}
 	}
 
-	@POST
-	@Path("{loc}")
-	public void importSpreadsheet(@PathParam("loc") String location) {
+	//@POST
+	//@Path("{loc}")
+	public void importSpreadsheet(HSSFWorkbook excelWorkbook) {
 		long start = System.currentTimeMillis();
-		//creat file input from location string
-		//try (FileInputStream excelInputStream = new FileInputStream(location)) {
-		//	Workbook excelWorkbook = new HSSFWorkbook(excelInputStream);
-		//	readExcelDocument(excelWorkbook);
-		//}
-		try (InputStream inputSteam = new ByteArrayInputStream(IOUtils.toByteArray(new FileInputStream(location)))){
-			Workbook excelWorkbook = new HSSFWorkbook(inputSteam);
-			readExcelDocument(excelWorkbook);
-		}
-		catch (FileNotFoundException e) {
-			System.out.println("File not found at" + location);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		//Workbook excelWorkbook = new HSSFWorkbook(excelInputStream);
+		readExcelDocument(excelWorkbook);
 
 		long duration = System.currentTimeMillis() - start;
 		System.out.printf("The import took %d milliseconds.\n", duration);
@@ -289,4 +277,5 @@ public class DataImportServiceEJB implements DataImportService {
 							operator));
 		}
 	}
+
 }

@@ -71,15 +71,6 @@ public class TestRest {
 		System.out.println("trying to read");
 
 		
-/*		try {			
-			System.out.println("Path: "+file.getCanonicalPath());
-			String path = file.getCanonicalPath();
-			dataImport.importSpreadsheet(path);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		//END****************************************************************
 		
 		
 		

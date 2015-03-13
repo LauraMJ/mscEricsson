@@ -166,5 +166,31 @@ public class UserEquipment {
 	public void setFailureTrace(Collection <FailureTrace> failureTrace) {
 		this.failureTrace = failureTrace;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((userEquipmentType == null) ? 0 : userEquipmentType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserEquipment other = (UserEquipment) obj;
+		if (userEquipmentType == null) {
+			if (other.userEquipmentType != null)
+				return false;
+		}
+		else if ( !userEquipmentType.equals(other.userEquipmentType))
+			return false;
+		return true;
+	}
 
 }

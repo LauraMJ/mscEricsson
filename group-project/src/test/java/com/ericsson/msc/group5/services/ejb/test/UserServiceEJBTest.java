@@ -16,7 +16,7 @@ import com.ericsson.msc.group5.entities.User;
 import com.ericsson.msc.group5.services.UserService;
 
 @RunWith(Arquillian.class)
-public class UserServiceEJBTests {
+public class UserServiceEJBTest {
 	
 	
 	

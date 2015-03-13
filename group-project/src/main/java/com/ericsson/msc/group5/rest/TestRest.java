@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Collection;
 import java.util.Date;
-
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -15,6 +14,15 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
+//http://stackoverflow.com/questions/25797650/fileupload-with-jaxrs **this one is being used**
+//http://stackoverflow.com/questions/14740727/upload-excel-file-into-database-using-apache-poi-and-spring-framework
+//http://www.html5rocks.com/en/tutorials/file/dndfiles/
+//http://www.mysamplecode.com/2012/03/java-excel-file-upload-read.html
+//http://www.java-tips.org/other-api-tips/jexcel/how-do-i-read-an-excel-file-uploaded-through-a-web-browser-to-a-se-3.html
+//http://stackoverflow.com/questions/22985809/upload-read-an-excel-file-in-a-jsp-using-poi
+//http://www.juniper.net/techpubs/en_US/junos-space-sdk/13.1/apiref/com.juniper.junos_space.sdk.help/html/guides/appdevguide/fileupload.html
+
+import org.apache.struts.upload.FormFile;
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.FailureTraceService;
 
@@ -40,30 +48,23 @@ public class TestRest {
 		// dataImport.importSpreadsheet("C:\\Users\\D14125353\\Desktop\\data.xls");
 		
 		//LAURA'S WORK*******************************************************
-		//http://stackoverflow.com/questions/25797650/fileupload-with-jaxrs **this one is being used**
-		//http://stackoverflow.com/questions/14740727/upload-excel-file-into-database-using-apache-poi-and-spring-framework
-		//http://www.html5rocks.com/en/tutorials/file/dndfiles/
-		//http://www.mysamplecode.com/2012/03/java-excel-file-upload-read.html
-		//http://www.java-tips.org/other-api-tips/jexcel/how-do-i-read-an-excel-file-uploaded-through-a-web-browser-to-a-se-3.html
-		//http://stackoverflow.com/questions/22985809/upload-read-an-excel-file-in-a-jsp-using-poi
-		//http://www.juniper.net/techpubs/en_US/junos-space-sdk/13.1/apiref/com.juniper.junos_space.sdk.help/html/guides/appdevguide/fileupload.html
+
 		System.out.println("trying to read");
+
+		
 		try {
-			@SuppressWarnings("resource")
-			FileInputStream stream = new FileInputStream(file);
-			//ObjectInputStream stream1 = new ObjectInputStream(stream);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
- catch (IOException e) {
+			FormFile formfile = new FormFile(file);
+			System.out.println("Path: "+formfile.getCanonicalPath());
+			String path = formfile.getCanonicalPath();
+			dataImport.importSpreadsheet(path);
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//END****************************************************************
 		
 		
-		//dataImport.importSpreadsheet();
+		
 		long start = System.currentTimeMillis();
 		Date startTime = new Date(1357924500000L);
 		Date endTime = new Date(1357924920000L);

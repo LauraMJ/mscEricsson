@@ -1,11 +1,14 @@
 package com.ericsson.msc.group5.services.ejb;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -13,12 +16,16 @@ import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.util.IOUtils;
+
 import com.ericsson.msc.group5.dao.CountryCodeNetworkCodeDAO;
 import com.ericsson.msc.group5.dao.EventCauseDAO;
 import com.ericsson.msc.group5.dao.FailureClassDAO;
@@ -73,9 +80,13 @@ public class DataImportServiceEJB implements DataImportService {
 	@Path("{loc}")
 	public void importSpreadsheet(@PathParam("loc") String location) {
 		long start = System.currentTimeMillis();
-
-		try (FileInputStream excelInputStream = new FileInputStream(location)) {
-			Workbook excelWorkbook = new HSSFWorkbook(excelInputStream);
+		//creat file input from location string
+		//try (FileInputStream excelInputStream = new FileInputStream(location)) {
+		//	Workbook excelWorkbook = new HSSFWorkbook(excelInputStream);
+		//	readExcelDocument(excelWorkbook);
+		//}
+		try (InputStream inputSteam = new ByteArrayInputStream(IOUtils.toByteArray(new FileInputStream(location)))){
+			Workbook excelWorkbook = new HSSFWorkbook(inputSteam);
 			readExcelDocument(excelWorkbook);
 		}
 		catch (FileNotFoundException e) {

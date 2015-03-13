@@ -46,29 +46,6 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
-			
-			
-			<dependency>
-				<groupId>struts</groupId>
-				<artifactId>struts</artifactId>
-				<version>1.2.8</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-fileupload</groupId>
-				<artifactId>commons-fileupload</artifactId>
-				<version>1.0</version>
-			</dependency>
-			
-
-			
-				
-			
-			
-			
-			
-			
-			
-				
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
@@ -190,6 +167,32 @@
 			<artifactId>picketbox</artifactId>
 			<version>4.0.5.Final</version>
 		</dependency>
+
+
+
+
+
+
+		<dependency>
+			<groupId>struts</groupId>
+			<artifactId>struts</artifactId>
+			<version>1.2.8</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+
+
+
+
+
+
+
+
+
 
 		<!-- <dependency> -->
 		<!-- <groupId>net.sf.ehcache</groupId> -->

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Collection;
 import java.util.Date;
-
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -23,6 +22,7 @@ import javax.ws.rs.core.MediaType;
 //http://stackoverflow.com/questions/22985809/upload-read-an-excel-file-in-a-jsp-using-poi
 //http://www.juniper.net/techpubs/en_US/junos-space-sdk/13.1/apiref/com.juniper.junos_space.sdk.help/html/guides/appdevguide/fileupload.html
 
+import org.apache.struts.upload.FormFile;
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.FailureTraceService;
 

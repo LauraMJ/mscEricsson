@@ -52,16 +52,16 @@ public class TestRest {
 		System.out.println("trying to read");
 
 		
-		try {
-			FormFile formfile = new FormFile(file);
-			System.out.println("Path: "+formfile.getCanonicalPath());
-			String path = formfile.getCanonicalPath();
-			dataImport.importSpreadsheet(path);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//END****************************************************************
+//		try {
+//			FormFile formfile = new FormFile(file);
+//			System.out.println("Path: "+formfile.getCanonicalPath());
+//			String path = formfile.getCanonicalPath();
+//			dataImport.importSpreadsheet(path);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		//END****************************************************************
 		
 		
 		

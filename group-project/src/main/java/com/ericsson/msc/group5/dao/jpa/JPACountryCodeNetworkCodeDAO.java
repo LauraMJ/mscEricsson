@@ -47,7 +47,7 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 	public void batchInsertCountryCodeNetworkCode(Collection <CountryCodeNetworkCode> countryCodeNetworkCodeList) {
 		for (CountryCodeNetworkCode countryCodeNetworkCode : countryCodeNetworkCodeList) {
 			Country country = countryCodeNetworkCode.getCountryCodeNetworkCode().getCountry();
-			if (em.find(Country.class, country) == null)
+			if (em.find(Country.class, country.getCountryCode()) == null)
 				em.persist(country);
 			em.persist(countryCodeNetworkCode);
 		}

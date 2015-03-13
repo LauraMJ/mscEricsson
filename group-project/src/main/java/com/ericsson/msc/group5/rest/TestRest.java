@@ -51,7 +51,7 @@ public class TestRest {
 		try {
 			@SuppressWarnings("resource")
 			FileInputStream stream = new FileInputStream(file);
-			ObjectInputStream stream1 = new ObjectInputStream(stream);
+			//ObjectInputStream stream1 = new ObjectInputStream(stream);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

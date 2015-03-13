@@ -27,7 +27,9 @@ import javax.persistence.Table;
 @Table(name = "failure_trace")
 @NamedQueries({
 		@NamedQuery(name = "getAllFailureTraces", query = "SELECT f FROM FailureTrace f"),
-		@NamedQuery(name = "getEventCauseCombinations", query = "SELECT DISTINCT (f.eventCause) FROM FailureTrace AS f WHERE f.IMSI = :givenImsi "),
+		@NamedQuery(name = "getEventCauseCombinations", query = "SELECT DISTINCT (f.eventCause) FROM FailureTrace f WHERE f.IMSI = :givenImsi"),
+		// @NamedQuery(name = "getEventCauseCombinations", query =
+		// "SELECT f FROM FailureTrace f WHERE f.IMSI = :givenImsi"),
 		@NamedQuery(name = "getImsiOfFailureByTimePeriod", query = "SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime ")})
 public class FailureTrace {
 

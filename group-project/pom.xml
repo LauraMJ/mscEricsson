@@ -168,62 +168,25 @@
 			<version>4.0.5.Final</version>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>3.0.10.Final</version>
+			<scope>provided</scope>
+		</dependency>
 
-
-
-
-
-   <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jaxb-provider</artifactId>
-      <version>3.0.6.Final</version>
-   </dependency>
-   <!-- multipart/form-data and multipart/mixed support -->
-   <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-multipart-provider</artifactId>
-      <version>3.0.6.Final</version>
-   </dependency>
-   <!-- Resteasy Server Cache -->
-   <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-cache-core</artifactId>
-      <version>3.0.6.Final</version>
-   </dependency>
-   <!-- Ruby YAML support -->
-   <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-yaml-provider</artifactId>
-      <version>3.0.6.Final</version>
-   </dependency>
-   <!-- JAXB + Atom support -->
-   <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-atom-provider</artifactId>
-      <version>3.0.6.Final</version>
-   </dependency>
-   <!-- Spring integration -->
-   <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-spring</artifactId>
-      <version>3.0.6.Final</version>
-   </dependency>
-   <!-- Guice integration -->
-   <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-guice</artifactId>
-      <version>3.0.6.Final</version>
-   </dependency>
-
-   <!-- Asynchronous HTTP support with Servlet 3.0  -->
-   <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>async-http-servlet-3.0</artifactId>
-      <version>3.0.6.Final</version>
-   </dependency>
-
-
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-multipart-provider</artifactId>
+			<version>2.1-beta-1</version>
+			<scope>provided</scope>
+		</dependency>
 
 
 

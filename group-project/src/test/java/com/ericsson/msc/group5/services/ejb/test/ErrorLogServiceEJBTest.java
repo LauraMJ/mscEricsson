@@ -3,8 +3,6 @@ package com.ericsson.msc.group5.services.ejb.test;
 import static org.junit.Assert.*;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
-
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;

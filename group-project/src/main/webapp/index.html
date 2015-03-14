@@ -40,12 +40,14 @@ function addNewUser() {
 	});
 }
 
+
+
+
 function handlePost() {
 	alert("successfully added a new user");
 }
 
 function passSelectedIMSI(){
-	alert("running function");
 	var selected = document.getElementById("selectDropdown");
 	var text = selected.options[selected.selectedIndex].innerHTML;
 	alert(text);
@@ -75,11 +77,11 @@ function delineate(str){
 //	})
 //}	
 
-function help(){
+
+//Function to retrieve event/cause combinations by imsi
+function eventCauseForImsi(){
 	var selected = document.getElementById('inputtedImsi').value;
 	var url = 'rest/query/eventCause';
-
-	
 	$.ajax({
         url: url,
         type: "POST",
@@ -88,11 +90,11 @@ function help(){
         dataType: 'json',
         success: function (data) {
         	var text = "<b> Results for IMSI '" + selected + "' </b><br>";
-            //if(data.length == 0){
-           // 	text = "<b> No results for IMSI '" + selected + "' </b><br>";
-           // }
+            if(data.length == 0){
+           	 	text = "<b> No results for IMSI '" + selected + "' </b><br>";
+           	 }
             
-            for(var i=0; i<data.length;i++){
+            for(var i=0; i<data.length; i++){
                 	var obj = data[i];
                 	var printable = "Event ID: " + obj.causeCodeEventIdCK.eventId + 
                 	", Cause Code: " + obj.causeCodeEventIdCK.causeCode + 
@@ -102,8 +104,15 @@ function help(){
            		document.getElementById("jsChangeArea").innerHTML = text; 
         }
     });
+}
 
-	
+function imsiPerTimePeriod(){
+	var date1 = document.getElementById('date1date').value + " " + document.getElementById('date1time').value;
+	var date2 = document.getElementById('date2date').value + " " + document.getElementById('date2time').value;
+
+	alert(date1);
+	alert(date2);	
+	alert("work in progress");
 }
 	
 function change(selection){
@@ -140,12 +149,12 @@ else if(selection=="users"){
 else if(selection=="custIMSI"){
 	var text = document.getElementById("jsChangeArea");
 	text.innerHTML = "";
-	text.innerHTML="<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit' onclick='help()'/></form><hr>";
+	text.innerHTML="<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit' onclick='eventCauseForImsi()'/></form><hr>";
 	//Needs to display table when button is clicked
 }
 else if(selection=="suppIMSI"){
 	var text = document.getElementById("jsChangeArea");
-	text.innerHTML="<form id='timedate' method='post'>\n\<b>Please Select Time Range</b><br><br>From:<input type='date' name='date1'/><input type='time' name='time1'/>To:<input type='date' name='date2'/><input type='time' name='time2'/><br><br><input id='submitButton' type='submit' value='Submit'/></form><hr>";
+	text.innerHTML="<form id='timedate' method='post' onsubmit='return false'>\n\<b>Please Select Time Range</b><br><br>From:<input id='date1date' type='date' name='date1'/><input id='date1time' type='time' name='time1'/>To:<input id='date2date' type='date' name='date2'/><input id='date2time' type='time' name='time2'/><br><br><input id='submitButton' type='submit' value='Submit' onclick='imsiPerTimePeriod()'/></form><hr>";
 }
 else if(selection=="mgmtIMSI"){
 	var text = document.getElementById("jsChangeArea");

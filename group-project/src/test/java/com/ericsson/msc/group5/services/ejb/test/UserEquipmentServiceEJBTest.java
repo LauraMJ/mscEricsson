@@ -35,7 +35,7 @@ public class UserEquipmentServiceEJBTest {
 	UserEquipmentService service;
 	
 	@Test
-	public void addTypeAllocationCodeTest(){
+	public void addUserEquipmentTest(){
 		UserEquipment [] userEquipmentArray = {new UserEquipment(1, "one", "one", "one", "one", "one", "one", "one", "one" ), new UserEquipment(2, "two", "two", "two", "two", "two", "two", "two", "two" )};
 	
 		Collection <UserEquipment> userEquipments = new ArrayList<>();

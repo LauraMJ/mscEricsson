@@ -22,7 +22,7 @@
 	<!-- </persistence-unit> -->
 	<persistence-unit name="callFailureLogs">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:/datasrouces/test</jta-data-source>
+		<jta-data-source>java:/datasources/CALL_FAILURE_LOGS</jta-data-source>
 		<class>com.ericsson.msc.group5.entities.FailureClass</class>
 		<properties>
 			<property name="hibernate.archive.autodetection" value="class, hbm" />

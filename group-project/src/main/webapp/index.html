@@ -4,44 +4,49 @@
 <title>Admin Home</title>
 
 
-<form name="test"><input type="hidden" name="test2"></form>
-<form name="bull">Username: <input type="text" name="bear"></form>
+<form name="test">
+	<input type="hidden" name="test2">
+</form>
+<form name="bull">
+	Username: <input type="text" name="bear">
+</form>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
-var locate = window.location;
-document.test.test2.value = locate;
-var text = document.test.test2.value;
+	var locate = window.location;
+	document.test.test2.value = locate;
+	var text = document.test.test2.value;
 
-function User(username, password, role) {
-	this.username = username;
-	this.password = password;
-	this.role = role;
-}
+	function User(username, password, role) {
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
 
-function addNewUser() {
-	alert("hello");
-	var user = new User($("#username").val(), $("#password").val(), $("#role").val());
-	alert($("#username").val());
-	alert($("#password").val());
-	alert($("#role").val());
+	function addNewUser() {
+		var url = 'rest/add/user';
+		var user = new User($("#username").val(), $("#password").val(), $(
+				"#role").val());
 
-	$.ajax({
-		type : 'POST',
-		contentType : 'application/json',
-		url : 'rest/add/user',
-        dataType: "json",
-		data : JSON.stringify({
-			"username":$("#username").val(),
-			"password":$("#password").val(),
-			"role":$("#role").val()
-		}),
-		success : handlePost
-	});
-}
-
-
-
+		$.ajax({
+			url : url,
+			type : 'POST',
+			contentType : 'application/json',
+			dataType : "json",
+			data : JSON.stringify({
+				"username" : $("#username").val(),
+				"password" : $("#password").val(),
+				"role" : $("#role").val()
+			}),
+			success : function(data) {
+				alert("hey! " + obj.value);
+				for (var i = 0; i < data.length; i++) {
+					var obj = data[i];
+					alert("Value: " + obj.value);
+				}
+			}
+		});
+	}
 
 function handlePost() {
 	alert("successfully added a new user");
@@ -53,22 +58,20 @@ function passSelectedIMSI(){
 	alert(text);
 }
 
-function delineate(str){
-	theleft = str.indexOf("=")+1;
+function delineate(str) {
+	theleft = str.indexOf("=") + 1;
 	theright = str.length;
-	return(str.substring(theleft, theright));
-	}
-	var zork = delineate(text);
-	document.bull.bear.value = zork;
-
-	
+	return (str.substring(theleft, theright));
+}
+var zork = delineate(text);
+document.bull.bear.value = zork;
 
 //function passFilePath(){
 //	var filePathChosen = document.getElementById("filePath").value;
 //	alert(filePathChosen);
-	//var pathToSend = JSON.parse(filePathChosen);
-	//alert(pathToSend);
-	//<input value='Import' type='submit'/>\
+//var pathToSend = JSON.parse(filePathChosen);
+//alert(pathToSend);
+//<input value='Import' type='submit'/>\
 //	$.ajax({
 //		type: 'POST',
 //		url: 'rest/testingQueries/import',
@@ -114,20 +117,17 @@ function imsiPerTimePeriod(){
 	alert(date2);	
 	alert("work in progress");
 }
-	
-function change(selection){
-if(selection=="import"){
-	var text = document.getElementById("jsChangeArea");
-	text.innerHTML = "";
-	//this eeds to be multipart/form-data
-						
-	text.innerHTML="<form id='importForm' action='rest/testingQueries/import' method='post' enctype='multipart/form-data'>\n\<b>Please choose a file to import</b><br><br>\
-						<input id='selectedFile' type='file' name='selectedFile' value='' /><br><br>\
-						<button type='submit' id='testButton' onclick='passFilePath()'>import</button>\
-					</form><hr>";
-	
-	//should show the amount of imports failed after pressing import button
-}
+
+function change(selection) {
+	if (selection == "import") {
+		var text = document.getElementById("jsChangeArea");
+		text.innerHTML = "";
+		//this eeds to be multipart/form-data
+
+		text.innerHTML = "<form id='importForm' action='rest/testingQueries/import' method='post' enctype='multipart/form-data'>\n\<b>Please choose a file to import</b><br><br>\
+					<input id='selectedFile' type='file' name='selectedFile' value='' /><br><br>\
+					<button type='submit' id='testButton' onclick='passFilePath()'>import</button>\
+				</form><hr>";
 
 else if(selection=="users"){
 	var text = document.getElementById("jsChangeArea");
@@ -168,10 +168,10 @@ else{
 
 <style>
 table, th, td {
-    border: 1px solid black;
+	border: 1px solid black;
 	text-align: left;
 	vertical-align: top;
-	padding:0;
+	padding: 0;
 }
 
 html, body {
@@ -181,32 +181,29 @@ html, body {
 </head>
 
 <body>
-<table style="width:100%; height:98%; border:1px;">
-  <tr>
-    <th id="header" colspan="3" style="height:100px">header</td>
-  </tr>
-  <tr>
-    <td rowspan="2" style="height:400px; width:140px;">
-	<b>Admin:</b><br>
-	<a id="importLink" href="#" onclick="change('import');return false;">Import Data</a><br>
-	<!--<a id="errorLink" href="#" onclick="change('errors');return false;">Error Log Count</a><br>-->
-	<a id="usersLink" href="#" onclick="change('users');return false;">Users</a><br><br>
-	
-	<b>Customer Service:</b><br>
-	<a id="custIMSI" href="#" onclick="change('custIMSI');return false;">IMSI Failures</a><br><br>
-	
-	<b>Support Eng.:</b><br>
-	<a id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI Failures</a><br><br>
-	
-	<b>Net. Mgmg Eng.:</b><br>
-	<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI Failures</a><br><br>
-	</td>
-    <td id="jsChangeArea" >JS changing area</td>
-  </tr>
-  <tr>
-    <td colspan="3" style="height:20px">footer</td>
-  </tr>
-</table> 
+	<table style="width: 100%; height: 98%; border: 1px;">
+		<tr>
+			<th id="header" colspan="3" style="height: 100px">header
+			</td>
+		</tr>
+		<tr>
+			<td rowspan="2" style="height: 400px; width: 140px;"><b>Admin:</b><br>
+				<a id="importLink" href="#" onclick="change('import');return false;">Import
+					Data</a><br> <!--<a id="errorLink" href="#" onclick="change('errors');return false;">Error Log Count</a><br>-->
+				<a id="usersLink" href="#" onclick="change('users');return false;">Users</a><br>
+				<br> <b>Customer Service:</b><br> <a id="custIMSI"
+				href="#" onclick="change('custIMSI');return false;">IMSI
+					Failures</a><br> <br> <b>Support Eng.:</b><br> <a
+				id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI
+					Failures</a><br> <br> <b>Net. Mgmg Eng.:</b><br> <a
+				id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI
+					Failures</a><br> <br></td>
+			<td id="jsChangeArea">JS changing area</td>
+		</tr>
+		<tr>
+			<td colspan="3" style="height: 20px">footer</td>
+		</tr>
+	</table>
 
 
 

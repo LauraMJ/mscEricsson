@@ -94,7 +94,6 @@ public class Validator {
 	}
 
 	public static boolean validateFailureTrace(FailureTrace failureTrace) {
-		// TODO: input list of tests that are relevant to FailureTrace.
 		return true;
 	}
 

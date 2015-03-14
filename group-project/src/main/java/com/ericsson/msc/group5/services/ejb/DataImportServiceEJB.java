@@ -16,6 +16,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 import com.ericsson.msc.group5.dao.CountryCodeNetworkCodeDAO;
+import com.ericsson.msc.group5.dao.CountryDAO;
 import com.ericsson.msc.group5.dao.EventCauseDAO;
 import com.ericsson.msc.group5.dao.FailureClassDAO;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
@@ -40,6 +41,8 @@ public class DataImportServiceEJB implements DataImportService {
 	@Inject
 	private CountryCodeNetworkCodeDAO countryCodeNetworkCodeDAO;
 	@Inject
+	private CountryDAO countryDAO;
+	@Inject
 	private EventCauseDAO eventCauseDAO;
 	@Inject
 	private FailureClassDAO failureClassDAO;
@@ -54,10 +57,11 @@ public class DataImportServiceEJB implements DataImportService {
 	private HashMap <Integer, FailureClass> failureClassHashMap = new HashMap <>();
 	private HashMap <Integer, UserEquipment> userEquipmentHashMap = new HashMap <>();
 	private HashMap <Integer, CountryCodeNetworkCode> countryCodeNetworkCodeHashMap = new HashMap <>();
+	private HashMap <Integer, Country> countryHashMap = new HashMap <>();
+	public static long duration;
 
 	private enum ExcelDataSheet {
-		BASE_DATA_TABLE(0), EVENT_CAUSE_TABLE(1), FAILURE_CLASS_TABLE(2), UE_TABLE(
-				3), MCC_MNC_TABLE(4);
+		BASE_DATA_TABLE(0), EVENT_CAUSE_TABLE(1), FAILURE_CLASS_TABLE(2), UE_TABLE(3), MCC_MNC_TABLE(4);
 
 		private final int pageNumber;
 
@@ -74,33 +78,35 @@ public class DataImportServiceEJB implements DataImportService {
 	// @Path("{loc}")
 	public void importSpreadsheet(HSSFWorkbook excelWorkbook) {
 
-		Collection <EventCause> existingEventCauseCollection = eventCauseDAO
-				.getAllEventCauses();
+		Collection <EventCause> existingEventCauseCollection = eventCauseDAO.getAllEventCauses();
 		for (EventCause evCa : existingEventCauseCollection) {
-			eventCauseHashMap
-					.put(evCa.getCauseCodeEventIdCK().hashCode(), evCa);
+			eventCauseHashMap.put(evCa.getCauseCodeEventIdCK().hashCode(), evCa);
 		}
-		Collection <FailureClass> existingFailureClassCollection = failureClassDAO
-				.getAllFailureClasses();
+		System.out.println(eventCauseHashMap.size());
+		Collection <FailureClass> existingFailureClassCollection = failureClassDAO.getAllFailureClasses();
 		for (FailureClass fail : existingFailureClassCollection) {
 			failureClassHashMap.put(fail.getFailureClass(), fail);
 		}
-		Collection <UserEquipment> existingUserEquipmentCollection = userEquipmentDAO
-				.getAllUserEquipment();
+		System.out.println(failureClassHashMap.size());
+		Collection <UserEquipment> existingUserEquipmentCollection = userEquipmentDAO.getAllUserEquipment();
 		for (UserEquipment ue : existingUserEquipmentCollection) {
 			userEquipmentHashMap.put(ue.getTypeAllocationCode(), ue);
 		}
-		Collection <CountryCodeNetworkCode> existingCountryCodeNetworkCodeCollection = countryCodeNetworkCodeDAO
-				.getAllCountryCodeNetworkCodes();
+		Collection <CountryCodeNetworkCode> existingCountryCodeNetworkCodeCollection = countryCodeNetworkCodeDAO.getAllCountryCodeNetworkCodes();
 		for (CountryCodeNetworkCode cn : existingCountryCodeNetworkCodeCollection) {
-			countryCodeNetworkCodeHashMap.put(cn.getCountryCodeNetworkCode()
-					.hashCode(), cn);
+			countryCodeNetworkCodeHashMap.put(cn.getCountryCodeNetworkCode().hashCode(), cn);
 		}
+		System.out.println(countryCodeNetworkCodeHashMap.size());
+		Collection <Country> existingCountryCollection = countryDAO.getAllCountries();
+		for (Country c : existingCountryCollection) {
+			countryHashMap.put(c.getCountryCode(), c);
+		}
+		System.out.println(countryHashMap.size());
 		long start = System.currentTimeMillis();
 
 		readExcelDocument(excelWorkbook);
 
-		long duration = System.currentTimeMillis() - start;
+		duration = System.currentTimeMillis() - start;
 		System.out.printf("The import took %d milliseconds.\n", duration);
 	}
 
@@ -113,11 +119,9 @@ public class DataImportServiceEJB implements DataImportService {
 	}
 
 	private void readBaseDataSheet(Workbook excelWorkbook) {
-		HSSFSheet baseDataWorksheet = (HSSFSheet) excelWorkbook
-				.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
+		HSSFSheet baseDataWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
 
-		Collection <FailureClass> failureClasses = new ArrayList <FailureClass>(
-				500);
+		Collection <FailureClass> failureClasses = new ArrayList <FailureClass>(500);
 
 		int numRows = baseDataWorksheet.getLastRowNum();
 		for (int i = 1; i <= numRows; i++) {
@@ -127,20 +131,16 @@ public class DataImportServiceEJB implements DataImportService {
 				int eventId = (int) row.getCell(1).getNumericCellValue();
 				int failureClass = (int) row.getCell(2).getNumericCellValue();
 				int ueType = (int) row.getCell(3).getNumericCellValue();
-				int market = (int) row.getCell(4).getNumericCellValue();
-				int operator = (int) row.getCell(5).getNumericCellValue();
+				int countryCode = (int) row.getCell(4).getNumericCellValue();
+				int networkCode = (int) row.getCell(5).getNumericCellValue();
 				int cellId = (int) row.getCell(6).getNumericCellValue();
 				int duration = (int) row.getCell(7).getNumericCellValue();
 				int causeCode = (int) row.getCell(8).getNumericCellValue();
 				String neVersion = row.getCell(9).getStringCellValue();
-				String imsi = Long.toString((long) row.getCell(10)
-						.getNumericCellValue());
-				String hier3 = Long.toString((long) row.getCell(11)
-						.getNumericCellValue());
-				String hier32 = Long.toString((long) row.getCell(12)
-						.getNumericCellValue());
-				String hier321 = Long.toString((long) row.getCell(13)
-						.getNumericCellValue());
+				String imsi = Long.toString((long) row.getCell(10).getNumericCellValue());
+				String hier3 = Long.toString((long) row.getCell(11).getNumericCellValue());
+				String hier32 = Long.toString((long) row.getCell(12).getNumericCellValue());
+				String hier321 = Long.toString((long) row.getCell(13).getNumericCellValue());
 
 				// String dateAsString = DateUtil.formatDateAsString(dateTime);
 				// Timestamp dateAsTimestamp = DateUtil
@@ -148,24 +148,21 @@ public class DataImportServiceEJB implements DataImportService {
 
 				// NEW HASHMAP RETIEVAL
 				EventCause existingEventCause = null;
-				if (eventCauseHashMap.get(new EventCauseCK(causeCode, eventId)) != null) {
-					existingEventCause = eventCauseHashMap
-							.get(new EventCauseCK(causeCode, eventId));
+				if (eventCauseHashMap.get(new EventCauseCK(causeCode, eventId).hashCode()) != null) {
+					existingEventCause = eventCauseHashMap.get(new EventCauseCK(causeCode, eventId));
 				}
 				CountryCodeNetworkCode existingCountryCodeNetworkCode = null;
-				Country existingCountry = new Country();
-				existingCountry.setCountryCode(operator);
-				if (countryCodeNetworkCodeHashMap
-						.get(new CountryCodeNetworkCodeCK(existingCountry,
-								market)) != null) {
-					existingCountryCodeNetworkCode = countryCodeNetworkCodeHashMap
-							.get(new CountryCodeNetworkCodeCK(existingCountry,
-									market));
+				Country existingCountry = null;
+				if (countryHashMap.get(countryCode) != null) {
+					existingCountry = countryHashMap.get(countryCode);
+					if (countryCodeNetworkCodeHashMap.get(new CountryCodeNetworkCodeCK(existingCountry, networkCode).hashCode()) != null) {
+						existingCountryCodeNetworkCode = countryCodeNetworkCodeHashMap
+								.get(new CountryCodeNetworkCodeCK(existingCountry, networkCode));
+					}
 				}
 				FailureClass existingFailureClass = null;
 				if (failureClassHashMap.get(failureClass) != null) {
-					existingFailureClass = failureClassHashMap
-							.get(failureClass);
+					existingFailureClass = failureClassHashMap.get(failureClass);
 				}
 				UserEquipment existingUserEquipment = null;
 				if (userEquipmentHashMap.get(ueType) != null) {
@@ -187,18 +184,21 @@ public class DataImportServiceEJB implements DataImportService {
 
 				FailureTrace newFailureTrace = new FailureTrace();
 				newFailureTrace.setDateTime(dateTime);
-				newFailureTrace
-						.setCountryCodeNetworkCode(existingCountryCodeNetworkCode);
+				if (existingCountryCodeNetworkCode != null)
+					newFailureTrace.setCountryCodeNetworkCode(existingCountryCodeNetworkCode);
 				newFailureTrace.setDuration(duration);
 				newFailureTrace.setCellId(cellId);
-				newFailureTrace.setEventCause(existingEventCause);
-				newFailureTrace.setFailureClass(existingFailureClass);
+				if (existingEventCause != null)
+					newFailureTrace.setEventCause(existingEventCause);
+				if (existingFailureClass != null)
+					newFailureTrace.setFailureClass(existingFailureClass);
 				newFailureTrace.setHier3Id(hier3);
 				newFailureTrace.setHier32Id(hier32);
 				newFailureTrace.setHier321Id(hier321);
 				newFailureTrace.setIMSI(imsi);
 				newFailureTrace.setNeVersion(neVersion);
-				newFailureTrace.setUserEqipment(existingUserEquipment);
+				if (existingUserEquipment != null)
+					newFailureTrace.setUserEqipment(existingUserEquipment);
 
 				if ( !Validator.validateFailureTrace(newFailureTrace)) {
 					errorLogWriterService.writeToErrorLog(row, "");
@@ -214,8 +214,7 @@ public class DataImportServiceEJB implements DataImportService {
 	}
 
 	private void readEventCauseDataSheet(Workbook excelWorkbook) {
-		HSSFSheet eventCauseWorksheet = (HSSFSheet) excelWorkbook
-				.getSheetAt(ExcelDataSheet.EVENT_CAUSE_TABLE.getPageNumber());
+		HSSFSheet eventCauseWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.EVENT_CAUSE_TABLE.getPageNumber());
 		// NEW IMPLEMENTATION
 		int numRows = eventCauseWorksheet.getLastRowNum();
 		HSSFRow row;
@@ -227,8 +226,7 @@ public class DataImportServiceEJB implements DataImportService {
 			int eventId = (int) row.getCell(1).getNumericCellValue();
 			String description = row.getCell(2).getStringCellValue();
 			managedEventCauseCK = new EventCauseCK(causeCode, eventId);
-			managedEventCause = new EventCause((managedEventCauseCK),
-					description);
+			managedEventCause = new EventCause((managedEventCauseCK), description);
 
 			if (eventCauseHashMap.get(managedEventCauseCK.hashCode()) != null) {
 				// ORIGINAL DB LOOKUP
@@ -237,8 +235,7 @@ public class DataImportServiceEJB implements DataImportService {
 			}
 
 			eventCauseDAO.insertEventCause(managedEventCause);
-			eventCauseHashMap.put((Integer) managedEventCauseCK.hashCode(),
-					managedEventCause);
+			eventCauseHashMap.put((Integer) managedEventCauseCK.hashCode(), managedEventCause);
 		}
 		// ORIGINAL IMPLEMENTATION
 		// int numRows = eventCauseWorksheet.getLastRowNum();
@@ -260,8 +257,7 @@ public class DataImportServiceEJB implements DataImportService {
 	}
 
 	private void readFailureClassDataSheet(Workbook excelWorkbook) {
-		HSSFSheet failureClassWorksheet = (HSSFSheet) excelWorkbook
-				.getSheetAt(ExcelDataSheet.FAILURE_CLASS_TABLE.getPageNumber());
+		HSSFSheet failureClassWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.FAILURE_CLASS_TABLE.getPageNumber());
 		// NEW IMPLEMENTATION
 		int numRows = failureClassWorksheet.getLastRowNum();
 		HSSFRow row;
@@ -280,8 +276,7 @@ public class DataImportServiceEJB implements DataImportService {
 			managedFailureClass = new FailureClass(failureClassId, description);
 
 			failureClassDAO.insertFailureClass(managedFailureClass);
-			failureClassHashMap.put((Integer) failureClassId,
-					managedFailureClass);
+			failureClassHashMap.put((Integer) failureClassId, managedFailureClass);
 		}
 
 		// ORIGINAL IMPLEMENTATION
@@ -301,8 +296,7 @@ public class DataImportServiceEJB implements DataImportService {
 	}
 
 	private void readUserEquipmentDataSheet(Workbook excelWorkbook) {
-		HSSFSheet userEquipmentWorksheet = (HSSFSheet) excelWorkbook
-				.getSheetAt(ExcelDataSheet.UE_TABLE.getPageNumber());
+		HSSFSheet userEquipmentWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.UE_TABLE.getPageNumber());
 
 		// NEW IMPLEMENTATION
 		int numRows = userEquipmentWorksheet.getLastRowNum();
@@ -340,13 +334,11 @@ public class DataImportServiceEJB implements DataImportService {
 				continue;
 			}
 
-			managedUserEquipment = new UserEquipment(typeAllocationCode,
-					marketName, manufacturer, accessCapability, model, vendor,
-					ueType, os, inputMode);
+			managedUserEquipment = new UserEquipment(typeAllocationCode, marketName, manufacturer, accessCapability, model, vendor, ueType, os,
+					inputMode);
 
 			userEquipmentDAO.insertUserEquipment(managedUserEquipment);
-			userEquipmentHashMap.put((Integer) typeAllocationCode,
-					managedUserEquipment);
+			userEquipmentHashMap.put((Integer) typeAllocationCode, managedUserEquipment);
 		}
 
 		// ORIGINAL IMPLEMENTATION
@@ -390,11 +382,11 @@ public class DataImportServiceEJB implements DataImportService {
 	}
 
 	private void readOperatorDataSheet(Workbook excelWorkbook) {
-		HSSFSheet operatorWorksheet = (HSSFSheet) excelWorkbook
-				.getSheetAt(ExcelDataSheet.MCC_MNC_TABLE.getPageNumber());
+		HSSFSheet operatorWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.MCC_MNC_TABLE.getPageNumber());
 		// NEW IMPLEMENTATION
 		int numRows = operatorWorksheet.getLastRowNum();
 		HSSFRow row;
+		Country managedCountry;
 		CountryCodeNetworkCodeCK managedCountryCodeNetworkCodeCK;
 		CountryCodeNetworkCode managedCountryCodeNetworkCode;
 		for (int i = 1; i <= numRows; i++) {
@@ -403,25 +395,28 @@ public class DataImportServiceEJB implements DataImportService {
 			int networkCode = (int) row.getCell(1).getNumericCellValue();
 			String country = row.getCell(2).getStringCellValue();
 			String operator = row.getCell(3).getStringCellValue();
-			managedCountryCodeNetworkCodeCK = new CountryCodeNetworkCodeCK(
-					new Country(countryCode, country), networkCode);
 
-			if (countryCodeNetworkCodeHashMap
-					.get(managedCountryCodeNetworkCodeCK.hashCode()) != null) {
+			if (countryHashMap.get((Integer) countryCode) != null) {
+				managedCountry = countryHashMap.get((Integer) countryCode);
+			}
+			else {
+				managedCountry = new Country(countryCode, country);
+				countryHashMap.put(countryCode, managedCountry);
+			}
+
+			managedCountryCodeNetworkCodeCK = new CountryCodeNetworkCodeCK(managedCountry, networkCode);
+
+			if (countryCodeNetworkCodeHashMap.get(managedCountryCodeNetworkCodeCK.hashCode()) != null) {
 				// ORIGINAL DB LOOKUP
 				// if (countryCodeNetworkCodeDAO.getCountryCodeNetworkCode(
 				// networkCode, countryCode) != null) {
 				continue;
 			}
 
-			managedCountryCodeNetworkCode = new CountryCodeNetworkCode(
-					managedCountryCodeNetworkCodeCK, operator);
+			managedCountryCodeNetworkCode = new CountryCodeNetworkCode(managedCountryCodeNetworkCodeCK, operator);
 
-			countryCodeNetworkCodeDAO
-					.insertCountryCodeNetworkCode(managedCountryCodeNetworkCode);
-			countryCodeNetworkCodeHashMap.put(
-					(Integer) managedCountryCodeNetworkCodeCK.hashCode(),
-					managedCountryCodeNetworkCode);
+			countryCodeNetworkCodeDAO.insertCountryCodeNetworkCode(managedCountryCodeNetworkCode);
+			countryCodeNetworkCodeHashMap.put((Integer) managedCountryCodeNetworkCodeCK.hashCode(), managedCountryCodeNetworkCode);
 		}
 
 		// OLD IMPLEMENTATION
@@ -447,5 +442,4 @@ public class DataImportServiceEJB implements DataImportService {
 		// operator));
 		// }
 	}
-
 }

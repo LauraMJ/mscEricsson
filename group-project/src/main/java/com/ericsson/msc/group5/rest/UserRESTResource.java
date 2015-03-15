@@ -22,10 +22,11 @@ public class UserRESTResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addUser(User user) {
 		if (userServiceEJB.addUser(user.getUsername(), user.getPassword(), user.getRole())) {
-			return Response.ok().status(200).entity("New user added successfully").build();
+			return Response.ok(user).build();
 		}
 		else {
-			return Response.serverError().entity("User already exists, username must be unique").build();
+			return Response.status(Response.Status.PRECONDITION_FAILED).entity(user).build();
+//			return Response.status(Response.Status.PRECONDITION_FAILED).entity(new String("Username already exists: " + user.getUsername())).build();
 		}
 	}
 }

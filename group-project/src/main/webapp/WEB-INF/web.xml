@@ -67,6 +67,14 @@
 		</web-resource-collection>
 	</security-constraint>
 
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>logout</web-resource-name>
+			<url-pattern>/login.html</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+	
 	<security-role>
 		<role-name>administrator</role-name>
 	</security-role>

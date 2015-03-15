@@ -57,6 +57,9 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>administrator</role-name>
+			<role-name>customer service rep</role-name>
+			<role-name>network mgmt engineer</role-name>
+			<role-name>support engineer</role-name>
 		</auth-constraint>
 	</security-constraint>
 
@@ -77,5 +80,17 @@
 	
 	<security-role>
 		<role-name>administrator</role-name>
+	</security-role>
+	
+	<security-role>
+		<role-name>customer service rep</role-name>
+	</security-role>
+	
+	<security-role>
+		<role-name>network mgmt engineer</role-name>
+	</security-role>
+	
+	<security-role>
+		<role-name>support engineer</role-name>
 	</security-role>
 </web-app>

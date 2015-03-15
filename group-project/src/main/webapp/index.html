@@ -165,11 +165,40 @@
 			}
 		});
 	}
-	
+	//CURRENTLY WORKING ON THIS FUNCTION
 	function selectedIMSITimePeriod(){
-		//1. get the selected imsi
-		var selected = document.getElementById('inputtedImsi').value;
-		var url = 'rest/query/eventCausePerImsi';
+		var selected = document.getElementById('imsiField').value;
+		var url = 'rest/query/givenImsiByTimePeriod';
+		var Date1 = document.getElementById('date1').value + " " + document.getElementById('time1');
+		var Date2 = docoment.getElementById('date2').value + " " + document.getElementById('time2');
+		var JSONObject = { "Date1" : Date1, "Date2" : Date2, "Imsi" : selected};
+		JSONObject = JSON.stringify(JSONObject);
+		
+		$.ajax({
+			url : url,
+			type : "POST",
+			date : JSONObject,
+			contentType : "application/json",
+			dataType : 'json',
+			success : function(data) {
+				var text = "<b> Results for IMSI " + selected + " for time period " + Date1 + " to " + Date2 + "</b><br>";
+				if(data.length == 0){
+					text = "<b>No results for lookup.</b><br>";
+				}
+				
+				for (var i = 0; o < data.length; i++){
+					var obj = data[i];
+					var printable = "IMSI: " +obj + "<br>";
+					text = text + printable;
+						
+				}
+				document.getElementById("jsChangeArea").innerHTML = text;
+				
+			
+			}
+			
+		});
+		
 	}
 
 	function change(selection) {
@@ -210,7 +239,7 @@
 			text.innerHTML = "<form id='timedate' method='post' onsubmit='return false'>\n\<b>Please Select Time Range</b><br><br>From:<input id='date1date' type='date' name='date1'/><input id='date1time' type='time' name='time1'/>To:<input id='date2date' type='date' name='date2'/><input id='date2time' type='time' name='time2'/><br><br><input id='submitButton' type='submit' value='Submit' onclick='imsiPerTimePeriod()'/></form><hr>";
 		} else if (selection == "mgmtIMSI") {
 			var text = document.getElementById("jsChangeArea");
-			text.innerHTML = "<form id='IMSISelect' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br><input id='imsiField' type='text'<b>Please Select Time Range</b><br><br>From:<input type='date' name='date1'/><input type='time' name='time1'/>To:<input type='date' name='date2'/><input type='time' name='time2'/><button id='testButton' onclick='selectedIMSITimePeriod()'>yes</button></form><hr>";
+			text.innerHTML = "<form id='IMSISelect' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br><input id='imsiField' type='text'<b>Please Select Time Range</b><br><br>From:<input type='date' id='date1' name='date1'/><input type='time' id='time1' name='time1'/>To:<input type='date' id='date2' name='date2'/><input type='time' id='time2' name='time2'/><button id='testButton' onclick='selectedIMSITimePeriod()'>yes</button></form><hr>";
 		} else {
 			alert("Problemoooo!");
 		}

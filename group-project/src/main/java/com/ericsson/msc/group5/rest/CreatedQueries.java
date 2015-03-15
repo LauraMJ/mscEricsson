@@ -56,30 +56,30 @@ public class CreatedQueries {
 
 		return Response.ok().status(200).entity(failureTraceEJB.getImsiOfFailureByTimePeriod(dateOne, dateTwo)).build();
 	}
-	
+
 	@POST
 	@Path("/givenImsiByTimePeriod")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getGivenImsiByTimePerdio(JSONObject JSONImsiDateObject){
+	public Response getGivenImsiByTimePerdio(JSONObject JSONImsiDateObject) {
 		String startDate = JSONImsiDateObject.get("Date1").toString();
 		String endDate = JSONImsiDateObject.get("Date2").toString();
-		String imsi = JSONImsiDateObject.get("Imsi").toString();
-		
+		String Imsi = JSONImsiDateObject.get("Imsi").toString();
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date dateOne = null;
 		Date dateTwo = null;
-		try{
+		try {
 			dateOne = sdf.parse(startDate);
 			dateTwo = sdf.parse(endDate);
 		}
-		catch (ParseException e){
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
-		//add different resonse for query
-		return Response.ok().status(200).entity(failureTraceEJB.getGivenImsiOfFailureWithinTimePeriod(dateOne, dateTwo, imsi)).build();
-		
-		
+		// add different resonse for query
+		System.out.println(Imsi);
+		return Response.ok().status(200).entity(failureTraceEJB.getGivenImsiOfFailureWithinTimePeriod(dateOne, dateTwo, Imsi)).build();
+
 	}
 
 	@GET

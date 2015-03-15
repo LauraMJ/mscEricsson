@@ -165,7 +165,7 @@
 		var selected = document.getElementById('imsiField').value;
 		var url = 'rest/query/givenImsiByTimePeriod';
 		var Date1 = document.getElementById('date1').value + " " + document.getElementById('time1');
-		var Date2 = docoment.getElementById('date2').value + " " + document.getElementById('time2');
+		var Date2 = document.getElementById('date2').value + " " + document.getElementById('time2');
 		var JSONObject = { "Date1" : Date1, "Date2" : Date2, "Imsi" : selected};
 		JSONObject = JSON.stringify(JSONObject);
 		

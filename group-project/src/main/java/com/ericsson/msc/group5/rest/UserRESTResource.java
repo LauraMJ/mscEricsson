@@ -10,22 +10,23 @@ import javax.ws.rs.core.Response;
 import com.ericsson.msc.group5.entities.User;
 import com.ericsson.msc.group5.services.UserService;
 
-@Path("/add")
+@Path("/")
 public class UserRESTResource {
 
 	@EJB
 	private UserService userServiceEJB;
 
 	@POST
-	@Path("/user")
+	@Path("/add/user")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addUser(User user) {
 		if (userServiceEJB.addUser(user.getUsername(), user.getPassword(), user.getRole())) {
-			return Response.ok().status(200).entity("New user added successfully").build();
+			return Response.ok(user).build();
 		}
 		else {
-			return Response.serverError().entity("User already exists, username must be unique").build();
+			return Response.status(Response.Status.PRECONDITION_FAILED).entity(user).build();
+//			return Response.status(Response.Status.PRECONDITION_FAILED).entity(new String("Username already exists: " + user.getUsername())).build();
 		}
 	}
 }

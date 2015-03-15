@@ -6,6 +6,8 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+
+
 	<servlet>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
 		<load-on-startup>1</load-on-startup>
@@ -15,6 +17,28 @@
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<description></description>
+		<display-name>LogoutServlet</display-name>
+		<servlet-name>com.ericsson.msc.group5.servlet</servlet-name>
+		<servlet-class>com.ericsson.msc.group5.servlet.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>com.ericsson.msc.group5.servlet</servlet-name>
+		<url-pattern>/LogoutServlet</url-pattern>
+	</servlet-mapping>
+
+<!-- LOGOUT FILTER THAT REDIRECTS TO THE LOGIN PAGE IF THE USER TRIES TO ACCESS logout.html directly -->
+<!-- 	<filter> -->
+<!-- 		<filter-name>loguoutFilter</filter-name> -->
+<!-- 		<filter-class>com.ericsson.msc.group5.servlet.LogoutServlet</filter-class> -->
+<!-- 	</filter> -->
+
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>loguoutFilter</filter-name> -->
+<!-- 		<url-pattern>/logout.html</url-pattern> -->
+<!-- 	</filter-mapping> -->
+
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<realm-name>user-jaas-realm</realm-name>
@@ -23,6 +47,7 @@
 			<form-error-page>/access-denied.html</form-error-page>
 		</form-login-config>
 	</login-config>
+
 	<security-constraint>
 		<display-name>pages_auth</display-name>
 		<web-resource-collection>
@@ -32,13 +57,40 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>administrator</role-name>
+			<role-name>customer service rep</role-name>
+			<role-name>network mgmt engineer</role-name>
+			<role-name>support engineer</role-name>
 		</auth-constraint>
 	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>logout</web-resource-name>
+			<url-pattern>/logout.html</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>logout</web-resource-name>
+			<url-pattern>/login.html</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+	
 	<security-role>
 		<role-name>administrator</role-name>
 	</security-role>
-<!-- 	<context-param> -->
-<!-- 		<param-name>resteasy.servlet.mapping.prefix</param-name> -->
-<!-- 		<param-value>/rest</param-value> -->
-<!-- 	</context-param> -->
+	
+	<security-role>
+		<role-name>customer service rep</role-name>
+	</security-role>
+	
+	<security-role>
+		<role-name>network mgmt engineer</role-name>
+	</security-role>
+	
+	<security-role>
+		<role-name>support engineer</role-name>
+	</security-role>
 </web-app>

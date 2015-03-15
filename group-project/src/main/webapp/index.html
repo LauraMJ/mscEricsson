@@ -165,6 +165,12 @@
 			}
 		});
 	}
+	
+	function selectedIMSITimePeriod(){
+		//1. get the selected imsi
+		var selected = document.getElementById('inputtedImsi').value;
+		var url = 'rest/query/eventCausePerImsi';
+	}
 
 	function change(selection) {
 		if (selection == "import") {
@@ -204,7 +210,7 @@
 			text.innerHTML = "<form id='timedate' method='post' onsubmit='return false'>\n\<b>Please Select Time Range</b><br><br>From:<input id='date1date' type='date' name='date1'/><input id='date1time' type='time' name='time1'/>To:<input id='date2date' type='date' name='date2'/><input id='date2time' type='time' name='time2'/><br><br><input id='submitButton' type='submit' value='Submit' onclick='imsiPerTimePeriod()'/></form><hr>";
 		} else if (selection == "mgmtIMSI") {
 			var text = document.getElementById("jsChangeArea");
-			text.innerHTML = "<form id='IMSISelect' method='post'>\n\<b>Please Choose IMSI</b><br><br><select id='selectDropdown'><option value='12334556677'>12334556677</option><option value='43694379433'>43694379433</option><option value='26394792711'>26394792711</option></select><b>Please Select Time Range</b><br><br>From:<input type='date' name='date1'/><input type='time' name='time1'/>To:<input type='date' name='date2'/><input type='time' name='time2'/><button id='testButton' onclick='passSelectedIMSI()'>yes</button></form><hr>";
+			text.innerHTML = "<form id='IMSISelect' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br><input id='imsiField' type='text'<b>Please Select Time Range</b><br><br>From:<input type='date' name='date1'/><input type='time' name='time1'/>To:<input type='date' name='date2'/><input type='time' name='time2'/><button id='testButton' onclick='selectedIMSITimePeriod()'>yes</button></form><hr>";
 		} else {
 			alert("Problemoooo!");
 		}
@@ -240,7 +246,7 @@ html, body {
 				id="custIMSI" href="#" onclick="change('custIMSI');return false;">IMSI
 					Failures by ID</a> <br> <br> <b>Support Eng.:</b> <br> <a
 				id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI
-					Failures by Time Range</a> <br> <br> <b>Net. Mgmg Eng.:</b> <br>
+					Failures by Time Range</a> <br> <br> <b>Net. Mgmt Eng.:</b> <br>
 				<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI
 					Failures by ID and Time Range</a> <br> <br></td>
 			<td id="jsChangeArea">JS changing area</td>

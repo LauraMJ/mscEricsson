@@ -12,6 +12,7 @@ import com.ericsson.msc.group5.entities.FailureTrace;
 public interface FailureTraceDAO {
 
 	public Collection <String> getImsiOfFailureWithinTimePeriod(Date startTime, Date endTime);
+	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String IMSI);
 
 	public Long getTotalNumberOfEntries();
 

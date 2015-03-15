@@ -17,7 +17,6 @@ import org.junit.runner.RunWith;
 
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.dao.jpa.JPAFailureTraceDAO;
-import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.services.FailureTraceService;
 import com.ericsson.msc.group5.services.ejb.FailureTraceServiceEJB;
@@ -28,7 +27,7 @@ public class FailureTraceServiceEJBTest {
 	@Deployment
 	public static JavaArchive createDeployment() {
 		return ShrinkWrap.create(JavaArchive.class, "test.jar").addPackage(FailureTrace.class.getPackage())
-				.addClasses(FailureClass.class, FailureTraceServiceEJB.class, FailureTraceService.class, FailureTraceDAO.class, JPAFailureTraceDAO.class)
+				.addClasses(FailureTrace.class, FailureTraceServiceEJB.class, FailureTraceService.class, FailureTraceDAO.class, JPAFailureTraceDAO.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 	
@@ -37,7 +36,17 @@ public class FailureTraceServiceEJBTest {
 	
 	@Test
 	public void addFailureTracesTest() {
-		FailureTrace [] failureTraceArray = {new FailureTrace(), new FailureTrace(), new FailureTrace()};
+		FailureTrace failureTraceOne =  new FailureTrace();
+		failureTraceOne.setFailureTraceId(10L);
+		FailureTrace failureTraceTwo =  new FailureTrace();
+		failureTraceOne.setFailureTraceId(1L);
+		//Collection <FailureTrace> failureTraceArray = new ArrayList <>();
+		//failureTraceArray.add();
+		//failureTraceArray.add(failureTraceTwo);
+		
+		FailureTrace [] failureTraceArray = {failureTraceOne, failureTraceTwo};
+		
+		
 
 		Collection <FailureTrace> failureTraces = new ArrayList <>();
 		for (FailureTrace f : failureTraceArray) {

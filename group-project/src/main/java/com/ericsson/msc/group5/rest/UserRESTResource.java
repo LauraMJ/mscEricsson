@@ -36,8 +36,20 @@ public class UserRESTResource {
 	@GET
 	@Path("/get/username")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addUser(@Context SecurityContext securityContext) {
-		System.out.println(securityContext.getUserPrincipal().getName());
-		return Response.ok("username:" + securityContext.getUserPrincipal().getName()).build();
+	public Response getUsername(@Context SecurityContext securityContext) {
+		return Response.ok("{ \"username\" : \"" + securityContext.getUserPrincipal().getName() + "\" }").build();
+	}
+
+	@GET
+	@Path("/get/userrole")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUserrole(@Context SecurityContext securityContext) {
+		String roles[] = {"administrator", "customer service rep", "network mgmt engineer", "support engineer"};
+		for(String role : roles){
+			if(securityContext.isUserInRole(role)){
+				return Response.ok("{ \"role\" : " + role + " }").build();
+			}
+		}
+		return Response.status(Response.Status.PRECONDITION_FAILED).build();
 	}
 }

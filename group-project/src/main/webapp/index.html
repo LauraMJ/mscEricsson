@@ -6,9 +6,7 @@
 <form name="test">
 	<input type="hidden" name="test2">
 </form>
-<form name="bull">
-	Username: <input type="text" name="bear">
-</form>
+<p name="usernameTag" id="usernameTag">Username: </p>
 <button type="button" onclick="window.location.replace('LogoutServlet')">Log
 	out</button>
 
@@ -69,8 +67,28 @@
 		theright = str.length;
 		return (str.substring(theleft, theright));
 	}
+	
+	function getUsername(){
+		alert("here");
+		$.ajax({
+			url : "rest/get/username",
+			type : 'GET',
+			contentType : 'application/json',
+			dataType : "json",
+			success : function(data) {
+				var message = "Username:   '" + data.username + "'";
+				alert(message);
+// 				document.bull.bear.value = message;
+				document.getElementById("usernameTag").innerHTML = message;
+// 				$("#usernameTag").val(message);
+				alert("finito");
+			}
+		});
+	}
+	
 	var zork = delineate(text);
-	document.bull.bear.value = zork;
+	getUsername();
+// 	document.bull.bear.value = zork;
 
 	//function passFilePath(){
 	//	var filePathChosen = document.getElementById("filePath").value;

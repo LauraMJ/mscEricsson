@@ -11,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.FailureTraceService;
+import com.ericsson.msc.group5.services.ejb.DataImportServiceEJB;
 
 @Path("/restImportService")
 public class RestImportService {
@@ -25,17 +26,11 @@ public class RestImportService {
 	@Path("/import")
 	@Consumes("multipart/form-data")
 	public String importUploadedFile(@MultipartForm FileUploadForm form) {
-		long startTime, endTime, totalTime;
 		String resultString = "";
-		startTime = System.currentTimeMillis();
 		try {
-			HSSFWorkbook wb = new HSSFWorkbook(new ByteArrayInputStream(
-					form.getFileData()));
-			startTime = System.currentTimeMillis();
+			HSSFWorkbook wb = new HSSFWorkbook(new ByteArrayInputStream(form.getFileData()));
 			dataImport.importSpreadsheet(wb);
-			endTime = System.currentTimeMillis();
-			totalTime = endTime - startTime;
-			resultString = "Time taken: " + totalTime + " milliseconds.";
+			resultString = "Time taken: " + DataImportServiceEJB.duration + " milliseconds.";
 			System.out.println(resultString);
 		}
 		catch (IOException e) {

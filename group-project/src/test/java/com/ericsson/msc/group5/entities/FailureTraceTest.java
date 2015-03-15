@@ -36,7 +36,7 @@ public class FailureTraceTest {
 	private static int INITIAL_DURATION = 1000;
 	private static int UPDATED_DURATION = 10000;
 	private FailureTrace ft;
-	private int id = 0;
+	private Long id = 0L;
 
 	@Before
 	public void preparePersistenceTest() throws Exception {
@@ -56,8 +56,8 @@ public class FailureTraceTest {
 
 		ft = new FailureTrace();
 
-		UserEquipment ue = new UserEquipment(0, "marketing name", "manufacturer", "access capability", "model", "vendor", "user equipment type", "operating system",
-				"input mode");
+		UserEquipment ue = new UserEquipment(0, "marketing name", "manufacturer", "access capability", "model", "vendor", "user equipment type",
+				"operating system", "input mode");
 		em.persist(ue);
 
 		ft.setUserEqipment(ue);
@@ -100,7 +100,8 @@ public class FailureTraceTest {
 	}
 
 	/*
-	 * Test to ensure that deletes cascade/don't cascade properly to the owned entities.
+	 * Test to ensure that deletes cascade/don't cascade properly to the owned
+	 * entities.
 	 */
 	@Test
 	@Ignore

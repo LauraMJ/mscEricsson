@@ -3,8 +3,6 @@ package com.ericsson.msc.group5.entities;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -27,16 +25,15 @@ import javax.persistence.Table;
 @Table(name = "failure_trace")
 @NamedQueries({
 		@NamedQuery(name = "getAllFailureTraces", query = "SELECT f FROM FailureTrace f"),
+		@NamedQuery(name = "getTotalNumberOfEntries", query = "SELECT count(f.failureTraceId) from FailureTrace f"),
 		@NamedQuery(name = "getEventCauseCombinations", query = "SELECT DISTINCT (f.eventCause) FROM FailureTrace f WHERE f.IMSI = :givenImsi"),
-		// @NamedQuery(name = "getEventCauseCombinations", query =
-		// "SELECT f FROM FailureTrace f WHERE f.IMSI = :givenImsi"),
 		@NamedQuery(name = "getImsiOfFailureByTimePeriod", query = "SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime ")})
 public class FailureTrace {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	// @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "failure_trace_id")
-	private Integer failureTraceId;
+	private Long failureTraceId;
 	@Column(name = "date_time")
 	private Date dateTime;
 	@Column(name = "cell_id")
@@ -60,13 +57,11 @@ public class FailureTrace {
 	@JoinColumn(name = "typeAllocationCode")
 	private UserEquipment userEqipment;
 	@ManyToOne
-	@JoinColumns({
-			@JoinColumn(name = "cause_code", referencedColumnName = "cause_code"),
+	@JoinColumns({@JoinColumn(name = "cause_code", referencedColumnName = "cause_code"),
 			@JoinColumn(name = "event_id", referencedColumnName = "event_id")})
 	private EventCause eventCause;
 	@ManyToOne
-	@JoinColumns({
-			@JoinColumn(name = "country_code", referencedColumnName = "country_code"),
+	@JoinColumns({@JoinColumn(name = "country_code", referencedColumnName = "country_code"),
 			@JoinColumn(name = "network_code", referencedColumnName = "network_code")})
 	private CountryCodeNetworkCode countryCodeNetworkCode;
 
@@ -76,11 +71,11 @@ public class FailureTrace {
 	public FailureTrace() {
 	}
 
-	public Integer getFailureTraceId() {
+	public Long getFailureTraceId() {
 		return failureTraceId;
 	}
 
-	public void setFailureTraceId(Integer failureTraceId) {
+	public void setFailureTraceId(Long failureTraceId) {
 		this.failureTraceId = failureTraceId;
 	}
 
@@ -176,8 +171,7 @@ public class FailureTrace {
 		return countryCodeNetworkCode;
 	}
 
-	public void setCountryCodeNetworkCode(
-			CountryCodeNetworkCode countryCodeNetworkCode) {
+	public void setCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode) {
 		this.countryCodeNetworkCode = countryCodeNetworkCode;
 	}
 }

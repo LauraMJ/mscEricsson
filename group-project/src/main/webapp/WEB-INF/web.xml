@@ -16,7 +16,7 @@
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<description></description>
 		<display-name>LogoutServlet</display-name>
@@ -27,6 +27,17 @@
 		<servlet-name>com.ericsson.msc.group5.servlet</servlet-name>
 		<url-pattern>/LogoutServlet</url-pattern>
 	</servlet-mapping>
+
+<!-- LOGOUT FILTER THAT REDIRECTS TO THE LOGIN PAGE IF THE USER TRIES TO ACCESS logout.html directly -->
+<!-- 	<filter> -->
+<!-- 		<filter-name>loguoutFilter</filter-name> -->
+<!-- 		<filter-class>com.ericsson.msc.group5.servlet.LogoutServlet</filter-class> -->
+<!-- 	</filter> -->
+
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>loguoutFilter</filter-name> -->
+<!-- 		<url-pattern>/logout.html</url-pattern> -->
+<!-- 	</filter-mapping> -->
 
 	<login-config>
 		<auth-method>FORM</auth-method>
@@ -59,8 +70,4 @@
 	<security-role>
 		<role-name>administrator</role-name>
 	</security-role>
-	<!-- <context-param> -->
-	<!-- <param-name>resteasy.servlet.mapping.prefix</param-name> -->
-	<!-- <param-value>/rest</param-value> -->
-	<!-- </context-param> -->
 </web-app>

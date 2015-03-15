@@ -14,15 +14,16 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 	private EntityManager em;
 
 	public Collection <EventCause> getEventCauseForImsi(String imsi) {
-		return em.createNamedQuery("getEventCauseCombinations")
-				.setParameter("givenImsi", imsi).getResultList();
+		return em.createNamedQuery("getEventCauseCombinations").setParameter("givenImsi", imsi).getResultList();
 	}
 
-	public Collection <String> getImsiOfFailureWithinTimePeriod(Date startTime,
-			Date endTime) {
-		return em.createNamedQuery("getImsiOfFailureByTimePeriod")
-				.setParameter("startTime", startTime)
-				.setParameter("endTime", endTime).getResultList();
+	public Collection <String> getImsiOfFailureWithinTimePeriod(Date startTime, Date endTime) {
+		return em.createNamedQuery("getImsiOfFailureByTimePeriod").setParameter("startTime", startTime).setParameter("endTime", endTime)
+				.getResultList();
+	}
+
+	public Long getTotalNumberOfEntries() {
+		return (Long) em.createNamedQuery("getTotalNumberOfEntries").getSingleResult();
 	}
 
 	@Override
@@ -46,10 +47,9 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 	}
 
 	@Override
-	public void batchInsertFailureTrace(
-			Collection <FailureTrace> failureTraceList) {
-		for (FailureTrace failureTrace : failureTraceList)
+	public void batchInsertFailureTrace(Collection <FailureTrace> failureTraceList) {
+		for (FailureTrace failureTrace : failureTraceList) {
 			em.persist(failureTrace);
+		}
 	}
-
 }

@@ -26,9 +26,7 @@ public class RestImportService {
 	@Path("/import")
 	@Consumes("multipart/form-data")
 	public String importUploadedFile(@MultipartForm FileUploadForm form) {
-		long startTime, endTime, totalTime;
 		String resultString = "";
-		startTime = System.currentTimeMillis();
 		try {
 			HSSFWorkbook wb = new HSSFWorkbook(new ByteArrayInputStream(form.getFileData()));
 			dataImport.importSpreadsheet(wb);

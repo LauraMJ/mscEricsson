@@ -23,8 +23,7 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 	private FailureTraceDAO dao;
 
 	public Collection <EventCause> getEventCauseCombinations(String imsi) {
-		Collection <EventCause> eventCauseResultCollection = dao
-				.getEventCauseForImsi(imsi);
+		Collection <EventCause> eventCauseResultCollection = dao.getEventCauseForImsi(imsi);
 
 		// for (java.util.Iterator <EventCause> it = eventCauseResultCollection
 		// .iterator(); it.hasNext();) {
@@ -40,8 +39,7 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 		return eventCauseResultCollection;
 	}
 
-	public Collection <String> getImsiOfFailureByTimePeriod(Date startTime,
-			Date endTime) {
+	public Collection <String> getImsiOfFailureByTimePeriod(Date startTime, Date endTime) {
 		// Collection <String> collectionOfFailureTraceObjects = dao
 		// .getImsiOfFailureWithinTimePeriod(startTime, endTime);
 		// Collection <String> imsiCollection = new ArrayList <String>();
@@ -56,5 +54,9 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 
 	public Collection <FailureTrace> getAllFailureTraces() {
 		return dao.getAllFailureTraces();
+	}
+
+	public Long getTotalNumberOfEntries() {
+		return dao.getTotalNumberOfEntries();
 	}
 }

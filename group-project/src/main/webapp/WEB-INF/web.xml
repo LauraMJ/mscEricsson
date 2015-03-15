@@ -59,8 +59,8 @@
 		<auth-constraint>
 			<role-name>administrator</role-name>
 			<role-name>customer service rep</role-name>
-			<role-name>network mgmt engineer</role-name>
 			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
 		</auth-constraint>
 	</security-constraint>
 
@@ -72,8 +72,8 @@
 		<auth-constraint>
 			<role-name>administrator</role-name>
 			<!-- <role-name>customer service rep</role-name> -->
-			<!-- <role-name>network mgmt engineer</role-name> -->
 			<!-- <role-name>support engineer</role-name> -->
+			<!-- <role-name>network mgmt engineer</role-name> -->
 		</auth-constraint>
 	</security-constraint>
 
@@ -93,10 +93,36 @@
 			<url-pattern>/rest/query/eventCause</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<!-- <role-name>administrator</role-name> -->
+			<role-name>administrator</role-name>
 			<role-name>customer service rep</role-name>
-			<role-name>network mgmt engineer</role-name>
 			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>imsiByTimePeriod</web-resource-name>
+			<url-pattern>/rest/query/imsiByTimePeriod</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+			<!-- <role-name>customer service rep</role-name> -->
+			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>imsiByTimePeriodDisplay</web-resource-name>
+			<url-pattern>/rest/query/givenImsiByTimePeriod</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+			<!-- <role-name>customer service rep</role-name> -->
+			<!-- <role-name>support engineer</role-name> -->
+			<role-name>network mgmt engineer</role-name>
 		</auth-constraint>
 	</security-constraint>
 

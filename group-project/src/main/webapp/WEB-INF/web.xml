@@ -28,16 +28,17 @@
 		<url-pattern>/LogoutServlet</url-pattern>
 	</servlet-mapping>
 
-<!-- LOGOUT FILTER THAT REDIRECTS TO THE LOGIN PAGE IF THE USER TRIES TO ACCESS logout.html directly -->
-<!-- 	<filter> -->
-<!-- 		<filter-name>loguoutFilter</filter-name> -->
-<!-- 		<filter-class>com.ericsson.msc.group5.servlet.LogoutServlet</filter-class> -->
-<!-- 	</filter> -->
+	<!-- LOGOUT FILTER THAT REDIRECTS TO THE LOGIN PAGE IF THE USER TRIES TO 
+		ACCESS logout.html directly -->
+	<!-- <filter> -->
+	<!-- <filter-name>loguoutFilter</filter-name> -->
+	<!-- <filter-class>com.ericsson.msc.group5.servlet.LogoutServlet</filter-class> -->
+	<!-- </filter> -->
 
-<!-- 	<filter-mapping> -->
-<!-- 		<filter-name>loguoutFilter</filter-name> -->
-<!-- 		<url-pattern>/logout.html</url-pattern> -->
-<!-- 	</filter-mapping> -->
+	<!-- <filter-mapping> -->
+	<!-- <filter-name>loguoutFilter</filter-name> -->
+	<!-- <url-pattern>/logout.html</url-pattern> -->
+	<!-- </filter-mapping> -->
 
 	<login-config>
 		<auth-method>FORM</auth-method>
@@ -65,6 +66,42 @@
 
 	<security-constraint>
 		<web-resource-collection>
+			<web-resource-name>importData</web-resource-name>
+			<url-pattern>/rest/restImportService/import</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+			<!-- <role-name>customer service rep</role-name> -->
+			<!-- <role-name>network mgmt engineer</role-name> -->
+			<!-- <role-name>support engineer</role-name> -->
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>addUser</web-resource-name>
+			<url-pattern>/rest/add/user</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>eventcauseDisplay</web-resource-name>
+			<url-pattern>/rest/query/eventCause</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<!-- <role-name>administrator</role-name> -->
+			<role-name>customer service rep</role-name>
+			<role-name>network mgmt engineer</role-name>
+			<role-name>support engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
 			<web-resource-name>logout</web-resource-name>
 			<url-pattern>/logout.html</url-pattern>
 		</web-resource-collection>
@@ -77,19 +114,19 @@
 			<url-pattern>/login.html</url-pattern>
 		</web-resource-collection>
 	</security-constraint>
-	
+
 	<security-role>
 		<role-name>administrator</role-name>
 	</security-role>
-	
+
 	<security-role>
 		<role-name>customer service rep</role-name>
 	</security-role>
-	
+
 	<security-role>
 		<role-name>network mgmt engineer</role-name>
 	</security-role>
-	
+
 	<security-role>
 		<role-name>support engineer</role-name>
 	</security-role>

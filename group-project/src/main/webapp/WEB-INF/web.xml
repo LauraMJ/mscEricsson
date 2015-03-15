@@ -6,6 +6,8 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+
+
 	<servlet>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
 		<load-on-startup>1</load-on-startup>
@@ -13,6 +15,17 @@
 	<servlet-mapping>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description></description>
+		<display-name>LogoutServlet</display-name>
+		<servlet-name>com.ericsson.msc.group5.servlet</servlet-name>
+		<servlet-class>com.ericsson.msc.group5.servlet.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>com.ericsson.msc.group5.servlet</servlet-name>
+		<url-pattern>/LogoutServlet</url-pattern>
 	</servlet-mapping>
 
 	<login-config>
@@ -23,6 +36,7 @@
 			<form-error-page>/access-denied.html</form-error-page>
 		</form-login-config>
 	</login-config>
+
 	<security-constraint>
 		<display-name>pages_auth</display-name>
 		<web-resource-collection>
@@ -34,11 +48,19 @@
 			<role-name>administrator</role-name>
 		</auth-constraint>
 	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>logout</web-resource-name>
+			<url-pattern>/logout.html</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+
 	<security-role>
 		<role-name>administrator</role-name>
 	</security-role>
-<!-- 	<context-param> -->
-<!-- 		<param-name>resteasy.servlet.mapping.prefix</param-name> -->
-<!-- 		<param-value>/rest</param-value> -->
-<!-- 	</context-param> -->
+	<!-- <context-param> -->
+	<!-- <param-name>resteasy.servlet.mapping.prefix</param-name> -->
+	<!-- <param-value>/rest</param-value> -->
+	<!-- </context-param> -->
 </web-app>

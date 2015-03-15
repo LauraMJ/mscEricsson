@@ -10,14 +10,14 @@
         Username:
         <input type="text" name="bear">
     </form>
-    <button type="button" onclick="location.href = 'rest/logout'">Log out</button>
+    <button type="button" onclick="window.location.replace('LogoutServlet')">Log out</button>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript">
         var locate = window.location;
         document.test.test2.value = locate;
         var text = document.test.test2.value;
-
+        
         function User(username, password, role) {
             this.username = username;
             this.password = password;

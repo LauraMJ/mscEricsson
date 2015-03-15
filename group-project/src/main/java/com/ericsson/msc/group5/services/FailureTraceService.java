@@ -23,4 +23,6 @@ public interface FailureTraceService {
 	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String IMSI);
 
 	public Collection <FailureTrace> getAllFailureTraces();
+	
+	public void addFailureTraces(Collection<FailureTrace> failureTraces);
 }

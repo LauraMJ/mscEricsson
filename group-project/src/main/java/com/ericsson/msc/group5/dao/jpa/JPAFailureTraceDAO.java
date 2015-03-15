@@ -21,6 +21,10 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 		return em.createNamedQuery("getImsiOfFailureByTimePeriod").setParameter("startTime", startTime).setParameter("endTime", endTime)
 				.getResultList();
 	}
+	
+	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String Imsi){
+		return em.createNamedQuery("givenImsiByTimePeriod").setParameter("startTime", startTime).setParameter("endTime", endTime).setParameter("Imsi", Imsi).getResultList();
+	}
 
 	public Long getTotalNumberOfEntries() {
 		return (Long) em.createNamedQuery("getTotalNumberOfEntries").getSingleResult();

@@ -60,6 +60,7 @@
 		var selected = document.getElementById("selectDropdown");
 		var text = selected.options[selected.selectedIndex].innerHTML;
 		alert(text);
+		
 	}
 
 	function delineate(str) {
@@ -107,7 +108,7 @@
 	//Function to retrieve event/cause combinations by imsi
 	function eventCauseForImsi() {
 		var selected = document.getElementById('inputtedImsi').value;
-		var url = 'rest/query/eventCause';
+		var url = 'rest/query/eventCausePerImsi';
 		$.ajax({
 			url : url,
 			type : "POST",
@@ -135,14 +136,34 @@
 	}
 
 	function imsiPerTimePeriod() {
-		var date1 = document.getElementById('date1date').value + " "
+		var url = 'rest/query/imsiByTimePeriod';
+		var Date1 = document.getElementById('date1date').value + " "
 				+ document.getElementById('date1time').value;
-		var date2 = document.getElementById('date2date').value + " "
+		var Date2 = document.getElementById('date2date').value + " "
 				+ document.getElementById('date2time').value;
+		var JSONObject = { "Date1" : Date1, "Date2" : Date2};
+		JSONObject = JSON.stringify(JSONObject);
 
-		alert(date1);
-		alert(date2);
-		alert("work in progress");
+		$.ajax({
+			url : url,
+			type : "POST",
+			data : JSONObject,
+			contentType : "application/json",
+			dataType : 'json',
+			success : function(data) {
+ 				var text = "<b> Results for time period " + Date1 + " to " + Date2 + "</b><br>";// + "' to '" + Date2 "' </b><br>";
+				if (data.length == 0) {
+					text = "<b> No results for that time period.</b><br>";
+				}
+
+				for (var i = 0; i < data.length; i++) {
+					var obj = data[i];
+					var printable = "IMSI: " + obj + "<br>";
+					text = text + printable;
+				}
+				document.getElementById("jsChangeArea").innerHTML = text;
+			}
+		});
 	}
 
 	function change(selection) {

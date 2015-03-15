@@ -67,5 +67,9 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 	public Long getTotalNumberOfEntries() {
 		return dao.getTotalNumberOfEntries();
 	}
+	
+	public void addFailureTraces(Collection <FailureTrace> failureTraces){
+		dao.batchInsertFailureTrace(failureTraces);
+	}
 
 }

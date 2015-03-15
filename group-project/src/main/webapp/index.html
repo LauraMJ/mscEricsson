@@ -70,7 +70,6 @@
 	}
 	
 	function getUsername(){
-		alert("here");
 		$.ajax({
 			url : "rest/get/username",
 			type : 'GET',
@@ -78,11 +77,7 @@
 			dataType : "json",
 			success : function(data) {
 				var message = "Username:   '" + data.username + "'";
-				alert(message);
-// 				document.bull.bear.value = message;
 				document.getElementById("usernameTag").innerHTML = message;
-// 				$("#usernameTag").val(message);
-				alert("finito");
 			}
 		});
 	}

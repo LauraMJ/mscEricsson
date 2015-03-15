@@ -9,8 +9,8 @@
 	<!-- <properties> -->
 	<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" 
 		/> -->
-	<!-- <property name="hibernate.show.sql" value="false" /> -->
-	<!-- <property name="hibernate.format.sql" value="false" /> -->
+	
+	
 	<!-- <property name="hibernate.hbm2ddl.auto" value="update" /> -->
 	<!-- <property name="hibernate.connection.username" value="root" /> -->
 	<!-- <property name="hibernate.connection.password" value="toor" /> -->
@@ -25,6 +25,9 @@
 		<jta-data-source>java:/datasources/CALL_FAILURE_LOGS</jta-data-source>
 		<class>com.ericsson.msc.group5.entities.FailureClass</class>
 		<properties>
+		    <!-- Logging options -->
+		    <!-- <property name="hibernate.format.sql" value="true" /> -->
+		    <!-- <property name="hibernate.show.sql" value="true" /> -->
 			<property name="hibernate.archive.autodetection" value="class, hbm" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />

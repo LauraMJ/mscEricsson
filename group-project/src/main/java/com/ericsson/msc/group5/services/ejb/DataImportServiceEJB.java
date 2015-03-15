@@ -74,10 +74,7 @@ public class DataImportServiceEJB implements DataImportService {
 		}
 	}
 
-	// @POST
-	// @Path("{loc}")
 	public void importSpreadsheet(HSSFWorkbook excelWorkbook) {
-
 		Collection <EventCause> existingEventCauseCollection = eventCauseDAO.getAllEventCauses();
 		for (EventCause evCa : existingEventCauseCollection) {
 			eventCauseHashMap.put(evCa.getCauseCodeEventIdCK().hashCode(), evCa);
@@ -116,11 +113,9 @@ public class DataImportServiceEJB implements DataImportService {
 
 	private void readBaseDataSheet(Workbook excelWorkbook) {
 		HSSFSheet baseDataWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.BASE_DATA_TABLE.getPageNumber());
-
 		Collection <FailureTrace> failureTraceCollectionToFlush = new ArrayList <FailureTrace>();
 		int numRows = baseDataWorksheet.getLastRowNum();
 		Long initialPKValue = failureTraceDAO.getTotalNumberOfEntries() + 1;
-
 		for (int i = 1; i <= numRows; i++) {
 			HSSFRow row = (HSSFRow) baseDataWorksheet.getRow(i);
 			try {
@@ -139,7 +134,6 @@ public class DataImportServiceEJB implements DataImportService {
 				String hier32 = Long.toString((long) row.getCell(12).getNumericCellValue());
 				String hier321 = Long.toString((long) row.getCell(13).getNumericCellValue());
 
-				// NEW HASHMAP RETIEVAL
 				EventCause existingEventCause = null;
 				if (eventCauseHashMap.containsKey(new EventCauseCK(causeCode, eventId).hashCode())) {
 					existingEventCause = eventCauseHashMap.get(new EventCauseCK(causeCode, eventId).hashCode());
@@ -162,17 +156,6 @@ public class DataImportServiceEJB implements DataImportService {
 					existingUserEquipment = userEquipmentHashMap.get(ueType);
 				}
 
-				// ORIGINAL DB RETIEVAL
-				// EventCause existingEventCause = eventCauseDAO.getEventCause(
-				// causeCode, eventId);
-				// CountryCodeNetworkCode existingCountryCodeNetworkCode =
-				// countryCodeNetworkCodeDAO
-				// .getCountryCodeNetworkCode(operator, market);
-				// FailureClass existingFailureClass = failureClassDAO
-				// .getFailureClass(failureClass);
-				// UserEquipment existingUserEquipment = userEquipmentDAO
-				// .getUserEquipment(ueType);
-
 				FailureTrace createdFailureTrace = new FailureTrace();
 				createdFailureTrace.setFailureTraceId(initialPKValue);
 				createdFailureTrace.setDateTime(dateTime);
@@ -193,13 +176,6 @@ public class DataImportServiceEJB implements DataImportService {
 					continue;
 				}
 
-				if (failureTraceCollectionToFlush.size() == 1000) {
-					failureTraceDAO.batchInsertFailureTrace(failureTraceCollectionToFlush);
-					failureTraceCollectionToFlush.clear();
-				}
-				else if (i == numRows) {
-					failureTraceDAO.batchInsertFailureTrace(failureTraceCollectionToFlush);
-				}
 				failureTraceCollectionToFlush.add(createdFailureTrace);
 				initialPKValue++;
 			}
@@ -207,11 +183,11 @@ public class DataImportServiceEJB implements DataImportService {
 				errorLogWriterService.writeToErrorLog(row, "");
 			}
 		}
+		failureTraceDAO.batchInsertFailureTrace(failureTraceCollectionToFlush);
 	}
 
 	private void readEventCauseDataSheet(Workbook excelWorkbook) {
 		HSSFSheet eventCauseWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.EVENT_CAUSE_TABLE.getPageNumber());
-		// NEW IMPLEMENTATION
 		int numRows = eventCauseWorksheet.getLastRowNum();
 		HSSFRow row;
 		EventCauseCK managedEventCauseCK;
@@ -226,36 +202,16 @@ public class DataImportServiceEJB implements DataImportService {
 			managedEventCause = new EventCause((managedEventCauseCK), description);
 
 			if (eventCauseHashMap.get(managedEventCauseCK.hashCode()) != null) {
-				// ORIGINAL DB LOOKUP
-				// if (eventCauseDAO.getEventCause(causeCode, eventId) != null){
 				continue;
 			}
 			eventCauseCollection.add(managedEventCause);
 			eventCauseHashMap.put((Integer) managedEventCauseCK.hashCode(), managedEventCause);
 		}
 		eventCauseDAO.batchInsertEventCause(eventCauseCollection);
-		// ORIGINAL IMPLEMENTATION
-		// int numRows = eventCauseWorksheet.getLastRowNum();
-		// HSSFRow row;
-		// for (int i = 1; i <= numRows; i++) {
-		// row = (HSSFRow) eventCauseWorksheet.getRow(i);
-		//
-		// int causeCode = (int) row.getCell(0).getNumericCellValue();
-		// int eventId = (int) row.getCell(1).getNumericCellValue();
-		//
-		// if (eventCauseDAO.getEventCause(causeCode, eventId) != null) {
-		// continue;
-		// }
-		//
-		// String description = row.getCell(2).getStringCellValue();
-		// eventCauseDAO.insertEventCause(new EventCause((new EventCauseCK(
-		// causeCode, eventId)), description));
-		// }
 	}
 
 	private void readFailureClassDataSheet(Workbook excelWorkbook) {
 		HSSFSheet failureClassWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.FAILURE_CLASS_TABLE.getPageNumber());
-		// NEW IMPLEMENTATION
 		int numRows = failureClassWorksheet.getLastRowNum();
 		HSSFRow row;
 		FailureClass managedFailureClass;
@@ -266,8 +222,6 @@ public class DataImportServiceEJB implements DataImportService {
 			String description = row.getCell(1).getStringCellValue();
 
 			if (failureClassHashMap.get((Integer) failureClassId) != null) {
-				// ORIGINAL DB LOOKUP
-				// if (failureClassDAO.getFailureClass(failureClass) != null) {
 				continue;
 			}
 
@@ -277,27 +231,11 @@ public class DataImportServiceEJB implements DataImportService {
 			failureClassHashMap.put((Integer) failureClassId, managedFailureClass);
 		}
 		failureClassDAO.batchInsertFailureClasses(failureClassCollection);
-
-		// ORIGINAL IMPLEMENTATION
-		// int numRows = failureClassWorksheet.getLastRowNum();
-		// for (int i = 1; i <= numRows; i++) {
-		// HSSFRow row = failureClassWorksheet.getRow(i);
-		//
-		// int failureClass = (int) row.getCell(0).getNumericCellValue();
-		// if (failureClassDAO.getFailureClass(failureClass) != null) {
-		// continue;
-		// }
-		//
-		// String description = row.getCell(1).getStringCellValue();
-		// failureClassDAO.insertFailureClass(new FailureClass(failureClass,
-		// description));
-		// }
 	}
 
 	private void readUserEquipmentDataSheet(Workbook excelWorkbook) {
 		HSSFSheet userEquipmentWorksheet = (HSSFSheet) excelWorkbook.getSheetAt(ExcelDataSheet.UE_TABLE.getPageNumber());
 
-		// NEW IMPLEMENTATION
 		int numRows = userEquipmentWorksheet.getLastRowNum();
 		HSSFRow row;
 		UserEquipment managedUserEquipment;
@@ -328,58 +266,15 @@ public class DataImportServiceEJB implements DataImportService {
 			}
 
 			if (userEquipmentHashMap.get((Integer) typeAllocationCode) != null) {
-				// ORIGINAL DB LOOKUP
-				// if (userEquipmentDAO.getUserEquipment(typeAllocationCode) !=
-				// null) {
 				continue;
 			}
 
 			managedUserEquipment = new UserEquipment(typeAllocationCode, marketName, manufacturer, accessCapability, model, vendor, ueType, os,
 					inputMode);
-
 			userEquipmentCollection.add(managedUserEquipment);
 			userEquipmentHashMap.put((Integer) typeAllocationCode, managedUserEquipment);
 		}
 		userEquipmentDAO.batchInsertUserEquipment(userEquipmentCollection);
-
-		// ORIGINAL IMPLEMENTATION
-		// int numRows = userEquipmentWorksheet.getLastRowNum();
-		// HSSFRow row;
-		// for (int i = 1; i <= numRows; i++) {
-		// row = (HSSFRow) userEquipmentWorksheet.getRow(i);
-		//
-		// int typeAllocationCode = (int) row.getCell(0).getNumericCellValue();
-		//
-		// if (userEquipmentDAO.getUserEquipment(typeAllocationCode) != null) {
-		// continue;
-		// }
-		//
-		// String marketName = "";
-		// String manufacturer = row.getCell(2).getStringCellValue();
-		// String accessCapability = row.getCell(3).getStringCellValue();
-		// String model = "";
-		// String vendor = row.getCell(5).getStringCellValue();
-		// String ueType = row.getCell(6).getStringCellValue();
-		// String os = row.getCell(7).getStringCellValue();
-		// String inputMode = row.getCell(8).getStringCellValue();
-		//
-		// try {
-		// marketName = row.getCell(1).getStringCellValue();
-		// model = row.getCell(4).getStringCellValue();
-		// }
-		// catch (IllegalStateException e) {
-		// HSSFCell marketNameCell = row.getCell(1);
-		// marketNameCell.setCellType(Cell.CELL_TYPE_STRING);
-		// HSSFCell modelNameCell = row.getCell(4);
-		// modelNameCell.setCellType(Cell.CELL_TYPE_STRING);
-		// marketName = marketNameCell.getStringCellValue();
-		// model = modelNameCell.getStringCellValue();
-		// }
-		//
-		// userEquipmentDAO.insertUserEquipment(new UserEquipment(
-		// typeAllocationCode, marketName, manufacturer,
-		// accessCapability, model, vendor, ueType, os, inputMode));
-		// }
 	}
 
 	private void readOperatorDataSheet(Workbook excelWorkbook) {
@@ -409,9 +304,6 @@ public class DataImportServiceEJB implements DataImportService {
 			managedCountryCodeNetworkCodeCK = new CountryCodeNetworkCodeCK(managedCountry, networkCode);
 
 			if (countryCodeNetworkCodeHashMap.get(managedCountryCodeNetworkCodeCK.hashCode()) != null) {
-				// ORIGINAL DB LOOKUP
-				// if (countryCodeNetworkCodeDAO.getCountryCodeNetworkCode(
-				// networkCode, countryCode) != null) {
 				continue;
 			}
 
@@ -422,28 +314,5 @@ public class DataImportServiceEJB implements DataImportService {
 			countryCodeNetworkCodeHashMap.put((Integer) managedCountryCodeNetworkCodeCK.hashCode(), managedCountryCodeNetworkCode);
 		}
 		countryCodeNetworkCodeDAO.batchInsertCountryCodeNetworkCode(countryCodeNetworkCodeCollection);
-
-		// OLD IMPLEMENTATION
-		// int numRows = operatorWorksheet.getLastRowNum();
-		// HSSFRow row;
-		// for (int i = 1; i <= numRows; i++) {
-		// row = (HSSFRow) operatorWorksheet.getRow(i);
-		//
-		// int countryCode = (int) row.getCell(0).getNumericCellValue();
-		// int networkCode = (int) row.getCell(1).getNumericCellValue();
-		// if (countryCodeNetworkCodeDAO.getCountryCodeNetworkCode(
-		// networkCode, countryCode) != null) {
-		// continue;
-		// }
-		//
-		// String country = row.getCell(2).getStringCellValue();
-		// String operator = row.getCell(3).getStringCellValue();
-		//
-		// countryCodeNetworkCodeDAO
-		// .insertCountryCodeNetworkCode(new CountryCodeNetworkCode(
-		// new CountryCodeNetworkCodeCK(new Country(
-		// countryCode, country), networkCode),
-		// operator));
-		// }
 	}
 }

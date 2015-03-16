@@ -32,7 +32,6 @@ import javax.persistence.Table;
 public class FailureTrace {
 
 	@Id
-	// @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "failure_trace_id")
 	private Long failureTraceId;
 	@Column(name = "date_time")

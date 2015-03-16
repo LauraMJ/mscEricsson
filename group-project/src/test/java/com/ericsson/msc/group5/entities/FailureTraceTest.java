@@ -60,7 +60,7 @@ public class FailureTraceTest {
 				"operating system", "input mode");
 		em.persist(ue);
 
-		ft.setUserEqipment(ue);
+		ft.setUserEquipment(ue);
 
 		FailureClass fc = new FailureClass(0, "description");
 		ft.setFailureClass(fc);

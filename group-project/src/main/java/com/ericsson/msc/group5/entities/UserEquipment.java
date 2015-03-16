@@ -39,7 +39,7 @@ public class UserEquipment {
 	@Column(name = "input_mode", length = 45)
 	private String inputMode;
 
-	@OneToMany(mappedBy = "userEqipment")
+	@OneToMany(mappedBy = "userEquipment")
 	private Collection <FailureTrace> failureTrace;
 
 	/**

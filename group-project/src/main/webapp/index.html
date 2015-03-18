@@ -51,6 +51,27 @@
 		    }
 		});
 	}
+	function addFilePath(){
+		var url = 'rest/restImportService/autoImport';
+		$.ajax({
+			url : url,
+			type : 'POST',
+			contentType : 'application/json',
+			dataType : "json",
+			data : JSON.stringify({
+				"selectedPath" : $("#selectedPath").val(),
+			}),
+			success : function(data) {
+				var message = "Folder '" + data.selectedPath + "' is being monitored for changes.";
+				alert(message);
+				
+				$("#selectedPath").val("");
+			},
+		    error: function(data) {
+		    	alert("Failed to start listener for '" + $("#selectedPath").val());
+		    }
+		});
+	}
 
 	function handlePost() {
 		alert("successfully added a new user");
@@ -180,19 +201,37 @@
 	}
 
 	function change(selection) {
-		//
+		//Import selected file
 		if (selection == "import") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
-
+			//this eeds to be multipart/form-data
 			text.innerHTML = "<form id='importForm' action='rest/restImportService/import' method='post' enctype='multipart/form-data'>\n\<b>Please choose a file to import</b><br><br>\
 					<input id='selectedFile' type='file' name='selectedFile' value='' /><br><br>\
 					<button type='submit' id='testButton' onclick='passFilePath()'>import</button>\
 				</form><hr>";
-		} else if (selection == "users") {
+		} 
+		else if (selection == "autoImport") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
-			text.innerHTML = "<form id='newUserForm' method='post' onsubmit='return false'>\n\<b>Add New User</b><br><br>Username:<input id='username' type='text' User='user'><br><br>Password:<input id='password' type='password' Password='password'><br><br>Role:<select id='role' name='role' Role='role'><option value='administrator' Role='role'>Administrator</option><option value='customer service rep' Role='role'>Customer Service Representative</option><option value='support engineer' Role='role'>Support Engineer</option><option value='network mgmt engineer' Role='role'>Network Management Engineer</option></select><br><br><input id='submitButton' type='submit' value='Submit' onclick='addNewUser()'/></form><hr>";
+			text.innerHTML = "<form id='importForm'  method='post' enctype='multipart/form-data'>\n\<b>Please choose a file to import</b><br><br>\
+					<input id='selectedFile' type='text' name='selectedFile' value='' /><br><br>\
+					<button type='submit' id='testButton' onclick='addFilePath()'>import</button>\
+				</form><hr>";
+		}else if (selection == "users") {
+			var text = document.getElementById("jsChangeArea");
+			text.innerHTML = "";
+			text.innerHTML = "<form id='newUserForm' method='post' onsubmit='return false'>\n\<b>Add New User</b><br><br>Username:\
+								<input id='username' type='text' User='user'><br><br>Password:\
+								<input id='password' type='password' Password='password'><br><br>Role:\
+								<select id='role' name='role' Role='role'>\
+									<option value='administrator' Role='role'>Administrator</option>\
+									<option value='customer service rep' Role='role'>Customer Service Representative</option>\
+									<option value='support engineer' Role='role'>Support Engineer</option>\
+									<option value='network mgmt engineer' Role='role'>Network Management Engineer</option>\
+								</select><br><br>\
+								<input id='submitButton' type='submit' value='Submit' onclick='addNewUser()'/>\
+							 </form><hr>";
 			// 	text.innerHTML="<form enctype='application/json' action='rest/add/user' id='createUserForm' method='post'>\n\<b>Add New User</b><br><br>Type:<select name='role'><option value='admin'>Admin</option><option value='servRep'>Customer Service Representative</option><option value='supEng'>Support Engineer</option><option value='netMGMT'>Network Management Engineer</option></select><br><br>Username:<input name='username' type='text' username='Username'><br><br>Password:<input name='password' type='password' password1='Password'><br><br>Password:<input type='password' password2='Password'><br><br><input id='addUserButton' type='submit' value='Add User'/></form>";
 			// 			text.innerHTML = "<form method='POST' action='rest/add/user'>\n\<b>Add New User</b><br><br>Username:<input name='username'><br><br>Password:<input name='password' type='password'><br><br>Role:<select name='role'><option value='administrator'>Administrator</option><option value='customer service rep'>Customer Service Representative</option><option value='support engineer'>Support Engineer</option><option value='network mgmt engineer'>Network Management Engineer</option></select><br><br><input type='submit' value='Add User'/></form>";
 
@@ -247,8 +286,13 @@ html, body {
 		</tr>
 		<tr>
 			<td rowspan="2" style="height: 400px; width: 140px;"><b>Admin:</b>
-				<br> <a id="importLink" href="#"
-				onclick="change('import');return false;">Import Data</a> <br> <!--<a id="errorLink" href="#" onclick="change('errors');return false;">Error Log Count</a><br>-->
+				<br> 
+				<a id="importLink" href="#"
+				onclick="change('import');return false;">Import Data</a> 
+				<br> 
+				<a id="importLink" href="#"
+				onclick="change('autoImport');return false;">Auto Import Data</a> <br> 
+				<!--<a id="errorLink" href="#" onclick="change('errors');return false;">Error Log Count</a><br>-->
 				<a id="usersLink" href="#" onclick="change('users');return false;">Users</a>
 				<br> <br> <b>Customer Service:</b> <br> <a
 				id="custIMSI" href="#" onclick="change('custIMSI');return false;">IMSI

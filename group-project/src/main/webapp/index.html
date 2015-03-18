@@ -84,21 +84,6 @@
 	
 	var zork = delineate(text);
 	getUsername();
-// 	document.bull.bear.value = zork;
-
-	//function passFilePath(){
-	//	var filePathChosen = document.getElementById("filePath").value;
-	//	alert(filePathChosen);
-	//var pathToSend = JSON.parse(filePathChosen);
-	//alert(pathToSend);
-	//<input value='Import' type='submit'/>\
-	//	$.ajax({
-	//		type: 'POST',
-	//		url: 'rest/testingQueries/import',
-	//		contentType: 'application/json',
-	//		data: JSON.stringify(filePathChosen)
-	//	})
-	//}	
 
 	//Function to retrieve event/cause combinations by imsi
 	function eventCauseForImsi() {
@@ -195,10 +180,10 @@
 	}
 
 	function change(selection) {
+		//
 		if (selection == "import") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
-			//this eeds to be multipart/form-data
 
 			text.innerHTML = "<form id='importForm' action='rest/restImportService/import' method='post' enctype='multipart/form-data'>\n\<b>Please choose a file to import</b><br><br>\
 					<input id='selectedFile' type='file' name='selectedFile' value='' /><br><br>\

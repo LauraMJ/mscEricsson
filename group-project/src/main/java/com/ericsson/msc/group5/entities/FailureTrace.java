@@ -32,9 +32,8 @@ import javax.persistence.Table;
 		@NamedQuery(name = "givenImsiAndTimePeriodReturnNumberOfFailures", query ="SELECT COUNT(f.dateTime) FROM FailureTrace f WHERE f.IMSI = :Imsi AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI"),
 		@NamedQuery(name = "topTenIMSIsWithFailures", query ="SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime ORDER by f.IMSI"),
 		//Adding in here
-		@NamedQuery(name = "givenModelByTimePeriod", query = "SELECT COUNT(f.dateTime) FROM UserEquipment u, FailureTrace f WHERE u.model = :model AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI")})
-public class FailureTrace {
-
+		@NamedQuery(name = "givenModelByTimePeriod", query = "SELECT COUNT(f) FROM FailureTrace f WHERE f.userEquipment.model = :model AND f.dateTime BETWEEN :startTime AND :endTime")})
+	public class FailureTrace {
 	@Id
 	@Column(name = "failure_trace_id")
 	private Long failureTraceId;

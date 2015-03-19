@@ -33,22 +33,6 @@ public interface UserEquipmentDAO {
 	public void insertUserEquipment(UserEquipment userEquipment);
 
 	/**
-	 * Update a UserEquipment object that exists in the data store. Object comparison is based on the unique typeAllocationCode.
-	 * 
-	 * @param userEquipment
-	 *            A UserEquipment entity that exists in the data store. An exception will be thrown the provided UserEquipment is not in the data store.
-	 */
-	public void updateUserEquipment(UserEquipment userEquipment);
-
-	/**
-	 * Delete an existing UserEquipment object from the data store. Object comparison is based on the unique failureClassId.
-	 * 
-	 * @param userEquipment
-	 *            A UserEquipment entity that exists in the data store. An exception will be thrown the provided UserEquipment is not in the data store.
-	 */
-	public void deleteUserEquipment(UserEquipment userEquipment);
-
-	/**
 	 * Batch insert a Collection of UserEquipment objects into the data store. Optimized for handling large volumes of data.
 	 * 
 	 * @param userEquipmentList

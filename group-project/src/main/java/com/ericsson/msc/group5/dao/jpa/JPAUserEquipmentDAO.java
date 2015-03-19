@@ -27,18 +27,6 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 	}
 
 	@Override
-	public void updateUserEquipment(UserEquipment userEquipment) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteUserEquipment(UserEquipment userEquipment) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void batchInsertUserEquipment(Collection <UserEquipment> userEquipmentList) {
 		for(UserEquipment userEquipment : userEquipmentList)
 			em.persist(userEquipment);

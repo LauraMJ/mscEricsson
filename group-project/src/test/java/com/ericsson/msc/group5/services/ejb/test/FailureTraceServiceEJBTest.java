@@ -36,13 +36,16 @@ public class FailureTraceServiceEJBTest {
 	
 	@Test
 	public void addFailureTracesTest() {
+		
+		Long id = 0L;
+		
 		FailureTrace failureTraceOne =  new FailureTrace();
-		failureTraceOne.setFailureTraceId(10L);
+		id = failureTraceOne.getFailureTraceId();
 		FailureTrace failureTraceTwo =  new FailureTrace();
-		failureTraceOne.setFailureTraceId(1L);
+		id = failureTraceOne.getFailureTraceId();
 	
 		
-		FailureTrace [] failureTraceArray = {failureTraceOne, failureTraceTwo};
+		FailureTrace [] failureTraceArray = {(failureTraceOne), failureTraceTwo};
 		
 		
 

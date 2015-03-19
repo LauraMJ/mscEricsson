@@ -24,6 +24,7 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 	@Inject
 	private FailureTraceDAO dao;
 
+	@Override
 	public Collection <EventCause> getEventCauseCombinations(String imsi) {
 		Collection <EventCause> eventCauseResultCollection = dao.getEventCauseForImsi(imsi);
 
@@ -41,6 +42,7 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 		return eventCauseResultCollection;
 	}
 
+	@Override
 	public Collection <String> getImsiOfFailureByTimePeriod(Date startTime, Date endTime) {
 		// Collection <String> collectionOfFailureTraceObjects = dao
 		// .getImsiOfFailureWithinTimePeriod(startTime, endTime);
@@ -54,22 +56,27 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 		return dao.getImsiOfFailureWithinTimePeriod(startTime, endTime);
 	}
 
+	@Override
 	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String Imsi) {
 		return dao.getGivenImsiOfFailureWithinTimePeriod(startTime, endTime, Imsi);
 	}
 	
+	@Override
 	public Collection<String> getCountFailsForModelWithinTimePeriod(String model, Date startTime, Date endTime) {
 		return dao.getCountFailsForModelWithinTimePeriod(model, startTime, endTime);
 	}
 
+	@Override
 	public Collection <FailureTrace> getAllFailureTraces() {
 		return dao.getAllFailureTraces();
 	}
 
+	@Override
 	public Long getTotalNumberOfEntries() {
 		return dao.getTotalNumberOfEntries();
 	}
 
+	@Override
 	public void addFailureTraces(Collection <FailureTrace> failureTraces) {
 		dao.batchInsertFailureTrace(failureTraces);
 	}

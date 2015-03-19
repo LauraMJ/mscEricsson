@@ -2,7 +2,9 @@ package com.ericsson.msc.group5.services;
 
 import java.util.Collection;
 import java.util.Date;
+
 import javax.ejb.Local;
+
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureTrace;
 
@@ -23,4 +25,6 @@ public interface FailureTraceService {
 	public Collection <FailureTrace> getAllFailureTraces();
 
 	public void addFailureTraces(Collection <FailureTrace> failureTraces);
+
+	Long getTotalNumberOfEntries();
 }

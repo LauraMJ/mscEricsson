@@ -2,8 +2,10 @@ package com.ericsson.msc.group5.dao.jpa;
 
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureTrace;
@@ -13,23 +15,28 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 	@PersistenceContext
 	private EntityManager em;
 
+	@Override
 	public Collection <EventCause> getEventCauseForImsi(String imsi) {
 		return em.createNamedQuery("getEventCauseCombinations").setParameter("givenImsi", imsi).getResultList();
 	}
 
+	@Override
 	public Collection <String> getImsiOfFailureWithinTimePeriod(Date startTime, Date endTime) {
 		return em.createNamedQuery("getImsiOfFailureByTimePeriod").setParameter("startTime", startTime).setParameter("endTime", endTime)
 				.getResultList();
 	}
 	
+	@Override
 	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String Imsi) {
 		return em.createNamedQuery("givenImsiByTimePeriod").setParameter("startTime", startTime).setParameter("endTime", endTime).setParameter("Imsi", Imsi).getResultList();
 	}
 	
+	@Override
 	public Collection <String> getCountFailsForModelWithinTimePeriod(String model, Date startTime, Date endTime) {
 		return em.createNamedQuery("givenModelByTimePeriod").setParameter("model", model).setParameter("startTime", startTime).setParameter("endTime", endTime).getResultList();
 	}
 
+	@Override
 	public Long getTotalNumberOfEntries() {
 		return (Long) em.createNamedQuery("getTotalNumberOfEntries").getSingleResult();
 	}

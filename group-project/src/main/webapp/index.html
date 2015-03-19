@@ -166,7 +166,7 @@
 			}
 		});
 	}
-	//CURRENTLY WORKING ON THIS FUNCTION
+	
 	function selectedIMSITimePeriod(){
 		var selected = document.getElementById('imsiField').value;
 		var url = 'rest/query/givenImsiByTimePeriod';
@@ -198,6 +198,40 @@
 				document.getElementById("jsChangeArea").innerHTML = text;
 			}
 		});
+	}
+	//CURRENTLY WORKING ON THIS FUNCTION
+	function modelPerTimePeriod(){
+		alert("IN method");
+		var model = document.getElementById('modelField').value;
+		var url = 'rest/query/givenModelByTimePeriod';
+		var Date1 = document.getElementById('modelDate1').value + " " + document.getElementById('modelTime1').value;
+		var Date2 = document.getElementById('modelDate2').value + " " + document.getElementById('modelTime2').value;
+		var JSONObject = { "Model" : model, "Date1" : Date1, "Date2" : Date2};
+		JSONObject = JSON.stringify(JSONObject);
+		
+		$.ajax({
+			url : url,
+			type : "POST",
+			data : JSONObject,
+			contentType : "application/json",
+			dataType : 'json',
+			success : function(data) {
+				var text = "<b>Results for Model</b><u>	" + model + "</u><b> for time period</b><i>	" + Date1 + "<i><b> to </b><i>	" + Date2 + "</i><br>";
+				if(data.length == 0){
+					text = "<b>No results for lookup.</b><br>";
+				}
+				
+				for (var i = 0; i < data.length; i++){
+					var obj = data[i];
+					var count = obj[0];
+					var printable = "<b>Number of failures: </b>" + count;
+				}
+				document.getElementById("jsChangeArea").innerHTML = text;
+			}
+		});
+		
+		
+		
 	}
 
 	function change(selection) {
@@ -254,6 +288,12 @@
 		} else if (selection == "suppIMSI") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='timedate' method='post' onsubmit='return false'>\n\<b>Please Select Time Range</b><br><br>From:<input id='date1date' type='date' name='date1'/><input id='date1time' type='time' name='time1'/>To:<input id='date2date' type='date' name='date2'/><input id='date2time' type='time' name='time2'/><br><br><input id='submitButton' type='submit' value='Submit' onclick='imsiPerTimePeriod()'/></form><hr>";
+		} else if (selection == "suppModel") {
+			//working on this 
+			alert("in select");
+			var text = document.getElementById("jsChangeArea");
+			text.innerHTML = "<form id='modelTimeDate' method='post' onsubmit='return false'>\n\<b>Please Select Model and Time Range</b><br><br>Model:<input id='modelField' type='text' name='modelField'><br><br>Date:<input id='modelDate1' type='date' name='modelDate1'/><input id='modelTime1' type='time' name='modelTime1'/>To:<input id='modelDate2' type='date' name='modelDate2'/><input id='modelTime2' type='time' name='modelTime2'/><br><br><input type='submit' value='Submit' onclick='modelPerTimePeriod()'/></form><hr>";
+			
 		} else if (selection == "mgmtIMSI") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='IMSISelect' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br><input id='imsiField' type='text'<b><br><br>Please Select Time Range</b><br><br>From:<input type='date' id='date1' name='date1'/><input type='time' id='time1' name='time1'/>To:<input type='date' id='date2' name='date2'/><input type='time' id='time2' name='time2'/><button id='testButton' onclick='selectedIMSITimePeriod()'>Submit</button></form><hr>";
@@ -282,25 +322,27 @@ html, body {
 	<table style="width: 100%; height: 98%; border: 1px;">
 		<tr>
 			<th id="header" colspan="3" style="height: 100px">header
-			</td>
+			</th>
 		</tr>
 		<tr>
-			<td rowspan="2" style="height: 400px; width: 140px;"><b>Admin:</b>
-				<br> 
-				<a id="importLink" href="#"
-				onclick="change('import');return false;">Import Data</a> 
-				<br> 
-				<a id="importLink" href="#"
-				onclick="change('autoImport');return false;">Auto Import Data</a> <br> 
-				<!--<a id="errorLink" href="#" onclick="change('errors');return false;">Error Log Count</a><br>-->
-				<a id="usersLink" href="#" onclick="change('users');return false;">Users</a>
-				<br> <br> <b>Customer Service:</b> <br> <a
-				id="custIMSI" href="#" onclick="change('custIMSI');return false;">IMSI
-					Failures by ID</a> <br> <br> <b>Support Eng.:</b> <br> <a
-				id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI
-					Failures by Time Range</a> <br> <br> <b>Net. Mgmt Eng.:</b> <br>
-				<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI
-					Failures by ID and Time Range</a> <br> <br></td>
+			<td rowspan="2" style="height: 400px; width: 140px;">
+			
+				<b>Admin:</b><br> 
+				<a id="importLink" href="#" onclick="change('import');return false;">Import Data</a><br> 
+				<a id="importLink" href="#" onclick="change('autoImport');return false;">Auto Import Data</a><br> 
+				<a id="usersLink" href="#" onclick="change('users');return false;">Users</a><br><br>
+				
+				<b>Customer Service:</b><br> 
+				<a id="custIMSI" href="#" onclick="change('custIMSI');return false;">IMSI Failures by ID</a><br><br>
+				
+				<b>Support Eng.:</b><br> 
+				<a id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI Failures by Time Range</a><br>
+				<a id="suppModel" href="#" onclick="change('suppModel');return false;">Failures by Model</a><br><br>
+				
+				<b>Net. Mgmt Eng.:</b><br>
+				<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI Failures by ID and Time Range</a><br><br></td>
+				
+				
 			<td id="jsChangeArea">JS changing area</td>
 		</tr>
 		<tr>

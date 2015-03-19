@@ -35,22 +35,6 @@ public interface EventCauseDAO {
 	public void insertEventCause(EventCause eventCause);
 
 	/**
-	 * Update an EventCause object that exists in the data store. Object comparison is based on the composite key causeCode+eventId combination.
-	 * 
-	 * @param eventCause
-	 *            An EventCause entity that exists in the data store. An exception will be thrown the provided EventCause is not in the data store.
-	 */
-	public void updateEventCause(EventCause eventCause);
-
-	/**
-	 * Delete an existing EventCause object from the data store. Object comparison is based on the composite key causeCode+eventId combination.
-	 * 
-	 * @param eventCause
-	 *            An EventCause entity that exists in the data store. An exception will be thrown the provided EventCause is not in the data store.
-	 */
-	public void deleteEventCause(EventCause eventCause);
-
-	/**
 	 * Batch insert a Collection of EventCause objects into the data store. Optimized for handling large volumes of data.
 	 * 
 	 * @param eventCauseList

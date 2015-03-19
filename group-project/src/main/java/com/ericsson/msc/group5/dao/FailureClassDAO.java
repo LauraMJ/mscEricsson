@@ -33,22 +33,6 @@ public interface FailureClassDAO {
 	public void insertFailureClass(FailureClass failureClass);
 
 	/**
-	 * Update a FailureClass object that exists in the data store. Object comparison is based on the unique failureClassId.
-	 * 
-	 * @param failureClass
-	 *            A FailureClass entity that exists in the data store. An exception will be thrown the provided FailureClass is not in the data store.
-	 */
-	public void updateFailureClass(FailureClass failureClass);
-
-	/**
-	 * Delete an existing FailureClass object from the data store. Object comparison is based on the unique failureClassId.
-	 * 
-	 * @param failureClass
-	 *            A FailureClass entity that exists in the data store. An exception will be thrown the provided FailureClass is not in the data store.
-	 */
-	public void deleteFailureClass(FailureClass failureClass);
-
-	/**
 	 * Batch insert a collection of FailureClass objects into the data store. Optimized for handling large volumes of data.
 	 * 
 	 * @param failureClassList

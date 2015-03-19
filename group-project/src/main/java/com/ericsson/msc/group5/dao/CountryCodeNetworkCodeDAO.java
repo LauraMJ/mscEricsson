@@ -36,47 +36,10 @@ public interface CountryCodeNetworkCodeDAO {
 	public void insertCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode);
 
 	/**
-	 * Update an CountryCodeNetworkCode object that exists in the data store. Object comparison is based on the composite key networkCode+countryCode
-	 * combination.
-	 * 
-	 * @param countryCodeNetworkCode
-	 *            A CountryCodeNetworkCode entity that exists in the data store. An exception will be thrown the provided CountryCodeNetworkCode is not in the
-	 *            data store.
-	 */
-	public void updateCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode);
-
-	/**
-	 * Delete an existing CountryCodeNetworkCode object from the data store. Object comparison is based on the composite key networkCode+countryCode
-	 * combination.
-	 * 
-	 * @param countryCodeNetworkCode
-	 *            A CountryCodeNetworkCode entity that exists in the data store. An exception will be thrown the provided CountryCodeNetworkCode is not in the
-	 *            data store.
-	 */
-	public void deleteCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode);
-
-	/**
 	 * Batch insert a collection of CountryCodeNetworkCode objects into the data store. Optimized for handling large volumes of data.
 	 * 
 	 * @param countryCodeNetworkCodeList
 	 *            A collection of new CountryCodeNetworkCode objects.
 	 */
 	public void batchInsertCountryCodeNetworkCode(Collection <CountryCodeNetworkCode> countryCodeNetworkCodeList);
-
-	/**
-	 * Insert a new Country object into the data store.
-	 * 
-	 * @param country
-	 *            A new Country object.
-	 */
-	public void insertCountry(Country country);
-
-	/**
-	 * Retrieve the Country associated with the unique id passed in as a parameter.
-	 * 
-	 * @param countryCode
-	 *            a unique id of the Country to be retrieved.
-	 * @return Country with the provided countryCode iff present in the data store; otherwise null.
-	 */
-	public Country getCountry(int countryCode);
 }

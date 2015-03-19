@@ -34,16 +34,6 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 	}
 
 	@Override
-	public void updateCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void deleteCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public void batchInsertCountryCodeNetworkCode(Collection <CountryCodeNetworkCode> countryCodeNetworkCodeList) {
 		for (CountryCodeNetworkCode countryCodeNetworkCode : countryCodeNetworkCodeList) {
 			Country country = countryCodeNetworkCode.getCountryCodeNetworkCode().getCountry();
@@ -51,16 +41,5 @@ public class JPACountryCodeNetworkCodeDAO implements CountryCodeNetworkCodeDAO {
 				em.persist(country);
 			em.persist(countryCodeNetworkCode);
 		}
-	}
-
-	@Override
-	public void insertCountry(Country country) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public Country getCountry(int countryCode) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

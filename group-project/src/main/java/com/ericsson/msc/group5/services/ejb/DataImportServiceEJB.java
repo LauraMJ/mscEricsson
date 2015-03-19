@@ -169,7 +169,7 @@ public class DataImportServiceEJB implements DataImportService {
 				createdFailureTrace.setHier321Id(hier321);
 				createdFailureTrace.setIMSI(imsi);
 				createdFailureTrace.setNeVersion(neVersion);
-				createdFailureTrace.setUserEqipment(existingUserEquipment);
+				createdFailureTrace.setUserEquipment(existingUserEquipment);
 
 				if ( !Validator.validateFailureTrace(createdFailureTrace)) {
 					errorLogWriterService.writeToErrorLog(row, "");

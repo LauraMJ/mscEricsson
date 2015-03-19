@@ -48,7 +48,7 @@
 //		ft.setIMSI("2315312");
 //		ft.setCountryCodeNetworkCode(mcc);
 //		ft.setNeVersion("B12");
-//		ft.setUserEqipment(userEquip);
+//		ft.setUserEquipment(userEquip);
 //
 //		EntityManagerFactory entityManagerFactory = Persistence
 //				.createEntityManagerFactory("callFailureLogs");

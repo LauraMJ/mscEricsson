@@ -55,7 +55,7 @@ public class FailureTrace {
 	private FailureClass failureClass;
 	@ManyToOne
 	@JoinColumn(name = "typeAllocationCode")
-	private UserEquipment userEqipment;
+	private UserEquipment userEquipment;
 	@ManyToOne
 	@JoinColumns({@JoinColumn(name = "cause_code", referencedColumnName = "cause_code"),
 			@JoinColumn(name = "event_id", referencedColumnName = "event_id")})
@@ -151,12 +151,12 @@ public class FailureTrace {
 		this.failureClass = failureClass;
 	}
 
-	public UserEquipment getUserEqipment() {
-		return userEqipment;
+	public UserEquipment getUserEquipment() {
+		return userEquipment;
 	}
 
-	public void setUserEqipment(UserEquipment userEqipment) {
-		this.userEqipment = userEqipment;
+	public void setUserEquipment(UserEquipment userEquipment) {
+		this.userEquipment = userEquipment;
 	}
 
 	public EventCause getEventCause() {

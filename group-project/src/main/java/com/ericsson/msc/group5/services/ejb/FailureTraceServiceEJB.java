@@ -2,11 +2,13 @@ package com.ericsson.msc.group5.services.ejb;
 
 import java.util.Collection;
 import java.util.Date;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureTrace;
@@ -52,10 +54,12 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 		return dao.getImsiOfFailureWithinTimePeriod(startTime, endTime);
 	}
 
-	// // working on
 	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String Imsi) {
-		//
 		return dao.getGivenImsiOfFailureWithinTimePeriod(startTime, endTime, Imsi);
+	}
+	
+	public Collection<String> getCountFailsForModelWithinTimePeriod(String model, Date startTime, Date endTime) {
+		return dao.getCountFailsForModelWithinTimePeriod(model, startTime, endTime);
 	}
 
 	public Collection <FailureTrace> getAllFailureTraces() {
@@ -69,5 +73,7 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 	public void addFailureTraces(Collection <FailureTrace> failureTraces) {
 		dao.batchInsertFailureTrace(failureTraces);
 	}
+
+
 
 }

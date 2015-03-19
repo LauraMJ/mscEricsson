@@ -61,7 +61,7 @@ public class CreatedQueries {
 	@Path("/givenImsiByTimePeriod")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getGivenImsiByTimePerdio(JSONObject JSONImsiDateObject) {
+	public Response getGivenImsiByTimePeriod(JSONObject JSONImsiDateObject) {
 		String startDate = JSONImsiDateObject.get("Date1").toString();
 		String endDate = JSONImsiDateObject.get("Date2").toString();
 		String Imsi = JSONImsiDateObject.get("Imsi").toString();
@@ -76,10 +76,34 @@ public class CreatedQueries {
 		catch (ParseException e) {
 			e.printStackTrace();
 		}
-		// add different resonse for query
+
 		System.out.println(Imsi);
 		return Response.ok().status(200).entity(failureTraceEJB.getGivenImsiOfFailureWithinTimePeriod(dateOne, dateTwo, Imsi)).build();
 
+	}
+	
+	@POST
+	@Path("/givenModelByTimePeriod")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response givenModelByTimePeriod(JSONObject JSONModelDateObject) {
+		String startDate = JSONModelDateObject.get("Date1").toString();
+		String endDate = JSONModelDateObject.get("Date2").toString();
+		String model = JSONModelDateObject.get("Model").toString();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date dateOne = null;
+		Date dateTwo = null;
+		try {
+			dateOne = sdf.parse(startDate);
+			dateTwo = sdf.parse(endDate);
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(model);
+		return Response.ok().status(200).entity(failureTraceEJB.getCountFailsForModelWithinTimePeriod(model, dateOne, dateTwo)).build();
 	}
 
 	@GET

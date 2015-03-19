@@ -16,8 +16,9 @@ public interface FailureTraceService {
 
 	public Collection <EventCause> getEventCauseCombinations(String imsi);
 
-	// workingon
 	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String Imsi);
+	//
+	public Collection <String> getCountFailsForModelWithinTimePeriod(String model, Date startTime, Date endTime);
 
 	public Collection <FailureTrace> getAllFailureTraces();
 

@@ -6,7 +6,6 @@ import org.jboss.resteasy.annotations.providers.multipart.PartType;
 public class FileUploadForm {
 
 	public FileUploadForm() {
-		// TODO Auto-generated constructor stub
 	}
 
 	private byte [] fileData;

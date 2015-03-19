@@ -41,16 +41,6 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 	}
 
 	@Override
-	public void updateFailureTrace(FailureTrace failureTrace) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void deleteFailureTrace(FailureTrace failureTrace) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public void batchInsertFailureTrace(Collection <FailureTrace> failureTraceList) {
 		for (FailureTrace failureTrace : failureTraceList) {
 			em.persist(failureTrace);

@@ -154,7 +154,7 @@
 
 				for (var i = 0; i < data.length; i++) {
 					var obj = data[i];
-					var printable =  " Cause Code: "
+					var printable = "Cause Code: "
 							+ obj.causeCodeEventIdCK.causeCode
 							+ "<br>";
 					text = text + printable;
@@ -382,8 +382,6 @@
 		//CUSTOMER SERVICE REP.
 		} else if (selection == "custIMSI") {
 			var text = document.getElementById("jsChangeArea");
-			text.innerHTML = "";
-
 			text.innerHTML = "<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
 								IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit' onclick='eventCauseForImsi()'/></form><hr>";
 		} else if (selection == "custIMSIFails"){
@@ -410,9 +408,7 @@
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
 			text.innerHTML = "<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
-										 	IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'>\
-											<input id='submitButton' type='submit' value='Submit' onclick='causeCodesForImsi()'/>\
-										 </form><hr>";
+				IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit' onclick='causeCodesForImsi()'/></form><hr>";
 		}
 		//MANAGEMENT ENGINEER
 		 else if (selection == "mgmtIMSI") {
@@ -467,7 +463,7 @@ html, body {
 				<b>Support Eng.:</b><br> 
 				<a id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI Failures by Time Range</a><br>
 				<a id="suppModel" href="#" onclick="change('suppModel');return false;">Failures by Model</a><br><br>
-				<a id="custIMSI" href="#" onclick="change('causeCodesIMSI');return false;">Cause Codes for Imsi Failures</a><br><br>
+				<a id="custIMSI" href="#" onclick="change('causeCodeIMSI');return false;">Cause Codes for Imsi Failures</a><br><br>
 				
 				<b>Net. Mgmt Eng.:</b><br>
 				<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI Failures by ID and Time Range</a><br>

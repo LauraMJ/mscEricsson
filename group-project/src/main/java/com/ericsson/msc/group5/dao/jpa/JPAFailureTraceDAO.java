@@ -37,6 +37,11 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 	}
 
 	@Override
+	public Collection <String> getEventCauseCombinationsForModel(String model) {
+		return em.createNamedQuery("getEventCauseCombinationsForModel").setParameter("model", model).getResultList();
+	}
+
+	@Override
 	public Collection <String> getTop10MarketOperatorCellIdCombinations(Date startTime, Date endTime) {
 		return em.createNamedQuery("top10MarketOperatorCellIdCombinations").setParameter("startTime", startTime).setParameter("endTime", endTime)
 				.setMaxResults(10).getResultList();

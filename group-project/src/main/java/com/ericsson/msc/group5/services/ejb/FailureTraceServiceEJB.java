@@ -47,6 +47,11 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 		return dao.getCountFailsForModelWithinTimePeriod(model, startTime, endTime);
 	}
 
+	@Override
+	public Collection <String> getEventCauseCombinationsForModel(String model) {
+		return dao.getEventCauseCombinationsForModel(model);
+	}
+
 	public Collection <String> getTop10MarketOperatorCellIdCombinations(Date startTime, Date endTime) {
 		return dao.getTop10MarketOperatorCellIdCombinations(startTime, endTime);
 	}

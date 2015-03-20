@@ -180,5 +180,4 @@ public class CreatedQueries {
 	public Collection<String> getAllModels(){
 		return failureTraceEJB.getAllModels();
 	}
-		
 }

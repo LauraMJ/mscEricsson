@@ -84,7 +84,7 @@ public class CreatedQueries {
 		return Response.ok().status(200).entity(failureTraceEJB.getGivenImsiOfFailureWithinTimePeriod(dateOne, dateTwo, Imsi)).build();
 
 	}
-	//QUERY FOR THIS IS NOT WORKING YET
+
 	@POST
 	@Path("/givenModelByTimePeriod")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -108,7 +108,7 @@ public class CreatedQueries {
 		System.out.println(model);
 		return Response.ok().status(200).entity(failureTraceEJB.getCountFailsForModelWithinTimePeriod(model, dateOne, dateTwo)).build();
 	}
-	//Working on this - QUERY NEEDS TO BE WRITTEN CORRECTLY
+
 	@POST
 	@Path("/top10MarketOperatorCellIdCombinations")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -131,7 +131,6 @@ public class CreatedQueries {
 		return Response.ok().status(200).entity(failureTraceEJB.getTop10MarketOperatorCellIdCombinations(dateOne, dateTwo)).build();
 	}
 	
-	//For a given IMSI, count the number of failures it has had during a given time period.
 	@POST
 	@Path("/givenImsiAndTimePeriodReturnNumberOfFailures")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -173,8 +172,5 @@ public class CreatedQueries {
 	public Collection<String> getAllModels(){
 		return failureTraceEJB.getAllModels();
 	}
-	
-	
-	
-	
+		
 }

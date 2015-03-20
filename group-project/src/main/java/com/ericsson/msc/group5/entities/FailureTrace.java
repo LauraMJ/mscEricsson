@@ -32,7 +32,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "givenImsiAndTimePeriodReturnNumberOfFailures", query ="SELECT COUNT(f.dateTime) FROM FailureTrace f WHERE f.IMSI = :Imsi AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI"),
 		@NamedQuery(name = "topTenIMSIsWithFailures", query ="SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime ORDER by f.IMSI"),
 		//ISSUE WITH QUERY
-		@NamedQuery(name = "givenModelByTimePeriod", query = "SELECT COUNT(f) FROM FailureTrace f WHERE f.userEquipment.model = :model AND f.dateTime BETWEEN :startTime AND :endTime"),
+		@NamedQuery(name = "givenModelByTimePeriod", query = "SELECT COUNT(f.IMSI) FROM FailureTrace f WHERE f.userEquipment.model = :model AND f.dateTime BETWEEN :startTime AND :endTime"),
 		//TEMP QUERY - NOT CORRECT TO SPEC
 		//USER STORY: List the top 10 Market/Operator/Cell ID combinations that had call failures during a time period		
 		

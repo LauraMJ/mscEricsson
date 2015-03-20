@@ -2,9 +2,9 @@ package com.ericsson.msc.group5.dao.jpa;
 
 import java.util.Collection;
 import java.util.Date;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import javax.persistence.Query;
 
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
@@ -80,5 +80,8 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 		return em.createNamedQuery("getAllModels").getResultList();
 	}
 	
-
+	@Override
+	public Collection <EventCause> getCauseCodesForImsi(String imsi) {
+		return em.createNamedQuery("getCauseCodeByImsi").setParameter("givenImsi", imsi).getResultList();
+	}
 }

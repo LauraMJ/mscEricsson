@@ -37,6 +37,14 @@ public class CreatedQueries {
 		// System.out.println("Time take %d milliseconds.\n" + total);
 		return Response.ok().status(200).entity(failureTraceEJB.getEventCauseCombinations(imsi)).build();
 	}
+	
+	@POST
+	@Path("/causeCodesPerImsi")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCauseCodeByImsi(String imsi) {
+		return Response.ok().status(200).entity(failureTraceEJB.getCauseCodesForImsi(imsi)).build();
+	}
 
 	@POST
 	@Path("/imsiByTimePeriod")

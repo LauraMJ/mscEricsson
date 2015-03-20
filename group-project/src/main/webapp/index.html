@@ -134,6 +134,35 @@
 			}
 		});
 	}
+	
+	//CAUSE CODES FOR GIVEN IMSI
+	function causeCodesForImsi() {
+		var selected = document.getElementById('inputtedImsi').value;
+		var url = 'rest/query/causeCodesPerImsi';
+		$.ajax({
+			url : url,
+			type : "POST",
+			data : selected,
+			contentType : "application/json",
+			dataType : 'json',
+			success : function(data) {
+				var text = "<b> Results for IMSI '" + selected + "' </b><br>";
+				if (data.length == 0) {
+					text = "<b> No results for IMSI '" + selected
+							+ "' </b><br>";
+				}
+
+				for (var i = 0; i < data.length; i++) {
+					var obj = data[i];
+					var printable =  " Cause Code: "
+							+ obj.causeCodeEventIdCK.causeCode
+							+ "<br>";
+					text = text + printable;
+				}
+				document.getElementById("jsChangeArea").innerHTML = text;
+			}
+		});
+	}
 
 	//IMSI FOR A GIVEN TIME PERIOD
 	function imsiPerTimePeriod() {
@@ -313,33 +342,33 @@
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
 			text.innerHTML = "<form id='importForm' action='rest/restImportService/import' method='post' enctype='multipart/form-data'>\n\<b>Please choose a file to import</b><br><br>\
-					<input id='selectedFile' type='file' name='selectedFile' value='' /><br><br>\
-					<button type='submit' id='testButton' onclick='passFilePath()'>import</button>\
-				</form><hr>";
+											<input id='selectedFile' type='file' name='selectedFile' value='' /><br><br>\
+											<button type='submit' id='testButton' onclick='passFilePath()'>import</button>\
+										</form><hr>";
 		} 
 		//AUTO-IMPORT
 		else if (selection == "autoImport") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
 			text.innerHTML = "<form id='importForm'  method='post' enctype='multipart/form-data'>\n\<b>Please choose a file to import</b><br><br>\
-					<input id='selectedFile' type='text' name='selectedFile' value='' /><br><br>\
-					<button type='submit' id='testButton' onclick='addFilePath()'>import</button>\
-				</form><hr>";
+											<input id='selectedFile' type='text' name='selectedFile' value='' /><br><br>\
+											<button type='submit' id='testButton' onclick='addFilePath()'>import</button>\
+										</form><hr>";
 		//USERS
 		}else if (selection == "users") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
 			text.innerHTML = "<form id='newUserForm' method='post' onsubmit='return false'>\n\<b>Add New User</b><br><br>Username:\
-								<input id='username' type='text' User='user'><br><br>Password:\
-								<input id='password' type='password' Password='password'><br><br>Role:\
-								<select id='role' name='role' Role='role'>\
-									<option value='administrator' Role='role'>Administrator</option>\
-									<option value='customer service rep' Role='role'>Customer Service Representative</option>\
-									<option value='support engineer' Role='role'>Support Engineer</option>\
-									<option value='network mgmt engineer' Role='role'>Network Management Engineer</option>\
-								</select><br><br>\
-								<input id='submitButton' type='submit' value='Submit' onclick='addNewUser()'/>\
-							 </form><hr>";
+											<input id='username' type='text' User='user'><br><br>Password:\
+											<input id='password' type='password' Password='password'><br><br>Role:\
+											<select id='role' name='role' Role='role'>\
+												<option value='administrator' Role='role'>Administrator</option>\
+												<option value='customer service rep' Role='role'>Customer Service Representative</option>\
+												<option value='support engineer' Role='role'>Support Engineer</option>\
+												<option value='network mgmt engineer' Role='role'>Network Management Engineer</option>\
+											</select><br><br>\
+											<input id='submitButton' type='submit' value='Submit' onclick='addNewUser()'/>\
+										 </form><hr>";
 			document.getElementById('usernameField').onkeydown = function(event) {
 				var key = event.keyCode || event.which;
 
@@ -354,6 +383,7 @@
 		} else if (selection == "custIMSI") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
+
 			text.innerHTML = "<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
 								IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit' onclick='eventCauseForImsi()'/></form><hr>";
 		} else if (selection == "custIMSIFails"){
@@ -366,18 +396,26 @@
 		} else if (selection == "suppIMSI") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='timedate' method='post' onsubmit='return false'>\n\<b>Please Select Time Range</b><br><br>\
-								From:<input id='date1date' type='date' name='date1'/><input id='date1time' type='time' name='time1'/>To:<input id='date2date' type='date' name='date2'/><input id='date2time' type='time' name='time2'/><br><br>\
-								<input id='submitButton' type='submit' value='Submit' onclick='imsiPerTimePeriod()'/></form><hr>";
+											From:<input id='date1date' type='date' name='date1'/><input id='date1time' type='time' name='time1'/>\
+											To:<input id='date2date' type='date' name='date2'/><input id='date2time' type='time' name='time2'/><br><br>\
+											<input id='submitButton' type='submit' value='Submit' onclick='imsiPerTimePeriod()'/>\
+										 </form><hr>";
 		} else if (selection == "suppModel") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='modelTimeDate' method='post' onsubmit='return false'>\n\<b>Please Select Model and Time Range</b><br>\
 								<br>Model:<input id='modelField' type='text' name='modelField'><br><br>\
 								Date:<input id='modelDate1' type='date' name='modelDate1'/><input id='modelTime1' type='time' name='modelTime1'/>To:<input id='modelDate2' type='date' name='modelDate2'/><input id='modelTime2' type='time' name='modelTime2'/><br><br>\
 								<input type='submit' value='Submit' onclick='modelPerTimePeriod()'/></form><hr>";
-		
+		}else if (selection == "causeCodeIMSI") {
+			var text = document.getElementById("jsChangeArea");
+			text.innerHTML = "";
+			text.innerHTML = "<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
+										 	IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'>\
+											<input id='submitButton' type='submit' value='Submit' onclick='causeCodesForImsi()'/>\
+										 </form><hr>";
 			
 		//MANAGEMENT ENGINEER
-		} else if (selection == "mgmtIMSI") {
+		 else if (selection == "mgmtIMSI") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='IMSISelect' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
 								<input id='imsiField' type='text'<b><br><br>Please Select Time Range</b><br><br>\
@@ -429,6 +467,7 @@ html, body {
 				<b>Support Eng.:</b><br> 
 				<a id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI Failures by Time Range</a><br>
 				<a id="suppModel" href="#" onclick="change('suppModel');return false;">Failures by Model</a><br><br>
+				<a id="custIMSI" href="#" onclick="change('causeCodesIMSI');return false;">Cause Codes for Imsi Failures</a><br><br>
 				
 				<b>Net. Mgmt Eng.:</b><br>
 				<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI Failures by ID and Time Range</a><br>

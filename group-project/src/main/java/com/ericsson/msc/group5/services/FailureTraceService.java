@@ -2,7 +2,6 @@ package com.ericsson.msc.group5.services;
 
 import java.util.Collection;
 import java.util.Date;
-
 import javax.ejb.Local;
 import javax.ws.rs.core.Response;
 
@@ -18,6 +17,8 @@ public interface FailureTraceService {
 	public Collection <String> getImsiOfFailureByTimePeriod(Date startTime, Date endTime);
 
 	public Collection <EventCause> getEventCauseCombinations(String imsi);
+	
+	public Collection <EventCause> getCauseCodesForImsi(String imsi);
 
 	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String Imsi);
 

@@ -2,9 +2,9 @@ package com.ericsson.msc.group5.dao;
 
 import java.util.Collection;
 import java.util.Date;
-
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureTrace;
+
 
 /**
  * A Data Access Object interface for the FailureTrace entity. Defines common DAO methods.
@@ -48,6 +48,8 @@ public interface FailureTraceDAO {
 	 *            A collection of new FailureTrace objects.
 	 */
 	public void batchInsertFailureTrace(Collection <FailureTrace> failureTraceList);
+	
+	public Collection <EventCause> getCauseCodesForImsi(String imsi);
 
 	public Collection <String> getAllIMSIs();
 

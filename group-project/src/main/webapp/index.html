@@ -266,6 +266,39 @@
 
 			}	
 		});
+		
+		//For a given IMSI, count the number of failures it has had during a given time period.
+		function givenImsiAndTimePeriodReturnNumberOfFailures(){
+			var selected = document.getElementById('imsiField').value;
+			var url = 'rest/Query/givenImsiAndTimePeriodReturnNumberOfFailures';
+			var Date1 = document.getElementById('date1').value + " " + document.getElementById('time1').value;
+			var Date2 = document.getElementById('date2').value + " " + document.getElementById('time2').value;
+			var JSONObject = { "Imsi" : selected, "Date1" : Date1, "Date2" : Date2};
+			JSONObject = JSON.stringify(JSONObject);
+			
+			$.ajax({
+				url : url,
+				type : "POST",
+				data : JSONObject,
+				contentType : "application/json",
+				dataType : 'json',
+				success : function(data) {
+					var text = "<b> Results for IMSI </b><u>" + selected + "</u><b> for time period </b><i>" + Date1 + "<i><b> to </b><i>" + Date2 + "</i><br>";
+					if(data.length == 0){
+						text = "<b>No results for lookup.</b><br>";
+					}
+					
+					for (var i = 0; i < data.length; i++){
+						var obj = data[i];
+	                    var count = obj[0];
+	                    var duration = obj[1];
+						var printable = "<b>Number of failures: </b>" + count;
+						text = text + printable;
+							
+					}
+					document.getElementById("jsChangeArea").innerHTML = text;
+				}
+			});
 	}
 	
 //*******************************************************************************************************************************************************	

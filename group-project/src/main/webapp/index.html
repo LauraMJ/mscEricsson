@@ -15,7 +15,10 @@
 	var locate = window.location;
 	document.test.test2.value = locate;
 	var text = document.test.test2.value;
-
+	
+	
+//AJAX***************************************************************************************************************************************************
+	//ADD USERS
 	function addNewUser() {
 		var url = 'rest/add/user';
 		
@@ -47,10 +50,15 @@
 			},
 		    error: function(data) {
 		    	alert("Failed to add user - username '" + $("#username").val() + "' has already been taken.");
-// 		        alert("Status: " + data.val()); 
 		    }
 		});
 	}
+	
+	function handlePost() {
+		alert("successfully added a new user");
+	}
+	
+	//AUTO-IMPORT
 	function addFilePath(){
 		var url = 'rest/restImportService/autoImport';
 		$.ajax({
@@ -73,23 +81,14 @@
 		});
 	}
 
-	function handlePost() {
-		alert("successfully added a new user");
-	}
-
-	function passSelectedIMSI() {
-		var selected = document.getElementById("selectDropdown");
-		var text = selected.options[selected.selectedIndex].innerHTML;
-		alert(text);
-		
-	}
-
+	//LOGGED IN USER FIELD POPULATION
 	function delineate(str) {
 		theleft = str.indexOf("=") + 1;
 		theright = str.length;
 		return (str.substring(theleft, theright));
 	}
 	
+	//GET LOGGED IN USERNAME
 	function getUsername(){
 		$.ajax({
 			url : "rest/get/username",
@@ -106,7 +105,7 @@
 	var zork = delineate(text);
 	getUsername();
 
-	//Function to retrieve event/cause combinations by imsi
+	//EVENT CAUSE FOR GIVEN IMSI
 	function eventCauseForImsi() {
 		var selected = document.getElementById('inputtedImsi').value;
 		var url = 'rest/query/eventCausePerImsi';
@@ -136,6 +135,7 @@
 		});
 	}
 
+	//IMSI FOR A GIVEN TIME PERIOD
 	function imsiPerTimePeriod() {
 		var url = 'rest/query/imsiByTimePeriod';
 		var Date1 = document.getElementById('date1date').value + " "
@@ -152,7 +152,7 @@
 			contentType : "application/json",
 			dataType : 'json',
 			success : function(data) {
- 				var text = "<b> Results for time period " + Date1 + " to " + Date2 + "</b><br>";// + "' to '" + Date2 "' </b><br>";
+ 				var text = "<b> Results for time period " + Date1 + " to " + Date2 + "</b><br>";
 				if (data.length == 0) {
 					text = "<b> No results for that time period.</b><br>";
 				}
@@ -167,6 +167,7 @@
 		});
 	}
 	
+	//GIVEN IMSI AND TIME PERIOD
 	function selectedIMSITimePeriod(){
 		var selected = document.getElementById('imsiField').value;
 		var url = 'rest/query/givenImsiByTimePeriod';
@@ -199,9 +200,10 @@
 			}
 		});
 	}
-	//CURRENTLY WORKING ON THIS FUNCTION
+	
+	//GIVEN MODEL AND TIME PERIOD
+	//BACK END QUERY NOT WORKING
 	function modelPerTimePeriod(){
-		alert("IN method");
 		var model = document.getElementById('modelField').value;
 		var url = 'rest/query/givenModelByTimePeriod';
 		var Date1 = document.getElementById('modelDate1').value + " " + document.getElementById('modelTime1').value;
@@ -231,21 +233,56 @@
 			}
 		});
 		
-		
-		
 	}
+	
+	//TOP 10 COMBINATIONS FOR GIVEN TIME PERIOD
+	function top10MarketOperatorCellIdCombinations(){
+		var url = 'rest/query/top10MarketOperatorCellIdCombinations';
+		var Date1 = document.getElementById('top10Date1').value + " " + document.getElementById('top10Time1').value;
+		var Date2 = document.getElementById('top10Date2').value + " " + document.getElementById('top10Time2').value;
+		var JSONObject = { "Date1" : Date1, "Date2" : Date2};
+		JSONObject = JSON.stringify(JSONObject);
+		
+		$.ajax({
+			url : url,
+			type : "POST",
+			data : JSONObject,
+			contentType : "application/json",
+			dataType : 'json',
+			success : function(data) {
+				var text = "<b> Results for time period </b><i>" + Date1 + "<i><b> to </b><i>" + Date2 + "</i><br>";
+				if(data.length == 0){
+					text = "<b>No results for lookup.</b><br>";
+				}
+				
+				for (var i = 0; i < data.length; i++){
+					var obj = data[i];
+					var somethingToOutput = obj[0];
+					var printable = "<b> Number of failures: </b>" + somethingToOutput;
+					text = text + printable;
+				}
+				document.getElementById("jsChangeArea").innerHTML = text;
 
+			}	
+		});
+	}
+	
+//*******************************************************************************************************************************************************	
+	
+	
+	
+	//WINDOW CHANGING
 	function change(selection) {
-		//Import selected file
+		//MANUAL IMPORT
 		if (selection == "import") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
-			//this eeds to be multipart/form-data
 			text.innerHTML = "<form id='importForm' action='rest/restImportService/import' method='post' enctype='multipart/form-data'>\n\<b>Please choose a file to import</b><br><br>\
 					<input id='selectedFile' type='file' name='selectedFile' value='' /><br><br>\
 					<button type='submit' id='testButton' onclick='passFilePath()'>import</button>\
 				</form><hr>";
 		} 
+		//AUTO-IMPORT
 		else if (selection == "autoImport") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
@@ -253,6 +290,7 @@
 					<input id='selectedFile' type='text' name='selectedFile' value='' /><br><br>\
 					<button type='submit' id='testButton' onclick='addFilePath()'>import</button>\
 				</form><hr>";
+		//USERS
 		}else if (selection == "users") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
@@ -267,10 +305,6 @@
 								</select><br><br>\
 								<input id='submitButton' type='submit' value='Submit' onclick='addNewUser()'/>\
 							 </form><hr>";
-			// 	text.innerHTML="<form enctype='application/json' action='rest/add/user' id='createUserForm' method='post'>\n\<b>Add New User</b><br><br>Type:<select name='role'><option value='admin'>Admin</option><option value='servRep'>Customer Service Representative</option><option value='supEng'>Support Engineer</option><option value='netMGMT'>Network Management Engineer</option></select><br><br>Username:<input name='username' type='text' username='Username'><br><br>Password:<input name='password' type='password' password1='Password'><br><br>Password:<input type='password' password2='Password'><br><br><input id='addUserButton' type='submit' value='Add User'/></form>";
-			// 			text.innerHTML = "<form method='POST' action='rest/add/user'>\n\<b>Add New User</b><br><br>Username:<input name='username'><br><br>Password:<input name='password' type='password'><br><br>Role:<select name='role'><option value='administrator'>Administrator</option><option value='customer service rep'>Customer Service Representative</option><option value='support engineer'>Support Engineer</option><option value='network mgmt engineer'>Network Management Engineer</option></select><br><br><input type='submit' value='Add User'/></form>";
-
-			//needs to be check to make sure both fields have entered the same password on button click
 			document.getElementById('usernameField').onkeydown = function(event) {
 				var key = event.keyCode || event.which;
 
@@ -281,28 +315,43 @@
 				}
 			};
 
+		//CUSTOMER SERVICE REP.
 		} else if (selection == "custIMSI") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
-			text.innerHTML = "<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit' onclick='eventCauseForImsi()'/></form><hr>";
-			//Needs to display table when button is clicked
+			text.innerHTML = "<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
+								IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit' onclick='eventCauseForImsi()'/></form><hr>";
+			
+		//SUPPORT ENGINEER
 		} else if (selection == "suppIMSI") {
 			var text = document.getElementById("jsChangeArea");
-			text.innerHTML = "<form id='timedate' method='post' onsubmit='return false'>\n\<b>Please Select Time Range</b><br><br>From:<input id='date1date' type='date' name='date1'/><input id='date1time' type='time' name='time1'/>To:<input id='date2date' type='date' name='date2'/><input id='date2time' type='time' name='time2'/><br><br><input id='submitButton' type='submit' value='Submit' onclick='imsiPerTimePeriod()'/></form><hr>";
+			text.innerHTML = "<form id='timedate' method='post' onsubmit='return false'>\n\<b>Please Select Time Range</b><br><br>\
+								From:<input id='date1date' type='date' name='date1'/><input id='date1time' type='time' name='time1'/>To:<input id='date2date' type='date' name='date2'/><input id='date2time' type='time' name='time2'/><br><br>\
+								<input id='submitButton' type='submit' value='Submit' onclick='imsiPerTimePeriod()'/></form><hr>";
 		} else if (selection == "suppModel") {
-			//working on this 
-			alert("in select");
 			var text = document.getElementById("jsChangeArea");
-			text.innerHTML = "<form id='modelTimeDate' method='post' onsubmit='return false'>\n\<b>Please Select Model and Time Range</b><br><br>Model:<input id='modelField' type='text' name='modelField'><br><br>Date:<input id='modelDate1' type='date' name='modelDate1'/><input id='modelTime1' type='time' name='modelTime1'/>To:<input id='modelDate2' type='date' name='modelDate2'/><input id='modelTime2' type='time' name='modelTime2'/><br><br><input type='submit' value='Submit' onclick='modelPerTimePeriod()'/></form><hr>";
+			text.innerHTML = "<form id='modelTimeDate' method='post' onsubmit='return false'>\n\<b>Please Select Model and Time Range</b><br>\
+								<br>Model:<input id='modelField' type='text' name='modelField'><br><br>\
+								Date:<input id='modelDate1' type='date' name='modelDate1'/><input id='modelTime1' type='time' name='modelTime1'/>To:<input id='modelDate2' type='date' name='modelDate2'/><input id='modelTime2' type='time' name='modelTime2'/><br><br>\
+								<input type='submit' value='Submit' onclick='modelPerTimePeriod()'/></form><hr>";
+		
 			
+		//MANAGEMENT ENGINEER
 		} else if (selection == "mgmtIMSI") {
 			var text = document.getElementById("jsChangeArea");
-			text.innerHTML = "<form id='IMSISelect' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br><input id='imsiField' type='text'<b><br><br>Please Select Time Range</b><br><br>From:<input type='date' id='date1' name='date1'/><input type='time' id='time1' name='time1'/>To:<input type='date' id='date2' name='date2'/><input type='time' id='time2' name='time2'/><button id='testButton' onclick='selectedIMSITimePeriod()'>Submit</button></form><hr>";
+			text.innerHTML = "<form id='IMSISelect' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
+								<input id='imsiField' type='text'<b><br><br>Please Select Time Range</b><br><br>\
+								From:<input type='date' id='date1' name='date1'/><input type='time' id='time1' name='time1'/>To:<input type='date' id='date2' name='date2'/><input type='time' id='time2' name='time2'/><button id='testButton' onclick='selectedIMSITimePeriod()'>Submit</button></form><hr>";
+		} else if (selection == "mgmtTop10"){
+			var text = document.getElementById("jsChangeArea");
+			text.innerHTML = "<form id='top10DateForm' method='post' onsubmit='return false'>\n\<b>Please Select Time Range</b><br><br>\
+								From:<input id='top10Date1' type='date' name='top10Date1'/><input id='top10Time1' type='time' name='top10Time1'/>To:<input id='top10Date2' type='date' name='top10Date2'/><input id='top10Time2' type='time' name='top10Time2'/><br><br>\
+								<input type='submit' value='Submit' onclick='top10MarketOperatorCellIdCombinations()'/></form><hr>";
 		} else {
 			alert("Problemoooo!");
 		}
 	}
-	///
+
 </script>
 
 <style>
@@ -327,7 +376,7 @@ html, body {
 		</tr>
 		<tr>
 			<td rowspan="2" style="height: 400px; width: 140px;">
-			
+			<!-- Please don't change how this is laid out at the minute, it's a pain to read through otherwise -->
 				<b>Admin:</b><br> 
 				<a id="importLink" href="#" onclick="change('import');return false;">Import Data</a><br> 
 				<a id="importLink" href="#" onclick="change('autoImport');return false;">Auto Import Data</a><br> 
@@ -341,9 +390,10 @@ html, body {
 				<a id="suppModel" href="#" onclick="change('suppModel');return false;">Failures by Model</a><br><br>
 				
 				<b>Net. Mgmt Eng.:</b><br>
-				<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI Failures by ID and Time Range</a><br><br></td>
+				<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI Failures by ID and Time Range</a><br>
+				<a id="mgmtTop10" href="#" onclick="change('mgmtTop10');return false;">Top 10 Combo</a><br><br>
 				
-				
+				</td>
 			<td id="jsChangeArea">JS changing area</td>
 		</tr>
 		<tr>

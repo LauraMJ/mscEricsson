@@ -35,7 +35,11 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 	public Collection <String> getCountFailsForModelWithinTimePeriod(String model, Date startTime, Date endTime) {
 		return em.createNamedQuery("givenModelByTimePeriod").setParameter("model", model).setParameter("startTime", startTime).setParameter("endTime", endTime).getResultList();
 	}
-
+	
+	@Override
+	public Collection<String> getTop10MarketOperatorCellIdCombinations(Date startTime, Date endTime) {
+		return em.createNamedQuery("top10MarketOperatorCellIdCombinations").setParameter("startTime", startTime).setParameter("endTime", endTime).getResultList();
+	}
 	@Override
 	public Long getTotalNumberOfEntries() {
 		return (Long) em.createNamedQuery("getTotalNumberOfEntries").getSingleResult();
@@ -57,4 +61,5 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 			em.persist(failureTrace);
 		}
 	}
+
 }

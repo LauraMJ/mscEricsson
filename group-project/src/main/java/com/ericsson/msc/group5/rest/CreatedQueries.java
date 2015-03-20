@@ -81,7 +81,7 @@ public class CreatedQueries {
 		return Response.ok().status(200).entity(failureTraceEJB.getGivenImsiOfFailureWithinTimePeriod(dateOne, dateTwo, Imsi)).build();
 
 	}
-	
+	//QUERY FOR THIS IS NOT WORKING YET
 	@POST
 	@Path("/givenModelByTimePeriod")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -105,7 +105,33 @@ public class CreatedQueries {
 		System.out.println(model);
 		return Response.ok().status(200).entity(failureTraceEJB.getCountFailsForModelWithinTimePeriod(model, dateOne, dateTwo)).build();
 	}
-
+	//Working on this - QUERY NEEDS TO BE WRITTEN CORRECTLY
+	@POST
+	@Path("/top10MarketOperatorCellIdCombinations")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response top10MarketOperatorCellIdCombinations(JSONObject JSONDateObject) {
+		String startDate = JSONDateObject.get("Date1").toString();
+		String endDate = JSONDateObject.get("Date2").toString();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date dateOne = null;
+		Date dateTwo = null;
+		try {
+			dateOne = sdf.parse(startDate);
+			dateTwo = sdf.parse(endDate);
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return Response.ok().status(200).entity(failureTraceEJB.getTop10MarketOperatorCellIdCombinations(dateOne, dateTwo)).build();
+		
+	}
+	
+	
+	
+	
 	@GET
 	@Path("getAllFailureTraces")
 	public Collection <FailureTrace> getAllFailureTraces() {

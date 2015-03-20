@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.rest;
+package com.ericsson.msc.group5.utils;
 
 /*
  * Copyright (c) 2008, 2010, Oracle and/or its affiliates. All rights reserved.

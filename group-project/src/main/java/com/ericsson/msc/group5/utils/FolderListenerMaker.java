@@ -1,3 +1,4 @@
+package com.ericsson.msc.group5.utils;
 // package com.ericsson.msc.group5.rest;
 //
 // import javax.annotation.PostConstruct;

@@ -12,6 +12,7 @@ import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.FailureTraceService;
 import com.ericsson.msc.group5.services.ejb.DataImportServiceEJB;
+import com.ericsson.msc.group5.utils.FolderListener;
 
 @Path("/restImportService")
 public class RestImportService {

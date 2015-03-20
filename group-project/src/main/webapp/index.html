@@ -151,13 +151,16 @@
 					text = "<b> No results for IMSI '" + selected
 							+ "' </b><br>";
 				}
-
+				else{
+					text = text + "Cause Codes:<br><table style=\"width:100px\">"
+				}
 				for (var i = 0; i < data.length; i++) {
 					var obj = data[i];
-					var printable = "Cause Code: "
-							+ obj + "<br>";
+					var printable = "<tr><td> "
+							+ obj + "</tr></td>";
 					text = text + printable;
 				}
+				text = text + "</table>"
 				document.getElementById("jsChangeArea").innerHTML = text;
 			}
 		});

@@ -70,5 +70,15 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 		return em.createNamedQuery("givenImsiAndTimePeriodReturnNumberOfFailures").setParameter("Imsi", Imsi).setParameter("startTime", startTime).setParameter("endTime", endTime).getResultList();
 	}
 	
+	@Override
+	public Collection <String> getAllIMSIs(){
+		return em.createNamedQuery("getAllIMSIs").getResultList();
+	}
+	
+	@Override
+	public Collection <String> getAllModels(){
+		return em.createNamedQuery("getAllModels").getResultList();
+	}
+	
 
 }

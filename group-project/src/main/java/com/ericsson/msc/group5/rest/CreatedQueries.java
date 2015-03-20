@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,7 +13,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import org.json.simple.JSONObject;
+
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.services.FailureTraceService;
 
@@ -81,7 +84,7 @@ public class CreatedQueries {
 		return Response.ok().status(200).entity(failureTraceEJB.getGivenImsiOfFailureWithinTimePeriod(dateOne, dateTwo, Imsi)).build();
 
 	}
-	//QUERY FOR THIS IS NOT WORKING YET
+
 	@POST
 	@Path("/givenModelByTimePeriod")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -105,7 +108,7 @@ public class CreatedQueries {
 		System.out.println(model);
 		return Response.ok().status(200).entity(failureTraceEJB.getCountFailsForModelWithinTimePeriod(model, dateOne, dateTwo)).build();
 	}
-	//Working on this - QUERY NEEDS TO BE WRITTEN CORRECTLY
+
 	@POST
 	@Path("/top10MarketOperatorCellIdCombinations")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -128,7 +131,6 @@ public class CreatedQueries {
 		return Response.ok().status(200).entity(failureTraceEJB.getTop10MarketOperatorCellIdCombinations(dateOne, dateTwo)).build();
 	}
 	
-	//For a given IMSI, count the number of failures it has had during a given time period.
 	@POST
 	@Path("/givenImsiAndTimePeriodReturnNumberOfFailures")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -154,8 +156,21 @@ public class CreatedQueries {
 	}
 	
 	@GET
-	@Path("getAllFailureTraces")
+	@Path("/getAllFailureTraces")
 	public Collection <FailureTrace> getAllFailureTraces() {
 		return failureTraceEJB.getAllFailureTraces();
 	}
+	
+	@GET
+	@Path("/getAllIMSIs")
+	public Collection<String> getAllIMSIs(){
+		return failureTraceEJB.getAllIMSIs();
+	}
+	
+	@GET
+	@Path("/getAllModels")
+	public Collection<String> getAllModels(){
+		return failureTraceEJB.getAllModels();
+	}
+		
 }

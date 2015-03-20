@@ -27,14 +27,13 @@ import javax.persistence.Table;
 		// Queries for dropdown population
 		@NamedQuery(name = "getAllIMSIs", query = "SELECT DISTINCT (f.IMSI) FROM FailureTrace f"),
 		@NamedQuery(name = "getAllModels", query = "SELECT DISTINCT (u.model) FROM UserEquipment u"),
-
 		// Other queries
 		@NamedQuery(name = "getAllFailureTraces", query = "SELECT f FROM FailureTrace f"),
 		@NamedQuery(name = "getCauseCodeImsi", query = "SELECT DISTINCT (f.eventCause) as causeCode FROM FailureTrace f WHERE f.IMSI = :givenImsi ORDER BY causeCode ASC "),
 		@NamedQuery(name = "getTotalNumberOfEntries", query = "SELECT count(f.failureTraceId) from FailureTrace f"),
 		@NamedQuery(name = "getEventCauseCombinations", query = "SELECT DISTINCT (f.eventCause) FROM FailureTrace f WHERE f.IMSI = :givenImsi"),
-		@NamedQuery(name = "getImsiOfFailureTraceByFailureClass", query = "SELECT DISTINCT (f.IMSI) FROM FailureTrace f where f.failureClass.failureClass = :givenFailureClass"),
-		@NamedQuery(name = "getEventCauseCombinationsForModel", query = "SELECT DISTINCT (f.eventCause.description), COUNT(f.eventCause) as amount FROM FailureTrace f WHERE f.userEquipment.model = :model"),
+		@NamedQuery(name = "getImsiOfFailureTraceByFailureClass", query = "SELECT DISTINCT (f.IMSI) FROM FailureTrace f where f.failureClass.failureClass = :givenFailureClass ORDER BY f.IMSI ASC"),
+		@NamedQuery(name = "getEventCauseCombinationsForModel", query = "SELECT COUNT (f.eventCause.description) AS amount, f.eventCause.description FROM FailureTrace f WHERE f.userEquipment.model = :model GROUP BY f.eventCause.description"),
 		@NamedQuery(name = "getImsiOfFailureByTimePeriod", query = "SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime "),
 		@NamedQuery(name = "givenImsiByTimePeriod", query = "SELECT COUNT(f.dateTime), SUM(f.duration) FROM FailureTrace f WHERE f.IMSI = :Imsi AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI "),
 		@NamedQuery(name = "givenImsiAndTimePeriodReturnNumberOfFailures", query = "SELECT COUNT(f.dateTime) FROM FailureTrace f WHERE f.IMSI = :Imsi AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI"),
@@ -69,12 +68,10 @@ public class FailureTrace {
 	@JoinColumn(name = "typeAllocationCode")
 	private UserEquipment userEquipment;
 	@ManyToOne
-	@JoinColumns({@JoinColumn(name = "cause_code", referencedColumnName = "cause_code"),
-			@JoinColumn(name = "event_id", referencedColumnName = "event_id")})
+	@JoinColumns({@JoinColumn(name = "cause_code", referencedColumnName = "cause_code"), @JoinColumn(name = "event_id", referencedColumnName = "event_id")})
 	private EventCause eventCause;
 	@ManyToOne
-	@JoinColumns({@JoinColumn(name = "country_code", referencedColumnName = "country_code"),
-			@JoinColumn(name = "network_code", referencedColumnName = "network_code")})
+	@JoinColumns({@JoinColumn(name = "country_code", referencedColumnName = "country_code"), @JoinColumn(name = "network_code", referencedColumnName = "network_code")})
 	private CountryCodeNetworkCode countryCodeNetworkCode;
 
 	/**

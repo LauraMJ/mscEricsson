@@ -87,16 +87,17 @@ public class CreatedQueries {
 	@Path("/imsiAffectedByFailureClass")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getImsiOfFailureTraceByFailureClass(String model) {
-		return Response.ok().status(200).entity(failureTraceEJB.getEventCauseCombinationsForModel(model)).build();
+	public Response getImsiOfFailureTraceByFailureClass(Integer failureClass) {
+		return Response.ok().status(200).entity(failureTraceEJB.getImsiOfFailureTraceByFailureClass(failureClass)).build();
+
 	}
 
 	@POST
 	@Path("/eventCauseAndCountOfOccurencesForModel")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getEventCauseCombinationsForModel(Integer failureClass) {
-		return Response.ok().status(200).entity(failureTraceEJB.getImsiOfFailureTraceByFailureClass(failureClass)).build();
+	public Response getEventCauseCombinationsForModel(String model) {
+		return Response.ok().status(200).entity(failureTraceEJB.getEventCauseCombinationsForModel(model)).build();
 	}
 
 	@POST

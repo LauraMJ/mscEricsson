@@ -128,8 +128,30 @@ public class CreatedQueries {
 		return Response.ok().status(200).entity(failureTraceEJB.getTop10MarketOperatorCellIdCombinations(dateOne, dateTwo)).build();
 	}
 	
-	
-	
+	//For a given IMSI, count the number of failures it has had during a given time period.
+	@POST
+	@Path("/givenImsiAndTimePeriodReturnNumberOfFailures")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response givenImsiAndTimePeriodReturnNumberOfFailures(JSONObject JSONImsiDateObject){
+		String Imsi = JSONImsiDateObject.get("Imsi").toString();
+		String startDate = JSONImsiDateObject.get("Date1").toString();
+		String endDate = JSONImsiDateObject.get("Date2").toString();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date dateOne = null;
+		Date dateTwo = null;
+		try {
+			dateOne = sdf.parse(startDate);
+			dateTwo = sdf.parse(endDate);
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(Imsi);
+		return Response.ok().status(200).entity(failureTraceEJB.givenImsiAndTimePeriodReturnNumberOfFailures(Imsi, dateOne, dateTwo)).build();
+	}
 	
 	@GET
 	@Path("getAllFailureTraces")

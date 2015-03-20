@@ -359,9 +359,7 @@
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='SelectIMSI' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
 				<input id='imsiEnter' type='text'<b><br><br>Please Select Time Range</b><br><br>\
-				From:<input type='date' id='dateOne' name='dateOne'/><input type='time' id='timeOne' name='timeOne'/>To:<input type='date' id='dateTwo' name='dateTwo'/><input type='time' id='timeTwo' name='timeTwo'/><button id='testButton' onclick='givenImsiAndTimePeriodReturnNumberOfFailures()'>Submit</button></form><hr>";
-			
-		}						
+				From:<input type='date' id='dateOne' name='dateOne'/><input type='time' id='timeOne' name='timeOne'/>To:<input type='date' id='dateTwo' name='dateTwo'/><input type='time' id='timeTwo' name='timeTwo'/><button id='testButton' onclick='givenImsiAndTimePeriodReturnNumberOfFailures()'>Submit</button></form><hr>";					
 			
 		//SUPPORT ENGINEER
 		} else if (selection == "suppIMSI") {
@@ -425,7 +423,7 @@ html, body {
 				
 				<b>Customer Service:</b><br> 
 				<a id="custIMSI" href="#" onclick="change('custIMSI');return false;">IMSI Failures by ID</a><br><br>
-				<A id="custIMSIFails" href='#' onclick="change('custIMSIFails');return false;">IMSI Failures by ID and Time Range</a><br></br>
+				<a id="custIMSIFails" href='#' onclick="change('custIMSIFails');return false;">IMSI Failures by ID and Time Range</a><br></br>
 				
 				<b>Support Eng.:</b><br> 
 				<a id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI Failures by Time Range</a><br>

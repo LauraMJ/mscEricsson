@@ -84,4 +84,12 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 	public void addFailureTraces(Collection <FailureTrace> failureTraces) {
 		dao.batchInsertFailureTrace(failureTraces);
 	}
+
+	//For a given IMSI, count the number of failures it has had during a given time period.
+	@Override
+	public Collection<String> givenImsiAndTimePeriodReturnNumberOfFailures(
+			String Imsi, Date startTime, Date endTime) {
+		
+		return dao.givenImsiAndTimePeriodReturnNumberOfFailures(Imsi, startTime, endTime);
+	}
 }

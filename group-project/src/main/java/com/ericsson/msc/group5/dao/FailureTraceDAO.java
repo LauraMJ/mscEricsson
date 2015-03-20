@@ -21,6 +21,9 @@ public interface FailureTraceDAO {
 	public Long getTotalNumberOfEntries();
 
 	public Collection <EventCause> getEventCauseForImsi(String imsi);
+	
+	//For a given IMSI, count the number of failures it has had during a given time period.
+	public Collection <String> givenImsiAndTimePeriodReturnNumberOfFailures(String Imsi, Date startTime, Date endTime);
 
 	/**
 	 * Retrieve all FailureTrace objects present in the data store.

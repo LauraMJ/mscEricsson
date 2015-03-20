@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.entities.EventCause;
@@ -61,5 +62,13 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 			em.persist(failureTrace);
 		}
 	}
+
+	//For a given IMSI, count the number of failures it has had during a given time period.
+	@Override
+	public Collection <String> givenImsiAndTimePeriodReturnNumberOfFailures(
+			String Imsi, Date startTime, Date endTime) {
+		return em.createNamedQuery("givenImsiAndTimePeriodReturnNumberOfFailures").setParameter("Imsi", Imsi).setParameter("startTime", startTime).setParameter("endTime", endTime).getResultList();
+	}
+	
 
 }

@@ -201,8 +201,6 @@
 		});
 	}
 	
-	//GIVEN MODEL AND TIME PERIOD
-	//BACK END QUERY NOT WORKING
 	function modelPerTimePeriod(){
 		var model = document.getElementById('modelField').value;
 		var url = 'rest/query/givenModelByTimePeriod';
@@ -225,8 +223,7 @@
 				
 				for (var i = 0; i < data.length; i++){
 					var obj = data[i];
-					var count = obj[0];
-					var printable = "<b>Number of failures: </b>" + count;
+					var printable = "<b>Number of failures: </b>" + obj;
 					text = text + printable;
 				}
 				document.getElementById("jsChangeArea").innerHTML = text;
@@ -257,15 +254,13 @@
 				
 				for (var i = 0; i < data.length; i++){
 					var obj = data[i];
-// 					var somethingToOutput = obj[0];
-					
-					for(somethingToOutput in obj){
-						var printable = "<b>Item: </b>" + somethingToOutput;
-						text = text + printable;
-					}
-					text = text + "<br>";
-// 					var printable = "<b> Number of failures: </b>" + somethingToOutput;
-// 					text = text + printable;
+					var count = obj[0];
+					var cellId = obj[1];
+					var operator = obj[2];
+					var market = obj[3];
+					var number = i+1;
+					var printable = "<b>" + number + "</b><br><b>Number of Failures: </b><i>" + count +"</i><br><b>Cell ID: </b><i>" + cellId + "</i><br><b>Operator: </b><i>" + operator + "</i><br><b>Market : </b><i>" + market + "</i><br>";
+					text = text + printable;
 				}
 				document.getElementById("jsChangeArea").innerHTML = text;
 

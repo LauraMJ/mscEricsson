@@ -33,8 +33,8 @@ public class FailureTraceTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static int INITIAL_DURATION = 1000;
-	private static int UPDATED_DURATION = 10000;
+	private static Integer INITIAL_DURATION = 1000;
+	private static Integer UPDATED_DURATION = 10000;
 	private FailureTrace ft;
 	private Long id = 0L;
 
@@ -88,11 +88,11 @@ public class FailureTraceTest {
 	@Test
 	public void basicCRUDTest() throws Exception {
 		FailureTrace loadedFT = em.find(FailureTrace.class, id);
-		assertEquals("Failed to insert", INITIAL_DURATION, (int) loadedFT.getDuration());
+		assertEquals("Failed to insert", INITIAL_DURATION, loadedFT.getDuration());
 
 		loadedFT.setDuration(UPDATED_DURATION);
 		FailureTrace updatedFT = em.find(FailureTrace.class, id);
-		assertEquals("Failed to update", UPDATED_DURATION, (int) updatedFT.getDuration());
+		assertEquals("Failed to update", UPDATED_DURATION, updatedFT.getDuration());
 
 		em.remove(updatedFT);
 		FailureTrace shouldBeNull = em.find(FailureTrace.class, id);

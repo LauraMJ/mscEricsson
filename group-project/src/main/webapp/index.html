@@ -257,9 +257,15 @@
 				
 				for (var i = 0; i < data.length; i++){
 					var obj = data[i];
-					var somethingToOutput = obj[0];
-					var printable = "<b> Number of failures: </b>" + somethingToOutput;
-					text = text + printable;
+// 					var somethingToOutput = obj[0];
+					
+					for(somethingToOutput in obj){
+						var printable = "<b>Item: </b>" + somethingToOutput;
+						text = text + printable;
+					}
+					text = text + "<br>";
+// 					var printable = "<b> Number of failures: </b>" + somethingToOutput;
+// 					text = text + printable;
 				}
 				document.getElementById("jsChangeArea").innerHTML = text;
 

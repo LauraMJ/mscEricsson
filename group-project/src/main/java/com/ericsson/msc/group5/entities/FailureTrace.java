@@ -34,8 +34,10 @@ import javax.persistence.Table;
 		//ISSUE WITH QUERY
 		@NamedQuery(name = "givenModelByTimePeriod", query = "SELECT COUNT(f) FROM FailureTrace f WHERE f.userEquipment.model = :model AND f.dateTime BETWEEN :startTime AND :endTime"),
 		//TEMP QUERY - NOT CORRECT TO SPEC
-		//USER STORY: List the top 10 Market/Operator/Cell ID combinations that had call failures during a time period
-		@NamedQuery(name = "top10MarketOperatorCellIdCombinations", query = "SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime ")})
+		//USER STORY: List the top 10 Market/Operator/Cell ID combinations that had call failures during a time period		
+		
+		@NamedQuery(name = "top10MarketOperatorCellIdCombinations", query = "SELECT COUNT(f.IMSI) AS total, f.cellId, f.countryCodeNetworkCode.operator, f.countryCodeNetworkCode.countryCodeNetworkCode.country.country FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI ORDER BY total DESC")})
+//		@NamedQuery(name = "top10MarketOperatorCellIdCombinations", query = "SELECT COUNT(f.IMSI), f.cellId, ccnc.operator, co.country FROM FailureTrace f, CountryCodeNetworkCode ccnc, Country co WHERE ccnc = f.countryCodeNetworkCode AND co. = AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI")})
 public class FailureTrace {
 	@Id
 	@Column(name = "failure_trace_id")

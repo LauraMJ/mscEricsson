@@ -126,7 +126,6 @@ public class CreatedQueries {
 		}
 		
 		return Response.ok().status(200).entity(failureTraceEJB.getTop10MarketOperatorCellIdCombinations(dateOne, dateTwo)).build();
-		
 	}
 	
 	

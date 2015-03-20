@@ -39,7 +39,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "givenImsiAndTimePeriodReturnNumberOfFailures", query = "SELECT COUNT(f.dateTime) FROM FailureTrace f WHERE f.IMSI = :Imsi AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI"),
 		@NamedQuery(name = "topTenIMSIsWithFailures", query = "SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime ORDER by f.IMSI"),
 		@NamedQuery(name = "givenModelByTimePeriod", query = "SELECT COUNT(f.IMSI) FROM FailureTrace f WHERE f.userEquipment.model = :model AND f.dateTime BETWEEN :startTime AND :endTime"),
-		@NamedQuery(name = "top10MarketOperatorCellIdCombinations", query = "SELECT COUNT(f.IMSI), f.cellId, f.countryCodeNetworkCode.operator, f.countryCodeNetworkCode.countryCodeNetworkCode.country.country FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI ORDER BY COUNT(f.IMSI) DESC")})
+		@NamedQuery(name = "top10MarketOperatorCellIdCombinations", query = "SELECT COUNT(f.IMSI) as total, f.cellId, f.countryCodeNetworkCode.operator, f.countryCodeNetworkCode.countryCodeNetworkCode.country.country FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI ORDER BY total DESC")})
 public class FailureTrace {
 
 	@Id

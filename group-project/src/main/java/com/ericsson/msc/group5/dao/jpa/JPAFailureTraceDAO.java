@@ -4,9 +4,6 @@ import java.util.Collection;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import javax.persistence.Query;
-
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureTrace;
@@ -26,21 +23,30 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 		return em.createNamedQuery("getImsiOfFailureByTimePeriod").setParameter("startTime", startTime).setParameter("endTime", endTime)
 				.getResultList();
 	}
-	
+
 	@Override
 	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String Imsi) {
-		return em.createNamedQuery("givenImsiByTimePeriod").setParameter("startTime", startTime).setParameter("endTime", endTime).setParameter("Imsi", Imsi).getResultList();
+		return em.createNamedQuery("givenImsiByTimePeriod").setParameter("startTime", startTime).setParameter("endTime", endTime)
+				.setParameter("Imsi", Imsi).getResultList();
 	}
-	
+
 	@Override
 	public Collection <String> getCountFailsForModelWithinTimePeriod(String model, Date startTime, Date endTime) {
-		return em.createNamedQuery("givenModelByTimePeriod").setParameter("model", model).setParameter("startTime", startTime).setParameter("endTime", endTime).getResultList();
+		return em.createNamedQuery("givenModelByTimePeriod").setParameter("model", model).setParameter("startTime", startTime)
+				.setParameter("endTime", endTime).getResultList();
 	}
-	
+
 	@Override
-	public Collection<String> getTop10MarketOperatorCellIdCombinations(Date startTime, Date endTime) {
-		return em.createNamedQuery("top10MarketOperatorCellIdCombinations").setParameter("startTime", startTime).setParameter("endTime", endTime).setMaxResults(10).getResultList();
+	public Collection <String> getTop10MarketOperatorCellIdCombinations(Date startTime, Date endTime) {
+		return em.createNamedQuery("top10MarketOperatorCellIdCombinations").setParameter("startTime", startTime).setParameter("endTime", endTime)
+				.setMaxResults(10).getResultList();
 	}
+
+	@Override
+	public Collection <String> getImsiOfFailureTraceByFailureClass(Integer failureClass) {
+		return em.createNamedQuery("imsiAffectedByFailureClass").setParameter("givenFailureClass", failureClass).getResultList();
+	}
+
 	@Override
 	public Long getTotalNumberOfEntries() {
 		return (Long) em.createNamedQuery("getTotalNumberOfEntries").getSingleResult();
@@ -63,23 +69,24 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 		}
 	}
 
-	//For a given IMSI, count the number of failures it has had during a given time period.
+	// For a given IMSI, count the number of failures it has had during a given
+	// time period.
 	@Override
-	public Collection <String> givenImsiAndTimePeriodReturnNumberOfFailures(
-			String Imsi, Date startTime, Date endTime) {
-		return em.createNamedQuery("givenImsiAndTimePeriodReturnNumberOfFailures").setParameter("Imsi", Imsi).setParameter("startTime", startTime).setParameter("endTime", endTime).getResultList();
+	public Collection <String> givenImsiAndTimePeriodReturnNumberOfFailures(String Imsi, Date startTime, Date endTime) {
+		return em.createNamedQuery("givenImsiAndTimePeriodReturnNumberOfFailures").setParameter("Imsi", Imsi).setParameter("startTime", startTime)
+				.setParameter("endTime", endTime).getResultList();
 	}
-	
+
 	@Override
-	public Collection <String> getAllIMSIs(){
+	public Collection <String> getAllIMSIs() {
 		return em.createNamedQuery("getAllIMSIs").getResultList();
 	}
-	
+
 	@Override
-	public Collection <String> getAllModels(){
+	public Collection <String> getAllModels() {
 		return em.createNamedQuery("getAllModels").getResultList();
 	}
-	
+
 	@Override
 	public Collection <EventCause> getCauseCodesForImsi(String imsi) {
 		return em.createNamedQuery("getCauseCodeByImsi").setParameter("givenImsi", imsi).getResultList();

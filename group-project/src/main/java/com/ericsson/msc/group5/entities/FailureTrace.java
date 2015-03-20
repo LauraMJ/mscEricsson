@@ -29,7 +29,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "getAllModels", query = "SELECT DISTINCT (u.model) FROM UserEquipment u"),
 		// Other queries
 		@NamedQuery(name = "getAllFailureTraces", query = "SELECT f FROM FailureTrace f"),
-		@NamedQuery(name = "getCauseCodeImsi", query = "SELECT DISTINCT (f.eventCause) as causeCode FROM FailureTrace f WHERE f.IMSI = :givenImsi ORDER BY causeCode ASC "),
+		@NamedQuery(name = "getCauseCodeImsi", query = "SELECT DISTINCT (f.eventCause.causeCodeEventIdCK.causeCode) as causeCode FROM FailureTrace f WHERE f.IMSI = :givenImsi ORDER BY causeCode ASC "),
 		@NamedQuery(name = "getTotalNumberOfEntries", query = "SELECT count(f.failureTraceId) from FailureTrace f"),
 		@NamedQuery(name = "getEventCauseCombinations", query = "SELECT DISTINCT (f.eventCause) FROM FailureTrace f WHERE f.IMSI = :givenImsi"),
 		@NamedQuery(name = "getImsiOfFailureTraceByFailureClass", query = "SELECT DISTINCT (f.IMSI) FROM FailureTrace f where f.failureClass.failureClass = :givenFailureClass ORDER BY f.IMSI ASC"),

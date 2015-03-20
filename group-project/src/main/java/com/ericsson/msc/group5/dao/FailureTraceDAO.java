@@ -56,7 +56,7 @@ public interface FailureTraceDAO {
 	 */
 	public void batchInsertFailureTrace(Collection <FailureTrace> failureTraceList);
 
-	public Collection <EventCause> getCauseCodesForImsi(String imsi);
+	public Collection <Integer> getCauseCodesForImsi(String imsi);
 
 	public Collection <String> getAllIMSIs();
 

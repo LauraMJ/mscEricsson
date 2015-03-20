@@ -44,7 +44,7 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 
 	@Override
 	public Collection <String> getImsiOfFailureTraceByFailureClass(Integer failureClass) {
-		return em.createNamedQuery("imsiAffectedByFailureClass").setParameter("givenFailureClass", failureClass).getResultList();
+		return em.createNamedQuery("getImsiOfFailureTraceByFailureClass").setParameter("givenFailureClass", failureClass).getResultList();
 	}
 
 	@Override

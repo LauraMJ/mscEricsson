@@ -34,6 +34,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "getTotalNumberOfEntries", query = "SELECT count(f.failureTraceId) from FailureTrace f"),
 		@NamedQuery(name = "getEventCauseCombinations", query = "SELECT DISTINCT (f.eventCause) FROM FailureTrace f WHERE f.IMSI = :givenImsi"),
 		@NamedQuery(name = "getImsiOfFailureTraceByFailureClass", query = "SELECT DISTINCT (f.IMSI) FROM FailureTrace f where f.failureClass.failureClass = :givenFailureClass"),
+		@NamedQuery(name = "getEventCauseCombinationsForModel", query = "SELECT DISTINCT (f.eventCause.description), COUNT(f.eventCause) as amount FROM FailureTrace f WHERE f.userEquipment.model = :model"),
 		@NamedQuery(name = "getImsiOfFailureByTimePeriod", query = "SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime "),
 		@NamedQuery(name = "givenImsiByTimePeriod", query = "SELECT COUNT(f.dateTime), SUM(f.duration) FROM FailureTrace f WHERE f.IMSI = :Imsi AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI "),
 		@NamedQuery(name = "givenImsiAndTimePeriodReturnNumberOfFailures", query = "SELECT COUNT(f.dateTime) FROM FailureTrace f WHERE f.IMSI = :Imsi AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI"),

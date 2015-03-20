@@ -22,7 +22,9 @@ public interface FailureTraceService {
 
 	public Collection <String> getCountFailsForModelWithinTimePeriod(String model, Date startTime, Date endTime);
 
-	Collection <String> getImsiOfFailureTraceByFailureClass(Integer failureClass);
+	public Collection <String> getImsiOfFailureTraceByFailureClass(Integer failureClass);
+
+	public Collection <String> getEventCauseCombinationsForModel(String model);
 
 	public Collection <FailureTrace> getAllFailureTraces();
 

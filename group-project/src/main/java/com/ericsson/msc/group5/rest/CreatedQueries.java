@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,9 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.json.simple.JSONObject;
-
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.services.FailureTraceService;
 
@@ -30,14 +27,9 @@ public class CreatedQueries {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getEventCauseCombinations(String imsi) {
-
-		// long start = System.currentTimeMillis();
-		// long end = System.currentTimeMillis();
-		// long total = end - start;
-		// System.out.println("Time take %d milliseconds.\n" + total);
 		return Response.ok().status(200).entity(failureTraceEJB.getEventCauseCombinations(imsi)).build();
 	}
-	
+
 	@POST
 	@Path("/causeCodesPerImsi")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -88,9 +80,23 @@ public class CreatedQueries {
 			e.printStackTrace();
 		}
 
-		System.out.println(Imsi);
 		return Response.ok().status(200).entity(failureTraceEJB.getGivenImsiOfFailureWithinTimePeriod(dateOne, dateTwo, Imsi)).build();
+	}
 
+	@POST
+	@Path("/imsiAffectedByFailureClass")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getImsiOfFailureTraceByFailureClass(String model) {
+		return Response.ok().status(200).entity(failureTraceEJB.getEventCauseCombinationsForModel(model)).build();
+	}
+
+	@POST
+	@Path("/eventCauseAndCountOfOccurencesForModel")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getEventCauseCombinationsForModel(Integer failureClass) {
+		return Response.ok().status(200).entity(failureTraceEJB.getImsiOfFailureTraceByFailureClass(failureClass)).build();
 	}
 
 	@POST
@@ -101,7 +107,7 @@ public class CreatedQueries {
 		String startDate = JSONModelDateObject.get("Date1").toString();
 		String endDate = JSONModelDateObject.get("Date2").toString();
 		String model = JSONModelDateObject.get("Model").toString();
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date dateOne = null;
 		Date dateTwo = null;
@@ -112,7 +118,7 @@ public class CreatedQueries {
 		catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		System.out.println(model);
 		return Response.ok().status(200).entity(failureTraceEJB.getCountFailsForModelWithinTimePeriod(model, dateOne, dateTwo)).build();
 	}
@@ -124,7 +130,7 @@ public class CreatedQueries {
 	public Response top10MarketOperatorCellIdCombinations(JSONObject JSONDateObject) {
 		String startDate = JSONDateObject.get("Date1").toString();
 		String endDate = JSONDateObject.get("Date2").toString();
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date dateOne = null;
 		Date dateTwo = null;
@@ -135,19 +141,19 @@ public class CreatedQueries {
 		catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		return Response.ok().status(200).entity(failureTraceEJB.getTop10MarketOperatorCellIdCombinations(dateOne, dateTwo)).build();
 	}
-	
+
 	@POST
 	@Path("/givenImsiAndTimePeriodReturnNumberOfFailures")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response givenImsiAndTimePeriodReturnNumberOfFailures(JSONObject JSONImsiDateObject){
+	public Response givenImsiAndTimePeriodReturnNumberOfFailures(JSONObject JSONImsiDateObject) {
 		String Imsi = JSONImsiDateObject.get("Imsi").toString();
 		String startDate = JSONImsiDateObject.get("Date1").toString();
 		String endDate = JSONImsiDateObject.get("Date2").toString();
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date dateOne = null;
 		Date dateTwo = null;
@@ -158,26 +164,26 @@ public class CreatedQueries {
 		catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		System.out.println(Imsi);
 		return Response.ok().status(200).entity(failureTraceEJB.givenImsiAndTimePeriodReturnNumberOfFailures(Imsi, dateOne, dateTwo)).build();
 	}
-	
+
 	@GET
 	@Path("/getAllFailureTraces")
 	public Collection <FailureTrace> getAllFailureTraces() {
 		return failureTraceEJB.getAllFailureTraces();
 	}
-	
+
 	@GET
 	@Path("/getAllIMSIs")
-	public Collection<String> getAllIMSIs(){
+	public Collection <String> getAllIMSIs() {
 		return failureTraceEJB.getAllIMSIs();
 	}
-	
+
 	@GET
 	@Path("/getAllModels")
-	public Collection<String> getAllModels(){
+	public Collection <String> getAllModels() {
 		return failureTraceEJB.getAllModels();
 	}
 }

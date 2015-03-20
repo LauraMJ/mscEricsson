@@ -17,7 +17,8 @@ public interface FailureTraceDAO {
 
 	public Collection <String> getCountFailsForModelWithinTimePeriod(String model, Date startTime, Date endTime);
 
-	//
+	public Collection <String> getEventCauseCombinationsForModel(String model);
+
 	public Collection <String> getTop10MarketOperatorCellIdCombinations(Date startTime, Date endTime);
 
 	public Collection <String> getImsiOfFailureTraceByFailureClass(Integer failureClass);

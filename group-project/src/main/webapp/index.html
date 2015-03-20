@@ -269,11 +269,11 @@
 		
 		//For a given IMSI, count the number of failures it has had during a given time period.
 		function givenImsiAndTimePeriodReturnNumberOfFailures(){
-			var selected = document.getElementById('imsiField').value;
+			var selected = document.getElementById('imsiEnter').value;
 			var url = 'rest/Query/givenImsiAndTimePeriodReturnNumberOfFailures';
-			var Date1 = document.getElementById('date1').value + " " + document.getElementById('time1').value;
-			var Date2 = document.getElementById('date2').value + " " + document.getElementById('time2').value;
-			var JSONObject = { "Imsi" : selected, "Date1" : Date1, "Date2" : Date2};
+			var Date1 = document.getElementById('dateOne').value + " " + document.getElementById('timeOne').value;
+			var Date2 = document.getElementById('dateTwo').value + " " + document.getElementById('timeTwo').value;
+			var JSONObject = { "Imsi" : selected, "DateOne" : DateOne, "DateTwo" : DateTwo};
 			JSONObject = JSON.stringify(JSONObject);
 			
 			$.ajax({
@@ -283,7 +283,7 @@
 				contentType : "application/json",
 				dataType : 'json',
 				success : function(data) {
-					var text = "<b> Results for IMSI </b><u>" + selected + "</u><b> for time period </b><i>" + Date1 + "<i><b> to </b><i>" + Date2 + "</i><br>";
+					var text = "<b> Results for IMSI </b><u>" + selected + "</u><b> for time period </b><i>" + DateOne + "<i><b> to </b><i>" + DateTwo + "</i><br>";
 					if(data.length == 0){
 						text = "<b>No results for lookup.</b><br>";
 					}
@@ -355,6 +355,14 @@
 			text.innerHTML = "";
 			text.innerHTML = "<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
 								IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit' onclick='eventCauseForImsi()'/></form><hr>";
+		} else if (selection == "custIMSIFails"){
+			var text = document.getElementById("jsChangeArea");
+			text.innerHTML = "";
+			text.innerHTML = "<form id='SelectIMSI' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
+				<input id='imsiEnter' type='text'<b><br><br>Please Select Time Range</b><br><br>\
+				From:<input type='date' id='dateOne' name='dateOne'/><input type='time' id='timeOne' name='timeOne'/>To:<input type='date' id='dateTwo' name='dateTwo'/><input type='time' id='timeTwo' name='timeTwo'/><button id='testButton' onclick='givenImsiAndTimePeriodReturnNumberOfFailures()'>Submit</button></form><hr>";
+			
+		}						
 			
 		//SUPPORT ENGINEER
 		} else if (selection == "suppIMSI") {
@@ -418,6 +426,7 @@ html, body {
 				
 				<b>Customer Service:</b><br> 
 				<a id="custIMSI" href="#" onclick="change('custIMSI');return false;">IMSI Failures by ID</a><br><br>
+				<A id="custIMSIFails" href='#' onclick="change('custIMSIFails');return false;">IMSI Failures by ID and Time Range</a><br></br>
 				
 				<b>Support Eng.:</b><br> 
 				<a id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI Failures by Time Range</a><br>

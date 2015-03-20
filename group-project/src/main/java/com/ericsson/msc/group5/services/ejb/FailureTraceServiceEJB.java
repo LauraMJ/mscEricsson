@@ -92,4 +92,14 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 		
 		return dao.givenImsiAndTimePeriodReturnNumberOfFailures(Imsi, startTime, endTime);
 	}
+
+	@Override
+	public Collection <String> getAllIMSIs() {
+		return dao.getAllIMSIs();
+	}
+	
+	@Override
+	public Collection <String> getAllModels(){
+		return dao.getAllModels();
+	}
 }

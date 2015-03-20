@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,7 +13,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import org.json.simple.JSONObject;
+
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.services.FailureTraceService;
 
@@ -154,8 +157,24 @@ public class CreatedQueries {
 	}
 	
 	@GET
-	@Path("getAllFailureTraces")
+	@Path("/getAllFailureTraces")
 	public Collection <FailureTrace> getAllFailureTraces() {
 		return failureTraceEJB.getAllFailureTraces();
 	}
+	
+	@GET
+	@Path("/getAllIMSIs")
+	public Collection<String> getAllIMSIs(){
+		return failureTraceEJB.getAllIMSIs();
+	}
+	
+	@GET
+	@Path("/getAllModels")
+	public Collection<String> getAllModels(){
+		return failureTraceEJB.getAllModels();
+	}
+	
+	
+	
+	
 }

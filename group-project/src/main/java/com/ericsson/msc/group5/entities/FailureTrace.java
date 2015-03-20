@@ -24,6 +24,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "failure_trace")
 @NamedQueries({
+	//Queries for dropdown population
+		@NamedQuery(name = "getAllIMSIs", query = "SELECT DISTINCT (f.IMSI) FROM FailureTrace f"),
+		@NamedQuery(name = "getAllModels", query = "SELECT DISTINCT (u.model) FROM UserEquipment u"),
+	
+	//Other queries
 		@NamedQuery(name = "getAllFailureTraces", query = "SELECT f FROM FailureTrace f"),
 		@NamedQuery(name = "getTotalNumberOfEntries", query = "SELECT count(f.failureTraceId) from FailureTrace f"),
 		@NamedQuery(name = "getEventCauseCombinations", query = "SELECT DISTINCT (f.eventCause) FROM FailureTrace f WHERE f.IMSI = :givenImsi"),
@@ -31,13 +36,8 @@ import javax.persistence.Table;
 		@NamedQuery(name = "givenImsiByTimePeriod", query = "SELECT COUNT(f.dateTime), SUM(f.duration) FROM FailureTrace f WHERE f.IMSI = :Imsi AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI "),
 		@NamedQuery(name = "givenImsiAndTimePeriodReturnNumberOfFailures", query ="SELECT COUNT(f.dateTime) FROM FailureTrace f WHERE f.IMSI = :Imsi AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI"),
 		@NamedQuery(name = "topTenIMSIsWithFailures", query ="SELECT f.IMSI FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime ORDER by f.IMSI"),
-		//ISSUE WITH QUERY
-		@NamedQuery(name = "givenModelByTimePeriod", query = "SELECT COUNT(f.IMSI) FROM FailureTrace f WHERE f.userEquipment.model = :model AND f.dateTime BETWEEN :startTime AND :endTime"),
-		//TEMP QUERY - NOT CORRECT TO SPEC
-		//USER STORY: List the top 10 Market/Operator/Cell ID combinations that had call failures during a time period		
-		
+		@NamedQuery(name = "givenModelByTimePeriod", query = "SELECT COUNT(f.IMSI) FROM FailureTrace f WHERE f.userEquipment.model = :model AND f.dateTime BETWEEN :startTime AND :endTime"),	
 		@NamedQuery(name = "top10MarketOperatorCellIdCombinations", query = "SELECT COUNT(f.IMSI) AS total, f.cellId, f.countryCodeNetworkCode.operator, f.countryCodeNetworkCode.countryCodeNetworkCode.country.country FROM FailureTrace f WHERE f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI ORDER BY total DESC")})
-//		@NamedQuery(name = "top10MarketOperatorCellIdCombinations", query = "SELECT COUNT(f.IMSI), f.cellId, ccnc.operator, co.country FROM FailureTrace f, CountryCodeNetworkCode ccnc, Country co WHERE ccnc = f.countryCodeNetworkCode AND co. = AND f.dateTime BETWEEN :startTime AND :endTime GROUP BY f.IMSI")})
 public class FailureTrace {
 	@Id
 	@Column(name = "failure_trace_id")

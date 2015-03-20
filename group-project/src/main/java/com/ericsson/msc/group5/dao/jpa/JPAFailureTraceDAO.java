@@ -88,7 +88,7 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 	}
 
 	@Override
-	public Collection <EventCause> getCauseCodesForImsi(String imsi) {
+	public Collection <Integer> getCauseCodesForImsi(String imsi) {
 		return em.createNamedQuery("getCauseCodeImsi").setParameter("givenImsi", imsi).getResultList();
 	}
 }

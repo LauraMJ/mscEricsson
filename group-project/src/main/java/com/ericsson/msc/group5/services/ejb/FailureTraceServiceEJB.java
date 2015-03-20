@@ -85,7 +85,7 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 	}
 
 	@Override
-	public Collection <EventCause> getCauseCodesForImsi(String imsi) {
+	public Collection <Integer> getCauseCodesForImsi(String imsi) {
 		return dao.getCauseCodesForImsi(imsi);
 	}
 }

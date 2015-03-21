@@ -152,8 +152,8 @@ public class CreatedQueries {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response givenImsiAndTimePeriodReturnNumberOfFailures(JSONObject JSONImsiDateObject) {
 		String Imsi = JSONImsiDateObject.get("Imsi").toString();
-		String startDate = JSONImsiDateObject.get("Date1").toString();
-		String endDate = JSONImsiDateObject.get("Date2").toString();
+		String startDate = JSONImsiDateObject.get("DateOne").toString();
+		String endDate = JSONImsiDateObject.get("DateTwo").toString();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date dateOne = null;

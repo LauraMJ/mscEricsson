@@ -32,9 +32,11 @@ public interface FailureTraceService {
 
 	public Collection <String> getTop10MarketOperatorCellIdCombinations(Date dateOne, Date dateTwo);
 
-	// For a given IMSI, count the number of failures it has had during a given
-	// time period.
+	// For a given IMSI, count the number of failures it has had during a given time period.
 	public Collection <String> givenImsiAndTimePeriodReturnNumberOfFailures(String Imsi, Date startTime, Date endTime);
+	
+	//Show the Top 10 IMSIs that had call failures during a time period
+	public Collection <String> topTenIMSIsWithFailures(Date startTime, Date endTime);
 
 	Long getTotalNumberOfEntries();
 

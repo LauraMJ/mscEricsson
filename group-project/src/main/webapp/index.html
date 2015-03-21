@@ -302,11 +302,12 @@
 		//For a given IMSI, count the number of failures it has had during a given time period.
 		function givenImsiAndTimePeriodReturnNumberOfFailures(){
 			var selected = document.getElementById('imsiEnter').value;
-			var url = 'rest/Query/givenImsiAndTimePeriodReturnNumberOfFailures';
-			var Date1 = document.getElementById('dateOne').value + " " + document.getElementById('timeOne').value;
-			var Date2 = document.getElementById('dateTwo').value + " " + document.getElementById('timeTwo').value;
-			var JSONObject = { "Imsi" : selected, "DateOne" : DateOne, "DateTwo" : DateTwo};
+			var url = 'rest/query/givenImsiAndTimePeriodReturnNumberOfFailures';
+			var DateOne = document.getElementById('dateOne1').value + " " + document.getElementById('timeOne1').value;
+			var DateTwo = document.getElementById('dateTwo2').value + " " + document.getElementById('timeTwo2').value;
+			var JSONObject = { "DateOne" : DateOne, "DateTwo" : DateTwo, "Imsi" : selected};
 			JSONObject = JSON.stringify(JSONObject);
+			
 			
 			$.ajax({
 				url : url,
@@ -390,7 +391,7 @@
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='SelectIMSI' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
 				<input id='imsiEnter' type='text'<b><br><br>Please Select Time Range</b><br><br>\
-				From:<input type='date' id='dateOne' name='dateOne'/><input type='time' id='timeOne' name='timeOne'/>To:<input type='date' id='dateTwo' name='dateTwo'/><input type='time' id='timeTwo' name='timeTwo'/><button id='testButton' onclick='givenImsiAndTimePeriodReturnNumberOfFailures()'>Submit</button></form><hr>";					
+				From:<input type='date' id='dateOne1' name='dateOne'/><input type='time' id='timeOne1' name='timeOne'/>To:<input type='date' id='dateTwo2' name='dateTwo'/><input type='time' id='timeTwo2' name='timeTwo'/><button id='testButton' onclick='givenImsiAndTimePeriodReturnNumberOfFailures()'>Submit</button></form><hr>";					
 			
 		//SUPPORT ENGINEER
 		} else if (selection == "suppIMSI") {

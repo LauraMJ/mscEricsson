@@ -12,7 +12,6 @@ import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.FailureTraceService;
 import com.ericsson.msc.group5.services.ejb.DataImportServiceEJB;
-import com.ericsson.msc.group5.utils.FolderListener;
 
 @Path("/restImportService")
 public class RestImportService {
@@ -41,32 +40,35 @@ public class RestImportService {
 		return resultString;
 	}
 
-	@POST
-	@Path("/autoImport")
-	//@Consumes(MediaType.APPLICATION_JSON)
-	public String applyFileChanges(/*String path*/) {
-		System.out.println("Rest method called");
-		try {
-			Thread.sleep(1000);
-		}
-		catch (InterruptedException e1) {
-			e1.printStackTrace();
+	//Working on this, disabled it for now
+	/*
+		@POST
+		@Path("/autoImport")
+		//@Consumes(MediaType.APPLICATION_JSON)
+		public String applyFileChanges(String path) {
+			System.out.println("Rest method called");
+			try {
+				Thread.sleep(1000);
+			}
+			catch (InterruptedException e1) {
+				e1.printStackTrace();
 
+			}
+			//		FolderListener.begin(path);
+			//FolderListener.begin("C:\\Users\\User\\Desktop\\test\\");
+			ByteArrayInputStream stream = FolderListener.getFile();
+			String resultString = "";
+			try {
+				HSSFWorkbook wb = new HSSFWorkbook(stream);
+				dataImport.importSpreadsheet(wb);
+				resultString = "Time taken: " + DataImportServiceEJB.duration + " milliseconds.";
+				System.out.println(resultString);
+			}
+			catch (IOException e) {
+				resultString = "Import was unsuccessful";
+				e.printStackTrace();
+			}
+			return resultString;
 		}
-		//		FolderListener.begin(path);
-		//FolderListener.begin("C:\\Users\\User\\Desktop\\test\\");
-		ByteArrayInputStream stream = FolderListener.getFile();
-		String resultString = "";
-		try {
-			HSSFWorkbook wb = new HSSFWorkbook(stream);
-			dataImport.importSpreadsheet(wb);
-			resultString = "Time taken: " + DataImportServiceEJB.duration + " milliseconds.";
-			System.out.println(resultString);
-		}
-		catch (IOException e) {
-			resultString = "Import was unsuccessful";
-			e.printStackTrace();
-		}
-		return resultString;
-	}
+		*/
 }

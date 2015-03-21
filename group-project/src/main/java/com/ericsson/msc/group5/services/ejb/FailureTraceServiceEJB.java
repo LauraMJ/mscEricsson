@@ -75,7 +75,6 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 	// time period.
 	@Override
 	public Collection <String> givenImsiAndTimePeriodReturnNumberOfFailures(String Imsi, Date startTime, Date endTime) {
-
 		return dao.givenImsiAndTimePeriodReturnNumberOfFailures(Imsi, startTime, endTime);
 	}
 

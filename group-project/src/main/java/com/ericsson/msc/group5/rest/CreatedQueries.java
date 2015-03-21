@@ -169,7 +169,29 @@ public class CreatedQueries {
 		System.out.println(Imsi);
 		return Response.ok().status(200).entity(failureTraceEJB.givenImsiAndTimePeriodReturnNumberOfFailures(Imsi, dateOne, dateTwo)).build();
 	}
+	
+	@POST
+	@Path("/topTenIMSIsWithFailures")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response topTenIMSIsWithFailures(JSONObject JSONImsiDateObject) {
+		
+		String startDate = JSONImsiDateObject.get("Date1One").toString();
+		String endDate = JSONImsiDateObject.get("Date2Two").toString();
 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date dateOne = null;
+		Date dateTwo = null;
+		try {
+			dateOne = sdf.parse(startDate);
+			dateTwo = sdf.parse(endDate);
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return Response.ok().status(200).entity(failureTraceEJB.topTenIMSIsWithFailures(dateOne, dateTwo)).build();
+	}
+	
 	@GET
 	@Path("/getAllFailureTraces")
 	public Collection <FailureTrace> getAllFailureTraces() {

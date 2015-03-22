@@ -316,16 +316,14 @@
 				contentType : "application/json",
 				dataType : 'json',
 				success : function(data) {
-					var text = "<b> Results for IMSI </b><u>" + selected + "</u><b> for time period </b><i>" + DateOne + "<i><b> to </b><i>" + DateTwo + "</i><br>";
+					var text = "<b> Results for Time period </b><u>" + DateOne + "<i><b> to </b><i>" + DateTwo + "</i><br>";
 					if(data.length == 0){
 						text = "<b>No results for lookup.</b><br>";
 					}
 					
 					for (var i = 0; i < data.length; i++){
-						var obj = data[i];
-	                    //var count = obj[0];
-	                   
-						var printable = "<b>Number of failures: </b>" + obj;
+						var obj = data[i];	                   
+						var printable = "<b>Top 10 IMSI with Failures: </b>" + obj;
 						text = text + printable;
 							
 					}
@@ -333,6 +331,37 @@
 				}
 			});
 	}
+		//Show the Top 10 IMSIs that had call failures during a time period
+		function top10IMSIFailures(){
+			var url = 'rest/query/top10IMSIFailures';
+			var DateOne = document.getElementById('date1top10').value + " " + document.getElementById('time1top10').value;
+			var DateTwo = document.getElementById('date2top10').value + " " + document.getElementById('time2top10').value;
+			var JSONObject = { "DateOne" : DateOne, "DateTwo" : DateTwo};
+			JSONObject = JSON.stringify(JSONObject);
+			
+			$.ajax({
+				url : url,
+				type : "POST",
+				data : JSONObject,
+				contentType : "application/json",
+				dataType : 'json',
+				success : function(data) {
+					var text = "<b> Results for selected Dates </b><u>" + selected + "</u><b> for time period </b><i>" + DateOne + "<i><b> to </b><i>" + DateTwo + "</i><br>";
+					if(data.length == 0){
+						text = "<b>No results for lookup.</b><br>";
+					}
+					
+					for (var i = 0; i < data.length; i++){
+						var obj = data[i];	                   
+						var printable = "<b>Number of failures: </b>" + obj;
+						text = text + printable;
+							
+					}
+					document.getElementById("jsChangeArea").innerHTML = text;
+				}
+			});
+			
+		}
 	
 //*******************************************************************************************************************************************************	
 	
@@ -424,7 +453,15 @@
 			text.innerHTML = "<form id='top10DateForm' method='post' onsubmit='return false'>\n\<b>Please Select Time Range</b><br><br>\
 								From:<input id='top10Date1' type='date' name='top10Date1'/><input id='top10Time1' type='time' name='top10Time1'/>To:<input id='top10Date2' type='date' name='top10Date2'/><input id='top10Time2' type='time' name='top10Time2'/><br><br>\
 								<input type='submit' value='Submit' onclick='top10MarketOperatorCellIdCombinations()'/></form><hr>";
-		} else {
+		} else if (selection == "mgmtTop10IMSI"){
+			var text = document.getElementById("jsChangeArea");
+			text.innerHTML = "<form id='top10IMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter Time Range</b><br><br>\
+				From:<input id='date1top10' type='date' name='date1'/><input id='time1top10' type='time' name='time1'/>\
+				To:<input id='date2top10' type='date' name='date2'/><input id='time2top10' type='time' name='time2'/><br><br>\
+				<input id='submitButton' type='submit' value='Submit' onclick='top10IMSIFailures()'/>\
+			 </form><hr>";
+		}
+		else {
 			alert("Problemoooo!");
 		}
 	}
@@ -471,6 +508,7 @@ html, body {
 				<b>Net. Mgmt Eng.:</b><br>
 				<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI Failures by ID and Time Range</a><br>
 				<a id="mgmtTop10" href="#" onclick="change('mgmtTop10');return false;">Top 10 Combo</a><br><br>
+				<a id="mgmtTop10IMSI" href='#' onclick="change('mgmtTop10IMSI');return false;">Top 10 IMSI Failures</a><br>
 				
 				</td>
 			<td id="jsChangeArea">JS changing area</td>

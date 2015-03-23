@@ -174,10 +174,10 @@ public class CreatedQueries {
 	@Path("/topTenIMSIsWithFailures")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response topTenIMSIsWithFailures(JSONObject JSONImsiDateObject) {
+	public Response topTenIMSIsWithFailures(JSONObject JSONDateObject) {
 		
-		String startDate = JSONImsiDateObject.get("Date1One").toString();
-		String endDate = JSONImsiDateObject.get("Date2Two").toString();
+		String startDate = JSONDateObject.get("DateOne").toString();
+		String endDate = JSONDateObject.get("DateTwo").toString();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date dateOne = null;

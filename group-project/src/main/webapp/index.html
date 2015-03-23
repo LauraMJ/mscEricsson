@@ -333,7 +333,8 @@
 	}
 		//Show the Top 10 IMSIs that had call failures during a time period
 		function topTenIMSIsWithFailures(){
-			var url = 'rest/query/top10IMSIFailures';
+			
+			var url = 'rest/query/topTenIMSIsWithFailures';
 			var DateOne = document.getElementById('date1top10').value + " " + document.getElementById('time1top10').value;
 			var DateTwo = document.getElementById('date2top10').value + " " + document.getElementById('time2top10').value;
 			var JSONObject = { "DateOne" : DateOne, "DateTwo" : DateTwo};

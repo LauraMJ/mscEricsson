@@ -332,7 +332,7 @@
 			});
 	}
 		//Show the Top 10 IMSIs that had call failures during a time period
-		function top10IMSIFailures(){
+		function topTenIMSIsWithFailures(){
 			var url = 'rest/query/top10IMSIFailures';
 			var DateOne = document.getElementById('date1top10').value + " " + document.getElementById('time1top10').value;
 			var DateTwo = document.getElementById('date2top10').value + " " + document.getElementById('time2top10').value;
@@ -346,7 +346,7 @@
 				contentType : "application/json",
 				dataType : 'json',
 				success : function(data) {
-					var text = "<b> Results for selected Dates </b><u>" + selected + "</u><b> for time period </b><i>" + DateOne + "<i><b> to </b><i>" + DateTwo + "</i><br>";
+					var text = "<b> Results for selected Dates: </b><u>" + DateOne + "<i><b> to </b><i>" + DateTwo + "</i><br>";
 					if(data.length == 0){
 						text = "<b>No results for lookup.</b><br>";
 					}
@@ -456,10 +456,12 @@
 		} else if (selection == "mgmtTop10IMSI"){
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='top10IMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter Time Range</b><br><br>\
-				From:<input id='date1top10' type='date' name='date1'/><input id='time1top10' type='time' name='time1'/>\
-				To:<input id='date2top10' type='date' name='date2'/><input id='time2top10' type='time' name='time2'/><br><br>\
-				<input id='submitButton' type='submit' value='Submit' onclick='top10IMSIFailures()'/>\
-			 </form><hr>";
+				From:<input id='date1top10' type='date' name='date1top10'/><input id='time1top10' type='time' name='time1top10'/>\
+				To:<input id='date2top10' type='date' name='date2top10'/><input id='time2top10' type='time' name='time2top10'/><br><br>\
+				<button id='testButton' onclick='topTenIMSIsWithFailures()'>Submit</button></form><hr>";
+			 
+								
+			
 		}
 		else {
 			alert("Problemoooo!");
@@ -497,18 +499,18 @@ html, body {
 				<a id="usersLink" href="#" onclick="change('users');return false;">Users</a><br><br>
 				
 				<b>Customer Service:</b><br> 
-				<a id="custIMSI" href="#" onclick="change('custIMSI');return false;">IMSI Failures by ID</a><br><br>
-				<a id="custIMSIFails" href='#' onclick="change('custIMSIFails');return false;">IMSI Failures by ID and Time Range</a><br></br>
+				<a id="custIMSI" href="#" onclick="change('custIMSI');return false;">IMSI Failures by ID</a><br>
+				<a id="custIMSIFails" href='#' onclick="change('custIMSIFails');return false;">IMSI Failures by ID and Time Range</a><br><br>
 				
 				<b>Support Eng.:</b><br> 
 				<a id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI Failures by Time Range</a><br>
-				<a id="suppModel" href="#" onclick="change('suppModel');return false;">Failures by Model</a><br><br>
+				<a id="suppModel" href="#" onclick="change('suppModel');return false;">Failures by Model</a><br>
 				<a id="custIMSI" href="#" onclick="change('causeCodeIMSI');return false;">Cause Codes for Imsi Failures</a><br><br>
 				
 				<b>Net. Mgmt Eng.:</b><br>
 				<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI Failures by ID and Time Range</a><br>
-				<a id="mgmtTop10" href="#" onclick="change('mgmtTop10');return false;">Top 10 Combo</a><br><br>
-				<a id="mgmtTop10IMSI" href='#' onclick="change('mgmtTop10IMSI');return false;">Top 10 IMSI Failures</a><br>
+				<a id="mgmtTop10" href="#" onclick="change('mgmtTop10');return false;">Top 10 Combo</a><br>
+				<a id="mgmtTop10IMSI" href='#' onclick="change('mgmtTop10IMSI');return false;">Top 10 IMSI Failures</a><br><br>
 				
 				</td>
 			<td id="jsChangeArea">JS changing area</td>

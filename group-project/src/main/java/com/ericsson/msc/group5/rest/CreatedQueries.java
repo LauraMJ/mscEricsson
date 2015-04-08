@@ -200,6 +200,7 @@ public class CreatedQueries {
 
 	@GET
 	@Path("/getAllIMSIs")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Collection <String> getAllIMSIs() {
 		return failureTraceEJB.getAllIMSIs();
 	}

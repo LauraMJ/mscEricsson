@@ -1,5 +1,5 @@
 function addNewUser() {
-	var url = 'rest/add/user';
+	var url = '../rest/add/user';
 
 	if ($("#username").val().length == 0) {
 		alert("The username field can't be null");

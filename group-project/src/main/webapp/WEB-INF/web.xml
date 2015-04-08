@@ -44,7 +44,7 @@
 		<auth-method>FORM</auth-method>
 		<realm-name>user-jaas-realm</realm-name>
 		<form-login-config>
-			<form-login-page>/login.html</form-login-page>
+			<form-login-page>/pages/login.html</form-login-page>
 			<form-error-page>/access-denied.html</form-error-page>
 		</form-login-config>
 	</login-config>
@@ -54,7 +54,7 @@
 		<web-resource-collection>
 			<web-resource-name>pages_auth</web-resource-name>
 			<url-pattern>/*</url-pattern>
-			<url-pattern>/login.html</url-pattern>
+			<url-pattern>/pages/login.html</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>administrator</role-name>
@@ -133,13 +133,72 @@
 		</web-resource-collection>
 	</security-constraint>
 
-
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>logout</web-resource-name>
+			<web-resource-name>login</web-resource-name>
 			<url-pattern>/login.html</url-pattern>
 		</web-resource-collection>
 	</security-constraint>
+
+	<!-- OPEN UP ACCESS TO THE CSS FILES USED ON THE LOGIN PAGE -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>dist</web-resource-name>
+			<url-pattern>/dist/*</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+
+	<!-- OPEN UP ACCESS TO THE CSS FILES USED ON THE LOGIN PAGE -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>less</web-resource-name>
+			<url-pattern>/less/*</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+
+	<!-- OPEN UP ACCESS TO THE CSS FILES USED ON THE LOGIN PAGE -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>bower_components</web-resource-name>
+			<url-pattern>/bower_components/*</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+<!-- 	<security-constraint> -->
+<!-- 		<web-resource-collection> -->
+<!-- 			<web-resource-name>bower_components</web-resource-name> -->
+<!-- 			<url-pattern>/bower_components/metisMenu/dist/metisMenu.min.css</url-pattern> -->
+<!-- 		</web-resource-collection> -->
+<!-- 	</security-constraint> -->
+<!-- 	<security-constraint> -->
+<!-- 		<web-resource-collection> -->
+<!-- 			<web-resource-name>css</web-resource-name> -->
+<!-- 			<url-pattern>/dist/css/sb-admin-2.css</url-pattern> -->
+<!-- 		</web-resource-collection> -->
+<!-- 	</security-constraint> -->
+<!-- 	<security-constraint> -->
+<!-- 		<web-resource-collection> -->
+<!-- 			<web-resource-name>jquery</web-resource-name> -->
+<!-- 			<url-pattern>/bower_components/jquery/dist/jquery.min.js</url-pattern> -->
+<!-- 		</web-resource-collection> -->
+<!-- 	</security-constraint> -->
+<!-- 	<security-constraint> -->
+<!-- 		<web-resource-collection> -->
+<!-- 			<web-resource-name>bower_components</web-resource-name> -->
+<!-- 			<url-pattern>/bower_components/bootstrap/dist/js/bootstrap.min.js</url-pattern> -->
+<!-- 		</web-resource-collection> -->
+<!-- 	</security-constraint> -->
+<!-- 	<security-constraint> -->
+<!-- 		<web-resource-collection> -->
+<!-- 			<web-resource-name>bower_components</web-resource-name> -->
+<!-- 			<url-pattern>/bower_components/metisMenu/dist/metisMenu.min.js</url-pattern> -->
+<!-- 		</web-resource-collection> -->
+<!-- 	</security-constraint> -->
+<!-- 	<security-constraint> -->
+<!-- 		<web-resource-collection> -->
+<!-- 			<web-resource-name>bower_components</web-resource-name> -->
+<!-- 			<url-pattern>/dist/js/sb-admin-2.js</url-pattern> -->
+<!-- 		</web-resource-collection> -->
+<!-- 	</security-constraint> -->
 
 	<security-role>
 		<role-name>administrator</role-name>

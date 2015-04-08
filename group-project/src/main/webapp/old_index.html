@@ -6,27 +6,26 @@
 <form name="test">
 	<input type="hidden" name="test2">
 </form>
-<p name="usernameTag" id="usernameTag">Username: </p>
-<button type="button" onclick="window.location.replace('LogoutServlet')">Log
-	out</button>
+<p name="usernameTag" id="usernameTag">Username:</p>
+<button type="button" onclick="window.location.replace('LogoutServlet')">Log out</button>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
 	var locate = window.location;
 	document.test.test2.value = locate;
 	var text = document.test.test2.value;
-	
-//400TH COMMIT WOOOOO
-//AJAX***************************************************************************************************************************************************
+
+	//400TH COMMIT WOOOOO
+	//AJAX***************************************************************************************************************************************************
 	//ADD USERS
 	function addNewUser() {
 		var url = 'rest/add/user';
-		
-		if($("#username").val().length == 0){
+
+		if ($("#username").val().length == 0) {
 			alert("The username field can't be null");
 			return;
 		}
-		if($("#password").val().length == 0){
+		if ($("#password").val().length == 0) {
 			alert("The password field can't be null");
 			return;
 		}
@@ -44,22 +43,23 @@
 			success : function(data) {
 				var message = "User '" + data.username + "' has been added.";
 				alert(message);
-				
+
 				$("#username").val("");
 				$("#password").val("");
 			},
-		    error: function(data) {
-		    	alert("Failed to add user - username '" + $("#username").val() + "' has already been taken.");
-		    }
+			error : function(data) {
+				alert("Failed to add user - username '" + $("#username").val()
+						+ "' has already been taken.");
+			}
 		});
 	}
-	
+
 	function handlePost() {
 		alert("successfully added a new user");
 	}
-	
+
 	//AUTO-IMPORT
-	function addFilePath(){
+	function addFilePath() {
 		var url = 'rest/restImportService/autoImport';
 		$.ajax({
 			url : url,
@@ -70,14 +70,16 @@
 				"selectedPath" : $("#selectedPath").val(),
 			}),
 			success : function(data) {
-				var message = "Folder '" + data.selectedPath + "' is being monitored for changes.";
+				var message = "Folder '" + data.selectedPath
+						+ "' is being monitored for changes.";
 				alert(message);
-				
+
 				$("#selectedPath").val("");
 			},
-		    error: function(data) {
-		    	alert("Failed to start listener for '" + $("#selectedPath").val());
-		    }
+			error : function(data) {
+				alert("Failed to start listener for '"
+						+ $("#selectedPath").val());
+			}
 		});
 	}
 
@@ -87,9 +89,9 @@
 		theright = str.length;
 		return (str.substring(theleft, theright));
 	}
-	
+
 	//GET LOGGED IN USERNAME
-	function getUsername(){
+	function getUsername() {
 		$.ajax({
 			url : "rest/get/username",
 			type : 'GET',
@@ -101,7 +103,7 @@
 			}
 		});
 	}
-	
+
 	var zork = delineate(text);
 	getUsername();
 
@@ -134,7 +136,7 @@
 			}
 		});
 	}
-	
+
 	//CAUSE CODES FOR GIVEN IMSI
 	function causeCodesForImsi() {
 		var selected = document.getElementById('inputtedImsi').value;
@@ -150,14 +152,13 @@
 				if (data.length == 0) {
 					text = "<b> No results for IMSI '" + selected
 							+ "' </b><br>";
-				}
-				else{
-					text = text + "Cause Codes:<br><table style=\"width:100px\">"
+				} else {
+					text = text
+							+ "Cause Codes:<br><table style=\"width:100px\">"
 				}
 				for (var i = 0; i < data.length; i++) {
 					var obj = data[i];
-					var printable = "<tr><td> "
-							+ obj + "</tr></td>";
+					var printable = "<tr><td> " + obj + "</tr></td>";
 					text = text + printable;
 				}
 				text = text + "</table>"
@@ -173,7 +174,10 @@
 				+ document.getElementById('date1time').value;
 		var Date2 = document.getElementById('date2date').value + " "
 				+ document.getElementById('date2time').value;
-		var JSONObject = { "Date1" : Date1, "Date2" : Date2};
+		var JSONObject = {
+			"Date1" : Date1,
+			"Date2" : Date2
+		};
 		JSONObject = JSON.stringify(JSONObject);
 
 		$.ajax({
@@ -183,7 +187,8 @@
 			contentType : "application/json",
 			dataType : 'json',
 			success : function(data) {
- 				var text = "<b> Results for time period " + Date1 + " to " + Date2 + "</b><br>";
+				var text = "<b> Results for time period " + Date1 + " to "
+						+ Date2 + "</b><br>";
 				if (data.length == 0) {
 					text = "<b> No results for that time period.</b><br>";
 				}
@@ -197,16 +202,22 @@
 			}
 		});
 	}
-	
+
 	//GIVEN IMSI AND TIME PERIOD
-	function selectedIMSITimePeriod(){
+	function selectedIMSITimePeriod() {
 		var selected = document.getElementById('imsiField').value;
 		var url = 'rest/query/givenImsiByTimePeriod';
-		var Date1 = document.getElementById('date1').value + " " + document.getElementById('time1').value;
-		var Date2 = document.getElementById('date2').value + " " + document.getElementById('time2').value;
-		var JSONObject = { "Date1" : Date1, "Date2" : Date2, "Imsi" : selected};
+		var Date1 = document.getElementById('date1').value + " "
+				+ document.getElementById('time1').value;
+		var Date2 = document.getElementById('date2').value + " "
+				+ document.getElementById('time2').value;
+		var JSONObject = {
+			"Date1" : Date1,
+			"Date2" : Date2,
+			"Imsi" : selected
+		};
 		JSONObject = JSON.stringify(JSONObject);
-		
+
 		$.ajax({
 			url : url,
 			type : "POST",
@@ -214,32 +225,41 @@
 			contentType : "application/json",
 			dataType : 'json',
 			success : function(data) {
-				var text = "<b> Results for IMSI </b><u>" + selected + "</u><b> for time period </b><i>" + Date1 + "<i><b> to </b><i>" + Date2 + "</i><br>";
-				if(data.length == 0){
+				var text = "<b> Results for IMSI </b><u>" + selected
+						+ "</u><b> for time period </b><i>" + Date1
+						+ "<i><b> to </b><i>" + Date2 + "</i><br>";
+				if (data.length == 0) {
 					text = "<b>No results for lookup.</b><br>";
 				}
-				
-				for (var i = 0; i < data.length; i++){
+
+				for (var i = 0; i < data.length; i++) {
 					var obj = data[i];
-                    var count = obj[0];
-                    var duration = obj[1];
-					var printable = "<b>Number of failures: </b>" + count + "<br>" + "<b>Total duration: </b>" + duration;
+					var count = obj[0];
+					var duration = obj[1];
+					var printable = "<b>Number of failures: </b>" + count
+							+ "<br>" + "<b>Total duration: </b>" + duration;
 					text = text + printable;
-						
+
 				}
 				document.getElementById("jsChangeArea").innerHTML = text;
 			}
 		});
 	}
-	
-	function modelPerTimePeriod(){
+
+	function modelPerTimePeriod() {
 		var model = document.getElementById('modelField').value;
 		var url = 'rest/query/givenModelByTimePeriod';
-		var Date1 = document.getElementById('modelDate1').value + " " + document.getElementById('modelTime1').value;
-		var Date2 = document.getElementById('modelDate2').value + " " + document.getElementById('modelTime2').value;
-		var JSONObject = { "Model" : model, "Date1" : Date1, "Date2" : Date2};
+		var Date1 = document.getElementById('modelDate1').value + " "
+				+ document.getElementById('modelTime1').value;
+		var Date2 = document.getElementById('modelDate2').value + " "
+				+ document.getElementById('modelTime2').value;
+		var JSONObject = {
+			"Model" : model,
+			"Date1" : Date1,
+			"Date2" : Date2
+		};
 		JSONObject = JSON.stringify(JSONObject);
-		
+
 		$.ajax({
 			url : url,
 			type : "POST",
@@ -247,12 +267,14 @@
 			contentType : "application/json",
 			dataType : 'json',
 			success : function(data) {
-				var text = "<b>Results for Model</b><u>	" + model + "</u><b> for time period</b><i>	" + Date1 + "<i><b> to </b><i>	" + Date2 + "</i><br>";
-				if(data.length == 0){
+				var text = "<b>Results for Model</b><u>	" + model
+						+ "</u><b> for time period</b><i>	" + Date1
+						+ "<i><b> to </b><i>	" + Date2 + "</i><br>";
+				if (data.length == 0) {
 					text = "<b>No results for lookup.</b><br>";
 				}
-				
-				for (var i = 0; i < data.length; i++){
+
+				for (var i = 0; i < data.length; i++) {
 					var obj = data[i];
 					var printable = "<b>Number of failures: </b>" + obj;
 					text = text + printable;
@@ -260,17 +282,22 @@
 				document.getElementById("jsChangeArea").innerHTML = text;
 			}
 		});
-		
+
 	}
-	
+
 	//TOP 10 COMBINATIONS FOR GIVEN TIME PERIOD
-	function top10MarketOperatorCellIdCombinations(){
+	function top10MarketOperatorCellIdCombinations() {
 		var url = 'rest/query/top10MarketOperatorCellIdCombinations';
-		var Date1 = document.getElementById('top10Date1').value + " " + document.getElementById('top10Time1').value;
-		var Date2 = document.getElementById('top10Date2').value + " " + document.getElementById('top10Time2').value;
-		var JSONObject = { "Date1" : Date1, "Date2" : Date2};
+		var Date1 = document.getElementById('top10Date1').value + " "
+				+ document.getElementById('top10Time1').value;
+		var Date2 = document.getElementById('top10Date2').value + " "
+				+ document.getElementById('top10Time2').value;
+		var JSONObject = {
+			"Date1" : Date1,
+			"Date2" : Date2
+		};
 		JSONObject = JSON.stringify(JSONObject);
-		
+
 		$.ajax({
 			url : url,
 			type : "POST",
@@ -278,97 +305,115 @@
 			contentType : "application/json",
 			dataType : 'json',
 			success : function(data) {
-				var text = "<b> Results for time period </b><i>" + Date1 + "<i><b> to </b><i>" + Date2 + "</i><br>";
-				if(data.length == 0){
+				var text = "<b> Results for time period </b><i>" + Date1
+						+ "<i><b> to </b><i>" + Date2 + "</i><br>";
+				if (data.length == 0) {
 					text = "<b>No results for lookup.</b><br>";
 				}
-				
-				for (var i = 0; i < data.length; i++){
+
+				for (var i = 0; i < data.length; i++) {
 					var obj = data[i];
 					var count = obj[0];
 					var cellId = obj[1];
 					var operator = obj[2];
 					var market = obj[3];
-					var number = i+1;
-					var printable = "<b>" + number + "</b><br><b>Number of Failures: </b><i>" + count +"</i><br><b>Cell ID: </b><i>" + cellId + "</i><br><b>Operator: </b><i>" + operator + "</i><br><b>Market : </b><i>" + market + "</i><br>";
+					var number = i + 1;
+					var printable = "<b>" + number
+							+ "</b><br><b>Number of Failures: </b><i>" + count
+							+ "</i><br><b>Cell ID: </b><i>" + cellId
+							+ "</i><br><b>Operator: </b><i>" + operator
+							+ "</i><br><b>Market : </b><i>" + market
+							+ "</i><br>";
 					text = text + printable;
 				}
 				document.getElementById("jsChangeArea").innerHTML = text;
 
-			}	
+			}
 		});
 	}
 
-		//For a given IMSI, count the number of failures it has had during a given time period.
-		function givenImsiAndTimePeriodReturnNumberOfFailures(){
-			var selected = document.getElementById('imsiEnter').value;
-			var url = 'rest/query/givenImsiAndTimePeriodReturnNumberOfFailures';
-			var DateOne = document.getElementById('dateOne1').value + " " + document.getElementById('timeOne1').value;
-			var DateTwo = document.getElementById('dateTwo2').value + " " + document.getElementById('timeTwo2').value;
-			var JSONObject = { "DateOne" : DateOne, "DateTwo" : DateTwo, "Imsi" : selected};
-			JSONObject = JSON.stringify(JSONObject);
-			
-			
-			$.ajax({
-				url : url,
-				type : "POST",
-				data : JSONObject,
-				contentType : "application/json",
-				dataType : 'json',
-				success : function(data) {
-					var text = "<b> Results for IMSI </b><u>" + selected + "</u><b> for time period </b><i>" + DateOne + "<i><b> to </b><i>" + DateTwo + "</i><br>";
-					if(data.length == 0){
-						text = "<b>No results for lookup.</b><br>";
-					}
-					
-					for (var i = 0; i < data.length; i++){
-						var obj = data[i];	                   
-						var printable = "<b>Number of failures: </b>" + obj;
-						text = text + printable;
-							
-					}
-					document.getElementById("jsChangeArea").innerHTML = text;
+	//For a given IMSI, count the number of failures it has had during a given time period.
+	function givenImsiAndTimePeriodReturnNumberOfFailures() {
+		var selected = document.getElementById('imsiEnter').value;
+		var url = 'rest/query/givenImsiAndTimePeriodReturnNumberOfFailures';
+		var DateOne = document.getElementById('dateOne1').value + " "
+				+ document.getElementById('timeOne1').value;
+		var DateTwo = document.getElementById('dateTwo2').value + " "
+				+ document.getElementById('timeTwo2').value;
+		var JSONObject = {
+			"DateOne" : DateOne,
+			"DateTwo" : DateTwo,
+			"Imsi" : selected
+		};
+		JSONObject = JSON.stringify(JSONObject);
+
+		$.ajax({
+			url : url,
+			type : "POST",
+			data : JSONObject,
+			contentType : "application/json",
+			dataType : 'json',
+			success : function(data) {
+				var text = "<b> Results for IMSI </b><u>" + selected
+						+ "</u><b> for time period </b><i>" + DateOne
+						+ "<i><b> to </b><i>" + DateTwo + "</i><br>";
+				if (data.length == 0) {
+					text = "<b>No results for lookup.</b><br>";
 				}
-			});
+
+				for (var i = 0; i < data.length; i++) {
+					var obj = data[i];
+					var printable = "<b>Number of failures: </b>" + obj;
+					text = text + printable;
+
+				}
+				document.getElementById("jsChangeArea").innerHTML = text;
+			}
+		});
 	}
-		//Show the Top 10 IMSIs that had call failures during a time period
-		function topTenIMSIsWithFailures(){
-			
-			var url = 'rest/query/topTenIMSIsWithFailures';
-			var DateOne = document.getElementById('date1top10').value + " " + document.getElementById('time1top10').value;
-			var DateTwo = document.getElementById('date2top10').value + " " + document.getElementById('time2top10').value;
-			var JSONObject = { "DateOne" : DateOne, "DateTwo" : DateTwo};
-			JSONObject = JSON.stringify(JSONObject);
-			
-			$.ajax({
-				url : url,
-				type : "POST",
-				data : JSONObject,
-				contentType : "application/json",
-				dataType : 'json',
-				success : function(data) {
-					var text = "<b> Results for selected Dates: </b><u>" + DateOne + "<i><b> to </b><i>" + DateTwo + "</i><br>";
-					if(data.length == 0){
-						text = "<b>No results for lookup.</b><br>";
-					}
-					
-					for (var i = 0; i < data.length; i++){
-						var obj = data[i];	   
-						var number =i+1;
-						var printable = "<b>IMSI number: </b>" + number + obj + "<br>";
-						text = text + printable;
-							
-					}
-					document.getElementById("jsChangeArea").innerHTML = text;
+	//Show the Top 10 IMSIs that had call failures during a time period
+	function topTenIMSIsWithFailures() {
+
+		var url = 'rest/query/topTenIMSIsWithFailures';
+		var DateOne = document.getElementById('date1top10').value + " "
+				+ document.getElementById('time1top10').value;
+		var DateTwo = document.getElementById('date2top10').value + " "
+				+ document.getElementById('time2top10').value;
+		var JSONObject = {
+			"DateOne" : DateOne,
+			"DateTwo" : DateTwo
+		};
+		JSONObject = JSON.stringify(JSONObject);
+
+		$.ajax({
+			url : url,
+			type : "POST",
+			data : JSONObject,
+			contentType : "application/json",
+			dataType : 'json',
+			success : function(data) {
+				var text = "<b> Results for selected Dates: </b><u>" + DateOne
+						+ "<i><b> to </b><i>" + DateTwo + "</i><br>";
+				if (data.length == 0) {
+					text = "<b>No results for lookup.</b><br>";
 				}
-			});
-			
-		}
-	
-//*******************************************************************************************************************************************************	
-	
-	
-	
+
+				for (var i = 0; i < data.length; i++) {
+					var obj = data[i];
+					var number = i + 1;
+					var printable = "<b>IMSI number: </b>" + number + obj
+							+ "<br>";
+					text = text + printable;
+
+				}
+				document.getElementById("jsChangeArea").innerHTML = text;
+			}
+		});
+
+	}
+
+	//*******************************************************************************************************************************************************	
+
 	//WINDOW CHANGING
 	function change(selection) {
 		//MANUAL IMPORT
@@ -379,7 +424,7 @@
 											<input id='selectedFile' type='file' name='selectedFile' value='' /><br><br>\
 											<button type='submit' id='testButton' onclick='passFilePath()'>import</button>\
 										</form><hr>";
-		} 
+		}
 		//AUTO-IMPORT
 		else if (selection == "autoImport") {
 			var text = document.getElementById("jsChangeArea");
@@ -388,8 +433,8 @@
 											<input id='selectedFile' type='text' name='selectedFile' value='' /><br><br>\
 											<button type='submit' id='testButton' onclick='addFilePath()'>import</button>\
 										</form><hr>";
-		//USERS
-		}else if (selection == "users") {
+			//USERS
+		} else if (selection == "users") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
 			text.innerHTML = "<form id='newUserForm' method='post' onsubmit='return false'>\n\<b>Add New User</b><br><br>Username:\
@@ -413,18 +458,18 @@
 				}
 			};
 
-		//CUSTOMER SERVICE REP.
+			//CUSTOMER SERVICE REP.
 		} else if (selection == "custIMSI") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
 								IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit' onclick='eventCauseForImsi()'/></form><hr>";
-		} else if (selection == "custIMSIFails"){
+		} else if (selection == "custIMSIFails") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='SelectIMSI' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
 				<input id='imsiEnter' type='text'<b><br><br>Please Select Time Range</b><br><br>\
-				From:<input type='date' id='dateOne1' name='dateOne'/><input type='time' id='timeOne1' name='timeOne'/>To:<input type='date' id='dateTwo2' name='dateTwo'/><input type='time' id='timeTwo2' name='timeTwo'/><button id='testButton' onclick='givenImsiAndTimePeriodReturnNumberOfFailures()'>Submit</button></form><hr>";					
-			
-		//SUPPORT ENGINEER
+				From:<input type='date' id='dateOne1' name='dateOne'/><input type='time' id='timeOne1' name='timeOne'/>To:<input type='date' id='dateTwo2' name='dateTwo'/><input type='time' id='timeTwo2' name='timeTwo'/><button id='testButton' onclick='givenImsiAndTimePeriodReturnNumberOfFailures()'>Submit</button></form><hr>";
+
+			//SUPPORT ENGINEER
 		} else if (selection == "suppIMSI") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='timedate' method='post' onsubmit='return false'>\n\<b>Please Select Time Range</b><br><br>\
@@ -438,38 +483,34 @@
 								<br>Model:<input id='modelField' type='text' name='modelField'><br><br>\
 								Date:<input id='modelDate1' type='date' name='modelDate1'/><input id='modelTime1' type='time' name='modelTime1'/>To:<input id='modelDate2' type='date' name='modelDate2'/><input id='modelTime2' type='time' name='modelTime2'/><br><br>\
 								<input type='submit' value='Submit' onclick='modelPerTimePeriod()'/></form><hr>";
-		}else if (selection == "causeCodeIMSI") {
+		} else if (selection == "causeCodeIMSI") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "";
 			text.innerHTML = "<form id='enterIMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
 				IMSI:<input id='inputtedImsi' type='text' IMSI='imsi'><input id='submitButton' type='submit' value='Submit' onclick='causeCodesForImsi()'/></form><hr>";
 		}
 		//MANAGEMENT ENGINEER
-		 else if (selection == "mgmtIMSI") {
+		else if (selection == "mgmtIMSI") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='IMSISelect' method='post' onsubmit='return false'>\n\<b>Please Enter IMSI</b><br><br>\
 								<input id='imsiField' type='text'<b><br><br>Please Select Time Range</b><br><br>\
 								From:<input type='date' id='date1' name='date1'/><input type='time' id='time1' name='time1'/>To:<input type='date' id='date2' name='date2'/><input type='time' id='time2' name='time2'/><button id='testButton' onclick='selectedIMSITimePeriod()'>Submit</button></form><hr>";
-		} else if (selection == "mgmtTop10"){
+		} else if (selection == "mgmtTop10") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='top10DateForm' method='post' onsubmit='return false'>\n\<b>Please Select Time Range</b><br><br>\
 								From:<input id='top10Date1' type='date' name='top10Date1'/><input id='top10Time1' type='time' name='top10Time1'/>To:<input id='top10Date2' type='date' name='top10Date2'/><input id='top10Time2' type='time' name='top10Time2'/><br><br>\
 								<input type='submit' value='Submit' onclick='top10MarketOperatorCellIdCombinations()'/></form><hr>";
-		} else if (selection == "mgmtTop10IMSI"){
+		} else if (selection == "mgmtTop10IMSI") {
 			var text = document.getElementById("jsChangeArea");
 			text.innerHTML = "<form id='top10IMSIForm' method='post' onsubmit='return false'>\n\<b>Please Enter Time Range</b><br><br>\
 				From:<input id='date1top10' type='date' name='date1top10'/><input id='time1top10' type='time' name='time1top10'/>\
 				To:<input id='date2top10' type='date' name='date2top10'/><input id='time2top10' type='time' name='time2top10'/><br><br>\
 				<button id='testButton' onclick='topTenIMSIsWithFailures()'>Submit</button></form><hr>";
-			 
-								
-			
-		}
-		else {
+
+		} else {
 			alert("Problemoooo!");
 		}
 	}
-
 </script>
 
 <style>
@@ -489,32 +530,24 @@ html, body {
 <body>
 	<table style="width: 100%; height: 98%; border: 1px;">
 		<tr>
-			<th id="header" colspan="3" style="height: 100px">header
-			</th>
+			<th id="header" colspan="3" style="height: 100px">header</th>
 		</tr>
 		<tr>
 			<td rowspan="2" style="height: 400px; width: 140px;">
-			<!-- Please don't change how this is laid out at the minute, it's a pain to read through otherwise -->
-				<b>Admin:</b><br> 
-				<a id="importLink" href="#" onclick="change('import');return false;">Import Data</a><br> 
-			<!-- 	<a id="importLink" href="#" onclick="change('autoImport');return false;">Auto Import Data</a><br> -->
-				<a id="usersLink" href="#" onclick="change('users');return false;">Users</a><br><br>
-				
-				<b>Customer Service:</b><br> 
-				<a id="custIMSI" href="#" onclick="change('custIMSI');return false;">IMSI Failures by ID</a><br>
-				<a id="custIMSIFails" href='#' onclick="change('custIMSIFails');return false;">IMSI Failures by ID and Time Range</a><br><br>
-				
-				<b>Support Eng.:</b><br> 
-				<a id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI Failures by Time Range</a><br>
-				<a id="suppModel" href="#" onclick="change('suppModel');return false;">Failures by Model</a><br>
-				<a id="custIMSI" href="#" onclick="change('causeCodeIMSI');return false;">Cause Codes for Imsi Failures</a><br><br>
-				
-				<b>Net. Mgmt Eng.:</b><br>
-				<a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI Failures by ID and Time Range</a><br>
-				<a id="mgmtTop10" href="#" onclick="change('mgmtTop10');return false;">Top 10 Combo</a><br>
-				<a id="mgmtTop10IMSI" href='#' onclick="change('mgmtTop10IMSI');return false;">Top 10 IMSI Failures</a><br><br>
-				
-				</td>
+				<!-- Please don't change how this is laid out at the minute, it's a pain to read through otherwise --> <b>Admin:</b><br> <a id="importLink" href="#"
+				onclick="change('import');return false;">Import Data</a><br> <!-- 	<a id="importLink" href="#" onclick="change('autoImport');return false;">Auto Import Data</a><br> -->
+				<a id="usersLink" href="#" onclick="change('users');return false;">Users</a><br>
+			<br> <b>Customer Service:</b><br> <a id="custIMSI" href="#" onclick="change('custIMSI');return false;">IMSI Failures by ID</a><br> <a
+				id="custIMSIFails" href='#' onclick="change('custIMSIFails');return false;">IMSI Failures by ID and Time Range</a><br>
+			<br> <b>Support Eng.:</b><br> <a id="suppIMSI" href="#" onclick="change('suppIMSI');return false;">IMSI Failures by Time Range</a><br> <a
+				id="suppModel" href="#" onclick="change('suppModel');return false;">Failures by Model</a><br> <a id="custIMSI" href="#"
+				onclick="change('causeCodeIMSI');return false;">Cause Codes for Imsi Failures</a><br>
+			<br> <b>Net. Mgmt Eng.:</b><br> <a id="mgmtIMSI" href="#" onclick="change('mgmtIMSI');return false;">IMSI Failures by ID and Time Range</a><br>
+				<a id="mgmtTop10" href="#" onclick="change('mgmtTop10');return false;">Top 10 Combo</a><br> <a id="mgmtTop10IMSI" href='#'
+				onclick="change('mgmtTop10IMSI');return false;">Top 10 IMSI Failures</a><br>
+			<br>
+
+			</td>
 			<td id="jsChangeArea">JS changing area</td>
 		</tr>
 		<tr>

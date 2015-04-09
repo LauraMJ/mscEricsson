@@ -24,6 +24,9 @@
 <!-- Custom Fonts -->
 <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+<!-- Datepicker CSS -->
+<link href="../bower_components/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css">
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -55,7 +58,7 @@
 						<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
 						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
 						<li class="divider"></li>
-                        <li><a href="../LogoutServlet"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+						<li><a href="../LogoutServlet"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 					</ul> <!-- /.dropdown-user --></li>
 				<!-- /.dropdown -->
 			</ul>
@@ -94,20 +97,46 @@
 			<!-- /.navbar-static-side -->
 		</nav>
 
-		<!-- Page Content -->
 		<div id="page-wrapper">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12">
-						<h1 class="page-header">Blank</h1>
+			<br>
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Display the failure count for the selected IMSI in the given time period</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+									<form role="form">
+										<div class="form-group">
+											<label>IMSI:</label> <select class="form-control" id="imsi_dropdown">
+												<option value=''>-- Select IMSI --</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label>From:</label><input id="dateFrom" type="text" type="text" class="form-control" placeholder="dd/mm/yyyy" readonly='true'> <label>To:</label><input id="dateTo" type="text"
+												type="text" class="form-control" placeholder="dd/mm/yyyy" readonly='true'>
+										</div>
+<!-- 										<form id='SelectIMSI' method='post' onsubmit='return false'> -->
+<!-- 											Please Enter IMSI <input id='imsiEnter' type='text' /> Please Select Time Range From:<input type='date' id='dateOne1' name='dateOne' /><input -->
+<!-- 												type='time' id='timeOne1' name='timeOne' />To:<input type='date' id='dateTwo2' name='dateTwo' /><input type='time' id='timeTwo2' name='timeTwo' /> -->
+<!-- 											<button id='testButton' onclick='givenImsiAndTimePeriodReturnNumberOfFailures()'>Submit</button> -->
+<!-- 										</form> -->
+									</form>
+								</div>
+							</div>
+							<!-- /.row (nested) -->
+						</div>
+						<!-- /.panel-body -->
 					</div>
-					<!-- /.col-lg-12 -->
+					<!-- /.panel -->
 				</div>
-				<!-- /.row -->
+				<!-- /.col-lg-12 -->
 			</div>
-			<!-- /.container-fluid -->
+			<!-- /.row -->
+
 		</div>
-		<!-- /#page-wrapper -->
+		<!-- /#wrapper -->
 
 	</div>
 	<!-- /#wrapper -->
@@ -123,6 +152,29 @@
 
 	<!-- Custom Theme JavaScript -->
 	<script src="../dist/js/sb-admin-2.js"></script>
+
+	<!-- Datepicker -->
+	<script src="../bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+	<!-- Set up the date and time pickers -->
+	<script>
+		$('#dateFrom').datepicker({
+			format : "dd/mm/yyyy",
+			endDate : "today",
+			startView : 1,
+			todayBtn : true,
+			language : "en-GB",
+			multidate : false
+		});
+		$('#dateTo').datepicker({
+			format : "dd/mm/yyyy",
+			endDate : "today",
+			startView : 1,
+			todayBtn : true,
+			language : "en-GB",
+			multidate : false
+		});
+	</script>
 
 </body>
 </html>

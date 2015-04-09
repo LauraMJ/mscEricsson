@@ -27,6 +27,9 @@
 <!-- Datepicker CSS -->
 <link href="../bower_components/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css">
 
+<!-- DateTimePicker CSS -->
+<link rel="stylesheet" href="../bower_components/datetimepicker/css/bootstrap-datetimepicker.min.css" />
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -107,21 +110,31 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-6">
-									<form role="form">
+									<form role="form" onsubmit='return false'>
 										<div class="form-group">
 											<label>IMSI:</label> <select class="form-control" id="imsi_dropdown">
 												<option value=''>-- Select IMSI --</option>
 											</select>
 										</div>
 										<div class="form-group">
-											<label>From:</label><input id="dateFrom" type="text" type="text" class="form-control" placeholder="dd/mm/yyyy" readonly='true'> <label>To:</label><input id="dateTo" type="text"
-												type="text" class="form-control" placeholder="dd/mm/yyyy" readonly='true'>
+											<div class='col-md-5'>
+												<label>From:</label> <input type='text' class="form-control" id='fromDateTime' />
+											</div>
+											<div class='col-md-5'>
+												<label>To:</label> <input type='text' class="form-control" id='toDateTime' />
+											</div>
 										</div>
-<!-- 										<form id='SelectIMSI' method='post' onsubmit='return false'> -->
-<!-- 											Please Enter IMSI <input id='imsiEnter' type='text' /> Please Select Time Range From:<input type='date' id='dateOne1' name='dateOne' /><input -->
-<!-- 												type='time' id='timeOne1' name='timeOne' />To:<input type='date' id='dateTwo2' name='dateTwo' /><input type='time' id='timeTwo2' name='timeTwo' /> -->
-<!-- 											<button id='testButton' onclick='givenImsiAndTimePeriodReturnNumberOfFailures()'>Submit</button> -->
-<!-- 										</form> -->
+										<br>
+										<div class="row">
+											<div class="form-group">
+												<button id='submitButton' type='submit' value='Submit' onclick='getFailureCount()' class="btn btn-primary btn-block">Get failure count</button>
+											</div>
+										</div>
+										<div class="row">
+											<div class="form-group">
+												<label>Failure Count:</label> <input type='text' class="form-control" id='failureCount' readonly />
+											</div>
+										</div>
 									</form>
 								</div>
 							</div>
@@ -156,23 +169,33 @@
 	<!-- Datepicker -->
 	<script src="../bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 
+	<!-- Moment - required by DateTimePicker -->
+	<script src="../js/moment-with-locales.js"></script>
+
+	<!-- Bootrap transition - required by DateTimePicker -->
+	<script src="../bower_components/bootstrap/js/transition.js"></script>
+
+	<!-- Bootrap collapse - required by DateTimePicker -->
+	<script src="../bower_components/bootstrap/js/collapse.js"></script>
+
+	<!-- DateTimePicker -->
+	<script src="../bower_components/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+	<!-- Project-specific JavaScript -->
+	<script src="../js/cust_failures_by_imsi_date.js"></script>
+
 	<!-- Set up the date and time pickers -->
 	<script>
-		$('#dateFrom').datepicker({
-			format : "dd/mm/yyyy",
-			endDate : "today",
-			startView : 1,
-			todayBtn : true,
-			language : "en-GB",
-			multidate : false
-		});
-		$('#dateTo').datepicker({
-			format : "dd/mm/yyyy",
-			endDate : "today",
-			startView : 1,
-			todayBtn : true,
-			language : "en-GB",
-			multidate : false
+		$(function() {
+			$('#fromDateTime').datetimepicker({
+				locale : 'en-gb',
+				maxDate : 'now'
+			});
+			$('#toDateTime').datetimepicker({
+				locale : 'en-gb',
+				maxDate : 'now',
+				showTodayButton : true
+			});
 		});
 	</script>
 

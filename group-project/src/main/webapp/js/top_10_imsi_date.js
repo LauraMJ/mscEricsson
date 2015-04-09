@@ -31,7 +31,7 @@ function populateTable(data) {
 
 	var i;
 	for (i = 0; i < data.length; i++) {
-		t.row.add([ data[i] ]);
+		t.row.add([ data[i][0], data[i][1] ]);
 	}
 	t.draw();
 }

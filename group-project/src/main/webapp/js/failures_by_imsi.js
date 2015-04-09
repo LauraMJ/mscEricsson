@@ -20,12 +20,14 @@ function populateDropdown(data) {
 }
 
 function loadFailures() {
-	alert("here");
 	$('#datatable-1').DataTable().clear();
-	alert("here");
 
 	var imsi = $("#imsi_dropdown").val();
-	alert(imsi);
+	if(imsi.length == 0){
+		$('#datatable-1').DataTable().draw();
+		return;
+	}
+	
 	var url = '../rest/query/eventCausePerImsi';
 	$.ajax({
 		url : url,

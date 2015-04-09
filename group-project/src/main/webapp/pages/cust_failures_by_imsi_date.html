@@ -116,7 +116,7 @@
 												<option value=''>-- Select IMSI --</option>
 											</select>
 										</div>
-										<div class="form-group">
+										<div class="row">
 											<div class='col-md-5'>
 												<label>From:</label> <input type='text' class="form-control" id='fromDateTime' />
 											</div>
@@ -126,16 +126,17 @@
 										</div>
 										<br>
 										<div class="row">
-											<div class="form-group">
+											<div class="col-md-5">
 												<button id='submitButton' type='submit' value='Submit' onclick='getFailureCount()' class="btn btn-primary btn-block">Get failure count</button>
 											</div>
 										</div>
-										<div class="row">
-											<div class="form-group">
-												<label>Failure Count:</label> <input type='text' class="form-control" id='failureCount' readonly />
-											</div>
-										</div>
 									</form>
+									<br>
+									<div class="row">
+										<div class="col-md-5">
+											<label>Failure Count:</label> <input type='text' class="form-control" id='failureCount' readonly />
+										</div>
+									</div>
 								</div>
 							</div>
 							<!-- /.row (nested) -->

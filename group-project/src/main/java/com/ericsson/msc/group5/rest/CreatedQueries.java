@@ -207,6 +207,7 @@ public class CreatedQueries {
 
 	@GET
 	@Path("/getAllModels")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Collection <String> getAllModels() {
 		return failureTraceEJB.getAllModels();
 	}

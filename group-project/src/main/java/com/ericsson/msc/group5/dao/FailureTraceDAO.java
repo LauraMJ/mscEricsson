@@ -2,8 +2,8 @@ package com.ericsson.msc.group5.dao;
 
 import java.util.Collection;
 import java.util.Date;
-
 import com.ericsson.msc.group5.entities.EventCause;
+import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 
 /**
@@ -65,4 +65,6 @@ public interface FailureTraceDAO {
 	
 	//Show the Top 10 IMSIs that had call failures during a time period
 	public Collection <String> topTenIMSIsWithFailures(Date startTime, Date endTime);
+
+	public Collection <FailureClass> getAllFailureClasses();
 }

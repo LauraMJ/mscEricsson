@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.entities.EventCause;
+import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 
 public class JPAFailureTraceDAO implements FailureTraceDAO {
@@ -101,5 +102,10 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 	public Collection <String> topTenIMSIsWithFailures(Date startTime, Date endTime){
 		return em.createNamedQuery("topTenIMSIsWithFailures").setParameter("startTime", startTime).setParameter("endTime", endTime).setMaxResults(10).getResultList();
 		
+	}
+
+	@Override
+	public Collection <FailureClass> getAllFailureClasses() {
+		return em.createNamedQuery("getAllFailureClasses").getResultList();
 	}
 }

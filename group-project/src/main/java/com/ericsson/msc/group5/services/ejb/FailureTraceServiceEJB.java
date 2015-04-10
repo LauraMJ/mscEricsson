@@ -2,15 +2,14 @@ package com.ericsson.msc.group5.services.ejb;
 
 import java.util.Collection;
 import java.util.Date;
-
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.entities.EventCause;
+import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.services.FailureTraceService;
 
@@ -100,5 +99,10 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 	public Collection<String> topTenIMSIsWithFailures(Date startTime,
 			Date endTime) {
 		return dao.topTenIMSIsWithFailures(startTime, endTime);
+	}
+
+	@Override
+	public Collection <FailureClass> getAllFailureClasses() {
+		return dao.getAllFailureClasses();
 	}
 }

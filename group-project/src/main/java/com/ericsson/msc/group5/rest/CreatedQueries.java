@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.json.simple.JSONObject;
+import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.services.FailureTraceService;
 
@@ -210,5 +211,12 @@ public class CreatedQueries {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection <String> getAllModels() {
 		return failureTraceEJB.getAllModels();
+	}
+
+	@GET
+	@Path("/getAllFailureClasses")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection <FailureClass> getAllFailureClasses() {
+		return failureTraceEJB.getAllFailureClasses();
 	}
 }

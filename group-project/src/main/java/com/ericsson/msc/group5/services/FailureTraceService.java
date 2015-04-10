@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import javax.ejb.Local;
 import com.ericsson.msc.group5.entities.EventCause;
+import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 
 /**
@@ -43,5 +44,7 @@ public interface FailureTraceService {
 	public Collection <String> getAllIMSIs();
 
 	public Collection <String> getAllModels();
+
+	public Collection <FailureClass> getAllFailureClasses();
 
 }

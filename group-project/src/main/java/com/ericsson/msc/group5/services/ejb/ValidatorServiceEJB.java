@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.utils;
+package com.ericsson.msc.group5.services.ejb;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,101 +14,145 @@ import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.entities.UserEquipment;
+import com.ericsson.msc.group5.services.ValidatorService;
+import com.ericsson.msc.group5.utils.DateUtil;
 
-public class Validator {
+public class ValidatorServiceEJB implements ValidatorService {
 
-	public static boolean validateFieldTypes(HSSFRow row, Object entity) {
-		if (entity instanceof FailureTrace) {
-			return validateFailureTraceRowFieldTypes(row);
-		}
-		if (entity instanceof UserEquipment) {
-			return validateUserEquipmentRowFieldTypes(row);
-		}
-		if (entity instanceof EventCause) {
-			return validateEventCauseRowFieldTypes(row);
-		}
-		if (entity instanceof FailureClass) {
-			return validateFailureClassRowFieldTypes(row);
-		}
-		if (entity instanceof CountryCodeNetworkCode) {
-			return validateCountryCodeNetworkCodeRowFieldTypes(row);
+	private String errorDescriptionString = "";
+
+	public boolean validateFailureTraceRow(HSSFRow row) {
+		if (validateFailureTraceRowFieldTypes(row) && validateFailureTraceRowFieldValues(row)) {
+			return true;
 		}
 		return false;
 	}
 
-	public static boolean validateFieldValues(HSSFRow row, Object entity) {
-		if (entity instanceof FailureTrace) {
-			return validateFailureTraceRowFieldValues(row);
+	private boolean validateFailureTraceRowFieldTypes(HSSFRow row) {
+
+		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 0 not Numeric");
+			return false;
+		}
+		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 1 not Numeric");
+			return false;
+		}
+
+		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			System.out.println("NOT NUMBERIC");
+			setErrorDescriptionString("Row field 2 not Numeric");
+			return false;
+		}
+		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 3 not Numeric");
+			return false;
+		}
+		if (row.getCell(4).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 4 not Numeric");
+			return false;
+		}
+		if (row.getCell(5).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 5 not Numeric");
+			return false;
+		}
+		if (row.getCell(6).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 6 not Numeric");
+			return false;
+		}
+		if (row.getCell(7).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 7 not Numeric");
+			return false;
+		}
+		if (row.getCell(8).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 8 not Numeric");
+			return false;
+		}
+		if (row.getCell(9).getCellType() != Cell.CELL_TYPE_STRING) {
+			setErrorDescriptionString("Row field 9 not a String");
+			return false;
+		}
+		if (row.getCell(10).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 10 not Numeric");
+			return false;
+		}
+		if (row.getCell(11).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 11 not Numeric");
+			return false;
+		}
+		if (row.getCell(12).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 12 not Numeric");
+			return false;
+		}
+		if (row.getCell(13).getCellType() != Cell.CELL_TYPE_NUMERIC) {
+			setErrorDescriptionString("Row field 13 not Numeric");
+			return false;
 		}
 		return true;
 	}
 
-	private static boolean validateFailureTraceRowFieldValues(HSSFRow row) {
+	public boolean validateFailureTraceRowFieldValues(HSSFRow row) {
+		System.out.println("CELL TYPE: " + row.getCell(2).getCellType());
 
-		if ( !validateDate(DateUtil.formatDateAsString(row.getCell(0)
-				.getDateCellValue()))) {
-			// System.out.println("Date not ok");
+		if ( !validateDate(DateUtil.formatDateAsString(row.getCell(0).getDateCellValue()))) {
+			setErrorDescriptionString("Date not ok");
 			return false;
 		}
 		if ( !validateEventId((int) row.getCell(1).getNumericCellValue())) {
-			// System.out.println("Event ID not ok");
+			setErrorDescriptionString("Event ID not ok");
 			return false;
 		}
 		if ( !validateFailureClass((int) row.getCell(2).getNumericCellValue())) {
-			// System.out.println("Failure class not ok");
+			setErrorDescriptionString("Failure class not ok");
 			return false;
 		}
 		if ( !validateUEType((int) row.getCell(3).getNumericCellValue())) {
-			// System.out.println("Ue type not ok");
+			setErrorDescriptionString("Ue type not ok");
 			return false;
 		}
 		if ( !validateMarket((int) row.getCell(4).getNumericCellValue())) {
-			// System.out.println("Market not ok");
+			setErrorDescriptionString("Market not ok");
 			return false;
 		}
 		if ( !validateOperator((int) row.getCell(5).getNumericCellValue())) {
-			// System.out.println("operator not ok");
+			setErrorDescriptionString("operator not ok");
 			return false;
 		}
 		if ( !validateCellId((int) row.getCell(6).getNumericCellValue())) {
-			// System.out.println("cell id not ok");
+			setErrorDescriptionString("cell id not ok");
 			return false;
 		}
 		if ( !validateDuration((int) row.getCell(7).getNumericCellValue())) {
-			// System.out.println("duration not ok");
+			setErrorDescriptionString("duration not ok");
 			return false;
 		}
 		if ( !validateCauseCode((int) row.getCell(8).getNumericCellValue())) {
-			// System.out.println("cause code not ok");
+			setErrorDescriptionString("cause code not ok");
 			return false;
 		}
 		if ( !validateNEVersion(row.getCell(9).getStringCellValue())) {
-			// System.out.println("ne version not ok");
+			setErrorDescriptionString("ne version not ok");
 			return false;
 		}
 		if ( !validateIMSI((long) row.getCell(10).getNumericCellValue())) {
-			// System.out.println("imsi not ok");
+			setErrorDescriptionString("imsi not ok");
 			return false;
 		}
 		return true;
 	}
 
-	public static boolean validateFailureTrace(FailureTrace failureTrace) {
-		return true;
-	}
-
-	public static boolean validateEventId(Integer d) {
+	private boolean validateEventId(Integer eventId) {
 		try {
-			if (d == 4097) {
+			if (eventId == 4097) {
 				return true;
 			}
-			if (d == 4098) {
+			if (eventId == 4098) {
 				return true;
 			}
-			if (d == 4125) {
+			if (eventId == 4125) {
 				return true;
 			}
-			if (d == 4106) {
+			if (eventId == 4106) {
 				return true;
 			}
 		}
@@ -118,9 +162,21 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateFailureClass(Integer input) {
+	private boolean validateFailureClass(Integer failureClass) {
 		try {
-			if (input >= 0 && input <= 4) {
+			if (failureClass == 0) {
+				return true;
+			}
+			if (failureClass == 1) {
+				return true;
+			}
+			if (failureClass == 2) {
+				return true;
+			}
+			if (failureClass == 3) {
+				return true;
+			}
+			if (failureClass == 4) {
 				return true;
 			}
 		}
@@ -130,7 +186,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateUEType(Integer input) {
+	private boolean validateUEType(Integer input) {
 		try {
 			int numDigits = Integer.toString(input).length();
 			if (numDigits >= 6 && numDigits <= 8) {
@@ -143,7 +199,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateMarket(Integer input) {
+	private boolean validateMarket(Integer input) {
 		try {
 			int numDigits = Integer.toString(input).length();
 			if (numDigits == 3) {
@@ -156,7 +212,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateOperator(Integer input) {
+	private boolean validateOperator(Integer input) {
 		try {
 			int numDigits = Integer.toString(input).length();
 			if (numDigits >= 1 && numDigits <= 3 && input >= 01 && input <= 999) {
@@ -169,7 +225,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateCellId(Integer input) {
+	private boolean validateCellId(Integer input) {
 		try {
 			if (input < 10000) {
 				return true;
@@ -181,9 +237,9 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateDuration(Integer input) {
+	private boolean validateDuration(Integer input) {
 		try {
-			if (input == 1000) {
+			if (input < 10000) {
 				return true;
 			}
 		}
@@ -193,7 +249,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateCauseCode(Integer input) {
+	private boolean validateCauseCode(Integer input) {
 		try {
 			if (input >= 0 && input <= 33) {
 				return true;
@@ -205,7 +261,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateNEVersion(String input) {
+	private boolean validateNEVersion(String input) {
 		try {
 			if (input.length() == 3) {
 				return true;
@@ -217,7 +273,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateIMSI(Long input) {
+	private boolean validateIMSI(Long input) {
 		try {
 			int numDigits = Long.toString(input).length();
 			if (numDigits == 14 || numDigits == 15) {
@@ -230,7 +286,7 @@ public class Validator {
 		return false;
 	}
 
-	public static boolean validateDate(String dateString) {
+	public boolean validateDate(String dateString) {
 		try {
 			boolean isValidDate = checkIfValidDate(dateString);
 			boolean isValidTime = validateTime(dateString);
@@ -250,7 +306,7 @@ public class Validator {
 	 *            time address for validation
 	 * @return true valid time fromat, false invalid time format
 	 */
-	private static boolean validateTime(String time) {
+	private boolean validateTime(String time) {
 		String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
 		Pattern pattern = Pattern
 				.compile(timePattern, Pattern.CASE_INSENSITIVE);
@@ -258,7 +314,7 @@ public class Validator {
 		return matcher.find();
 	}
 
-	private static boolean checkIfFutureDate(String dateString) {
+	private boolean checkIfFutureDate(String dateString) {
 		dateString = correctLengthOfDateString(dateString);
 		dateString = dateString.substring(0, 6) + "20"
 				+ dateString.substring(6);
@@ -279,7 +335,7 @@ public class Validator {
 		return true;
 	}
 
-	private static boolean checkIfValidDate(String dateString) {
+	private boolean checkIfValidDate(String dateString) {
 		dateString = correctLengthOfDateString(dateString);
 
 		// Assumes the short year format refers to years in the 21st century
@@ -315,7 +371,7 @@ public class Validator {
 		return true;
 	}
 
-	private static String correctLengthOfDateString(String dateString) {
+	private String correctLengthOfDateString(String dateString) {
 		// Pad single digit day with a zero
 		if ((int) dateString.charAt(1) < 48 || (int) dateString.charAt(1) > 57) {
 			String temp = dateString;
@@ -332,54 +388,33 @@ public class Validator {
 		return dateString;
 	}
 
-	private static boolean validateFailureTraceRowFieldTypes(HSSFRow row) {
+	public boolean validateFieldTypes(HSSFRow row, Object entity) {
+		if (entity instanceof FailureTrace) {
+			return validateFailureTraceRowFieldTypes(row);
+		}
+		if (entity instanceof UserEquipment) {
+			return validateUserEquipmentRowFieldTypes(row);
+		}
+		if (entity instanceof EventCause) {
+			return validateEventCauseRowFieldTypes(row);
+		}
+		if (entity instanceof FailureClass) {
+			return validateFailureClassRowFieldTypes(row);
+		}
+		if (entity instanceof CountryCodeNetworkCode) {
+			return validateCountryCodeNetworkCodeRowFieldTypes(row);
+		}
+		return false;
+	}
 
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(4).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(5).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(6).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(7).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(8).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(9).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(10).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(11).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(12).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(13).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
+	public boolean validateFieldValues(HSSFRow row, Object entity) {
+		if (entity instanceof FailureTrace) {
+			return validateFailureTraceRowFieldValues(row);
 		}
 		return true;
 	}
 
-	private static boolean validateUserEquipmentRowFieldTypes(HSSFRow row) {
+	private boolean validateUserEquipmentRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}
@@ -410,7 +445,7 @@ public class Validator {
 		return true;
 	}
 
-	private static boolean validateCountryCodeNetworkCodeRowFieldTypes(
+	private boolean validateCountryCodeNetworkCodeRowFieldTypes(
 			HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
@@ -427,7 +462,7 @@ public class Validator {
 		return false;
 	}
 
-	private static boolean validateHierInfoRowFieldTypes(HSSFRow row) {
+	private boolean validateHierInfoRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}
@@ -440,7 +475,7 @@ public class Validator {
 		return false;
 	}
 
-	private static boolean validateFailureClassRowFieldTypes(HSSFRow row) {
+	private boolean validateFailureClassRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}
@@ -450,7 +485,7 @@ public class Validator {
 		return true;
 	}
 
-	private static boolean validateEventCauseRowFieldTypes(HSSFRow row) {
+	private boolean validateEventCauseRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}
@@ -461,6 +496,14 @@ public class Validator {
 			return false;
 		}
 		return true;
+	}
+
+	public String getErrorDescriptionString() {
+		return errorDescriptionString;
+	}
+
+	public void setErrorDescriptionString(String errorDescriptionString) {
+		this.errorDescriptionString = errorDescriptionString;
 	}
 
 }

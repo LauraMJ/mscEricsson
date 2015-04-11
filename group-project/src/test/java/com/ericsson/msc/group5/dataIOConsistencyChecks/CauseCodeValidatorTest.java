@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import com.ericsson.msc.group5.utils.Validator;
+import com.ericsson.msc.group5.services.ejb.ValidatorServiceEJB;
 
 @RunWith(Parameterized.class)
 public class CauseCodeValidatorTest {
@@ -28,6 +28,6 @@ public class CauseCodeValidatorTest {
 
 	@Test
 	public void validateCauseCode() {
-		assertEquals(expectedResult, Validator.validateCauseCode(causeCode));
+		assertEquals(expectedResult, ValidatorServiceEJB.validateCauseCode(causeCode));
 	}
 }

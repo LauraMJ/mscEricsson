@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import com.ericsson.msc.group5.utils.Validator;
+import com.ericsson.msc.group5.services.ejb.ValidatorServiceEJB;
 
 @RunWith(Parameterized.class)
 public class IMSIValidatorTest {
@@ -29,6 +29,6 @@ public class IMSIValidatorTest {
 
 	@Test
 	public void validateIMSI() {
-		assertEquals(expectedResult, Validator.validateIMSI(imsi));
+		assertEquals(expectedResult, ValidatorServiceEJB.validateIMSI(imsi));
 	}
 }

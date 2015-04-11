@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import com.ericsson.msc.group5.utils.Validator;
+import com.ericsson.msc.group5.services.ejb.ValidatorServiceEJB;
 
 @RunWith(Parameterized.class)
 public class UETypeValidatorTest {
@@ -28,7 +28,7 @@ public class UETypeValidatorTest {
 
 	@Test
 	public void validateUEType() {
-		assertEquals(result, Validator.validateUEType(ueType));
+		assertEquals(result, ValidatorServiceEJB.validateUEType(ueType));
 	}
 
 }

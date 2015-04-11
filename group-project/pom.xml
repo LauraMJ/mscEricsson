@@ -145,6 +145,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+
+		<dependency>
 			<groupId>org.jboss.shrinkwrap.resolver</groupId>
 			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
 			<scope>test</scope>
@@ -195,6 +202,20 @@
 			<version>2.1-beta-1</version>
 			<scope>provided</scope>
 		</dependency>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.logging.log4j</groupId> -->
+<!-- 			<artifactId>log4j-core</artifactId> -->
+<!-- 			<version>2.2</version> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>log4j</groupId> -->
+<!-- 			<artifactId>log4j</artifactId> -->
+<!-- 			<version>1.2.15</version> -->
+<!-- 		</dependency> -->
+
+
 	</dependencies>
 	<profiles>
 		<profile>

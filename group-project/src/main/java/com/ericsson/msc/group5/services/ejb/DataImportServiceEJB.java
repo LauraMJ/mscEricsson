@@ -31,12 +31,15 @@ import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.entities.UserEquipment;
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.ErrorLogWriterService;
-import com.ericsson.msc.group5.utils.Validator;
+import com.ericsson.msc.group5.services.ValidatorService;
 
 @Stateless
 @Local
 @Path("/import")
 public class DataImportServiceEJB implements DataImportService {
+
+	// static Logger log =
+	// Logger.getLogger(DataImportServiceEJB.class.getName());
 
 	@Inject
 	private CountryCodeNetworkCodeDAO countryCodeNetworkCodeDAO;
@@ -52,6 +55,8 @@ public class DataImportServiceEJB implements DataImportService {
 	private UserEquipmentDAO userEquipmentDAO;
 	@EJB
 	private ErrorLogWriterService errorLogWriterService;
+	@Inject
+	private ValidatorService validatorService;
 
 	private HashMap <Integer, EventCause> eventCauseHashMap = new HashMap <>();
 	private HashMap <Integer, FailureClass> failureClassHashMap = new HashMap <>();
@@ -118,6 +123,13 @@ public class DataImportServiceEJB implements DataImportService {
 		Long initialPKValue = failureTraceDAO.getTotalNumberOfEntries() + 1;
 		for (int i = 1; i <= numRows; i++) {
 			HSSFRow row = (HSSFRow) baseDataWorksheet.getRow(i);
+			System.out.println("Row number: " + i + ", entering validation.");
+			if ( !validatorService.validateFailureTraceRowFieldValues(row)) {
+				errorLogWriterService.writeToErrorLog(row, validatorService.getErrorDescriptionString());
+				System.out.println("Row number: " + i + ", failed, msg: " + validatorService.getErrorDescriptionString());
+				continue;
+			}
+			System.out.println("Row number: " + i + ", successfully validated.");
 			try {
 				Date dateTime = row.getCell(0).getDateCellValue();
 				int eventId = (int) row.getCell(1).getNumericCellValue();
@@ -170,11 +182,6 @@ public class DataImportServiceEJB implements DataImportService {
 				createdFailureTrace.setIMSI(imsi);
 				createdFailureTrace.setNeVersion(neVersion);
 				createdFailureTrace.setUserEquipment(existingUserEquipment);
-
-				if ( !Validator.validateFailureTrace(createdFailureTrace)) {
-					errorLogWriterService.writeToErrorLog(row, "");
-					continue;
-				}
 
 				failureTraceCollectionToFlush.add(createdFailureTrace);
 				initialPKValue++;

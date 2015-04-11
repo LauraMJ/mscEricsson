@@ -4,10 +4,7 @@ function getUserRole() {
 		type : "GET",
 		contentType : 'application/json',
 		dataType : "json",
-		success : enableSidebarItems,
-		error : function(data){
-			alert("error?");
-		}
+		success : enableSidebarItems
 	});
 }
 

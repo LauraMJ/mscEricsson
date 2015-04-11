@@ -23,6 +23,12 @@
 <!-- Custom Fonts -->
 <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+<!-- DataTables CSS -->
+<link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+<!-- DataTables Responsive CSS -->
+<link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -103,6 +109,23 @@
 					<!-- /.col-lg-12 -->
 				</div>
 				<!-- /.row -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="dataTable_wrapper">
+							<table class="table table-striped table-bordered table-hover" id="datatable-1">
+								<thead>
+									<tr>
+										<th>Fuction</th>
+										<th>Description of functionality</th>
+										<th>Url</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- /.container-fluid -->
 		</div>
@@ -120,11 +143,41 @@
 	<!-- Metis Menu Plugin JavaScript -->
 	<script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
+	<!-- DataTables JavaScript -->
+	<script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+	<script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
 	<!-- Custom Theme JavaScript -->
 	<script src="../dist/js/sb-admin-2.js"></script>
 
 	<!-- Project-Specific Scripts-->
 	<script src="../js/show_valid_user_pages.js"></script>
+	<script src="../js/index.js"></script>
+
+	<!-- Set up the datatable -->
+	<script>
+		$(document).ready(function() {
+			var table = $('#datatable-1').DataTable({
+				"lengthMenu" : [ [ -1 ], [ "All" ] ],
+				"columnDefs" : [ {
+					"targets" : [ 2 ],
+					"visible" : false
+				} ]
+			});
+			$('#datatable-1 tbody').on('click', 'tr', function() {
+				var data = table.row(this).data();
+				window.location.href = data[2];
+			});
+
+			$.ajax({
+				url : "../rest/get/userrole",
+				type : "GET",
+				contentType : 'application/json',
+				dataType : "json",
+				success : populatePage
+			});
+		});
+	</script>
 
 </body>
 

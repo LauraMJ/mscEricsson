@@ -71,24 +71,24 @@
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
 						<li><a href="index.html"><i class="fa fa-home fa-fw"></i> Home</a></li>
-						<li><a href="#"><i class="fa fa-terminal fa-fw"></i> Administrator<span class="fa arrow"></span></a>
+						<li id="administrator_funct" style="display: none;"><a href="#"><i class="fa fa-terminal fa-fw"></i> Administrator<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="import_xml.html">Import Data</a></li>
 								<li><a href="add_user.html">Add Users</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li class="active"><a href="#"><i class="fa fa-phone fa-fw"></i> Customer Service<span class="fa arrow"></span></a>
+						<li id="customer_rep_funct" class="active" style="display: none;"><a href="#"><i class="fa fa-phone fa-fw"></i> Customer Service<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="failures_by_imsi.html">Failures for IMSI</a></li>
 								<li><a href="cust_failures_by_imsi_date.html">Failure Count for IMSI and Date</a></li>
 								<li><a class="active" href="cause_codes_for_imsi.html">Cause Codes for IMSI</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="#"><i class="fa fa-users fa-fw"></i> Support Engineer<span class="fa arrow"></span></a>
+						<li id="support_eng_funct" style="display: none;"><a href="#"><i class="fa fa-users fa-fw"></i> Support Engineer<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="failures_by_date.html">Failures for Date</a></li>
 								<li><a href="failures_by_model_date.html">Failure Count for Model and Date</a></li>
 								<li><a href="failures_by_cause_class.html">Affected IMSIs for Cause Class</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li><a href="#"><i class="fa fa-signal fa-fw"></i> Network Engineer<span class="fa arrow"></span></a>
+						<li id="network_eng_funct" style="display: none;"><a href="#"><i class="fa fa-signal fa-fw"></i> Network Engineer<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="failures_duration_by_imsi.html">Failure Count and Total Duration for IMSI and Date</a></li>
 								<li><a href="failure_causes_count_for_model.html">Failure Causes for Model</a></li>
@@ -170,5 +170,6 @@
 
 	<!-- Project-specific JavaScript -->
 	<script src="../js/cause_codes_for_imsi.js"></script>
+	<script src="../js/show_valid_user_pages.js"></script>
 </body>
 </html>

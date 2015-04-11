@@ -29,7 +29,6 @@ public class UserRESTResource {
 		}
 		else {
 			return Response.status(Response.Status.PRECONDITION_FAILED).entity(user).build();
-//			return Response.status(Response.Status.PRECONDITION_FAILED).entity(new String("Username already exists: " + user.getUsername())).build();
 		}
 	}
 
@@ -47,7 +46,7 @@ public class UserRESTResource {
 		String roles[] = {"administrator", "customer service rep", "network mgmt engineer", "support engineer"};
 		for(String role : roles){
 			if(securityContext.isUserInRole(role)){
-				return Response.ok("{ \"role\" : " + role + " }").build();
+				return Response.ok("{ \"role\" : \"" + role + "\" }").build();
 			}
 		}
 		return Response.status(Response.Status.PRECONDITION_FAILED).build();

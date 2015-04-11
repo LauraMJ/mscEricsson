@@ -1,12 +1,17 @@
 package com.ericsson.msc.group5.dataIOConsistencyChecks;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
 import com.ericsson.msc.group5.services.ejb.ValidatorServiceEJB;
 
 @RunWith(Parameterized.class)
@@ -14,6 +19,9 @@ public class CellIdValidatorTest {
 
 	private boolean expectedResult;
 	private Integer cellId;
+	
+	@Inject
+	ValidatorServiceEJB service;
 
 	@Parameters
 	public static List <Object []> params() {
@@ -29,6 +37,6 @@ public class CellIdValidatorTest {
 
 	@Test
 	public void validateCellId() {
-		assertEquals(expectedResult, ValidatorServiceEJB.validateCellId(cellId));
+		assertEquals(expectedResult, service.validateCellId(cellId));
 	}
 }

@@ -143,7 +143,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return true;
 	}
 
-	private boolean validateEventId(Integer eventId) {
+	public boolean validateEventId(Integer eventId) {
 		try {
 			if (eventId == 4097) {
 				return true;
@@ -164,7 +164,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateFailureClass(Integer failureClass) {
+	public boolean validateFailureClass(Integer failureClass) {
 		try {
 			if (failureClass == 0) {
 				return true;
@@ -188,7 +188,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateUEType(Integer input) {
+	public boolean validateUEType(Integer input) {
 		try {
 			int numDigits = Integer.toString(input).length();
 			if (numDigits >= 6 && numDigits <= 8) {
@@ -201,7 +201,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateMarket(Integer input) {
+	public boolean validateMarket(Integer input) {
 		try {
 			int numDigits = Integer.toString(input).length();
 			if (numDigits == 3) {
@@ -214,7 +214,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateOperator(Integer input) {
+	public boolean validateOperator(Integer input) {
 		try {
 			int numDigits = Integer.toString(input).length();
 			if (numDigits >= 1 && numDigits <= 3 && input >= 01 && input <= 999) {
@@ -227,7 +227,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateCellId(Integer input) {
+	public boolean validateCellId(Integer input) {
 		try {
 			if (input < 10000) {
 				return true;
@@ -239,7 +239,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateDuration(Integer input) {
+	public boolean validateDuration(Integer input) {
 		try {
 			if (input < 10000) {
 				return true;
@@ -251,7 +251,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateCauseCode(Integer input) {
+	public boolean validateCauseCode(Integer input) {
 		try {
 			if (input >= 0 && input <= 33) {
 				return true;
@@ -263,7 +263,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateNEVersion(String input) {
+	public boolean validateNEVersion(String input) {
 		try {
 			if (input.length() == 3) {
 				return true;
@@ -275,7 +275,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateIMSI(Long input) {
+	public boolean validateIMSI(Long input) {
 		try {
 			int numDigits = Long.toString(input).length();
 			if (numDigits == 14 || numDigits == 15) {

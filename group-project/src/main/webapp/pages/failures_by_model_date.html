@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>CFL Viewer - Failures by IMSI and Date</title>
+<title>CFL Viewer - Failure Count for Model and Date</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -108,51 +108,50 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Display the failure count for the selected IMSI in the given time period</div>
+						<div class="panel-heading">Display the failure count for the selected Phone Model in the given time period</div>
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-lg-6">
-									<form role="form" onsubmit='return false'>
-										<div class="form-group">
-											<label>Phone Model:</label> <select class="form-control" id="model_dropdown">
-												<option value=''>-- Select Phone Model --</option>
-											</select>
-										</div>
-										<div class="row">
-											<div class='col-md-5'>
-												<label>From:</label> <input type='text' class="form-control" id='fromDateTime' />
-											</div>
-											<div class='col-md-5'>
-												<label>To:</label> <input type='text' class="form-control" id='toDateTime' />
-											</div>
-										</div>
-										<br>
-										<div class="row">
-											<div class="col-md-5">
-												<button id='submitButton' type='submit' value='Submit' onclick='getFailureCount()' class="btn btn-primary btn-block">Get failure count</button>
-											</div>
-										</div>
-									</form>
-									<br>
-									<div class="row">
-										<div class="col-md-5">
-											<label>Failure Count:</label> <input type='text' class="form-control" id='failureCount' readonly />
-										</div>
-									</div>
+								<div class="col-md-6">
+									<label>Phone Model:</label> <select class="form-control" id="model_dropdown">
+										<option value=''>-- Select Phone Model --</option>
+									</select>
 								</div>
 							</div>
-							<!-- /.row (nested) -->
+							<br>
+							<div class="row">
+								<div class='col-md-3'>
+									<label>From:</label> <input type='text' class="form-control" id='fromDateTime' />
+								</div>
+								<div class='col-md-3'>
+									<label>To:</label> <input type='text' class="form-control" id='toDateTime' />
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-6">
+									<button id='submitButton' type='button' onclick='getFailureCount()' class="btn btn-primary btn-lg btn-block">Get failure count</button>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-3">
+									<label>Failure Count:</label> <input type='text' class="form-control" id='failureCount' readonly />
+								</div>
+							</div>
 						</div>
-						<!-- /.panel-body -->
 					</div>
-					<!-- /.panel -->
+					<!-- /.row (nested) -->
 				</div>
-				<!-- /.col-lg-12 -->
+				<!-- /.panel-body -->
 			</div>
-			<!-- /.row -->
-
+			<!-- /.panel -->
 		</div>
-		<!-- /#wrapper -->
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+
+	</div>
+	<!-- /#wrapper -->
 
 	</div>
 	<!-- /#wrapper -->

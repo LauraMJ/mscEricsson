@@ -30,7 +30,8 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateFailureTraceRowFieldTypes(HSSFRow row) {
+	public boolean validateFailureTraceRowFieldTypes(HSSFRow row) {
+
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			setErrorDescriptionString("Row field 0 not Numeric");
 			return false;
@@ -306,7 +307,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 	 *            time address for validation
 	 * @return true valid time fromat, false invalid time format
 	 */
-	private boolean validateTime(String time) {
+	public boolean validateTime(String time) {
 		String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
 		Pattern pattern = Pattern
 				.compile(timePattern, Pattern.CASE_INSENSITIVE);
@@ -314,7 +315,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return matcher.find();
 	}
 
-	private boolean checkIfFutureDate(String dateString) {
+	public boolean checkIfFutureDate(String dateString) {
 		dateString = correctLengthOfDateString(dateString);
 		dateString = dateString.substring(0, 6) + "20"
 				+ dateString.substring(6);
@@ -335,7 +336,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return true;
 	}
 
-	private boolean checkIfValidDate(String dateString) {
+	public boolean checkIfValidDate(String dateString) {
 		dateString = correctLengthOfDateString(dateString);
 
 		// Assumes the short year format refers to years in the 21st century
@@ -371,7 +372,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return true;
 	}
 
-	private String correctLengthOfDateString(String dateString) {
+	public String correctLengthOfDateString(String dateString) {
 		// Pad single digit day with a zero
 		if ((int) dateString.charAt(1) < 48 || (int) dateString.charAt(1) > 57) {
 			String temp = dateString;
@@ -414,7 +415,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return true;
 	}
 
-	private boolean validateUserEquipmentRowFieldTypes(HSSFRow row) {
+	public boolean validateUserEquipmentRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}
@@ -445,7 +446,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return true;
 	}
 
-	private boolean validateCountryCodeNetworkCodeRowFieldTypes(
+	public boolean validateCountryCodeNetworkCodeRowFieldTypes(
 			HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
@@ -462,7 +463,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateHierInfoRowFieldTypes(HSSFRow row) {
+	public boolean validateHierInfoRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}
@@ -475,7 +476,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
-	private boolean validateFailureClassRowFieldTypes(HSSFRow row) {
+	public boolean validateFailureClassRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}
@@ -485,7 +486,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return true;
 	}
 
-	private boolean validateEventCauseRowFieldTypes(HSSFRow row) {
+	public boolean validateEventCauseRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
 		}

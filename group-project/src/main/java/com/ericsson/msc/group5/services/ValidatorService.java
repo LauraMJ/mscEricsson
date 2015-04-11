@@ -6,5 +6,57 @@ public interface ValidatorService {
 
 	public boolean validateFailureTraceRow(HSSFRow row);
 	
+	public boolean validateFailureTraceRowFieldTypes(HSSFRow row);
+	
 	public boolean validateFailureTraceRowFieldValues(HSSFRow row);
+	
+	public boolean validateEventId(Integer eventId);
+	
+	public boolean validateFailureClass(Integer failureClass);
+	
+	public boolean validateUEType(Integer input);
+	
+	public boolean validateMarket(Integer input);
+	
+	public boolean validateOperator(Integer input);
+	
+	public boolean validateCellId(Integer input);
+	
+	public boolean validateDuration(Integer input);
+	
+	public boolean validateCauseCode(Integer input);
+	
+	public boolean validateNEVersion(String input);
+	
+	public boolean validateIMSI(Long input);
+	
+	public boolean validateDate(String dateString);
+	
+	public boolean validateTime(String time);
+	
+	public boolean checkIfFutureDate(String dateString);
+	
+	public boolean checkIfValidDate(String dateString);
+	
+	public String correctLengthOfDateString(String dateString);
+	
+	public boolean validateFieldTypes(HSSFRow row, Object entity);
+	
+	public boolean validateFieldValues(HSSFRow row, Object entity);
+	
+	public boolean validateUserEquipmentRowFieldTypes(HSSFRow row);
+	
+	public boolean validateCountryCodeNetworkCodeRowFieldTypes(
+			HSSFRow row);
+	
+	public boolean validateHierInfoRowFieldTypes(HSSFRow row);
+	
+	public boolean validateFailureClassRowFieldTypes(HSSFRow row) ;
+	
+	public boolean validateEventCauseRowFieldTypes(HSSFRow row);
+	
+	public String getErrorDescriptionString();
+	
+	public void setErrorDescriptionString(String errorDescriptionString);
+
 }

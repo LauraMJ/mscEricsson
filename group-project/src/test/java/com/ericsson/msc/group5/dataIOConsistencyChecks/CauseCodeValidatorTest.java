@@ -38,17 +38,6 @@ public class CauseCodeValidatorTest {
 	@Inject
 	ValidatorServiceEJB service;
 
-	// @Parameters
-	// public static List <Object []> params() {
-	// Object [][] data = new Object[][] { {false, 50}, {true, 25}};
-	// return Arrays.asList(data);
-	// }
-	//
-	// public CauseCodeValidatorTest(boolean expectedResult, Integer causeCode) {
-	// this.causeCode = causeCode;
-	// this.expectedResult = expectedResult;
-	// }
-
 	@Test
 	public void validateCauseCode() {
 		boolean expectedResult = false;

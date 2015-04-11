@@ -123,7 +123,7 @@ public class DataImportServiceEJB implements DataImportService {
 		for (int i = 1; i <= numRows; i++) {
 			HSSFRow row = (HSSFRow) baseDataWorksheet.getRow(i);
 			System.out.println("Row number: " + i + ", entering validation.");
-			if ( !validatorService.validateFailureTraceRowFieldValues(row)) {
+			if ( !validatorService.validateFailureTraceRow(row)) {
 				errorLogWriterService.writeToErrorLog(row, validatorService.getErrorDescriptionString());
 				System.out.println("Row number: " + i + ", failed, msg: " + validatorService.getErrorDescriptionString());
 				continue;

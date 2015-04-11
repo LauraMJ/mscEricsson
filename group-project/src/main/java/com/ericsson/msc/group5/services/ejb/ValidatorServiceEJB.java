@@ -31,7 +31,6 @@ public class ValidatorServiceEJB implements ValidatorService{
 	}
 
 	private boolean validateFailureTraceRowFieldTypes(HSSFRow row) {
-
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			setErrorDescriptionString("Row field 0 not Numeric");
 			return false;
@@ -40,7 +39,6 @@ public class ValidatorServiceEJB implements ValidatorService{
 			setErrorDescriptionString("Row field 1 not Numeric");
 			return false;
 		}
-
 		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			System.out.println("NOT NUMBERIC");
 			setErrorDescriptionString("Row field 2 not Numeric");

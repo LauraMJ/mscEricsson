@@ -378,6 +378,13 @@
 
 	<security-constraint>
 		<web-resource-collection>
+			<web-resource-name>ensureDefaultAdminAccountExists</web-resource-name>
+			<url-pattern>/rest/add/defaultAdmin</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
 			<web-resource-name>logout</web-resource-name>
 			<url-pattern>/logout.html</url-pattern>
 		</web-resource-collection>

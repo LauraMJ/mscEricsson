@@ -32,6 +32,17 @@ public class UserRESTResource {
 		}
 	}
 
+	@POST
+	@Path("/add/defaultAdmin")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addDefaultAdminAccount() {
+		String username = "administrator";
+		String password = "admin";
+		String role = "administrator";
+		userServiceEJB.addUser(username, password, role);
+		return Response.ok().build();
+	}
+
 	@GET
 	@Path("/get/username")
 	@Produces(MediaType.APPLICATION_JSON)

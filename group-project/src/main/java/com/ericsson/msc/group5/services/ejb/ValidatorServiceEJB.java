@@ -7,8 +7,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.ss.usermodel.Cell;
+
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureClass;
@@ -17,7 +19,7 @@ import com.ericsson.msc.group5.entities.UserEquipment;
 import com.ericsson.msc.group5.services.ValidatorService;
 import com.ericsson.msc.group5.utils.DateUtil;
 
-public class ValidatorServiceEJB implements ValidatorService {
+public class ValidatorServiceEJB implements ValidatorService{
 
 	private String errorDescriptionString = "";
 

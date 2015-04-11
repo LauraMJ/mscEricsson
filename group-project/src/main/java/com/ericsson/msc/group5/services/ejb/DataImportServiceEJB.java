@@ -31,7 +31,6 @@ import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.entities.UserEquipment;
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.ErrorLogWriterService;
-import com.ericsson.msc.group5.services.ValidatorService;
 
 @Stateless
 @Local
@@ -56,7 +55,7 @@ public class DataImportServiceEJB implements DataImportService {
 	@EJB
 	private ErrorLogWriterService errorLogWriterService;
 	@Inject
-	private ValidatorService validatorService;
+	private ValidatorServiceEJB validatorService;
 
 	private HashMap <Integer, EventCause> eventCauseHashMap = new HashMap <>();
 	private HashMap <Integer, FailureClass> failureClassHashMap = new HashMap <>();

@@ -66,7 +66,7 @@
 
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>importData</web-resource-name>
+			<web-resource-name>importData/rest</web-resource-name>
 			<url-pattern>/rest/restImportService/import</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
@@ -79,18 +79,47 @@
 
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>addUser</web-resource-name>
-			<url-pattern>/rest/add/user</url-pattern>
+			<web-resource-name>importDataPAGE</web-resource-name>
+			<url-pattern>/pages/import_xml.html</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>administrator</role-name>
+			<!-- <role-name>customer service rep</role-name> -->
+			<!-- <role-name>support engineer</role-name> -->
+			<!-- <role-name>network mgmt engineer</role-name> -->
 		</auth-constraint>
 	</security-constraint>
 
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>eventcauseDisplay</web-resource-name>
-			<url-pattern>/rest/query/eventCause</url-pattern>
+			<web-resource-name>addUsers/rest</web-resource-name>
+			<url-pattern>/rest/add/user</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+			<!-- <role-name>customer service rep</role-name> -->
+			<!-- <role-name>support engineer</role-name> -->
+			<!-- <role-name>network mgmt engineer</role-name> -->
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>addUsersPage</web-resource-name>
+			<url-pattern>/pages/add_user.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+			<!-- <role-name>customer service rep</role-name> -->
+			<!-- <role-name>support engineer</role-name> -->
+			<!-- <role-name>network mgmt engineer</role-name> -->
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failuresForIMSI/rest</web-resource-name>
+			<url-pattern>/rest/query/eventCausePerImsi</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>administrator</role-name>
@@ -102,12 +131,12 @@
 
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>imsiByTimePeriod</web-resource-name>
-			<url-pattern>/rest/query/imsiByTimePeriod</url-pattern>
+			<web-resource-name>failuresForIMSIPage</web-resource-name>
+			<url-pattern>/pages/failures_by_imsi.html</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>administrator</role-name>
-			<!-- <role-name>customer service rep</role-name> -->
+			<role-name>customer service rep</role-name>
 			<role-name>support engineer</role-name>
 			<role-name>network mgmt engineer</role-name>
 		</auth-constraint>
@@ -115,13 +144,234 @@
 
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>imsiByTimePeriodDisplay</web-resource-name>
+			<web-resource-name>failureCountForIMSIAndDate/rest</web-resource-name>
+			<url-pattern>/rest/query/givenImsiAndTimePeriodReturnNumberOfFailures</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+			<role-name>customer service rep</role-name>
+			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failureCountForIMSIAndDatePage</web-resource-name>
+			<url-pattern>/pages/cust_failures_by_imsi_date.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+			<role-name>customer service rep</role-name>
+			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>causeCodesForIMSI/rest</web-resource-name>
+			<url-pattern>/rest/query/causeCodesPerImsi</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+			<role-name>customer service rep</role-name>
+			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>causeCodesForIMSIPage</web-resource-name>
+			<url-pattern>/pages/cause_codes_for_imsi.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+			<role-name>customer service rep</role-name>
+			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failuresByDate/rest</web-resource-name>
+			<url-pattern>/rest/query/imsiByTimePeriod</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failuresByDatePage</web-resource-name>
+			<url-pattern>/pages/failures_by_date.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failuresByModelDate/rest</web-resource-name>
+			<url-pattern>/rest/query/givenModelByTimePeriod</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failuresByModelDatePage</web-resource-name>
+			<url-pattern>/pages/failures_by_model_date.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failuresByCauseClass/rest</web-resource-name>
+			<url-pattern>/rest/query/imsiAffectedByFailureClass</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failuresByCauseClassPage</web-resource-name>
+			<url-pattern>/pages/failures_by_cause_class.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+			<role-name>support engineer</role-name>
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failuresDurationByIMSI/rest</web-resource-name>
 			<url-pattern>/rest/query/givenImsiByTimePeriod</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>administrator</role-name>
-			<!-- <role-name>customer service rep</role-name> -->
-			<!-- <role-name>support engineer</role-name> -->
+<!-- 			<role-name>customer service rep</role-name> -->
+<!-- 			<role-name>support engineer</role-name> -->
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failuresDurationByIMSIPage</web-resource-name>
+			<url-pattern>/pages/failures_duration_by_imsi.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+<!-- 			<role-name>support engineer</role-name> -->
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failureCausesCountForModel/rest</web-resource-name>
+			<url-pattern>/rest/query/eventCauseAndCountOfOccurencesForModel</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+<!-- 			<role-name>support engineer</role-name> -->
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>failureCausesCountForModelPage</web-resource-name>
+			<url-pattern>/pages/failure_causes_count_for_model.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+<!-- 			<role-name>support engineer</role-name> -->
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>top10MarketDate/rest</web-resource-name>
+			<url-pattern>/rest/query/top10MarketOperatorCellIdCombinations</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+<!-- 			<role-name>support engineer</role-name> -->
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>top10MarketDatePage</web-resource-name>
+			<url-pattern>/pages/top_10_market_date.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+<!-- 			<role-name>support engineer</role-name> -->
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>top10IMSIDate/rest</web-resource-name>
+			<url-pattern>/rest/query/topTenIMSIsWithFailures</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+<!-- 			<role-name>support engineer</role-name> -->
+			<role-name>network mgmt engineer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>top10IMSIDatePage</web-resource-name>
+			<url-pattern>/pages/top_10_imsi_date.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+<!-- 			<role-name>customer service rep</role-name> -->
+<!-- 			<role-name>support engineer</role-name> -->
 			<role-name>network mgmt engineer</role-name>
 		</auth-constraint>
 	</security-constraint>
@@ -163,42 +413,6 @@
 			<url-pattern>/bower_components/*</url-pattern>
 		</web-resource-collection>
 	</security-constraint>
-<!-- 	<security-constraint> -->
-<!-- 		<web-resource-collection> -->
-<!-- 			<web-resource-name>bower_components</web-resource-name> -->
-<!-- 			<url-pattern>/bower_components/metisMenu/dist/metisMenu.min.css</url-pattern> -->
-<!-- 		</web-resource-collection> -->
-<!-- 	</security-constraint> -->
-<!-- 	<security-constraint> -->
-<!-- 		<web-resource-collection> -->
-<!-- 			<web-resource-name>css</web-resource-name> -->
-<!-- 			<url-pattern>/dist/css/sb-admin-2.css</url-pattern> -->
-<!-- 		</web-resource-collection> -->
-<!-- 	</security-constraint> -->
-<!-- 	<security-constraint> -->
-<!-- 		<web-resource-collection> -->
-<!-- 			<web-resource-name>jquery</web-resource-name> -->
-<!-- 			<url-pattern>/bower_components/jquery/dist/jquery.min.js</url-pattern> -->
-<!-- 		</web-resource-collection> -->
-<!-- 	</security-constraint> -->
-<!-- 	<security-constraint> -->
-<!-- 		<web-resource-collection> -->
-<!-- 			<web-resource-name>bower_components</web-resource-name> -->
-<!-- 			<url-pattern>/bower_components/bootstrap/dist/js/bootstrap.min.js</url-pattern> -->
-<!-- 		</web-resource-collection> -->
-<!-- 	</security-constraint> -->
-<!-- 	<security-constraint> -->
-<!-- 		<web-resource-collection> -->
-<!-- 			<web-resource-name>bower_components</web-resource-name> -->
-<!-- 			<url-pattern>/bower_components/metisMenu/dist/metisMenu.min.js</url-pattern> -->
-<!-- 		</web-resource-collection> -->
-<!-- 	</security-constraint> -->
-<!-- 	<security-constraint> -->
-<!-- 		<web-resource-collection> -->
-<!-- 			<web-resource-name>bower_components</web-resource-name> -->
-<!-- 			<url-pattern>/dist/js/sb-admin-2.js</url-pattern> -->
-<!-- 		</web-resource-collection> -->
-<!-- 	</security-constraint> -->
 
 	<security-role>
 		<role-name>administrator</role-name>

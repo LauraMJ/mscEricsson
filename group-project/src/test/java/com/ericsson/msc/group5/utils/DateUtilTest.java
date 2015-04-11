@@ -21,9 +21,9 @@ public class DateUtilTest {
 
 	@Test
 	public void testFormatDateStringAsTimestamp() {
-		//String testOne = new String("01/02/2014 13:30");
-		
-		//assertEquals(DateUtil.formatDateStringAsTimestamp(testOne), "13:30");
+		String testOne = new String("01/02/2014 13:30");
+		System.out.println(DateUtil.formatDateStringAsTimestamp(testOne));
+		assertEquals(DateUtil.formatDateStringAsTimestamp(testOne).toString(), "2014-02-01 13:30:00.0");
 	}
 
 }

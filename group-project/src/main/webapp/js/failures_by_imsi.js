@@ -44,7 +44,7 @@ function populateFailuresTable(data) {
 
 	var i;
 	for (i = 0; i < data.length; i++) {
-		t.row.add([ data[i].causeCodeEventIdCK.eventId, data[i].causeCodeEventIdCK.causeCode, data[i].description ]);
+		t.row.add([ data[i] ]);
 	}
 	t.draw();
 }

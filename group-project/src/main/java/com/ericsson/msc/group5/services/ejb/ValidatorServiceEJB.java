@@ -7,10 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.ss.usermodel.Cell;
-
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureClass;
@@ -19,7 +17,7 @@ import com.ericsson.msc.group5.entities.UserEquipment;
 import com.ericsson.msc.group5.services.ValidatorService;
 import com.ericsson.msc.group5.utils.DateUtil;
 
-public class ValidatorServiceEJB implements ValidatorService{
+public class ValidatorServiceEJB implements ValidatorService {
 
 	private String errorDescriptionString = "";
 
@@ -41,7 +39,6 @@ public class ValidatorServiceEJB implements ValidatorService{
 			return false;
 		}
 		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			System.out.println("NOT NUMBERIC");
 			setErrorDescriptionString("Row field 2 not Numeric");
 			return false;
 		}
@@ -93,7 +90,6 @@ public class ValidatorServiceEJB implements ValidatorService{
 	}
 
 	public boolean validateFailureTraceRowFieldValues(HSSFRow row) {
-//		System.out.println("CELL TYPE: " + row.getCell(2).getCellType());
 
 		if ( !validateDate(DateUtil.formatDateAsString(row.getCell(0).getDateCellValue()))) {
 			setErrorDescriptionString("Date not ok");
@@ -389,6 +385,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return dateString;
 	}
 
+	// Unused
 	public boolean validateFieldTypes(HSSFRow row, Object entity) {
 		if (entity instanceof FailureTrace) {
 			return validateFailureTraceRowFieldTypes(row);
@@ -408,6 +405,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
+	// Unused
 	public boolean validateFieldValues(HSSFRow row, Object entity) {
 		if (entity instanceof FailureTrace) {
 			return validateFailureTraceRowFieldValues(row);
@@ -415,6 +413,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return true;
 	}
 
+	// Unused
 	public boolean validateUserEquipmentRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
@@ -446,6 +445,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return true;
 	}
 
+	// Unused
 	public boolean validateCountryCodeNetworkCodeRowFieldTypes(
 			HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
@@ -463,6 +463,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
+	// Unused
 	public boolean validateHierInfoRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
@@ -476,6 +477,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return false;
 	}
 
+	// Unused
 	public boolean validateFailureClassRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;
@@ -486,6 +488,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 		return true;
 	}
 
+	// Unused
 	public boolean validateEventCauseRowFieldTypes(HSSFRow row) {
 		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
 			return false;

@@ -127,14 +127,11 @@ public class DataImportServiceEJB implements DataImportService {
 		Long initialPKValue = failureTraceDAO.getTotalNumberOfEntries() + 1;
 		for (int i = 1; i <= numRows; i++) {
 			HSSFRow row = (HSSFRow) baseDataWorksheet.getRow(i);
-			// System.out.println("Row number: " + i + ", entering validation.");
 			if ( !validatorService.validateFailureTraceRow(row)) {
 				errorLogWriterService.writeToErrorLog(row, validatorService.getErrorDescriptionString());
 				invalidRowsRejected++;
-				System.out.println("Row number: " + i + ", failed, msg: " + validatorService.getErrorDescriptionString());
 				continue;
 			}
-			// System.out.println("Row number: " + i + ", successfully validated.");
 			Date dateTime = row.getCell(0).getDateCellValue();
 			int eventId = (int) row.getCell(1).getNumericCellValue();
 			int failureClass = (int) row.getCell(2).getNumericCellValue();

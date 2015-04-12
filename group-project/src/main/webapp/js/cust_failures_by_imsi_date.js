@@ -23,9 +23,26 @@ function getFailureCount(){
 	var imsi = $("#imsi_dropdown").val();
 	
 	var url = '../rest/query/givenImsiAndTimePeriodReturnNumberOfFailures';
+	
 
 	var fromDateTime = moment($("#fromDateTime").data("DateTimePicker").date()).format("YYYY-MM-DD HH:mm");
 	var toDateTime = moment($("#toDateTime").data("DateTimePicker").date()).format("YYYY-MM-DD HH:mm");
+
+	if(imsi.length == 0){
+		alert("You must select an IMSI.");
+		$("#imsi_dropdown").focus();
+		return;
+	}
+	if(fromDateTime == "Invalid date"){
+		alert("The 'From' date field cannot be empty.");
+		$("#fromDateTime").focus();
+		return;
+	}
+	if(toDateTime == "Invalid date"){
+		alert("The 'To' date field cannot be empty.");
+		$("#toDateTime").focus();
+		return;
+	}
 	
 	var JSONObject = {
 		"DateOne" : fromDateTime,

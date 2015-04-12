@@ -63,6 +63,8 @@ public class DataImportServiceEJB implements DataImportService {
 	private HashMap <Integer, CountryCodeNetworkCode> countryCodeNetworkCodeHashMap = new HashMap <>();
 	private HashMap <Integer, Country> countryHashMap = new HashMap <>();
 	public static long duration = 0;
+	private int validRowsAdded = 0;
+	private int invalidRowsRejected = 0;
 
 	private enum ExcelDataSheet {
 		BASE_DATA_TABLE(0), EVENT_CAUSE_TABLE(1), FAILURE_CLASS_TABLE(2), UE_TABLE(3), MCC_MNC_TABLE(4);
@@ -79,6 +81,9 @@ public class DataImportServiceEJB implements DataImportService {
 	}
 
 	public void importSpreadsheet(HSSFWorkbook excelWorkbook) {
+		validRowsAdded = 0;
+		invalidRowsRejected = 0;
+		errorLogWriterService.startNewFile();
 		Collection <EventCause> existingEventCauseCollection = eventCauseDAO.getAllEventCauses();
 		for (EventCause evCa : existingEventCauseCollection) {
 			eventCauseHashMap.put(evCa.getCauseCodeEventIdCK().hashCode(), evCa);
@@ -122,72 +127,68 @@ public class DataImportServiceEJB implements DataImportService {
 		Long initialPKValue = failureTraceDAO.getTotalNumberOfEntries() + 1;
 		for (int i = 1; i <= numRows; i++) {
 			HSSFRow row = (HSSFRow) baseDataWorksheet.getRow(i);
-			System.out.println("Row number: " + i + ", entering validation.");
+			// System.out.println("Row number: " + i + ", entering validation.");
 			if ( !validatorService.validateFailureTraceRow(row)) {
 				errorLogWriterService.writeToErrorLog(row, validatorService.getErrorDescriptionString());
+				invalidRowsRejected++;
 				System.out.println("Row number: " + i + ", failed, msg: " + validatorService.getErrorDescriptionString());
 				continue;
 			}
-			System.out.println("Row number: " + i + ", successfully validated.");
-			try {
-				Date dateTime = row.getCell(0).getDateCellValue();
-				int eventId = (int) row.getCell(1).getNumericCellValue();
-				int failureClass = (int) row.getCell(2).getNumericCellValue();
-				int ueType = (int) row.getCell(3).getNumericCellValue();
-				int countryCode = (int) row.getCell(4).getNumericCellValue();
-				int networkCode = (int) row.getCell(5).getNumericCellValue();
-				int cellId = (int) row.getCell(6).getNumericCellValue();
-				int duration = (int) row.getCell(7).getNumericCellValue();
-				int causeCode = (int) row.getCell(8).getNumericCellValue();
-				String neVersion = row.getCell(9).getStringCellValue();
-				String imsi = Long.toString((long) row.getCell(10).getNumericCellValue());
-				String hier3 = Long.toString((long) row.getCell(11).getNumericCellValue());
-				String hier32 = Long.toString((long) row.getCell(12).getNumericCellValue());
-				String hier321 = Long.toString((long) row.getCell(13).getNumericCellValue());
+			// System.out.println("Row number: " + i + ", successfully validated.");
+			Date dateTime = row.getCell(0).getDateCellValue();
+			int eventId = (int) row.getCell(1).getNumericCellValue();
+			int failureClass = (int) row.getCell(2).getNumericCellValue();
+			int ueType = (int) row.getCell(3).getNumericCellValue();
+			int countryCode = (int) row.getCell(4).getNumericCellValue();
+			int networkCode = (int) row.getCell(5).getNumericCellValue();
+			int cellId = (int) row.getCell(6).getNumericCellValue();
+			int duration = (int) row.getCell(7).getNumericCellValue();
+			int causeCode = (int) row.getCell(8).getNumericCellValue();
+			String neVersion = row.getCell(9).getStringCellValue();
+			String imsi = Long.toString((long) row.getCell(10).getNumericCellValue());
+			String hier3 = Long.toString((long) row.getCell(11).getNumericCellValue());
+			String hier32 = Long.toString((long) row.getCell(12).getNumericCellValue());
+			String hier321 = Long.toString((long) row.getCell(13).getNumericCellValue());
 
-				EventCause existingEventCause = null;
-				if (eventCauseHashMap.containsKey(new EventCauseCK(causeCode, eventId).hashCode())) {
-					existingEventCause = eventCauseHashMap.get(new EventCauseCK(causeCode, eventId).hashCode());
-				}
-				CountryCodeNetworkCode existingCountryCodeNetworkCode = null;
-				Country existingCountry = null;
-				if (countryHashMap.containsKey(countryCode)) {
-					existingCountry = countryHashMap.get(countryCode);
-					if (countryCodeNetworkCodeHashMap.containsKey(new CountryCodeNetworkCodeCK(existingCountry, networkCode).hashCode())) {
-						existingCountryCodeNetworkCode = countryCodeNetworkCodeHashMap.get(new CountryCodeNetworkCodeCK(existingCountry, networkCode)
-								.hashCode());
-					}
-				}
-				FailureClass existingFailureClass = null;
-				if (failureClassHashMap.containsKey(failureClass)) {
-					existingFailureClass = failureClassHashMap.get(failureClass);
-				}
-				UserEquipment existingUserEquipment = null;
-				if (userEquipmentHashMap.containsKey(ueType)) {
-					existingUserEquipment = userEquipmentHashMap.get(ueType);
-				}
-
-				FailureTrace createdFailureTrace = new FailureTrace();
-				createdFailureTrace.setFailureTraceId(initialPKValue);
-				createdFailureTrace.setDateTime(dateTime);
-				createdFailureTrace.setCountryCodeNetworkCode(existingCountryCodeNetworkCode);
-				createdFailureTrace.setDuration(duration);
-				createdFailureTrace.setCellId(cellId);
-				createdFailureTrace.setEventCause(existingEventCause);
-				createdFailureTrace.setFailureClass(existingFailureClass);
-				createdFailureTrace.setHier3Id(hier3);
-				createdFailureTrace.setHier32Id(hier32);
-				createdFailureTrace.setHier321Id(hier321);
-				createdFailureTrace.setIMSI(imsi);
-				createdFailureTrace.setNeVersion(neVersion);
-				createdFailureTrace.setUserEquipment(existingUserEquipment);
-
-				failureTraceCollectionToFlush.add(createdFailureTrace);
-				initialPKValue++;
+			EventCause existingEventCause = null;
+			if (eventCauseHashMap.containsKey(new EventCauseCK(causeCode, eventId).hashCode())) {
+				existingEventCause = eventCauseHashMap.get(new EventCauseCK(causeCode, eventId).hashCode());
 			}
-			catch (IllegalStateException e) {
-				errorLogWriterService.writeToErrorLog(row, "");
+			CountryCodeNetworkCode existingCountryCodeNetworkCode = null;
+			Country existingCountry = null;
+			if (countryHashMap.containsKey(countryCode)) {
+				existingCountry = countryHashMap.get(countryCode);
+				if (countryCodeNetworkCodeHashMap.containsKey(new CountryCodeNetworkCodeCK(existingCountry, networkCode).hashCode())) {
+					existingCountryCodeNetworkCode = countryCodeNetworkCodeHashMap.get(new CountryCodeNetworkCodeCK(existingCountry, networkCode).hashCode());
+				}
 			}
+			FailureClass existingFailureClass = null;
+			if (failureClassHashMap.containsKey(failureClass)) {
+				existingFailureClass = failureClassHashMap.get(failureClass);
+			}
+			UserEquipment existingUserEquipment = null;
+			if (userEquipmentHashMap.containsKey(ueType)) {
+				existingUserEquipment = userEquipmentHashMap.get(ueType);
+			}
+
+			FailureTrace createdFailureTrace = new FailureTrace();
+			createdFailureTrace.setFailureTraceId(initialPKValue);
+			createdFailureTrace.setDateTime(dateTime);
+			createdFailureTrace.setCountryCodeNetworkCode(existingCountryCodeNetworkCode);
+			createdFailureTrace.setDuration(duration);
+			createdFailureTrace.setCellId(cellId);
+			createdFailureTrace.setEventCause(existingEventCause);
+			createdFailureTrace.setFailureClass(existingFailureClass);
+			createdFailureTrace.setHier3Id(hier3);
+			createdFailureTrace.setHier32Id(hier32);
+			createdFailureTrace.setHier321Id(hier321);
+			createdFailureTrace.setIMSI(imsi);
+			createdFailureTrace.setNeVersion(neVersion);
+			createdFailureTrace.setUserEquipment(existingUserEquipment);
+
+			failureTraceCollectionToFlush.add(createdFailureTrace);
+			validRowsAdded++;
+			initialPKValue++;
 		}
 		failureTraceDAO.batchInsertFailureTrace(failureTraceCollectionToFlush);
 	}
@@ -275,8 +276,7 @@ public class DataImportServiceEJB implements DataImportService {
 				continue;
 			}
 
-			managedUserEquipment = new UserEquipment(typeAllocationCode, marketName, manufacturer, accessCapability, model, vendor, ueType, os,
-					inputMode);
+			managedUserEquipment = new UserEquipment(typeAllocationCode, marketName, manufacturer, accessCapability, model, vendor, ueType, os, inputMode);
 			userEquipmentCollection.add(managedUserEquipment);
 			userEquipmentHashMap.put((Integer) typeAllocationCode, managedUserEquipment);
 		}
@@ -320,5 +320,17 @@ public class DataImportServiceEJB implements DataImportService {
 			countryCodeNetworkCodeHashMap.put((Integer) managedCountryCodeNetworkCodeCK.hashCode(), managedCountryCodeNetworkCode);
 		}
 		countryCodeNetworkCodeDAO.batchInsertCountryCodeNetworkCode(countryCodeNetworkCodeCollection);
+	}
+
+	public String getTimestamp() {
+		return errorLogWriterService.getTimestamp();
+	}
+
+	public String getAddedCount() {
+		return Integer.toString(validRowsAdded);
+	}
+
+	public String getRejectedCount() {
+		return Integer.toString(invalidRowsRejected);
 	}
 }

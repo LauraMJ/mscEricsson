@@ -44,4 +44,12 @@ public class ErrorLogWriterServiceEJB implements ErrorLogWriterService {
 		}
 		errorLogDAO.insertErrorLog(new ErrorLog(dateFormat.format(dateObj), errorDescription, buffer.toString()));
 	}
+	
+	public void startNewFile(){
+		dateObj = new Date();
+	}
+	
+	public String getTimestamp(){
+		return dateFormat.format(dateObj);
+	}
 }

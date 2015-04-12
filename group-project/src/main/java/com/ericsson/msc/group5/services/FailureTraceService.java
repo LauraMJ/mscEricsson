@@ -3,6 +3,7 @@ package com.ericsson.msc.group5.services;
 import java.util.Collection;
 import java.util.Date;
 import javax.ejb.Local;
+import com.ericsson.msc.group5.entities.ErrorLog;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
@@ -46,5 +47,7 @@ public interface FailureTraceService {
 	public Collection <String> getAllModels();
 
 	public Collection <FailureClass> getAllFailureClasses();
+
+	public Collection <ErrorLog> getErrorLogByImportDate(String importDate);
 
 }

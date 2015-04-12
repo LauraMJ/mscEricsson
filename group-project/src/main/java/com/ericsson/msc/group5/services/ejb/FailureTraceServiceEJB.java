@@ -7,7 +7,9 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import com.ericsson.msc.group5.dao.ErrorLogDAO;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
+import com.ericsson.msc.group5.entities.ErrorLog;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
@@ -22,6 +24,9 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 
 	@Inject
 	private FailureTraceDAO dao;
+
+	@Inject
+	private ErrorLogDAO errorLogDAO;
 
 	@Override
 	public Collection <EventCause> getEventCauseCombinations(String imsi) {
@@ -104,5 +109,10 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 	@Override
 	public Collection <FailureClass> getAllFailureClasses() {
 		return dao.getAllFailureClasses();
+	}
+
+	@Override
+	public Collection <ErrorLog> getErrorLogByImportDate(String importDate) {
+		return errorLogDAO.getErrorLogByImportDate(importDate);
 	}
 }

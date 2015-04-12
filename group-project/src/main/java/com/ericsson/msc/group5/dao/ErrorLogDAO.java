@@ -35,4 +35,6 @@ public interface ErrorLogDAO {
 	 * Delete all ErrorLog objects from the data store.
 	 */
 	public void deleteErrorLogs();
+
+	public Collection <ErrorLog> getErrorLogByImportDate(String importDate);
 }

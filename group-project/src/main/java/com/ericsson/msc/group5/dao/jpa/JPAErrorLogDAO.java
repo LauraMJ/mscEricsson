@@ -31,4 +31,9 @@ public class JPAErrorLogDAO implements ErrorLogDAO {
 	public void deleteErrorLogs() {
 		em.createNamedQuery("deleteAllErrorLogs").getResultList();
 	}
+
+	@Override
+	public Collection <ErrorLog> getErrorLogByImportDate(String importDate) {
+		return em.createNamedQuery("getErrorsLogsByGenerationDate").setParameter("generationDate", importDate).getResultList();
+	}
 }

@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "error_log")
 @NamedQueries({@NamedQuery(name = "findAllErrorLogs", query = "SELECT e FROM ErrorLog e"),
+		@NamedQuery(name = "getErrorsLogsByGenerationDate", query = "SELECT e FROM ErrorLog e WHERE e.generationTime = :generationDate"),
 		@NamedQuery(name = "deleteAllErrorLogs", query = "DELETE FROM ErrorLog")})
 public class ErrorLog {
 

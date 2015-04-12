@@ -93,7 +93,7 @@ public class ValidatorServiceEJB implements ValidatorService{
 	}
 
 	public boolean validateFailureTraceRowFieldValues(HSSFRow row) {
-		System.out.println("CELL TYPE: " + row.getCell(2).getCellType());
+//		System.out.println("CELL TYPE: " + row.getCell(2).getCellType());
 
 		if ( !validateDate(DateUtil.formatDateAsString(row.getCell(0).getDateCellValue()))) {
 			setErrorDescriptionString("Date not ok");

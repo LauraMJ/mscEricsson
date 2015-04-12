@@ -10,9 +10,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.json.simple.JSONObject;
+import com.ericsson.msc.group5.entities.ErrorLog;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.services.FailureTraceService;
@@ -37,6 +39,16 @@ public class CreatedQueries {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getCauseCodeByImsi(String imsi) {
 		return Response.ok().status(200).entity(failureTraceEJB.getCauseCodesForImsi(imsi)).build();
+	}
+
+	@GET
+	@Path("/getErrorLogByImportDate")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<ErrorLog> getErrorLogByImportDate(@QueryParam("importDate") String importDate) {
+		System.out.println("here");
+		String[] splitDate = importDate.split("_");
+		return failureTraceEJB.getErrorLogByImportDate(splitDate[0] + " " + splitDate[1]);
 	}
 
 	@POST

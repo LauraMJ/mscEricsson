@@ -2,11 +2,15 @@ package com.ericsson.msc.group5.rest;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import com.ericsson.msc.group5.services.DataImportService;
@@ -25,18 +29,32 @@ public class RestImportService {
 	@POST
 	@Path("/import")
 	@Consumes("multipart/form-data")
-	public String importUploadedFile(@MultipartForm FileUploadForm form) {
+	public Response importUploadedFile(@MultipartForm FileUploadForm form) {
 		String resultString = "";
 		try {
 			HSSFWorkbook wb = new HSSFWorkbook(new ByteArrayInputStream(form.getFileData()));
 			dataImport.importSpreadsheet(wb);
-			resultString = "Time taken: " + DataImportServiceEJB.duration + " milliseconds.";
+			String timestamp = dataImport.getTimestamp();
+			String validRecordCount = dataImport.getAddedCount();
+			String invalidRecordCount = dataImport.getRejectedCount();
+			resultString = "time_taken=" + DataImportServiceEJB.duration + "ms&timestamp=" + timestamp + "&added=" + validRecordCount + "&rejected=" + invalidRecordCount;
 			System.out.println(resultString);
 		}
 		catch (IOException e) {
 			resultString = "Import was unsuccessful";
 			e.printStackTrace();
 		}
-		return resultString;
+
+		java.net.URI location = null;
+		try {
+			location = new java.net.URI("../pages/import_results.html?" + URLEncoder.encode(resultString, "UTF-8"));
+		}
+		catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return Response.temporaryRedirect(location).build();
 	}
 }

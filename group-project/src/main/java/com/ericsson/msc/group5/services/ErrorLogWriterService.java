@@ -9,4 +9,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 public interface ErrorLogWriterService {
 
 	public void writeToErrorLog(HSSFRow rowOfBaseData, String errorDescription);
+	
+	public String getTimestamp();
+	
+	public void startNewFile();
 }

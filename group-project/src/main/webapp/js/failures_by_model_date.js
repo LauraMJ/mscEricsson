@@ -29,6 +29,22 @@ function getFailureCount() {
 	var toDateTime = moment($("#toDateTime").data("DateTimePicker").date())
 			.format("YYYY-MM-DD HH:mm");
 
+	if(model.length == 0){
+		alert("You must select a Model.");
+		$("#model_dropdown").focus();
+		return;
+	}
+	if(fromDateTime == "Invalid date"){
+		alert("The 'From' date field cannot be empty.");
+		$("#fromDateTime").focus();
+		return;
+	}
+	if(toDateTime == "Invalid date"){
+		alert("The 'To' date field cannot be empty.");
+		$("#toDateTime").focus();
+		return;
+	}
+	
 	var JSONObject = {
 		"Model" : model,
 		"Date1" : fromDateTime,

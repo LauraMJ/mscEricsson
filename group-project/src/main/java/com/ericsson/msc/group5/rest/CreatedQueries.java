@@ -45,9 +45,9 @@ public class CreatedQueries {
 	@Path("/getErrorLogByImportDate")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<ErrorLog> getErrorLogByImportDate(@QueryParam("importDate") String importDate) {
+	public Collection <ErrorLog> getErrorLogByImportDate(@QueryParam("importDate") String importDate) {
 		System.out.println("here");
-		String[] splitDate = importDate.split("_");
+		String [] splitDate = importDate.split("_");
 		return failureTraceEJB.getErrorLogByImportDate(splitDate[0] + " " + splitDate[1]);
 	}
 
@@ -185,13 +185,13 @@ public class CreatedQueries {
 		System.out.println(Imsi);
 		return Response.ok().status(200).entity(failureTraceEJB.givenImsiAndTimePeriodReturnNumberOfFailures(Imsi, dateOne, dateTwo)).build();
 	}
-	
+
 	@POST
 	@Path("/topTenIMSIsWithFailures")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response topTenIMSIsWithFailures(JSONObject JSONDateObject) {
-		
+
 		String startDate = JSONDateObject.get("DateOne").toString();
 		String endDate = JSONDateObject.get("DateTwo").toString();
 
@@ -207,7 +207,7 @@ public class CreatedQueries {
 		}
 		return Response.ok().status(200).entity(failureTraceEJB.topTenIMSIsWithFailures(dateOne, dateTwo)).build();
 	}
-	
+
 	@GET
 	@Path("/getAllFailureTraces")
 	public Collection <FailureTrace> getAllFailureTraces() {

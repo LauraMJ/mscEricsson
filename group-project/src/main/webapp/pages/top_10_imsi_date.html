@@ -91,7 +91,8 @@
 								<li><a href="failures_by_model_date.html">Failure Count for Model and Date</a></li>
 								<li><a href="failures_by_cause_class.html">Affected IMSIs for Cause Class</a></li>
 							</ul> <!-- /.nav-second-level --></li>
-						<li id="network_eng_funct" class="active" style="display: none;"><a href="#"><i class="fa fa-signal fa-fw"></i> Network Engineer<span class="fa arrow"></span></a>
+						<li id="network_eng_funct" class="active" style="display: none;"><a href="#"><i class="fa fa-signal fa-fw"></i> Network Engineer<span
+								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a href="failures_duration_by_imsi.html">Failure Count and Total Duration for IMSI and Date</a></li>
 								<li><a href="failure_causes_count_for_model.html">Failure Causes for Model</a></li>
@@ -201,7 +202,12 @@
 				maxDate : 'now',
 				showTodayButton : true
 			});
-			$('#datatable-1').DataTable();
+			$('#datatable-1').DataTable({
+				"order" : [ [ 0, "desc" ] ],
+				"columns" : [ {
+					"width" : "50%"
+				}, null ]
+			});
 		});
 	</script>
 

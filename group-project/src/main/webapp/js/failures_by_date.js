@@ -37,6 +37,10 @@ function populateTable(data) {
 	var t = $('#datatable-1').DataTable();
 	t.clear();
 
+	if (data.length == 0) {
+		alert("No results for lookup");
+	}
+
 	var i;
 	for (i = 0; i < data.length; i++) {
 		t.row.add([ data[i] ]);

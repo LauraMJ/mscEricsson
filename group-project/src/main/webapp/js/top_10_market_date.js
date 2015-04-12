@@ -5,6 +5,17 @@ function getTop10Market() {
 			.format("YYYY-MM-DD HH:mm");
 	var toDateTime = moment($("#toDateTime").data("DateTimePicker").date())
 			.format("YYYY-MM-DD HH:mm");
+	
+	if(fromDateTime == "Invalid date"){
+		alert("The 'From' date field cannot be empty.");
+		$("#fromDateTime").focus();
+		return;
+	}
+	if(toDateTime == "Invalid date"){
+		alert("The 'To' date field cannot be empty.");
+		$("#toDateTime").focus();
+		return;
+	}
 
 	var JSONObject = {
 		"Date1" : fromDateTime,

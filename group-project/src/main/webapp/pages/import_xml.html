@@ -63,7 +63,8 @@
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
 						<li><a href="index.html"><i class="fa fa-home fa-fw"></i> Home</a></li>
-						<li id="administrator_funct" class="active" style="display: none;"><a href="#"><i class="fa fa-terminal fa-fw"></i> Administrator<span class="fa arrow"></span></a>
+						<li id="administrator_funct" class="active" style="display: none;"><a href="#"><i class="fa fa-terminal fa-fw"></i> Administrator<span
+								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
 								<li><a class="active" href="import_xml.html">Import Data</a></li>
 								<li><a href="add_user.html">Add Users</a></li>
@@ -99,7 +100,7 @@
 
 			<div class="container">
 				<div class="row">
-					<div class="col-md-4 col-md-offset-4">
+					<div class="col-md-6 col-md-offset-3">
 						<div class="login-panel panel panel-default">
 							<div class="panel-heading">
 								<h3 class="panel-title">Please choose a file to import</h3>
@@ -108,9 +109,10 @@
 								<form id='importForm' action='../rest/restImportService/import' method='post' enctype='multipart/form-data' role="form">
 									<fieldset>
 										<div class="form-group">
-											<input id='selectedFile' type='file' name='selectedFile' value='' class="btn btn btn-outline btn-default btn-block" required accept=".xls">
+											<input id='selectedFile' type='file' name="selectedFile" value='' class="btn btn btn-outline btn-default btn-block" required accept=".xls">
 										</div>
-										<button type='submit' id='testButton' class="btn btn-primary btn-block">Import</button>
+										<br>
+										<button type='submit' id='testButton' class="btn btn-primary btn-lg btn-block">Import</button>
 									</fieldset>
 								</form>
 							</div>

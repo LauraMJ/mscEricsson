@@ -2,9 +2,9 @@ function getTop10IMSI() {
 	var url = '../rest/query/topTenIMSIsWithFailures';
 
 	var fromDateTime = moment($("#fromDateTime").data("DateTimePicker").date())
-			.format("YYYY-DD-MM HH:mm");
+			.format("YYYY-MM-DD HH:mm");
 	var toDateTime = moment($("#toDateTime").data("DateTimePicker").date())
-			.format("YYYY-DD-MM HH:mm");
+			.format("YYYY-MM-DD HH:mm");
 
 	var JSONObject = {
 		"DateOne" : fromDateTime,

@@ -2,9 +2,9 @@ function getTop10Market() {
 	var url = '../rest/query/top10MarketOperatorCellIdCombinations';
 
 	var fromDateTime = moment($("#fromDateTime").data("DateTimePicker").date())
-			.format("YYYY-DD-MM HH:mm");
+			.format("YYYY-MM-DD HH:mm");
 	var toDateTime = moment($("#toDateTime").data("DateTimePicker").date())
-			.format("YYYY-DD-MM HH:mm");
+			.format("YYYY-MM-DD HH:mm");
 
 	var JSONObject = {
 		"Date1" : fromDateTime,

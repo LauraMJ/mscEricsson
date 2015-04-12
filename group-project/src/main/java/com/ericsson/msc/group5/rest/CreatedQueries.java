@@ -79,8 +79,11 @@ public class CreatedQueries {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getGivenImsiByTimePeriod(JSONObject JSONImsiDateObject) {
 		String startDate = JSONImsiDateObject.get("Date1").toString();
+		System.out.println(startDate);
 		String endDate = JSONImsiDateObject.get("Date2").toString();
+		System.out.println(endDate);
 		String Imsi = JSONImsiDateObject.get("Imsi").toString();
+		System.out.println(Imsi);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date dateOne = null;

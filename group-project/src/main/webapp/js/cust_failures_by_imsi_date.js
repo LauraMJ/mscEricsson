@@ -24,8 +24,8 @@ function getFailureCount(){
 	
 	var url = '../rest/query/givenImsiAndTimePeriodReturnNumberOfFailures';
 
-	var fromDateTime = moment($("#fromDateTime").data("DateTimePicker").date()).format("YYYY-DD-MM HH:mm");
-	var toDateTime = moment($("#toDateTime").data("DateTimePicker").date()).format("YYYY-DD-MM HH:mm");
+	var fromDateTime = moment($("#fromDateTime").data("DateTimePicker").date()).format("YYYY-MM-DD HH:mm");
+	var toDateTime = moment($("#toDateTime").data("DateTimePicker").date()).format("YYYY-MM-DD HH:mm");
 	
 	var JSONObject = {
 		"DateOne" : fromDateTime,

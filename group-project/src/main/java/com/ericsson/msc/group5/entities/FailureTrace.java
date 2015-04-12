@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import org.hibernate.annotations.Index;
 
 /**
  * Failure Trace JPA entity. The main entity in the application, maps to the
@@ -47,6 +48,7 @@ public class FailureTrace {
 	@Column(name = "failure_trace_id")
 	private Long failureTraceId;
 	@Column(name = "date_time")
+	@Index(name = "imsiAndDateIndex")
 	private Date dateTime;
 	@Column(name = "cell_id")
 	private Integer cellId;
@@ -54,6 +56,7 @@ public class FailureTrace {
 	@Column(name = "ne_version", length = 3)
 	private String neVersion;
 	@Column(name = "imsi", length = 20)
+	@Index(name = "imsiAndDateIndex")
 	private String IMSI;
 	@Column(name = "hier3_id", length = 20)
 	private String hier3Id;

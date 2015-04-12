@@ -50,7 +50,7 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 
 	@Override
 	public Collection <String> getCountFailsForModelWithinTimePeriod(String model, Date startTime, Date endTime) {
-		return dao.getCountFailsForModelWithinTimePeriod(model, startTime, endTime);
+		return dao.getCountOfFailuresForModelWithinTimePeriod(model, startTime, endTime);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 	// time period.
 	@Override
 	public Collection <String> givenImsiAndTimePeriodReturnNumberOfFailures(String Imsi, Date startTime, Date endTime) {
-		return dao.givenImsiAndTimePeriodReturnNumberOfFailures(Imsi, startTime, endTime);
+		return dao.getCountOfFailuresForGivenImsiWithinTimePeriod(Imsi, startTime, endTime);
 	}
 
 	@Override

@@ -163,7 +163,13 @@
 	<!-- Set up the datatable -->
 	<script>
 		$(document).ready(function() {
-			$('#datatable-1').DataTable();
+			$('#datatable-1').DataTable({
+				"columns" : [ {
+					"width" : "15%"
+				},{
+					"width" : "15%"
+				}, null ]
+			});
 		});
 	</script>
 

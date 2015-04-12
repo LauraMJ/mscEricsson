@@ -161,7 +161,12 @@
 	<!-- Set up the datatable -->
 	<script>
 		$(document).ready(function() {
-			$('#datatable-1').DataTable();
+			$('#datatable-1').DataTable({
+		        "order": [[ 1, "desc" ]],
+				"columns" : [ {
+					"width" : "50%"
+				}, null ]
+			});
 		});
 	</script>
 

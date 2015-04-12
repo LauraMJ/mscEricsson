@@ -35,6 +35,7 @@ function getTop10Market() {
 
 function populateTable(data) {
 	var t = $('#datatable-1').DataTable();
+	t.clear();
 	
 	if (data.length == 0) {
 		alert("No results for lookup.");

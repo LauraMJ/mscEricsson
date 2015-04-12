@@ -16,7 +16,7 @@ public interface FailureTraceDAO {
 
 	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String Imsi);
 
-	public Collection <String> getCountFailsForModelWithinTimePeriod(String model, Date startTime, Date endTime);
+	public Collection <String> getCountOfFailuresForModelWithinTimePeriod(String model, Date startTime, Date endTime);
 
 	public Collection <String> getEventCauseCombinationsForModel(String model);
 
@@ -30,7 +30,7 @@ public interface FailureTraceDAO {
 
 	// For a given IMSI, count the number of failures it has had during a given
 	// time period.
-	public Collection <String> givenImsiAndTimePeriodReturnNumberOfFailures(String Imsi, Date startTime, Date endTime);
+	public Collection <String> getCountOfFailuresForGivenImsiWithinTimePeriod(String Imsi, Date startTime, Date endTime);
 
 	/**
 	 * Retrieve all FailureTrace objects present in the data store.

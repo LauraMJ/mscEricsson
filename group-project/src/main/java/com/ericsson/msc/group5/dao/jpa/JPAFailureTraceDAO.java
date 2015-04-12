@@ -27,13 +27,13 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 
 	@Override
 	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String Imsi) {
-		return em.createNamedQuery("givenImsiByTimePeriod").setParameter("startTime", startTime).setParameter("endTime", endTime)
+		return em.createNamedQuery("getCountAndTotalDurationForGivenImsiWithinTimePeriod").setParameter("startTime", startTime).setParameter("endTime", endTime)
 				.setParameter("Imsi", Imsi).getResultList();
 	}
 
 	@Override
-	public Collection <String> getCountFailsForModelWithinTimePeriod(String model, Date startTime, Date endTime) {
-		return em.createNamedQuery("givenModelByTimePeriod").setParameter("model", model).setParameter("startTime", startTime)
+	public Collection <String> getCountOfFailuresForModelWithinTimePeriod(String model, Date startTime, Date endTime) {
+		return em.createNamedQuery("getCountOfFailuresWithinTimePeriodForGivenModel").setParameter("model", model).setParameter("startTime", startTime)
 				.setParameter("endTime", endTime).getResultList();
 	}
 
@@ -75,10 +75,11 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 		}
 	}
 
-	// For a given IMSI, count the number of failures it has had during a given time period.
+	// For a given IMSI, count the number of failures it has had during a given
+	// time period.
 	@Override
-	public Collection <String> givenImsiAndTimePeriodReturnNumberOfFailures(String Imsi, Date startTime, Date endTime) {
-		return em.createNamedQuery("givenImsiAndTimePeriodReturnNumberOfFailures").setParameter("Imsi", Imsi).setParameter("startTime", startTime)
+	public Collection <String> getCountOfFailuresForGivenImsiWithinTimePeriod(String Imsi, Date startTime, Date endTime) {
+		return em.createNamedQuery("getCountOfFailuresForGivenImsiWithinTimePeriod").setParameter("Imsi", Imsi).setParameter("startTime", startTime)
 				.setParameter("endTime", endTime).getResultList();
 	}
 
@@ -94,14 +95,14 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 
 	@Override
 	public Collection <Integer> getCauseCodesForImsi(String imsi) {
-		return em.createNamedQuery("getCauseCodeImsi").setParameter("givenImsi", imsi).getResultList();
+		return em.createNamedQuery("getCauseCodesForGivenImsi").setParameter("givenImsi", imsi).getResultList();
 	}
-	
-	//Show the Top 10 IMSIs that had call failures during a time period
+
+	// Show the Top 10 IMSIs that had call failures during a time period
 	@Override
-	public Collection <String> topTenIMSIsWithFailures(Date startTime, Date endTime){
+	public Collection <String> topTenIMSIsWithFailures(Date startTime, Date endTime) {
 		return em.createNamedQuery("topTenIMSIsWithFailures").setParameter("startTime", startTime).setParameter("endTime", endTime).setMaxResults(10).getResultList();
-		
+
 	}
 
 	@Override

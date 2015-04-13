@@ -45,7 +45,7 @@ public class OperatorValidatorTest {
 		boolean expectedResult = true;
 		Integer operator1 = 122;
 		boolean expectedResult2 = false;
-		Integer operator2 = 1;
+		Integer operator2 = 1000;
 		Integer operator3 = null;
 
 		assertEquals(expectedResult, service.validateOperator(operator1));

@@ -53,6 +53,6 @@ public class CauseCodeValidatorTest {
 
 		assertEquals(expectedResult, service.validateCauseCode(causeCode));
 		assertEquals(expectedResult2, service.validateCauseCode(causeCode2));
-		assertEquals(expectedResult2, service.validateCauseCode(causeCode3));
+		assertEquals(expectedResult, service.validateCauseCode(causeCode3));
 	}
 }

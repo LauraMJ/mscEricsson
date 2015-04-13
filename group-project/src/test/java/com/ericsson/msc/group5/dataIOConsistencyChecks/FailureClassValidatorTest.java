@@ -3,9 +3,6 @@ package com.ericsson.msc.group5.dataIOConsistencyChecks;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -18,9 +15,6 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.dao.jpa.JPAFailureTraceDAO;
 import com.ericsson.msc.group5.entities.FailureTrace;
@@ -42,14 +36,25 @@ public class FailureClassValidatorTest {
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 	
-	private boolean result;
-	private Integer failureClass;
-
 	@Inject
 	ValidatorServiceEJB service;
 
 	@Test
 	public void validateFailureClass() {
-		assertEquals(result, service.validateFailureClass(failureClass));
+		boolean result1 = true;
+		boolean result2 = false;
+		Integer failureClass0 = 0;
+		Integer failureClass1 = 1;
+		Integer failureClass2 = 2;
+		Integer failureClass3 = 3;
+		Integer failureClass4 = 4;
+		Integer failureClass5 = 5;
+
+		assertEquals(result1, service.validateFailureClass(failureClass0));
+		assertEquals(result1, service.validateFailureClass(failureClass1));
+		assertEquals(result1, service.validateFailureClass(failureClass2));
+		assertEquals(result1, service.validateFailureClass(failureClass3));
+		assertEquals(result1, service.validateFailureClass(failureClass4));
+		assertEquals(result2, service.validateFailureClass(failureClass5));
 	}
 }

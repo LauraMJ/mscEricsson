@@ -42,14 +42,18 @@ public class MarketValidatorTest {
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 	
-	private boolean result;
-	private Integer market;
-
 	@Inject
 	ValidatorServiceEJB service;
 
 	@Test
 	public void validateMarket() {
-		assertEquals(result, service.validateMarket(market));
+		
+		boolean result1 = true;
+		boolean result2 = false;
+		Integer market1 = 3;
+		Integer market2 = 311;
+
+		assertEquals(result1, service.validateMarket(market2));
+		assertEquals(result2, service.validateMarket(market1));
 	}
 }

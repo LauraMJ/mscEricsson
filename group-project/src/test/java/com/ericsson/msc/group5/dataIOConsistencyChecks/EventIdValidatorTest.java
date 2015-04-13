@@ -42,14 +42,23 @@ public class EventIdValidatorTest {
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 	
-	private boolean result;
-	private Integer eventId;
+	private boolean result1 = true;
+	private boolean result2 = false;
+	private Integer eventId1 = 4097;
+	private Integer eventId2 = 4098;
+	private Integer eventId3 = 4097;
+	private Integer eventId4 = 4098;
+	private Integer eventId5 = 5000;
 
 	@Inject
 	ValidatorServiceEJB service;
 	
 	@Test
 	public void validateEventId() {
-		assertEquals(result, service.validateEventId(eventId));
+		assertEquals(result1, service.validateEventId(eventId1));
+		assertEquals(result1, service.validateEventId(eventId2));
+		assertEquals(result1, service.validateEventId(eventId3));
+		assertEquals(result1, service.validateEventId(eventId4));
+		assertEquals(result2, service.validateEventId(eventId5));
 	}
 }

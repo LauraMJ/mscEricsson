@@ -42,15 +42,19 @@ public class NEVersionValidatorTest {
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 	
-	private boolean expectedResult;
-	private String neVersion;
+	private boolean expectedResult1 = true;
+	private String neVersion1 = "222";
+	
+	private boolean expectedResult2 = false;
+	private String neVersion2 = "10";
 
 	@Inject
 	ValidatorServiceEJB service;
 
 	@Test
 	public void validateNEVersion() {
-		assertEquals(expectedResult, service.validateNEVersion(neVersion));
+		assertEquals(expectedResult1, service.validateNEVersion(neVersion1));
+		assertEquals(expectedResult2, service.validateNEVersion(neVersion2));
 	}
 
 }

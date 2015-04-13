@@ -42,15 +42,18 @@ public class UETypeValidatorTest {
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 	
-	private boolean result;
-	private Integer ueType;
+	private boolean result1 = true;
+	private boolean result2 = false;
+	private Integer ueType1 = 100000;
+	private Integer ueType2 = 100;
 
 	@Inject
 	ValidatorServiceEJB service;
 
 	@Test
 	public void validateUEType() {
-		assertEquals(result, service.validateUEType(ueType));
+		assertEquals(result1, service.validateUEType(ueType1));
+		assertEquals(result2, service.validateUEType(ueType2));
 	}
 
 }

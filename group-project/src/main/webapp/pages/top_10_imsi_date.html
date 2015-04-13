@@ -262,23 +262,25 @@
 				arr[j] = arrIn;
 			}
 			var arr2 = [
-                        ['Count', 'Count']
+                        ['', 'Count']
             ]
 			for(var i = arr.length-1; i >= 0; i--){
 				arr2.push(arr[i]);
 			}
 			var data = new google.visualization.arrayToDataTable(arr2);
 		    var options = {
-		    		chart: {
-		    			title: "Top 10 IMSI Failures"
-		    	        },
-		    	        hAxis: {
-		    	          minValue: 0,
-		    	        },
-		    	        vAxis: {
-		    	          title: 'Count'
-		    	        },
-		        
+	    		chart: {
+	    			title: "Top 10 IMSI Failures"
+    	        },
+    	        hAxis: {
+    	        	title: 'Count',
+    	            minValue: 0,
+    	        },
+    	        axes: {
+    	            y: {
+    	              0: { side: 'top', label: 'Count'} // Top x-axis.
+    	            }
+   	          	},
 		        width: 600,
 		        height: 400,
 		        isStacked: false,

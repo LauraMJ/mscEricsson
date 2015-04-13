@@ -21,7 +21,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.dao.UserDAO;
+import com.ericsson.msc.group5.dao.jpa.JPAFailureTraceDAO;
+import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.ejb.DataImportServiceEJB;
 import com.ericsson.msc.group5.services.ejb.ValidatorServiceEJB;
@@ -32,10 +35,10 @@ public class CellIdValidatorTest {
 	@Deployment
 	public static Archive <?> createDeployment() {
 		PomEquippedResolveStage pom = Maven.resolver().loadPomFromFile("pom.xml");
-		File [] commonsLang = pom.resolve().withTransitivity().asFile();
+		File [] commonsLang = pom.resolve("org.apache.poi:poi").withTransitivity().asFile();
 		
 		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(DataImportServiceEJB.class.getPackage())
-				.addPackage(DataImportService.class.getPackage()).addPackage(UserDAO.class.getPackage())
+				.addPackage(DataImportService.class.getPackage()).addPackage(UserDAO.class.getPackage()).addPackage(FailureTraceDAO.class.getPackage()).addPackage(JPAFailureTraceDAO.class.getPackage()).addPackage(FailureTrace.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsLibraries(commonsLang)
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
@@ -49,7 +52,7 @@ public class CellIdValidatorTest {
 
 	@Test
 	public void validateCellId() {
-		boolean expectedResult = false;
+		boolean expectedResult = true;
 		Integer cellId = 50;
 		
 		assertEquals(expectedResult, service.validateCellId(cellId));

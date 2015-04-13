@@ -1,0 +1,48 @@
+package com.ericsson.msc.group5.services.ejb.test;
+
+import static org.junit.Assert.assertEquals;
+import java.util.Date;
+import javax.ejb.EJB;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Test;
+import com.ericsson.msc.group5.services.DateUtilityService;
+import com.ericsson.msc.group5.services.ejb.DateUtilityServiceEJB;
+
+public class DateUtilityServiceEJBTest {
+
+	@Deployment
+	public static JavaArchive createDeployment() {
+		return ShrinkWrap.create(JavaArchive.class, "test.jar")
+				.addClasses(DateUtilityServiceEJB.class, DateUtilityService.class)
+				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+	}
+
+	@EJB
+	DateUtilityService service;
+
+	@Test
+	public void testFormatDateAsString() {
+		Date test = new Date("11/01/2013 17:15");
+		Date testTwo = new Date("12/01/2014 11:25");
+		Date testThree = new Date("02/11/2003 09:15");
+
+		assertEquals(service.formatDateAsString(test), "01/11/13 17:15");
+		assertEquals(service.formatDateAsString(testTwo), "01/12/14 11:25");
+		assertEquals(service.formatDateAsString(testThree), "11/02/03 09:15");
+	}
+
+	@Test
+	public void testFormatDateStringAsTimestamp() {
+		String testOne = new String("01/02/2014 13:30");
+		String testTwo = new String("02/02/2015 16:30");
+		String testThree = new String("01/02/2010 13:30");
+
+		assertEquals(service.formatDateStringAsTimestamp(testOne).toString(), "2014-02-01 13:30:00.0");
+		assertEquals(service.formatDateStringAsTimestamp(testTwo).toString(), "2015-02-02 16:30:00.0");
+		assertEquals(service.formatDateStringAsTimestamp(testThree).toString(), "2010-02-01 13:30:00.0");
+	}
+
+}

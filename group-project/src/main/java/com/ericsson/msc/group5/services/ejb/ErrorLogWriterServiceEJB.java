@@ -10,8 +10,8 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import com.ericsson.msc.group5.dao.ErrorLogDAO;
 import com.ericsson.msc.group5.entities.ErrorLog;
+import com.ericsson.msc.group5.services.DateUtilityService;
 import com.ericsson.msc.group5.services.ErrorLogWriterService;
-import com.ericsson.msc.group5.utils.DateUtil;
 
 @Stateless
 @Local
@@ -19,6 +19,8 @@ public class ErrorLogWriterServiceEJB implements ErrorLogWriterService {
 
 	@Inject
 	private ErrorLogDAO errorLogDAO;
+	@Inject
+	private DateUtilityService dateUtilityService;
 
 	private static Date dateObj = new Date();
 	static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -28,7 +30,7 @@ public class ErrorLogWriterServiceEJB implements ErrorLogWriterService {
 
 	public void writeToErrorLog(HSSFRow rowOfBaseData, String errorDescription) {
 		StringBuilder buffer = new StringBuilder(400);
-		String date = DateUtil.formatDateAsString(rowOfBaseData.getCell(0).getDateCellValue());
+		String date = dateUtilityService.formatDateAsString(rowOfBaseData.getCell(0).getDateCellValue());
 		buffer.append(headings[0]);
 		buffer.append(date);
 
@@ -44,12 +46,12 @@ public class ErrorLogWriterServiceEJB implements ErrorLogWriterService {
 		}
 		errorLogDAO.insertErrorLog(new ErrorLog(dateFormat.format(dateObj), errorDescription, buffer.toString()));
 	}
-	
-	public void startNewFile(){
+
+	public void startNewFile() {
 		dateObj = new Date();
 	}
-	
-	public String getTimestamp(){
+
+	public String getTimestamp() {
 		return dateFormat.format(dateObj);
 	}
 }

@@ -7,8 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.ericsson.msc.group5.dao.UserDAO;
 import com.ericsson.msc.group5.entities.User;
+import com.ericsson.msc.group5.services.PasswordGeneratorService;
 import com.ericsson.msc.group5.services.UserService;
-import com.ericsson.msc.group5.utils.PasswordGenerator;
 
 @Stateless
 @Local
@@ -19,12 +19,14 @@ public class UserServiceEJB implements UserService {
 
 	@Inject
 	private UserDAO dao;
+	@Inject
+	private PasswordGeneratorService passwordGeneratorService;
 
 	@Override
 	public boolean addUser(String username, String password, String userRole) {
-		if(dao.getUser(username) != null)
+		if (dao.getUser(username) != null)
 			return false;
-		dao.addUser(new User(username, PasswordGenerator.generate(password), userRole));
+		dao.addUser(new User(username, passwordGeneratorService.generate(password), userRole));
 		return true;
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.inject.Inject;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.ss.usermodel.Cell;
 import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
@@ -14,10 +15,13 @@ import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.entities.FailureClass;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.entities.UserEquipment;
+import com.ericsson.msc.group5.services.DateUtilityService;
 import com.ericsson.msc.group5.services.ValidatorService;
-import com.ericsson.msc.group5.utils.DateUtil;
 
 public class ValidatorServiceEJB implements ValidatorService {
+
+	@Inject
+	private DateUtilityService dateUtilityService;
 
 	private String errorDescriptionString = "";
 
@@ -91,7 +95,7 @@ public class ValidatorServiceEJB implements ValidatorService {
 
 	public boolean validateFailureTraceRowFieldValues(HSSFRow row) {
 
-		if ( !validateDate(DateUtil.formatDateAsString(row.getCell(0).getDateCellValue()))) {
+		if ( !validateDate(dateUtilityService.formatDateAsString(row.getCell(0).getDateCellValue()))) {
 			setErrorDescriptionString("Date not ok");
 			return false;
 		}

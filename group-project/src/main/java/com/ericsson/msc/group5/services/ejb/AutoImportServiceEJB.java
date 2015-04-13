@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.WatchEvent;
@@ -40,8 +41,12 @@ public class AutoImportServiceEJB {
 
 	private static String fileDirectory = "/Users/Harry/JBossAutoImport/";
 	private WatchService watcher;
-	private Path dir;
 	private WatchKey key;
+	private String autoImportPathString;
+	private Path pathOfAutoImportServiceClass;
+	private Path JBossDeploymentsPath;
+	private Path autoImportFolderPath;
+	private String OperatingSystem;
 	@Resource
 	private TimerService timerService;
 	@EJB
@@ -49,11 +54,17 @@ public class AutoImportServiceEJB {
 
 	@PostConstruct
 	public void onStart() throws InterruptedException {
+		setOperatingSystem(System.getProperty("os.name").toLowerCase());
+		if (OperatingSystem.indexOf("win") >= 0) {
+			createDirectoryForWindowsSystem();
+		}
+		if (OperatingSystem.indexOf("nix") >= 0 || OperatingSystem.indexOf("nux") >= 0 || OperatingSystem.indexOf("aix") > 0) {
+			createDirectoryForUnixSystem();
+		}
 		try {
 			watcher = FileSystems.getDefault().newWatchService();
-			dir = Paths.get(fileDirectory);
-			dir.register(watcher, ENTRY_CREATE);
-			System.out.println("Watcher added for " + dir.getFileName());
+			autoImportFolderPath.register(watcher, ENTRY_CREATE);
+			System.out.println("Watcher added for " + autoImportFolderPath.getFileName());
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -105,6 +116,24 @@ public class AutoImportServiceEJB {
 		}
 	}
 
+	private void createDirectoryForWindowsSystem() {
+		autoImportPathString = AutoImportServiceEJB.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		// autoImportPathString = autoImportPathString.replace('/',
+		// File.separatorChar);
+		autoImportPathString = autoImportPathString.substring(1);
+		pathOfAutoImportServiceClass = Paths.get(autoImportPathString);
+		JBossDeploymentsPath = pathOfAutoImportServiceClass.getParent().getParent().getParent();
+		autoImportFolderPath = Paths.get(JBossDeploymentsPath.toString() + "\\autoImportFolder");
+		if (Files.notExists(autoImportFolderPath)) {
+			File autoImportDirectory = new File(autoImportFolderPath.toString());
+			autoImportDirectory.mkdirs();
+		}
+	}
+
+	private void createDirectoryForUnixSystem() {
+
+	}
+
 	@Timeout
 	public void onTimeout(Timer timer) {
 		System.out.println("Bean timed out");
@@ -119,5 +148,13 @@ public class AutoImportServiceEJB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public String getOperatingSystem() {
+		return OperatingSystem;
+	}
+
+	public void setOperatingSystem(String operatingSystem) {
+		OperatingSystem = operatingSystem;
 	}
 }

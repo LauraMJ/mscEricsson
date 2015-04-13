@@ -2,6 +2,7 @@ package com.ericsson.msc.group5.rest;
 
 import static com.jayway.restassured.RestAssured.expect;
 import static com.jayway.restassured.RestAssured.get;
+import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import java.io.File;
@@ -48,8 +49,13 @@ public class UserRESTResourceTest {
     public void setUp() throws Exception{
         RestAssured.config = RestAssuredConfig.config().logConfig(new LogConfig(System.out, true));
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        RestAssured.basePath = "rest";
+        RestAssured.basePath = "group-project/rest";
         RestAssured.port = 8080;
+    }
+
+    @Test
+    public void basicAuthentication() throws Exception {
+        given().auth().basic("administrator", "admin").expect().statusCode(200).when().get("/get/userrole");
     }
 
 	@Test
@@ -83,7 +89,5 @@ public class UserRESTResourceTest {
 		String json = res.asString();
 		JsonPath jp = new JsonPath(json);
 		assertEquals("administartor", jp.get("role"));
-
 	}
-
 }

@@ -1,7 +1,7 @@
-var adminHeadings = [ "Import Data", "Add Users" ];
+var adminHeadings = [ "Import Data", "Add Users", "Last Import Result" ];
 var adminDescriptions = [ "Import failure trace data from an excel file",
-		"Add a new user" ];
-var adminAddresses = [ "import_xml.html", "add_user.html" ];
+		"Add a new user", "View the results from the last data import" ];
+var adminAddresses = [ "import_xml.html", "add_user.html", "last_import_result.html" ];
 
 var custHeadings = [ "Failures for IMSI", "Failure Count for IMSI and Date",
 		"Cause Codes for IMSI" ];

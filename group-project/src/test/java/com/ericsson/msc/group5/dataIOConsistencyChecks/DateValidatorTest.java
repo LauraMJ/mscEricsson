@@ -46,8 +46,16 @@ public class DateValidatorTest {
 		String dateString1 = "12/02/15 10:00";
 		String dateString2 = "31/02/15 10:00";
 		String dateString3 = null;
+		String dateString4 = "31/02/16 10:00";
+		String dateString5 = "32/02/16 10:00";
+		String dateString6 = "30/03/14 10:00";
+		String dateString7 = "30/03/14";
 		assertEquals(expectedResult1, service.validateDate(dateString1));
 		assertEquals(expectedResult2, service.validateDate(dateString2));
 		assertEquals(expectedResult2, service.validateDate(dateString3));
+		assertEquals(expectedResult2, service.validateDate(dateString4));
+		assertEquals(expectedResult2, service.validateDate(dateString5));
+		assertEquals(expectedResult1, service.validateDate(dateString6));
+		assertEquals(expectedResult2, service.validateDate(dateString7));
 	}
 }

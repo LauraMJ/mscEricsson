@@ -12,9 +12,6 @@ $(document).ready(function() {
 
 	var time = data[0];
 	time = time.split(" ")[0] + "_" + time.split(" ")[1];
-	alert("here");
-	alert(time);
-
 	getDataForTable(time);
 });
 

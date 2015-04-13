@@ -62,9 +62,10 @@ public class LogDetailsRetriever implements LogDetailsRetrieverService {
 			}
 		}
 		logAsJson.put("Timestamp", detailsSplitAsArrayList.get(detailsSplitAsArrayList.indexOf("Timestamp") + 1));
-		logAsJson.put("Time Taken", detailsSplitAsArrayList.get(detailsSplitAsArrayList.indexOf("Time Taken") + 1));
-		logAsJson.put("Valid Records", detailsSplitAsArrayList.get(detailsSplitAsArrayList.indexOf("Valid Records") + 1));
-		logAsJson.put("Invalid Records", detailsSplitAsArrayList.get(detailsSplitAsArrayList.indexOf("Invalid Records") + 1));
+		logAsJson.put("TimeTaken", detailsSplitAsArrayList.get(detailsSplitAsArrayList.indexOf("Time Taken") + 1));
+		logAsJson.put("ValidRecords", detailsSplitAsArrayList.get(detailsSplitAsArrayList.indexOf("Valid Records") + 1));
+		logAsJson.put("InvalidRecords", detailsSplitAsArrayList.get(detailsSplitAsArrayList.indexOf("Invalid Records") + 1));
+		logAsJson.put("ImportType", detailsSplitAsArrayList.get(detailsSplitAsArrayList.indexOf("Import Type") + 1));
 		return logAsJson;
 	}
 }

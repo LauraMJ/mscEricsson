@@ -1,34 +1,41 @@
 $(document).ready(function() {
-	var query = window.location.toString();
-	var index = query.indexOf("?");
-	query = query.substring(index + 1);
-	query = unescape(query);
-	var data = query.split('&');
-	for (i = 0; i < data.length; i++) {
-		data[i] = unescape(data[i]);
-	}
-
-	var timeTaken = data[0].split("time_taken=")[1];
-	
-	var time = data[1].split("timestamp=")[1];
-	var date = time.split("+")[0];
-	var time = time.split("+")[1];
-	
-	var validCount = data[2].split("added=")[1];
-	
-	var rejectedCount = data[3].split("rejected=")[1];
-	
-	var importType = data[4].split("importType=")[1];
-
-	$("#timestamp").val(date + " " + time);
-	$("#timeTaken").val(timeTaken);
-	$("#validRecords").val(validCount);
-	$("#invalidRecords").val(rejectedCount);
-	$("#importType").val(importType);
+	var url = '../rest/importLog/getLastImportDetails';
+	$.ajax({
+		url : url,
+		type : 'GET',
+		dataType : 'json',
+		success : function(data) {
+			if (typeof data.Timestamp != "undefined") {
+				$("#timestamp").val(data.Timestamp);
+			} else {
+				$("#timestamp").val("None");
+			}
+			if (typeof data.TimeTaken != "undefined") {
+				$("#timeTaken").val(data.TimeTaken);
+			} else {
+				$("#timeTaken").val("None");
+			}
+			if (typeof data.ValidRecords != "undefined") {
+				$("#validRecords").val(data.ValidRecords);
+			} else {
+				$("#validRecords").val("None");
+			}
+			if (typeof data.InvalidRecords != "undefined") {
+				$("#invalidRecords").val(data.InvalidRecords);
+			} else {
+				$("#invalidRecords").val("None");
+			}
+			if (typeof data.ImportType != "undefined") {
+				$("#importType").val(data.ImportType);
+			} else {
+				$("#importType").val("None");
+			}
+		}
+	});
 });
 
 function redirectViewErrors() {
-	if($("#timestamp").val().length == 0){
+	if ($("#timestamp").val().length == 0) {
 		alert("No data found, cannot view rejections");
 		return;
 	}

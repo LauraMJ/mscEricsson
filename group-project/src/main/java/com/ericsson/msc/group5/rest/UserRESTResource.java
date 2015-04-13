@@ -54,9 +54,9 @@ public class UserRESTResource {
 	@Path("/get/userrole")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUserrole(@Context SecurityContext securityContext) {
-		String roles[] = {"administrator", "customer service rep", "network mgmt engineer", "support engineer"};
-		for(String role : roles){
-			if(securityContext.isUserInRole(role)){
+		String roles [] = {"administrator", "customer service rep", "network mgmt engineer", "support engineer"};
+		for (String role : roles) {
+			if (securityContext.isUserInRole(role)) {
 				return Response.ok("{ \"role\" : \"" + role + "\" }").build();
 			}
 		}

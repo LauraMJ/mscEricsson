@@ -29,4 +29,9 @@ public class UserServiceEJB implements UserService {
 		dao.addUser(new User(username, passwordGeneratorService.generate(password), userRole));
 		return true;
 	}
+
+	@Override
+	public User getUser(String username) {
+		return dao.getUser(username);
+	}
 }

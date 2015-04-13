@@ -1,0 +1,8 @@
+.ui-autocomplete { 
+    /* these sets the height and width */
+    max-height:200px; 
+
+    /* these make it scroll for anything outside */
+    overflow-x:hidden;
+    overflow-y:auto;
+}

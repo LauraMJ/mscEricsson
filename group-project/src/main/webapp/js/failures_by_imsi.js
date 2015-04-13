@@ -8,21 +8,28 @@ function getIMSIs() {
 }
 
 function populateDropdown(data) {
-	var selector = document.getElementById("imsi_dropdown");
-
 	for (var i = 0; i < data.length; i++) {
-		var imsi = data[i];
-		var element = document.createElement("option");
-		element.textContent = imsi;
-		element.value = imsi;
-		selector.appendChild(element);
+		data[i] = String(data[i]);
+//		element.textContent = imsi;
+//		element.value = imsi;
+//		selector.appendChild(element);
 	}
+	$("#imsiNumber").autocomplete({source: data, minLength: 0, delay: 0});
+//	var selector = document.getElementById("imsi_dropdown");
+//
+//	for (var i = 0; i < data.length; i++) {
+//		var imsi = data[i];
+//		var element = document.createElement("option");
+//		element.textContent = imsi;
+//		element.value = imsi;
+//		selector.appendChild(element);
+//	}
 }
 
 function loadFailures() {
 	$('#datatable-1').DataTable().clear();
 
-	var imsi = $("#imsi_dropdown").val();
+	var imsi = $("#imsiNumber").val();
 	if(imsi.length == 0){
 		$('#datatable-1').DataTable().draw();
 		return;

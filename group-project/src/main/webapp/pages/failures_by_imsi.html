@@ -30,6 +30,10 @@
 <!-- Custom Fonts -->
 <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+<!-- Jquery -->
+<link href="../bower_components/jquery/dist/jquery-ui.css" rel="stylesheet" type="text/css">
+<link href="../css/jqueryAddon.css" rel="stylesheet" type="text/css">
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -108,10 +112,23 @@
 						<div class="panel-heading">Display the Event ID and Cause Code for all failures affecting the selected IMSI</div>
 						<div class="panel-body">
 							<div class="row">
+								<div class='col-md-6'>
+									<label>IMSI:</label> <input type='number' class="form-control" id='imsiNumber' />
+								</div>
+							</div>
+<!-- 							<div class="row"> -->
+<!-- 								<div class="col-md-6"> -->
+<!-- 									<label>IMSI:</label>  -->
+<!--  									<select class="form-control" id="imsi_dropdown" onchange="loadFailures()"> --> 
+<!-- 										<option value=''>-- Select IMSI --</option> --> 
+<!--  									</select> --> 
+<!-- 									<input type="number" id="imsiNumber"> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+							<br>
+							<div class="row">
 								<div class="col-md-6">
-									<label>IMSI:</label> <select class="form-control" id="imsi_dropdown" onchange="loadFailures()">
-										<option value=''>-- Select IMSI --</option>
-									</select>
+									<button id='submitButton' type='button' onclick='loadFailures()' class="btn btn-primary btn-lg btn-block">Get failures for IMSI</button>
 								</div>
 							</div>
 							<br>
@@ -144,6 +161,7 @@
 
 	<!-- jQuery -->
 	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../bower_components/jquery/dist/jquery-ui.min.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

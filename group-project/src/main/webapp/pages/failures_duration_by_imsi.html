@@ -30,6 +30,10 @@
 <!-- DateTimePicker CSS -->
 <link rel="stylesheet" href="../bower_components/datetimepicker/css/bootstrap-datetimepicker.min.css" />
 
+<!-- Jquery -->
+<link href="../bower_components/jquery/dist/jquery-ui.css" rel="stylesheet" type="text/css">
+<link href="../css/jqueryAddon.css" rel="stylesheet" type="text/css">
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -108,10 +112,8 @@
 						<div class="panel-heading">Display the failure count for the selected IMSI in the given time period</div>
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-md-6">
-									<label>IMSI:</label> <select class="form-control" id="imsi_dropdown">
-										<option value=''>-- Select IMSI --</option>
-									</select>
+								<div class='col-md-6'>
+									<label>IMSI:</label> <input type='number' class="form-control" id='imsiNumber' />
 								</div>
 							</div>
 							<br>
@@ -153,6 +155,7 @@
 
 	<!-- jQuery -->
 	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../bower_components/jquery/dist/jquery-ui.min.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

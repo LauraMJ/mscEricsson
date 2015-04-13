@@ -8,19 +8,19 @@ function getIMSIs() {
 }
 
 function populateDropdown(data) {
-	var selector = document.getElementById("imsi_dropdown");
-
 	for (var i = 0; i < data.length; i++) {
-		var imsi = data[i];
-		var element = document.createElement("option");
-		element.textContent = imsi;
-		element.value = imsi;
-		selector.appendChild(element);
+		data[i] = String(data[i]);
 	}
+	$("#imsiNumber").autocomplete({source: data, minLength: 0, delay: 500});
 }
 
 function getFailureCount(){
-	var imsi = $("#imsi_dropdown").val();
+	var imsi = $("#imsiNumber").val();
+	if(imsi.length < 15){
+		alert("Provided IMSI is invalid");
+		$('#datatable-1').DataTable().clear().draw();
+		return;
+	}
 	
 	var url = '../rest/query/givenImsiByTimePeriod';
 

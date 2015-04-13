@@ -89,12 +89,12 @@ public class AutoImportServiceEJB {
 				if (extension.equals("xls")) {
 					File sourceFile = new File(autoImportFolderPath.toString() + "\\" + fileName);
 					while ( !sourceFile.renameTo(sourceFile)) {
-						// Cannot read from file, windows still working on it.
 						Thread.sleep(10);
 					}
 					try {
 						HSSFWorkbook excelWorkbook = new HSSFWorkbook(new FileInputStream(sourceFile));
 						dataImportService.importSpreadsheet(excelWorkbook);
+						dataImportService.finaliseErrorLogEntry("Automatic");
 					}
 					catch (IOException e) {
 						e.printStackTrace();

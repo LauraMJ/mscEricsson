@@ -1,5 +1,11 @@
 package com.ericsson.msc.group5.services.ejb;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -65,6 +71,7 @@ public class DataImportServiceEJB implements DataImportService {
 	public static long duration = 0;
 	private int validRowsAdded = 0;
 	private int invalidRowsRejected = 0;
+	private java.nio.file.Path logFilePath;
 
 	private enum ExcelDataSheet {
 		BASE_DATA_TABLE(0), EVENT_CAUSE_TABLE(1), FAILURE_CLASS_TABLE(2), UE_TABLE(3), MCC_MNC_TABLE(4);
@@ -109,6 +116,7 @@ public class DataImportServiceEJB implements DataImportService {
 		readExcelDocument(excelWorkbook);
 
 		duration = System.currentTimeMillis() - start;
+		writeToLogFile();
 		System.out.printf("The import took %d milliseconds.\n", duration);
 	}
 
@@ -329,5 +337,53 @@ public class DataImportServiceEJB implements DataImportService {
 
 	public String getRejectedCount() {
 		return Integer.toString(invalidRowsRejected);
+	}
+
+	public void writeToLogFile() {
+		java.nio.file.Path logFilePath = createLogFileIfNotExists();
+		String importResultLogEntry = createImportResultLogEntry();
+		try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath.toString(), true)))) {
+			out.print(importResultLogEntry);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public java.nio.file.Path createLogFileIfNotExists() {
+		String dataImportServiceEJBPathString = DataImportServiceEJB.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		dataImportServiceEJBPathString = dataImportServiceEJBPathString.substring(1);
+		java.nio.file.Path pathOfDataImportServiceClass = Paths.get(dataImportServiceEJBPathString);
+		java.nio.file.Path JBossDeploymentsPath = pathOfDataImportServiceClass.getParent().getParent().getParent();
+		logFilePath = Paths.get(JBossDeploymentsPath.toString() + "\\log.txt");
+		if ( !Files.exists(logFilePath)) {
+			try {
+				Files.createFile(logFilePath);
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return logFilePath;
+	}
+
+	public String createImportResultLogEntry() {
+
+		String result = "";
+		result = result + "Import Details=" + ",";
+		result = result + "Timestamp=" + getTimestamp() + ",";
+		result = result + "Time Taken=" + duration + ",";
+		result = result + "Valid Records=" + validRowsAdded + ",";
+		result = result + "Invalid Records=" + invalidRowsRejected + ",";
+		return result;
+	}
+
+	public void finaliseErrorLogEntry(String importType) {
+		try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath.toString(), true)))) {
+			out.print("Import Type=" + importType + System.getProperty("line.separator"));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

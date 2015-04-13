@@ -218,10 +218,10 @@
 	<!-- Graphing -->
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['bar']}]}"></script>
 	<script>
-		google.load("visualization", "1.1", {packages:["bar"]});
-		google.setOnLoadCallback(drawGraph);	
-		function drawGraph(){
+		
 			
+		function drawGraph(){
+			google.load("visualization", "1.1", {packages:["bar"]});
 			var countMapping = { 0: true };
 			var countList = [];
 		

@@ -45,7 +45,8 @@
 		<realm-name>user-jaas-realm</realm-name>
 		<form-login-config>
 			<form-login-page>/login.html</form-login-page>
-			<form-error-page>/access-denied.html</form-error-page>
+			<!--<form-error-page>/access-denied.html</form-error-page>-->
+			<form-error-page>/pages/failed_login.html</form-error-page>
 		</form-login-config>
 	</login-config>
 

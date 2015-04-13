@@ -119,6 +119,19 @@
 
 	<security-constraint>
 		<web-resource-collection>
+			<web-resource-name>lastImportPage</web-resource-name>
+			<url-pattern>/pages/last_import_result.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+			<!-- <role-name>customer service rep</role-name> -->
+			<!-- <role-name>support engineer</role-name> -->
+			<!-- <role-name>network mgmt engineer</role-name> -->
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
 			<web-resource-name>failuresForIMSI/rest</web-resource-name>
 			<url-pattern>/rest/query/eventCausePerImsi</url-pattern>
 		</web-resource-collection>

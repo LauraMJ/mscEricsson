@@ -39,9 +39,6 @@ public class CauseCodeValidatorTest {
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	private boolean expectedResult;
-	private Integer causeCode;
-
 	@Inject
 	ValidatorServiceEJB service;
 
@@ -49,9 +46,11 @@ public class CauseCodeValidatorTest {
 	public void validateCauseCode() {
 		boolean expectedResult = false;
 		Integer causeCode = 50;
+		
+		boolean expectedResult2 = true;
+		Integer causeCode2 = 10;
 
-		System.out.println(causeCode);
-		System.out.println(service);
 		assertEquals(expectedResult, service.validateCauseCode(causeCode));
+		assertEquals(expectedResult2, service.validateCauseCode(causeCode2));
 	}
 }

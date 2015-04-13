@@ -17,22 +17,21 @@ $(document).ready(function() {
 	var validCount = data[2].split("added=")[1];
 	
 	var rejectedCount = data[3].split("rejected=")[1];
+	
+	var importType = data[4].split("importType=")[1];
 
 	$("#timestamp").val(date + " " + time);
 	$("#timeTaken").val(timeTaken);
 	$("#validRecords").val(validCount);
 	$("#invalidRecords").val(rejectedCount);
+	$("#importType").val(importType);
 });
 
-function redirectHome() {
-	window.location.href = "index.html";
-}
-
-function redirectImportPage() {
-	window.location.href = "import_xml.html";
-}
-
 function redirectViewErrors() {
+	if($("#timestamp").val().length == 0){
+		alert("No data found, cannot view rejections");
+		return;
+	}
 	var timestamp = $("#timestamp").val();
 	var packed = escape(timestamp);
 	window.location.href = "error_log.html?" + packed;

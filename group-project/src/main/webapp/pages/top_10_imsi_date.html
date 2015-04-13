@@ -216,9 +216,12 @@
 	</script>
 	
 	<!-- Graphing -->
-	<script src="../bower_components/raphael/raphael.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['bar']}]}"></script>
 	<script>
+		google.load("visualization", "1.1", {packages:["bar"]});
+		google.setOnLoadCallback(drawGraph);	
 		function drawGraph(){
+			
 			var countMapping = { 0: true };
 			var countList = [];
 		
@@ -226,7 +229,6 @@
 			    $(this).find("td").each(function(cellIndex) {
 			        if (countMapping[cellIndex]){
 			        	countList.push($(this).text());
-			        	alert($(this).text());
 			        }
 			    });
 			});
@@ -238,12 +240,55 @@
 			    $(this).find("td").each(function(cellIndex) {
 			        if (imsiMapping[cellIndex]){
 			        	imsiList.push($(this).text());
-			        	alert($(this).text());
 			        }
 			    });
 			});
+			
+			var options = {
+				chart: {
+	            	title: 'Count per IMSI'
+				},
+	            bars: 'horizontal' 
+	        };
+			
+			var arr = [];
+			var j;
+			for(j = 0; j < imsiList.length; j++){
+				arrIn = new Array(2);
+				arrIn[0] = countList[j];
+				arrIn[1] = imsiList[j];
+				arr[j] = arrIn;
+			}
+			/*var data = new google.visualization.DataTable();
+			data.addColumn('string','Count');
+			data.addColumn('string','IMSI');
+			var i;
+			for(i = 0; i < imsiList.length; i++){
+				var a = arr[i];
+				data.addRow(a);
+			}*/
+			var arr2 = [
+                        ['Count', '']
+            ]
+			for(var i = 0; i < arr.length; i++){
+				arr2.push(arr[i]);
+			}
+			var data = new google.visualization.arrayToDataTable(arr2);
+	
+		    var options = {
+		        title: "Top 10 IMSI Failures",
+		        width: 600,
+		        height: 400,
+		        isStacked: false,
+		        bars: 'horizontal',
+		        hAxis: { textPosition: 'none' },
+		      }; 
+			
+			var chart = new google.charts.Bar(document.getElementById('graphContainer'));
+	        chart.draw(data, options);
 		}
 	</script>
+	<div id = 'graphContainer'></div>
 
 </body>
 </html>

@@ -8,8 +8,9 @@ import com.ericsson.msc.group5.services.PasswordGeneratorService;
 /**
  * Password Generator containing password generating methods.
  */
-@Stateless
+
 @Local
+@Stateless
 public class PasswordGeneratorServiceEJB implements PasswordGeneratorService {
 
 	@Override

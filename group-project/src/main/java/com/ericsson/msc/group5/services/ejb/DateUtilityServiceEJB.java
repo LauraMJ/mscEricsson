@@ -13,8 +13,9 @@ import com.ericsson.msc.group5.services.DateUtilityService;
 /**
  * Date utility containing Date-related static methods.
  */
-@Stateless
+
 @Local
+@Stateless
 public class DateUtilityServiceEJB implements DateUtilityService {
 
 	/**

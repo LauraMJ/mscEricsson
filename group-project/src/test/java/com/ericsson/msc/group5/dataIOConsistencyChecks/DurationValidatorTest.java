@@ -3,9 +3,6 @@ package com.ericsson.msc.group5.dataIOConsistencyChecks;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -18,11 +15,7 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
-import com.ericsson.msc.group5.dao.UserDAO;
 import com.ericsson.msc.group5.dao.jpa.JPAFailureTraceDAO;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.services.DataImportService;
@@ -43,14 +36,18 @@ public class DurationValidatorTest {
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 	
-	private boolean expectedResult;
-	private Integer duration;
-
 	@Inject
 	ValidatorServiceEJB service;
 
 	@Test
 	public void validateDuration() {
-		assertEquals(expectedResult, service.validateDuration(duration));
+		boolean expectedResult1 = true;
+		boolean expectedResult2 = false;
+		Integer duration1 = 500;
+		Integer duration2 = 100000;
+		Integer duration3 = null;
+		assertEquals(expectedResult1, service.validateDuration(duration1));
+		assertEquals(expectedResult2, service.validateDuration(duration2));
+		assertEquals(expectedResult2, service.validateDuration(duration3));
 	}
 }

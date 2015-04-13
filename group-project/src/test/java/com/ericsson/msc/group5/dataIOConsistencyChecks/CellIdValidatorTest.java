@@ -47,8 +47,10 @@ public class CellIdValidatorTest {
 		Integer cellId = 50;
 		boolean expectedResult2 = false;
 		Integer cellId2 = 50000000;
+		Integer cellId3 = null;
 		
 		assertEquals(expectedResult, service.validateCellId(cellId));
 		assertEquals(expectedResult2, service.validateCellId(cellId2));
+		assertEquals(expectedResult2, service.validateCellId(cellId3));
 	}
 }

@@ -43,6 +43,7 @@ public class EventIdValidatorTest {
 	private Integer eventId3 = 4125;
 	private Integer eventId4 = 4106;
 	private Integer eventId5 = 5000;
+	private Integer eventId6 = null;
 
 	@Inject
 	ValidatorServiceEJB service;
@@ -54,5 +55,6 @@ public class EventIdValidatorTest {
 		assertEquals(result1, service.validateEventId(eventId3));
 		assertEquals(result1, service.validateEventId(eventId4));
 		assertEquals(result2, service.validateEventId(eventId5));
+		assertEquals(result2, service.validateEventId(eventId6));
 	}
 }

@@ -37,17 +37,12 @@ public class FailureTraceServiceEJBTest {
 	@Test
 	public void addFailureTracesTest() {
 		
-		Long id = 0L;
-		
 		FailureTrace failureTraceOne =  new FailureTrace();
-		id = failureTraceOne.getFailureTraceId();
+		failureTraceOne.setFailureTraceId(0L);
 		FailureTrace failureTraceTwo =  new FailureTrace();
-		id = failureTraceOne.getFailureTraceId();
-	
-		
-		FailureTrace [] failureTraceArray = {(failureTraceOne), failureTraceTwo};
-		
-		
+		failureTraceTwo.setFailureTraceId(0L);
+
+		FailureTrace [] failureTraceArray = {failureTraceOne, failureTraceTwo};
 
 		Collection <FailureTrace> failureTraces = new ArrayList <>();
 		for (FailureTrace f : failureTraceArray) {

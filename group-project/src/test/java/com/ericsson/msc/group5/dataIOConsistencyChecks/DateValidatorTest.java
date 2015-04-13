@@ -3,10 +3,6 @@ package com.ericsson.msc.group5.dataIOConsistencyChecks;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.ejb.EJB;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -19,15 +15,8 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
-import com.ericsson.msc.group5.dao.UserDAO;
-import com.ericsson.msc.group5.dao.jpa.JPACountryCodeNetworkCodeDAO;
-import com.ericsson.msc.group5.dao.jpa.JPACountryDAO;
 import com.ericsson.msc.group5.dao.jpa.JPAFailureTraceDAO;
-import com.ericsson.msc.group5.entities.Country;
 import com.ericsson.msc.group5.entities.FailureTrace;
 import com.ericsson.msc.group5.services.DataImportService;
 import com.ericsson.msc.group5.services.ejb.DataImportServiceEJB;
@@ -46,15 +35,19 @@ public class DateValidatorTest {
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsLibraries(commonsLang)
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
-	
-	private boolean expectedResult;
-	private String dateString;
-	
+
 	@Inject
 	ValidatorServiceEJB service;
 
 	@Test
 	public void checkIfValidDate() {
-		assertEquals(expectedResult, service.validateDate(dateString));
+		boolean expectedResult1 =true;
+		boolean expectedResult2 =false;
+		String dateString1 = "12/02/15 10:00";
+		String dateString2 = "31/02/15 10:00";
+		String dateString3 = null;
+		assertEquals(expectedResult1, service.validateDate(dateString1));
+		assertEquals(expectedResult2, service.validateDate(dateString2));
+		assertEquals(expectedResult2, service.validateDate(dateString3));
 	}
 }

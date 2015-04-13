@@ -3,9 +3,6 @@ package com.ericsson.msc.group5.dataIOConsistencyChecks;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -18,9 +15,6 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.dao.jpa.JPAFailureTraceDAO;
 import com.ericsson.msc.group5.entities.FailureTrace;
@@ -52,8 +46,10 @@ public class MarketValidatorTest {
 		boolean result2 = false;
 		Integer market1 = 3;
 		Integer market2 = 311;
+		Integer market3 = null;
 
 		assertEquals(result1, service.validateMarket(market2));
 		assertEquals(result2, service.validateMarket(market1));
+		assertEquals(result2, service.validateMarket(market3));
 	}
 }

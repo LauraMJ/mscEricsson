@@ -3,9 +3,6 @@ package com.ericsson.msc.group5.dataIOConsistencyChecks;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -18,9 +15,6 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.dao.jpa.JPAFailureTraceDAO;
 import com.ericsson.msc.group5.entities.FailureTrace;
@@ -47,6 +41,8 @@ public class NEVersionValidatorTest {
 	
 	private boolean expectedResult2 = false;
 	private String neVersion2 = "10";
+	private String neVersion3 = null;
+
 
 	@Inject
 	ValidatorServiceEJB service;
@@ -55,6 +51,7 @@ public class NEVersionValidatorTest {
 	public void validateNEVersion() {
 		assertEquals(expectedResult1, service.validateNEVersion(neVersion1));
 		assertEquals(expectedResult2, service.validateNEVersion(neVersion2));
+		assertEquals(expectedResult2, service.validateNEVersion(neVersion3));
 	}
 
 }

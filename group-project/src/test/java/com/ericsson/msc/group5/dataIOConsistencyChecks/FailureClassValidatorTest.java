@@ -49,6 +49,7 @@ public class FailureClassValidatorTest {
 		Integer failureClass3 = 3;
 		Integer failureClass4 = 4;
 		Integer failureClass5 = 5;
+		Integer failureClass6 = null;
 
 		assertEquals(result1, service.validateFailureClass(failureClass0));
 		assertEquals(result1, service.validateFailureClass(failureClass1));
@@ -56,5 +57,6 @@ public class FailureClassValidatorTest {
 		assertEquals(result1, service.validateFailureClass(failureClass3));
 		assertEquals(result1, service.validateFailureClass(failureClass4));
 		assertEquals(result2, service.validateFailureClass(failureClass5));
+		assertEquals(result2, service.validateFailureClass(failureClass6));
 	}
 }

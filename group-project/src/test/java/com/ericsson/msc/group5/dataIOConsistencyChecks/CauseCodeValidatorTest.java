@@ -49,8 +49,10 @@ public class CauseCodeValidatorTest {
 		
 		boolean expectedResult2 = true;
 		Integer causeCode2 = 10;
+		Integer causeCode3 = null;
 
 		assertEquals(expectedResult, service.validateCauseCode(causeCode));
 		assertEquals(expectedResult2, service.validateCauseCode(causeCode2));
+		assertEquals(expectedResult2, service.validateCauseCode(causeCode3));
 	}
 }

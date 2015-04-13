@@ -29,8 +29,7 @@ public class ErrorLogServiceEJBTest {
 	
 	@EJB
 	ErrorLogWriterService service;
-	
-	
+
 	@Test
 	public void writeToErrorLogTest(){
 		

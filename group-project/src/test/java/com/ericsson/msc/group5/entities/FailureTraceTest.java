@@ -55,6 +55,7 @@ public class FailureTraceTest {
 		em.joinTransaction();
 
 		ft = new FailureTrace();
+		ft.setFailureTraceId(0L);
 
 		UserEquipment ue = new UserEquipment(0, "marketing name", "manufacturer", "access capability", "model", "vendor", "user equipment type",
 				"operating system", "input mode");

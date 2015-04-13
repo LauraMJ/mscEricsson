@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>CFL Viewer - Failure Count and Total Duration for IMSI and Date</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- MetisMenu CSS -->
+<link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html">CFL Viewer</a>
+			</div>
+			<!-- /.navbar-header -->
+
+			<ul class="nav navbar-top-links navbar-right">
+				<!-- /.dropdown -->
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-user">
+						<li><a href="../LogoutServlet"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+					</ul> <!-- /.dropdown-user --></li>
+				<!-- /.dropdown -->
+			</ul>
+			<!-- /.navbar-top-links -->
+
+			<div class="navbar-default sidebar" role="navigation">
+				<div class="sidebar-nav navbar-collapse">
+					<ul class="nav" id="side-menu">
+						<li><a href="index.html"><i class="fa fa-home fa-fw"></i> Home</a></li>
+						<li id="administrator_funct" class="active" style="display: none;"><a href="#"><i class="fa fa-terminal fa-fw"></i> Administrator<span
+								class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><a class="active" href="import_xml.html">Import Data</a></li>
+								<li><a href="add_user.html">Add Users</a></li>
+							</ul> <!-- /.nav-second-level --></li>
+						<li id="customer_rep_funct" style="display: none;"><a href="#"><i class="fa fa-phone fa-fw"></i> Customer Service<span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><a href="failures_by_imsi.html">Failures for IMSI</a></li>
+								<li><a href="cust_failures_by_imsi_date.html">Failure Count for IMSI and Date</a></li>
+								<li><a href="cause_codes_for_imsi.html">Cause Codes for IMSI</a></li>
+							</ul> <!-- /.nav-second-level --></li>
+						<li id="support_eng_funct" style="display: none;"><a href="#"><i class="fa fa-users fa-fw"></i> Support Engineer<span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><a href="failures_by_date.html">Failures for Date</a></li>
+								<li><a href="failures_by_model_date.html">Failure Count for Model and Date</a></li>
+								<li><a href="failures_by_cause_class.html">Affected IMSIs for Cause Class</a></li>
+							</ul> <!-- /.nav-second-level --></li>
+						<li id="network_eng_funct" style="display: none;"><a href="#"><i class="fa fa-signal fa-fw"></i> Network Engineer<span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><a href="failures_duration_by_imsi.html">Failure Count and Total Duration for IMSI and Date</a></li>
+								<li><a href="failure_causes_count_for_model.html">Failure Causes for Model</a></li>
+								<li><a href="top_10_market_date.html">Top 10 Failures by Market for Date</a></li>
+								<li><a href="top_10_imsi_date.html">Top 10 IMSIs for Date</a></li>
+							</ul> <!-- /.nav-second-level --></li>
+					</ul>
+				</div>
+				<!-- /.sidebar-collapse -->
+			</div>
+			<!-- /.navbar-static-side -->
+		</nav>
+
+		<div id="page-wrapper">
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">Import Results</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Incorrect file type imported</label>
+				</div>
+			</div>
+			<br>
+			<br>
+			<div class="row">
+				<div class="col-md-2">
+					<button id="homepageButton" type="button" onclick="redirectHome()" class="btn btn-primary btn-lg btn-block">Homepage</button>
+				</div>
+				<div class="col-md-2">
+					<button id="importPageButton" type="button" onclick="redirectImportPage()" class="btn btn-primary btn-lg btn-block">Back</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+	<script src="../dist/js/sb-admin-2.js"></script>
+
+	<!-- Project-specific JavaScript -->
+	<script src="../js/import_results.js"></script>
+	<script src="../js/show_valid_user_pages.js"></script>
+</body>
+</html>

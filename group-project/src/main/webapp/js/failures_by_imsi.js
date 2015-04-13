@@ -10,27 +10,16 @@ function getIMSIs() {
 function populateDropdown(data) {
 	for (var i = 0; i < data.length; i++) {
 		data[i] = String(data[i]);
-//		element.textContent = imsi;
-//		element.value = imsi;
-//		selector.appendChild(element);
 	}
-	$("#imsiNumber").autocomplete({source: data, minLength: 0, delay: 0});
-//	var selector = document.getElementById("imsi_dropdown");
-//
-//	for (var i = 0; i < data.length; i++) {
-//		var imsi = data[i];
-//		var element = document.createElement("option");
-//		element.textContent = imsi;
-//		element.value = imsi;
-//		selector.appendChild(element);
-//	}
+	$("#imsiNumber").autocomplete({source: data, minLength: 0, delay: 500});
 }
 
 function loadFailures() {
 	$('#datatable-1').DataTable().clear();
 
 	var imsi = $("#imsiNumber").val();
-	if(imsi.length == 0){
+	if(imsi.length < 15){
+		alert("Provided IMSI is invalid");
 		$('#datatable-1').DataTable().draw();
 		return;
 	}
@@ -48,6 +37,10 @@ function loadFailures() {
 
 function populateFailuresTable(data) {
 	var t = $('#datatable-1').DataTable();
+	
+	if(data.length==0){
+		alert("No results for lookup");
+	}
 
 	var i;
 	for (i = 0; i < data.length; i++) {

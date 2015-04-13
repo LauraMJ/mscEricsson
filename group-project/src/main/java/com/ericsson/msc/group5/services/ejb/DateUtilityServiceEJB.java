@@ -6,11 +6,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import com.ericsson.msc.group5.services.DateUtilityService;
 
 /**
  * Date utility containing Date-related static methods.
  */
+@Stateless
+@Local
 public class DateUtilityServiceEJB implements DateUtilityService {
 
 	/**

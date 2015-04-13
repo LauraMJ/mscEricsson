@@ -39,7 +39,6 @@ import com.ericsson.msc.group5.services.DataImportService;
 @TransactionManagement(TransactionManagementType.BEAN)
 public class AutoImportServiceEJB {
 
-	private static String fileDirectory = "/Users/Harry/JBossAutoImport/";
 	private WatchService watcher;
 	private WatchKey key;
 	private String autoImportPathString;
@@ -90,7 +89,7 @@ public class AutoImportServiceEJB {
 			if (kind == ENTRY_CREATE) {
 				System.out.println("File Created.");
 				if (extension.equals("xls")) {
-					File sourceFile = new File(fileDirectory + fileName);
+					File sourceFile = new File(autoImportFolderPath.toString() + fileName);
 					while ( !sourceFile.renameTo(sourceFile)) {
 						// Cannot read from file, windows still working on it.
 						Thread.sleep(10);

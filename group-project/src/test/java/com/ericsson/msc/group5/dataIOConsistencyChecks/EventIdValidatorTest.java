@@ -3,9 +3,6 @@ package com.ericsson.msc.group5.dataIOConsistencyChecks;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -18,9 +15,6 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.dao.jpa.JPAFailureTraceDAO;
 import com.ericsson.msc.group5.entities.FailureTrace;
@@ -46,8 +40,8 @@ public class EventIdValidatorTest {
 	private boolean result2 = false;
 	private Integer eventId1 = 4097;
 	private Integer eventId2 = 4098;
-	private Integer eventId3 = 4097;
-	private Integer eventId4 = 4098;
+	private Integer eventId3 = 4125;
+	private Integer eventId4 = 4106;
 	private Integer eventId5 = 5000;
 
 	@Inject

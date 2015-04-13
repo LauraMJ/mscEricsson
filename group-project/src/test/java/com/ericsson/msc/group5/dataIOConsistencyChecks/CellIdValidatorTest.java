@@ -3,9 +3,6 @@ package com.ericsson.msc.group5.dataIOConsistencyChecks;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -18,9 +15,6 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.dao.UserDAO;
 import com.ericsson.msc.group5.dao.jpa.JPAFailureTraceDAO;
@@ -43,9 +37,6 @@ public class CellIdValidatorTest {
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 	
-	private boolean expectedResult;
-	private Integer cellId;
-	
 	@Inject
 	ValidatorServiceEJB service;
 
@@ -54,7 +45,10 @@ public class CellIdValidatorTest {
 	public void validateCellId() {
 		boolean expectedResult = true;
 		Integer cellId = 50;
+		boolean expectedResult2 = false;
+		Integer cellId2 = 50000000;
 		
 		assertEquals(expectedResult, service.validateCellId(cellId));
+		assertEquals(expectedResult2, service.validateCellId(cellId2));
 	}
 }

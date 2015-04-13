@@ -54,16 +54,15 @@ public class AutoImportServiceEJB {
 	@PostConstruct
 	public void onStart() throws InterruptedException {
 		setOperatingSystem(System.getProperty("os.name").toLowerCase());
-		if (OperatingSystem.indexOf("win") >= 0) {
+		if (getOperatingSystem().indexOf("win") >= 0) {
 			createDirectoryForWindowsSystem();
 		}
-		if (OperatingSystem.indexOf("nix") >= 0 || OperatingSystem.indexOf("nux") >= 0 || OperatingSystem.indexOf("aix") > 0) {
+		if (getOperatingSystem().indexOf("nix") >= 0 || OperatingSystem.indexOf("nux") >= 0 || OperatingSystem.indexOf("aix") > 0) {
 			createDirectoryForUnixSystem();
 		}
 		try {
 			watcher = FileSystems.getDefault().newWatchService();
 			autoImportFolderPath.register(watcher, ENTRY_CREATE);
-			System.out.println("Watcher added for " + autoImportFolderPath.getFileName());
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -87,9 +86,8 @@ public class AutoImportServiceEJB {
 			Path fileName = ev.context();
 			String extension = FilenameUtils.getExtension(fileName.toString());
 			if (kind == ENTRY_CREATE) {
-				System.out.println("File Created.");
 				if (extension.equals("xls")) {
-					File sourceFile = new File(autoImportFolderPath.toString() + fileName);
+					File sourceFile = new File(autoImportFolderPath.toString() + "\\" + fileName);
 					while ( !sourceFile.renameTo(sourceFile)) {
 						// Cannot read from file, windows still working on it.
 						Thread.sleep(10);
@@ -97,15 +95,10 @@ public class AutoImportServiceEJB {
 					try {
 						HSSFWorkbook excelWorkbook = new HSSFWorkbook(new FileInputStream(sourceFile));
 						dataImportService.importSpreadsheet(excelWorkbook);
-						System.out.println("Data from file " + fileName + " added successfully");
 					}
 					catch (IOException e) {
 						e.printStackTrace();
-						System.out.println(fileName + " has incorrect layout for upload.");
 					}
-				}
-				else {
-					System.out.println("File " + fileName + " is not a valid file type for upload.");
 				}
 			}
 		}

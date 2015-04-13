@@ -1,4 +1,4 @@
-package com.ericsson.msc.group5.utils;
+package com.ericsson.msc.group5.services.ejb;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -6,11 +6,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import com.ericsson.msc.group5.services.DateUtilityService;
 
 /**
  * Date utility containing Date-related static methods.
  */
-public class DateUtil {
+public class DateUtilityServiceEJB implements DateUtilityService {
 
 	/**
 	 * Convert a Date/Time object into an application-appropriate string of the
@@ -20,7 +21,8 @@ public class DateUtil {
 	 *            The date object to covert into a string.
 	 * @return Date time string in the UK locale ("dd/mm/yyyy hh:mm").
 	 */
-	public static String formatDateAsString(Date dateTime) {
+	@Override
+	public String formatDateAsString(Date dateTime) {
 		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT,
 				Locale.UK);
 		DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT,
@@ -36,7 +38,8 @@ public class DateUtil {
 		return dateTimeString;
 	}
 
-	public static Timestamp formatDateStringAsTimestamp(String inputDateString) {
+	@Override
+	public Timestamp formatDateStringAsTimestamp(String inputDateString) {
 
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date parsedDate = null;

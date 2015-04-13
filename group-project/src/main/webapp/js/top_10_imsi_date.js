@@ -46,4 +46,14 @@ function populateTable(data) {
 		t.row.add([ data[i][0], data[i][1] ]);
 	}
 	t.draw();
+	passData(data);
+}
+function passData(data){
+	$.getScript("../bower_components/raphael/raphael.js",function(data){
+		var paper = Raphael(10, 50, 320, 200);
+		var circle = paper.circle(50, 40, 10);
+		circle.attr("fill", "#f00");
+		circle.attr("stroke", "#fff");
+		}
+	)
 }

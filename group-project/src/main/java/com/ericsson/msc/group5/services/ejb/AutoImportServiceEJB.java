@@ -130,7 +130,14 @@ public class AutoImportServiceEJB {
 	}
 
 	private void createDirectoryForUnixSystem() {
-
+		autoImportPathString = AutoImportServiceEJB.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		pathOfAutoImportServiceClass = Paths.get(autoImportPathString);
+		JBossDeploymentsPath = pathOfAutoImportServiceClass.getParent().getParent().getParent();
+		autoImportFolderPath = Paths.get(JBossDeploymentsPath.toString() + "/autoImportFolder");
+		if (Files.notExists(autoImportFolderPath)) {
+			File autoImportDirectory = new File(autoImportFolderPath.toString());
+			autoImportDirectory.mkdirs();
+		}
 	}
 
 	@Timeout

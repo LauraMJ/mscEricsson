@@ -1,11 +1,17 @@
 package com.ericsson.msc.group5.services.ejb;
 
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+
 import org.jboss.security.auth.spi.Util;
+
 import com.ericsson.msc.group5.services.PasswordGeneratorService;
 
 /**
  * Password Generator containing password generating methods.
  */
+@Local
+@Stateless
 public class PasswordGeneratorServiceEJB implements PasswordGeneratorService {
 
 	@Override

@@ -6,7 +6,7 @@ var adminAddresses = [ "import_xml.html", "add_user.html", "last_import_result.h
 var custHeadings = [ "Failures for IMSI", "Failure Count for IMSI and Date",
 		"Cause Codes for IMSI" ];
 var custDescriptions = [
-		"Display the Event ID and Cause Code for all failures affecting the selected IMSI",
+		"Display the description for all failures affecting the selected IMSI",
 		"Display the failure count for the selected IMSI in the given time period",
 		"Display all the unique Cause Codes for the selected IMSI" ];
 var custAddresses = [ "failures_by_imsi.html",

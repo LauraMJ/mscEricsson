@@ -142,9 +142,10 @@
 									<tbody>
 									</tbody>
 								</table>
+								<div id = "graph-button-container">
+								</div>
 							</div>
-							<div id="graph-1">
-							</div>
+							
 							<!-- /#page-wrapper -->
 						</div>
 					</div>
@@ -217,36 +218,31 @@
 	<!-- Graphing -->
 	<script src="../bower_components/raphael/raphael.js"></script>
 	<script>
-		$("#dataTable-1").on("click",function(){
-			var table = $('#datatable-1');
-			function getTableData(table) {
-			    var data = [];
-			    table.find('tr').each(function (rowIndex, r) {
-			        var cols = [];
-			        $(this).find('th,td').each(function (colIndex, c) {
-			            cols.push(c.textContent);
-			        });
-			        data.push(cols);
+		function drawGraph(){
+			var countMapping = { 0: true };
+			var countList = [];
+		
+			$("#datatable-1 tr").each(function(rowIndex) {
+			    $(this).find("td").each(function(cellIndex) {
+			        if (countMapping[cellIndex]){
+			        	countList.push($(this).text());
+			        	alert($(this).text());
+			        }
 			    });
-			    return data;
-			}
-			var data = getTableData(table);
-			var labels = [];
-			var graphData = [];
-			var i;
-			for (i = 0; i < data.length; i++) {
-				graphData.push(data[i][0]);
-				labels.push(data[i][1]);
-			}
-			alert(graphData[1]);
-			var paper = Raphael(10, 50, 320, 200);
-			var circle = paper.circle(50, 40, 10);
-			circle.attr("fill", "#f00");
-			circle.attr("stroke", "#fff");
-			circle.data(graphData);
-			var ctx = document.getElementById("graph-1").getContext("2d");
-			window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true})
-		})
+			});
+			
+			var imsiMapping = { 1: true };
+			var imsiList = [];
+		
+			$("#datatable-1 tr").each(function(rowIndex) {
+			    $(this).find("td").each(function(cellIndex) {
+			        if (imsiMapping[cellIndex]){
+			        	imsiList.push($(this).text());
+			        	alert($(this).text());
+			        }
+			    });
+			});
+		}
 	</script>
 
 </body>

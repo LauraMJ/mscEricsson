@@ -50,6 +50,7 @@ public class DateValidatorTest {
 		String dateString5 = "32/02/16 10:00";
 		String dateString6 = "30/03/14 10:00";
 		String dateString7 = "30/03/14";
+		String dateString8 = "30/09/14 10:00";
 		assertEquals(expectedResult1, service.validateDate(dateString1));
 		assertEquals(expectedResult2, service.validateDate(dateString2));
 		assertEquals(expectedResult2, service.validateDate(dateString3));
@@ -57,5 +58,6 @@ public class DateValidatorTest {
 		assertEquals(expectedResult2, service.validateDate(dateString5));
 		assertEquals(expectedResult1, service.validateDate(dateString6));
 		assertEquals(expectedResult2, service.validateDate(dateString7));
+		assertEquals(expectedResult1, service.validateDate(dateString8));
 	}
 }

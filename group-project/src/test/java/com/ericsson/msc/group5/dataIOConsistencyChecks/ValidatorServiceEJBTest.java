@@ -227,7 +227,7 @@ public class ValidatorServiceEJBTest {
 		catch (IOException e) {}
 		HSSFSheet worksheet = (HSSFSheet) workbook.getSheetAt(0);
 		HSSFRow row = (HSSFRow) worksheet.getRow(1);
-		assertEquals(validatorService.validateFailureTraceRowFieldValues(row), false);
+		assertEquals(validatorService.validateFailureTraceRowFieldValues(row), true);
 
 	}
 

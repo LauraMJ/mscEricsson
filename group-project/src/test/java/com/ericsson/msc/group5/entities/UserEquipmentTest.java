@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import java.io.File;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,19 +15,26 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class UserEquipmentTest {
 
-	@Deployment
+	@Deployment(testable = true)
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(UserEquipment.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		PomEquippedResolveStage pom = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeAndTestDependencies();
+		File [] libraries = pom.resolve("org.apache.poi:poi").withTransitivity().asFile();
+
+		return ShrinkWrap.create(WebArchive.class, "test.war")
+				.addPackages(true, "com.ericsson")
+				.addAsLibraries(libraries)
+				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -103,7 +111,7 @@ public class UserEquipmentTest {
 		loadedUE.setUserEquipmentType(UPDATED_USER_EQUIPMENT_TYPE);
 		loadedUE.setOperatingSystem(UPDATED_OPERATING_SYSTEM);
 		loadedUE.setInputMode(UPDATED_INPUT_MODE);
-		
+
 		UserEquipment updatedUE = em.find(UserEquipment.class, id);
 		assertTrue("Failed to match", loadedUE.equals(updatedUE));
 		assertTrue("Failed to match", loadedUE.hashCode() == updatedUE.hashCode());
@@ -121,9 +129,9 @@ public class UserEquipmentTest {
 		UserEquipment shouldBeNull = em.find(UserEquipment.class, id);
 		assertNull("Failed to delete", shouldBeNull);
 	}
-	
+
 	@Test
-	private void equalityTest() throws Exception{
+	private void equalityTest() throws Exception {
 		UserEquipment loadedUE = em.find(UserEquipment.class, id);
 		UserEquipment userEquipment = new UserEquipment();
 		assertFalse("Failed to match", loadedUE.equals(null));

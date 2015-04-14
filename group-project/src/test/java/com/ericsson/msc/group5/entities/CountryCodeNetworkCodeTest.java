@@ -1,7 +1,10 @@
 package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import java.io.File;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,6 +15,8 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +25,16 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class CountryCodeNetworkCodeTest {
 
-	@Deployment
+	@Deployment(testable = true)
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(CountryCodeNetworkCode.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		PomEquippedResolveStage pom = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeAndTestDependencies();
+		File [] libraries = pom.resolve("org.apache.poi:poi").withTransitivity().asFile();
+
+		return ShrinkWrap.create(WebArchive.class, "test.war")
+				.addPackages(true, "com.ericsson")
+				.addAsLibraries(libraries)
+				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -78,6 +89,48 @@ public class CountryCodeNetworkCodeTest {
 		ck.setNetworkCode(newCode);
 		assertEquals("failed to set network code", newCode, (int) ck.getNetworkCode());
 		assertEquals("failed to set country", newCountry, ck.getCountry());
+	}
+
+	@Test
+	public void testGeneratedMethods() {
+		Country countryOne = new Country(0, "Test country");
+
+		CountryCodeNetworkCodeCK countryCodeNetworkCodeCKOne = new CountryCodeNetworkCodeCK();
+		countryCodeNetworkCodeCKOne.setCountry(countryOne);
+		countryCodeNetworkCodeCKOne.setNetworkCode(0);
+
+		CountryCodeNetworkCodeCK countryCodeNetworkCodeCKTwo = new CountryCodeNetworkCodeCK();
+		countryCodeNetworkCodeCKTwo.setCountry(countryOne);
+		countryCodeNetworkCodeCKTwo.setNetworkCode(1);
+
+		CountryCodeNetworkCode countryCodeNetworkCodeOne = new CountryCodeNetworkCode();
+		countryCodeNetworkCodeOne.setCountryCodeNetworkCode(countryCodeNetworkCodeCKOne);
+		countryCodeNetworkCodeOne.setOperator(INITIAL_OPERATOR);
+
+		CountryCodeNetworkCode countryCodeNetworkCodeTwo = new CountryCodeNetworkCode();
+		countryCodeNetworkCodeTwo.setCountryCodeNetworkCode(countryCodeNetworkCodeCKTwo);
+		countryCodeNetworkCodeTwo.setOperator(UPDATED_OPERATOR);
+
+		// Check same objects equal same
+		assertTrue(countryCodeNetworkCodeCKOne.equals(countryCodeNetworkCodeCKOne));
+		assertFalse(countryCodeNetworkCodeCKOne.equals(countryCodeNetworkCodeCKTwo));
+		// Check hash code works correctly
+		assertFalse(countryCodeNetworkCodeCKOne.hashCode() == countryCodeNetworkCodeCKTwo.hashCode());
+
+		// Check same objects equal same
+		assertTrue(countryCodeNetworkCodeOne.equals(countryCodeNetworkCodeOne));
+		assertFalse(countryCodeNetworkCodeOne.equals(countryCodeNetworkCodeTwo));
+		// Check hash code works correctly
+		assertFalse((countryCodeNetworkCodeOne.hashCode() == countryCodeNetworkCodeTwo.hashCode()));
+
+		// Check .equals for null and different object type
+		countryCodeNetworkCodeTwo = null;
+		assertFalse(countryCodeNetworkCodeOne.equals(countryCodeNetworkCodeTwo));
+		assertFalse(countryCodeNetworkCodeOne.equals(new String()));
+		// Check .equals on empty required field
+		countryCodeNetworkCodeTwo = new CountryCodeNetworkCode();
+		assertFalse(countryCodeNetworkCodeOne.equals(countryCodeNetworkCodeTwo));
+
 	}
 
 	private void clearData() throws Exception {

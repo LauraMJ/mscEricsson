@@ -1,7 +1,10 @@
 package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import java.io.File;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,6 +15,8 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,9 +27,26 @@ public class CountryTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Country.class.getPackage())
+		PomEquippedResolveStage pom = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeAndTestDependencies();
+		File [] libraries = pom.resolve("org.apache.poi:poi").withTransitivity().asFile();
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackages(true, "com.ericsson")
+				.addAsLibraries(libraries)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
+
+	// @Deployment(testable = true)
+	// public static Archive <?> createDeployment() {
+	// PomEquippedResolveStage pom =
+	// Maven.resolver().loadPomFromFile("pom.xml").importRuntimeAndTestDependencies();
+	// File [] libraries =
+	// pom.resolve("org.apache.poi:poi").withTransitivity().asFile();
+	//
+	// return ShrinkWrap.create(WebArchive.class, "test.war")
+	// .addPackages(true, "com.ericsson")
+	// .addAsLibraries(libraries)
+	// .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+	// .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+	// }
 
 	@PersistenceContext
 	private EntityManager em;
@@ -65,6 +87,32 @@ public class CountryTest {
 		em.remove(updatedC);
 		Country shouldBeNull = em.find(Country.class, id);
 		assertNull("Failed to delete", shouldBeNull);
+	}
+
+	@Test
+	public void testGenerateMethods() {
+		int oldCode = 21;
+		int newCode = 5000;
+		Country countryOne = new Country(oldCode, "old country");
+		Country countryTwo = new Country(newCode, "new country");
+
+		// Hashcode and .equals test
+		assertTrue(countryOne.equals(countryOne));
+		assertTrue(countryOne.hashCode() == countryOne.hashCode());
+		assertTrue( !countryOne.equals(countryTwo));
+		assertTrue( !(countryOne.hashCode() == countryTwo.hashCode()));
+
+		// Getters and setters test
+		countryOne.setCountry("new country");
+		countryOne.setCountryCode(newCode);
+		assertTrue(countryOne.getCountry().equals("new country"));
+		assertTrue(countryOne.getCountryCode() == newCode);
+		countryOne = null;
+		assertFalse(countryTwo.equals((countryOne)));
+		assertFalse(countryTwo.equals(new String()));
+		countryOne = new Country();
+		countryOne.setCountry("new country");
+		assertFalse(countryOne.equals(countryTwo));
 	}
 
 	private void clearData() throws Exception {

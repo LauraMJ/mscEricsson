@@ -95,69 +95,6 @@ public class FailureTraceTest {
 		em.remove(loadedFT);
 	}
 
-	/*
-	 * Test to ensure that deletes cascade/don't cascade properly to the owned
-	 * entities.
-	 */
-	@Test
-	@Ignore
-	public void testDeleteCascade() {
-
-	}
-
-	/*
-	 * Test the date time field - boundary/values
-	 */
-	@Test
-	@Ignore
-	public void testDateTimeSetter() {
-
-	}
-
-	/*
-	 * Test the event id field - boundary/values
-	 */
-	@Test
-	@Ignore
-	public void testEventIdSetter() {
-
-	}
-
-	/*
-	 * Test the cell id field - boundary/values
-	 */
-	@Test
-	@Ignore
-	public void testCellIdSetter() {
-
-	}
-
-	/*
-	 * Test the duration field - boundary/values
-	 */
-	@Test
-	@Ignore
-	public void testDurationSetter() {
-
-	}
-
-	/*
-	 * Test the network element field - boundary/values
-	 */
-	@Test
-	@Ignore
-	public void testNEVersionSetter() {
-
-	}
-
-	/*
-	 * Test the imsi field - boundary/values
-	 */
-	@Test
-	@Ignore
-	public void testIMSISetter() {
-
-	}
 
 	private void clearData() throws Exception {
 		utx.begin();

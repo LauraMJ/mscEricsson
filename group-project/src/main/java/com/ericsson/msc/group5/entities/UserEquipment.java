@@ -166,12 +166,12 @@ public class UserEquipment {
 	public void setFailureTrace(Collection <FailureTrace> failureTrace) {
 		this.failureTrace = failureTrace;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((userEquipmentType == null) ? 0 : userEquipmentType.hashCode());
+		result = prime * result + ((typeAllocationCode == null) ? 0 : typeAllocationCode.hashCode());
 		return result;
 	}
 
@@ -184,13 +184,13 @@ public class UserEquipment {
 		if (getClass() != obj.getClass())
 			return false;
 		UserEquipment other = (UserEquipment) obj;
-		if (userEquipmentType == null) {
-			if (other.userEquipmentType != null)
+		if (typeAllocationCode == null) {
+			if (other.typeAllocationCode != null)
 				return false;
 		}
-		else if ( !userEquipmentType.equals(other.userEquipmentType))
+		else if ( !typeAllocationCode.equals(other.typeAllocationCode))
 			return false;
 		return true;
 	}
-
+	
 }

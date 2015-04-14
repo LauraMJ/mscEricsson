@@ -1,6 +1,7 @@
 package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import javax.inject.Inject;
@@ -105,6 +106,7 @@ public class UserEquipmentTest {
 		
 		UserEquipment updatedUE = em.find(UserEquipment.class, id);
 		assertTrue("Failed to match", loadedUE.equals(updatedUE));
+		assertTrue("Failed to match", loadedUE.hashCode() == updatedUE.hashCode());
 		assertEquals("Failed to insert", UPDATED_MARKETING_NAME, loadedUE.getMarketingName());
 		assertEquals("Failed to insert", UPDATED_MARKETING_NAME, loadedUE.getMarketingName());
 		assertEquals("Failed to update", UPDATED_MANUFACTURER, updatedUE.getManufacturer());
@@ -118,6 +120,15 @@ public class UserEquipmentTest {
 		em.remove(updatedUE);
 		UserEquipment shouldBeNull = em.find(UserEquipment.class, id);
 		assertNull("Failed to delete", shouldBeNull);
+	}
+	
+	@Test
+	private void equalityTest() throws Exception{
+		UserEquipment loadedUE = em.find(UserEquipment.class, id);
+		UserEquipment userEquipment = new UserEquipment();
+		assertFalse("Failed to match", loadedUE.equals(null));
+		assertFalse("Failed to match", loadedUE.equals(new Integer(1)));
+		assertFalse("Failed to match", userEquipment.equals(loadedUE));
 	}
 
 	private void clearData() throws Exception {

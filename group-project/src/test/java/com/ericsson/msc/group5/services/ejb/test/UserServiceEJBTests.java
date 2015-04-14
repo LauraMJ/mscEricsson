@@ -38,7 +38,7 @@ public class UserServiceEJBTests {
 	}
 	
 	@Test
-	public void testNullUser() {
+	public void testExistingUser() {
 		service.addUser("test", "pass", "administrator");
 		assertEquals(service.addUser("test", "pass", "administrator"), false);
 	}

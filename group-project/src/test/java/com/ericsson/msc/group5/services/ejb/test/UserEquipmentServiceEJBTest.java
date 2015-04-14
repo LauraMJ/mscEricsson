@@ -33,6 +33,8 @@ public class UserEquipmentServiceEJBTest {
 
 		for (UserEquipment ue : retrievedUserEquipment) {
 			assertTrue("An object failed to be retrieved", userEquipments.contains(ue));
+			assertTrue(ue.equals(ue));
+			assertTrue(ue.hashCode() == ue.hashCode());
 		}
 	}
 

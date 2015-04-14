@@ -31,6 +31,8 @@ public class FailureClassServiceEJBTest {
 
 		for (FailureClass f : retrievedFailureClasses) {
 			assertTrue("An object failed to be retrieved", failureClasses.contains(f));
+			assertTrue(f.equals(f));
+			assertTrue(f.hashCode() == f.hashCode());
 		}
 	}
 }

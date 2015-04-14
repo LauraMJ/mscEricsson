@@ -351,12 +351,39 @@ public class DataImportServiceEJB implements DataImportService {
 	}
 
 	public java.nio.file.Path createLogFileIfNotExists() {
+		String operatingSystem = (System.getProperty("os.name").toLowerCase());
+		if (operatingSystem.indexOf("win") >= 0) {
+			logFilePath = createLogFileForWindowsSystem();
+		}
+		if (operatingSystem.indexOf("nix") >= 0 || operatingSystem.indexOf("nux") >= 0 || operatingSystem.indexOf("aix") > 0) {
+			logFilePath = createLogFileForUnixSystem();
+		}
+		return logFilePath;
+	}
+
+	private java.nio.file.Path createLogFileForWindowsSystem() {
 		String dataImportServiceEJBPathString = DataImportServiceEJB.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		dataImportServiceEJBPathString = dataImportServiceEJBPathString.substring(1);
 		java.nio.file.Path pathOfDataImportServiceClass = Paths.get(dataImportServiceEJBPathString);
 		java.nio.file.Path JBossDeploymentsPath = pathOfDataImportServiceClass.getParent().getParent().getParent();
 		logFilePath = Paths.get(JBossDeploymentsPath.toString() + "\\log.txt");
-		if ( !Files.exists(logFilePath)) {
+		if (Files.notExists(logFilePath)) {
+			try {
+				Files.createFile(logFilePath);
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return logFilePath;
+	}
+
+	private java.nio.file.Path createLogFileForUnixSystem() {
+		String dataImportServiceEJBPathString = DataImportServiceEJB.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		java.nio.file.Path pathOfDataImportServiceClass = Paths.get(dataImportServiceEJBPathString);
+		java.nio.file.Path JBossDeploymentsPath = pathOfDataImportServiceClass.getParent().getParent().getParent();
+		logFilePath = Paths.get(JBossDeploymentsPath.toString() + "/log.txt");
+		if (Files.notExists(logFilePath)) {
 			try {
 				Files.createFile(logFilePath);
 			}

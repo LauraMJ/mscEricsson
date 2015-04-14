@@ -1,7 +1,9 @@
 package com.ericsson.msc.group5.services.ejb.test;
 
 import static org.junit.Assert.assertEquals;
+
 import javax.ejb.EJB;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -9,11 +11,14 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import com.ericsson.msc.group5.dao.UserDAO;
 import com.ericsson.msc.group5.dao.jpa.JPAUserDAO;
 import com.ericsson.msc.group5.entities.User;
+import com.ericsson.msc.group5.services.PasswordGeneratorService;
 import com.ericsson.msc.group5.services.UserAuthenticationService;
 import com.ericsson.msc.group5.services.UserService;
+import com.ericsson.msc.group5.services.ejb.PasswordGeneratorServiceEJB;
 import com.ericsson.msc.group5.services.ejb.UserAuthenticationServiceEJB;
 import com.ericsson.msc.group5.services.ejb.UserServiceEJB;
 
@@ -25,8 +30,9 @@ public class UserAuthenicationServiceEJBTest {
 		return ShrinkWrap
 				.create(JavaArchive.class, "test.jar")
 				.addPackage(User.class.getPackage())
-				.addClasses(User.class, UserAuthenticationServiceEJB.class, UserAuthenticationService.class, UserServiceEJB.class, UserService.class,
-						UserDAO.class, JPAUserDAO.class).addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+				.addClasses(User.class, UserAuthenticationServiceEJB.class, UserAuthenticationService.class, UserServiceEJB.class, UserService.class, 
+						PasswordGeneratorService.class, PasswordGeneratorServiceEJB.class, UserDAO.class, JPAUserDAO.class)
+				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -38,8 +44,14 @@ public class UserAuthenicationServiceEJBTest {
 
 	@Test
 	public void authenticateUserTest() {
-		userService.addUser("John", "nothing", "Customer");
+		userService.addUser("John", "nothing", "administrator");
 		User user = userService.getUser("John");
-		assertEquals(service.authenticateUser(user.getUsername(), user.getPassword()), "Customer");
+		assertEquals(service.authenticateUser("John", "nothing"), "administrator");
 	}
+	
+	@Test
+	public void authenticalUserNullTest() {
+		assertEquals(service.authenticateUser("Should", "fail"), null);
+	}
+	
 }

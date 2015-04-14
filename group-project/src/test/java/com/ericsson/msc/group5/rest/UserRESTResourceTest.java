@@ -45,18 +45,18 @@ public class UserRESTResourceTest {
 		return archive;
 	}
 
-    @Before
-    public void setUp() throws Exception{
-        RestAssured.config = RestAssuredConfig.config().logConfig(new LogConfig(System.out, true));
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        RestAssured.basePath = "group-project/rest";
-        RestAssured.port = 8080;
-    }
+	@Before
+	public void setUp() throws Exception {
+		RestAssured.config = RestAssuredConfig.config().logConfig(new LogConfig(System.out, true));
+		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+		RestAssured.basePath = "group-project/rest";
+		RestAssured.port = 8080;
+	}
 
-    @Test
-    public void basicAuthentication() throws Exception {
-        given().auth().basic("administrator", "admin").expect().statusCode(200).when().get("/get/userrole");
-    }
+	@Test
+	public void basicAuthentication() throws Exception {
+		given().auth().basic("administrator", "admin").expect().statusCode(200).when().get("/get/userrole");
+	}
 
 	@Test
 	public void testGetUsername() {

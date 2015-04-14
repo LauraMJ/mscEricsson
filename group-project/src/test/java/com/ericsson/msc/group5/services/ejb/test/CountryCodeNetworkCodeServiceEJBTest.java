@@ -44,10 +44,6 @@ public class CountryCodeNetworkCodeServiceEJBTest {
 		Collection <CountryCodeNetworkCode> retrievedCountryNetworkCodes = service.getCountryCodeNetworkCodes();
 		System.out.println("Size of collection: " + retrievedCountryNetworkCodes.size());
 		for (CountryCodeNetworkCode c : retrievedCountryNetworkCodes) {
-			System.out.println("Country code: " + c.getCountryCodeNetworkCode() + c.getOperator());
-		}
-
-		for (CountryCodeNetworkCode c : retrievedCountryNetworkCodes) {
 			assertTrue("An object failed to be retrieved", countryCodeNetworkCodesOriginal.contains(c));
 		}
 	}

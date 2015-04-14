@@ -88,6 +88,9 @@ public class AutoImportServiceEJB {
 			if (kind == ENTRY_CREATE) {
 				if (extension.equals("xls")) {
 					File sourceFile = new File(autoImportFolderPath.toString() + "\\" + fileName);
+					if (getOperatingSystem().indexOf("nix") >= 0 || OperatingSystem.indexOf("nux") >= 0 || OperatingSystem.indexOf("aix") > 0) {
+						sourceFile = new File(autoImportFolderPath.toString() + "/" + fileName);
+					}
 					while ( !sourceFile.renameTo(sourceFile)) {
 						Thread.sleep(10);
 					}

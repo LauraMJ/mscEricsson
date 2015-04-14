@@ -13,7 +13,7 @@ import com.ericsson.msc.group5.services.LogDetailsRetrieverService;
 public class LogDetailsRetrieverTest {
 
 	@EJB
-	LogDetailsRetrieverService logger;
+	private LogDetailsRetrieverService logger;
 
 	@Test
 	public void testLogger() {

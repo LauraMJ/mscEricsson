@@ -57,7 +57,7 @@ public class AutoImportServiceEJB {
 		if (getOperatingSystem().indexOf("win") >= 0) {
 			createDirectoryForWindowsSystem();
 		}
-		if (getOperatingSystem().indexOf("nix") >= 0 || getOperatingSystem().indexOf("nux") >= 0 || getOperatingSystem().indexOf("aix") > 0) {
+		if (getOperatingSystem().indexOf("nix") >= 0 || OperatingSystem.indexOf("nux") >= 0 || OperatingSystem.indexOf("aix") > 0) {
 			createDirectoryForUnixSystem();
 		}
 		try {
@@ -110,6 +110,8 @@ public class AutoImportServiceEJB {
 
 	private void createDirectoryForWindowsSystem() {
 		autoImportPathString = AutoImportServiceEJB.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		// autoImportPathString = autoImportPathString.replace('/',
+		// File.separatorChar);
 		autoImportPathString = autoImportPathString.substring(1);
 		pathOfAutoImportServiceClass = Paths.get(autoImportPathString);
 		JBossDeploymentsPath = pathOfAutoImportServiceClass.getParent().getParent().getParent();

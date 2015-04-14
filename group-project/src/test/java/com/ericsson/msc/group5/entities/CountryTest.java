@@ -1,14 +1,17 @@
 package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +19,12 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class CountryTest {
+
+	@Deployment
+	public static Archive <?> createDeployment() {
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Country.class.getPackage())
+				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+	}
 
 	@PersistenceContext
 	private EntityManager em;
@@ -56,32 +65,6 @@ public class CountryTest {
 		em.remove(updatedC);
 		Country shouldBeNull = em.find(Country.class, id);
 		assertNull("Failed to delete", shouldBeNull);
-	}
-
-	@Test
-	public void testGenerateMethods() {
-		int oldCode = 21;
-		int newCode = 5000;
-		Country countryOne = new Country(oldCode, "old country");
-		Country countryTwo = new Country(newCode, "new country");
-
-		// Hashcode and .equals test
-		assertTrue(countryOne.equals(countryOne));
-		assertTrue(countryOne.hashCode() == countryOne.hashCode());
-		assertTrue( !countryOne.equals(countryTwo));
-		assertTrue( !(countryOne.hashCode() == countryTwo.hashCode()));
-
-		// Getters and setters test
-		countryOne.setCountry("new country");
-		countryOne.setCountryCode(newCode);
-		assertTrue(countryOne.getCountry().equals("new country"));
-		assertTrue(countryOne.getCountryCode() == newCode);
-		countryOne = null;
-		assertFalse(countryTwo.equals((countryOne)));
-		assertFalse(countryTwo.equals(new String()));
-		countryOne = new Country();
-		countryOne.setCountry("new country");
-		assertFalse(countryOne.equals(countryTwo));
 	}
 
 	private void clearData() throws Exception {

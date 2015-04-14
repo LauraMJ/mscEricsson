@@ -7,7 +7,12 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +20,12 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class UserTest {
+
+	@Deployment
+	public static Archive <?> createDeployment() {
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(User.class.getPackage())
+				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+	}
 
 	@PersistenceContext
 	private EntityManager em;
@@ -48,7 +59,7 @@ public class UserTest {
 
 		User user = new User(INITIAL_USERNAME, INITIAL_PASSWORD, INITIAL_ROLE);
 		em.persist(user);
-
+		
 		utx.commit();
 		em.clear();
 	}
@@ -63,8 +74,9 @@ public class UserTest {
 		loadedUser.setPassword(UPDATED_PASSWORD);
 		loadedUser.setRole(UPDATED_ROLE);
 		em.merge(loadedUser);
-
+		
 		User updatedUser = em.find(User.class, INITIAL_USERNAME);
+//		assertTrue("Failed to match", loadedUser.hashCode() == updatedUser.hashCode());
 		assertTrue("Failed to match", loadedUser.equals(updatedUser));
 		assertEquals("Failed to update", UPDATED_PASSWORD, updatedUser.getPassword());
 		assertEquals("Failed to update", UPDATED_ROLE, updatedUser.getRole());

@@ -12,24 +12,29 @@ import com.ericsson.msc.group5.services.CountryCodeNetworkCodeService;
 
 @Stateless
 @Local
-public class CountryCodeNetworkCodeServiceEJB implements CountryCodeNetworkCodeService{
+public class CountryCodeNetworkCodeServiceEJB implements CountryCodeNetworkCodeService {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Inject
 	private JPACountryCodeNetworkCodeDAO dao;
-	
+
 	@Override
-	public Collection<CountryCodeNetworkCode> getCountryCodeNetworkCode() {
+	public Collection <CountryCodeNetworkCode> getCountryCodeNetworkCodes() {
 		return dao.getAllCountryCodeNetworkCodes();
 	}
 
 	@Override
-	public void addCountryCodeNetworkCode(
-			Collection<CountryCodeNetworkCode> countryNetworkCodes) {
+	public void addCountryCodeNetworkCodes(Collection <CountryCodeNetworkCode> countryNetworkCodes) {
 		dao.batchInsertCountryCodeNetworkCode(countryNetworkCodes);
-		
+
+	}
+
+	@Override
+	public void addCountryCodeNetworkCode(CountryCodeNetworkCode countryCodeNetworkCode) {
+		dao.insertCountryCodeNetworkCode(countryCodeNetworkCode);
+
 	}
 
 }

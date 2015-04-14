@@ -29,4 +29,9 @@ public class FailureClassServiceEJB implements FailureClassService {
 	public void addFailureClasses(Collection <FailureClass> failureClasses) {
 		dao.batchInsertFailureClasses(failureClasses);
 	}
+
+	@Override
+	public void addFailureClass(FailureClass failureClass) {
+		dao.insertFailureClass(failureClass);
+	}
 }

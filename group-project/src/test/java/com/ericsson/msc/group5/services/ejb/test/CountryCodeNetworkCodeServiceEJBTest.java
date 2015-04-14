@@ -34,19 +34,17 @@ public class CountryCodeNetworkCodeServiceEJBTest {
 
 		CountryCodeNetworkCode [] ccncArray = {ccncck, ccncckTwo, ccncckThree};
 
-		Collection <CountryCodeNetworkCode> ccnc = new ArrayList <>();
+		Collection <CountryCodeNetworkCode> countryCodeNetworkCodesOriginal = new ArrayList <>();
 		for (CountryCodeNetworkCode c : ccncArray) {
-			ccnc.add(c);
+			countryCodeNetworkCodesOriginal.add(c);
 		}
 
-		service.addCountryCodeNetworkCode(ccnc);
+		service.addCountryCodeNetworkCodes(countryCodeNetworkCodesOriginal);
 
-		Collection <CountryCodeNetworkCode> retrievedCountryNetworkCodes = service.getCountryCodeNetworkCode();
-
+		Collection <CountryCodeNetworkCode> retrievedCountryNetworkCodes = service.getCountryCodeNetworkCodes();
+		System.out.println("Size of collection: " + retrievedCountryNetworkCodes.size());
 		for (CountryCodeNetworkCode c : retrievedCountryNetworkCodes) {
-			assertTrue("An object failed to be retrieved", ccnc.contains(c));
-			assertTrue(c.equals(c));
-			assertTrue(c.hashCode() == c.hashCode());
+			assertTrue("An object failed to be retrieved", countryCodeNetworkCodesOriginal.contains(c));
 		}
 	}
 }

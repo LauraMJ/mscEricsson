@@ -27,9 +27,9 @@ public class UserEquipmentServiceEJBTest {
 			userEquipments.add(ue);
 		}
 
-		service.addUserEquipment(userEquipments);
+		service.addUserEquipments(userEquipments);
 
-		Collection <UserEquipment> retrievedUserEquipment = service.getUserEquipment();
+		Collection <UserEquipment> retrievedUserEquipment = service.getAllUserEquipments();
 
 		for (UserEquipment ue : retrievedUserEquipment) {
 			assertTrue("An object failed to be retrieved", userEquipments.contains(ue));

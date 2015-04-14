@@ -99,9 +99,9 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 		return dao.getCauseCodesForImsi(imsi);
 	}
 
-	//Show the Top 10 IMSIs that had call failures during a time period
+	// Show the Top 10 IMSIs that had call failures during a time period
 	@Override
-	public Collection<String> topTenIMSIsWithFailures(Date startTime,
+	public Collection <String> topTenIMSIsWithFailures(Date startTime,
 			Date endTime) {
 		return dao.topTenIMSIsWithFailures(startTime, endTime);
 	}
@@ -114,5 +114,11 @@ public class FailureTraceServiceEJB implements FailureTraceService {
 	@Override
 	public Collection <ErrorLog> getErrorLogByImportDate(String importDate) {
 		return errorLogDAO.getErrorLogByImportDate(importDate);
+	}
+
+	@Override
+	public void addFailureTrace(FailureTrace failureTrace) {
+		dao.insertFailureTrace(failureTrace);
+
 	}
 }

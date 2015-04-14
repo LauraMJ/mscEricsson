@@ -12,23 +12,27 @@ import com.ericsson.msc.group5.services.UserEquipmentService;
 
 @Stateless
 @Local
-public class UserEquipmentServiceEJB implements UserEquipmentService{
+public class UserEquipmentServiceEJB implements UserEquipmentService {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Inject
 	private UserEquipmentDAO dao;
-	
+
 	@Override
-	public Collection<UserEquipment> getUserEquipment() {
+	public Collection <UserEquipment> getAllUserEquipments() {
 		return dao.getAllUserEquipment();
 	}
-	
+
 	@Override
-	public void addUserEquipment(Collection<UserEquipment> userEquipments) {
+	public void addUserEquipments(Collection <UserEquipment> userEquipments) {
 		dao.batchInsertUserEquipment(userEquipments);
 	}
-	
+
+	@Override
+	public void addUserEquipment(UserEquipment userEquipment) {
+		dao.insertUserEquipment(userEquipment);
+	}
 
 }

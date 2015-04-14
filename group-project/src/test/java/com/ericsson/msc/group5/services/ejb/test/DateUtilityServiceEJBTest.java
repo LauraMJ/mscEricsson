@@ -50,5 +50,11 @@ public class DateUtilityServiceEJBTest {
 		assertEquals(service.formatDateStringAsTimestamp(testTwo).toString(), "2015-02-02 16:30:00.0");
 		assertEquals(service.formatDateStringAsTimestamp(testThree).toString(), "2010-02-01 13:30:00.0");
 	}
+	
+	@Test
+	public void testParseException() {
+		String testNotDate = new String("hello");
+		assertEquals(service.formatDateStringAsTimestamp(testNotDate), null);
+	}
 
 }

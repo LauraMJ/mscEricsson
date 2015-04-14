@@ -48,12 +48,33 @@ public class LogDetailsRetriever implements LogDetailsRetrieverService {
 	}
 
 	public Path getLogFilePath() {
+		Path logFilePath = null;
+		String operatingSystem = (System.getProperty("os.name").toLowerCase());
+		if (operatingSystem.indexOf("win") >= 0) {
+			logFilePath = getLogFilePathForWindowsSystem();
+		}
+		if (operatingSystem.indexOf("nix") >= 0 || operatingSystem.indexOf("nux") >= 0 || operatingSystem.indexOf("aix") > 0) {
+			logFilePath = getLogFilePathForUnixSystem();
+		}
+
+		return logFilePath;
+	}
+
+	private Path getLogFilePathForUnixSystem() {
+		Path logFilePath = null;
+		String thisClassRootPathString = LogDetailsRetriever.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		Path thisClassRootPath = Paths.get(thisClassRootPathString);
+		Path JBossDeploymentsPath = thisClassRootPath.getParent().getParent().getParent();
+		return logFilePath = Paths.get(JBossDeploymentsPath.toString() + "/log.txt");
+	}
+
+	private Path getLogFilePathForWindowsSystem() {
+		Path logFilePath = null;
 		String thisClassRootPathString = LogDetailsRetriever.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		thisClassRootPathString = thisClassRootPathString.substring(1);
 		Path thisClassRootPath = Paths.get(thisClassRootPathString);
 		Path JBossDeploymentsPath = thisClassRootPath.getParent().getParent().getParent();
-		Path logFilePath = Paths.get(JBossDeploymentsPath.toString() + "\\log.txt");
-		return logFilePath;
+		return logFilePath = Paths.get(JBossDeploymentsPath.toString() + "\\log.txt");
 	}
 
 	@Override

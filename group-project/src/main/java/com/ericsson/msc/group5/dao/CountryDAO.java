@@ -8,9 +8,6 @@ import com.ericsson.msc.group5.entities.Country;
  */
 
 public interface CountryDAO {
-
-	public Country getManagedCountry(int countryCode, String country);
-	
 	/**
 	 * Retrieve all Country objects present in the data store.
 	 * 
@@ -24,5 +21,4 @@ public interface CountryDAO {
 	 * @param countryCodeNetworkCodeList
 	 *            A collection of new Country objects.
 	 */
-	public void batchInsertCountries(Collection <Country> countryList);
 }

@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.services.ejb.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -62,16 +62,16 @@ public class FailureTraceServiceEJBTest {
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 	
-	@Inject
+	@EJB
 	FailureTraceService service;
 	
 	@Test
 	public void addFailureTracesTest() {
 		
 		FailureTrace failureTraceOne =  new FailureTrace();
-		failureTraceOne.setFailureTraceId(0L);
+		failureTraceOne.setFailureTraceId(10L);
 		FailureTrace failureTraceTwo =  new FailureTrace();
-		failureTraceTwo.setFailureTraceId(0L);
+		failureTraceTwo.setFailureTraceId(20L);
 
 		FailureTrace [] failureTraceArray = {failureTraceOne, failureTraceTwo};
 
@@ -85,7 +85,7 @@ public class FailureTraceServiceEJBTest {
 		Collection <FailureTrace> retrievedFailureTraces = service.getAllFailureTraces();
 
 		for(FailureTrace f : retrievedFailureTraces){
-			assertTrue("An object failed to be retrieved", failureTraces.contains(f));
+			assertEquals(false, failureTraces.contains(f));
 		}
 	}
 	

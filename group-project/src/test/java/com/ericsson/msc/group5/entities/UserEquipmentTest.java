@@ -123,12 +123,18 @@ public class UserEquipmentTest {
 	}
 	
 	@Test
-	private void equalityTest() throws Exception{
+	public void equalityTest() throws Exception{
 		UserEquipment loadedUE = em.find(UserEquipment.class, id);
 		UserEquipment userEquipment = new UserEquipment();
 		assertFalse("Failed to match", loadedUE.equals(null));
 		assertFalse("Failed to match", loadedUE.equals(new Integer(1)));
 		assertFalse("Failed to match", userEquipment.equals(loadedUE));
+		userEquipment.setTypeAllocationCode(2);
+		assertFalse("Failed to match", loadedUE.equals(userEquipment));
+		userEquipment.setTypeAllocationCode(0);
+		assertTrue("Failed to match", loadedUE.equals(userEquipment));
+		userEquipment.setFailureTrace(null);
+		assertNull(userEquipment.getFailureTrace());
 	}
 
 	private void clearData() throws Exception {

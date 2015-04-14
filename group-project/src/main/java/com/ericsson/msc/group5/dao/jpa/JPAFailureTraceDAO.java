@@ -26,7 +26,7 @@ public class JPAFailureTraceDAO implements FailureTraceDAO {
 	}
 
 	@Override
-	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String Imsi) {
+	public Collection <String> getCountAndTotalDurationForGivenImsiWithinTimePeriod(Date startTime, Date endTime, String Imsi) {
 		return em.createNamedQuery("getCountAndTotalDurationForGivenImsiWithinTimePeriod").setParameter("startTime", startTime).setParameter("endTime", endTime)
 				.setParameter("Imsi", Imsi).getResultList();
 	}

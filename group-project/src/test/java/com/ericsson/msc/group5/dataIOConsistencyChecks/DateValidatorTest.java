@@ -15,11 +15,6 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import com.ericsson.msc.group5.dao.FailureTraceDAO;
-import com.ericsson.msc.group5.dao.jpa.JPAFailureTraceDAO;
-import com.ericsson.msc.group5.entities.FailureTrace;
-import com.ericsson.msc.group5.services.DataImportService;
-import com.ericsson.msc.group5.services.ejb.DataImportServiceEJB;
 import com.ericsson.msc.group5.services.ejb.ValidatorServiceEJB;
 
 @RunWith(Arquillian.class)
@@ -52,6 +47,7 @@ public class DateValidatorTest {
 		String dateString6 = "30/03/14 10:00";
 		String dateString7 = "30/03/14";
 		String dateString8 = "30/09/14 10:00";
+		String dateString9 = "99/99/99 99:99";
 		assertEquals(expectedResult1, service.validateDate(dateString1));
 		assertEquals(expectedResult2, service.validateDate(dateString2));
 		assertEquals(expectedResult2, service.validateDate(dateString3));
@@ -60,5 +56,6 @@ public class DateValidatorTest {
 		assertEquals(expectedResult1, service.validateDate(dateString6));
 		assertEquals(expectedResult2, service.validateDate(dateString7));
 		assertEquals(expectedResult1, service.validateDate(dateString8));
+		assertEquals(expectedResult2, service.validateDate(dateString9));
 	}
 }

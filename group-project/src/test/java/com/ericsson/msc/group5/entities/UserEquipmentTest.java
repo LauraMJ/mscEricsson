@@ -129,6 +129,12 @@ public class UserEquipmentTest {
 		assertFalse("Failed to match", loadedUE.equals(null));
 		assertFalse("Failed to match", loadedUE.equals(new Integer(1)));
 		assertFalse("Failed to match", userEquipment.equals(loadedUE));
+		userEquipment.setTypeAllocationCode(2);
+		assertFalse("Failed to match", loadedUE.equals(userEquipment));
+		userEquipment.setTypeAllocationCode(0);
+		assertTrue("Failed to match", loadedUE.equals(userEquipment));
+		userEquipment.setFailureTrace(null);
+		assertNull(userEquipment.getFailureTrace());
 	}
 
 	public void clearData() throws Exception {

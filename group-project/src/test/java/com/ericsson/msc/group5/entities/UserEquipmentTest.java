@@ -123,7 +123,7 @@ public class UserEquipmentTest {
 	}
 	
 	@Test
-	private void equalityTest() throws Exception{
+	public void equalityTest() throws Exception{
 		UserEquipment loadedUE = em.find(UserEquipment.class, id);
 		UserEquipment userEquipment = new UserEquipment();
 		assertFalse("Failed to match", loadedUE.equals(null));
@@ -131,7 +131,7 @@ public class UserEquipmentTest {
 		assertFalse("Failed to match", userEquipment.equals(loadedUE));
 	}
 
-	private void clearData() throws Exception {
+	public void clearData() throws Exception {
 		utx.begin();
 		em.joinTransaction();
 		System.out.println("Dumping old records...");
@@ -139,7 +139,7 @@ public class UserEquipmentTest {
 		utx.commit();
 	}
 
-	private void startTransaction() throws Exception {
+	public void startTransaction() throws Exception {
 		utx.begin();
 		em.joinTransaction();
 	}

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.ejb.EJB;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.ericsson.msc.group5.entities.Country;
@@ -13,12 +15,14 @@ import com.ericsson.msc.group5.entities.CountryCodeNetworkCodeCK;
 import com.ericsson.msc.group5.services.CountryCodeNetworkCodeService;
 
 @RunWith(Arquillian.class)
+@Transactional
 public class CountryCodeNetworkCodeServiceEJBTest {
 
 	@EJB
 	private CountryCodeNetworkCodeService service;
 
 	@Test
+	@Transactional(TransactionMode.ROLLBACK)
 	public void addCountryCodeNetworkCodeTest() {
 		Country country = new Country(1, "country");
 		CountryCodeNetworkCodeCK ck = new CountryCodeNetworkCodeCK(country, 1);

@@ -1,10 +1,6 @@
 package com.ericsson.msc.group5.rest;
 
-import static com.jayway.restassured.RestAssured.expect;
-import static com.jayway.restassured.RestAssured.get;
 import static com.jayway.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
 import java.io.File;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -18,8 +14,6 @@ import org.junit.runner.RunWith;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.config.LogConfig;
 import com.jayway.restassured.config.RestAssuredConfig;
-import com.jayway.restassured.path.json.JsonPath;
-import com.jayway.restassured.response.Response;
 
 @RunWith(Arquillian.class)
 public class UserRESTResourceTest {
@@ -57,37 +51,4 @@ public class UserRESTResourceTest {
     public void basicAuthentication() throws Exception {
         given().auth().basic("administrator", "admin").expect().statusCode(200).when().get("/get/userrole");
     }
-
-	@Test
-	public void testGetUsername() {
-		expect().statusCode(200).body("username", equalTo("administartor")).when().get("/get/userrole");
-	}
-
-	@Test
-	public void testAddUser() {
-		// fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddDefaultAdminAccount() {
-		// fail("Not yet implemented");
-	}
-
-	// @Test
-	// public void testGetUsername() {
-	// Response res = get("/get/userrole");
-	// assertEquals(200, res.getStatusCode());
-	// String json = res.asString();
-	// JsonPath jp = new JsonPath(json);
-	// assertEquals("user", jp.get("username"));
-	// }
-
-	@Test
-	public void testGetUserrole() {
-		Response res = get("/get/userrole");
-		assertEquals(200, res.getStatusCode());
-		String json = res.asString();
-		JsonPath jp = new JsonPath(json);
-		assertEquals("administartor", jp.get("role"));
-	}
 }

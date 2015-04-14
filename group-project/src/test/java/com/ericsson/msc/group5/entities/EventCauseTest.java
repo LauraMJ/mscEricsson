@@ -1,20 +1,14 @@
 package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import java.io.File;
+import static org.junit.Assert.assertTrue;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +39,9 @@ public class EventCauseTest {
 
 	@Test
 	public void basicCRUDTest() throws Exception {
-		EventCauseCK pk = new EventCauseCK(1, 1);
+		EventCauseCK pk = new EventCauseCK();
+		pk.setCauseCode(1);
+		pk.setEventId(1);
 		EventCause createdEC = new EventCause(pk, INITIAL_DESCRIPTION);
 		em.persist(createdEC);
 
@@ -75,6 +71,19 @@ public class EventCauseTest {
 		assertEquals("failed to set event id", newEventId, ck.getEventId());
 		EventCauseCK ckCopy = new EventCauseCK(newCauseCode, newEventId);
 		assertEquals("the two objects should be equal since they have the same state", ck, ckCopy);
+	}
+	
+	@Test
+	public void testEquality(){
+		EventCauseCK pk = new EventCauseCK(1, 1);
+		EventCauseCK other = new EventCauseCK(1, 1);
+		
+		assertTrue(pk.equals(other));
+		assertFalse(pk.equals(null));
+		assertFalse(pk.equals(new Integer(0)));
+		assertFalse(pk.equals(new EventCauseCK(0, 1)));
+		assertFalse(pk.equals(new EventCauseCK(1, 0)));
+		assertTrue(pk.hashCode() == (other.hashCode()));
 	}
 
 	private void clearData() throws Exception {

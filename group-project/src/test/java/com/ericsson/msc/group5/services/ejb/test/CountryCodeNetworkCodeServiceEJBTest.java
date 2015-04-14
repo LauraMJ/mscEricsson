@@ -46,6 +46,5 @@ public class CountryCodeNetworkCodeServiceEJBTest {
 		for (CountryCodeNetworkCode c : retrievedCountryNetworkCodes) {
 			assertTrue("An object failed to be retrieved", ccnc.contains(c));
 		}
-
 	}
 }

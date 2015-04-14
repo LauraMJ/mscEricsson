@@ -23,8 +23,7 @@ public class LogDetailsRetrieverTest {
 		logString.add("Time Taken=6088");
 		logString.add("Valid Records=29997");
 		logString.add("Invalid Records=1");
-		logger.createJsonObjectFromArrayListOfDetails(logString);
-		JSONObject json = logger.retrieveLogDetailsAsJson();
+		JSONObject json = logger.createJsonObjectFromArrayListOfDetails(logString);
 		assertEquals(false, json.isEmpty());
 	}
 }

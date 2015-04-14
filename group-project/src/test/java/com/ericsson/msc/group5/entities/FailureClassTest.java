@@ -1,7 +1,9 @@
 package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -55,6 +57,20 @@ public class FailureClassTest {
 		em.remove(updatedFC);
 		FailureClass shouldBeNull = em.find(FailureClass.class, id);
 		assertNull("Failed to delete", shouldBeNull);
+	}
+	
+	@Test
+	public void testEquality(){
+		FailureClass failureClass = new FailureClass(1, "description");
+		FailureClass otherFailureClass = new FailureClass(2, "other description");
+		
+		assertTrue(failureClass.equals(new FailureClass(1, "other failure class")));
+		assertFalse(failureClass.equals(null));
+		assertFalse(failureClass.equals(new Integer(0)));
+		assertFalse(failureClass.equals(new EventCauseCK(0, 1)));
+		assertFalse((new FailureClass()).equals(failureClass));
+		assertFalse(failureClass.equals(otherFailureClass));
+		assertTrue(failureClass.hashCode() == (new FailureClass(1, "other failure class").hashCode()));
 	}
 
 	private void clearData() throws Exception {

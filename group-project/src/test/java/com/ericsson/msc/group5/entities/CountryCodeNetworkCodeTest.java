@@ -110,7 +110,32 @@ public class CountryCodeNetworkCodeTest {
 		// Check .equals on empty required field
 		countryCodeNetworkCodeTwo = new CountryCodeNetworkCode();
 		assertFalse(countryCodeNetworkCodeOne.equals(countryCodeNetworkCodeTwo));
-
+	}
+	
+	@Test
+	public void testEquality(){
+		CountryCodeNetworkCodeCK ck = new CountryCodeNetworkCodeCK(new Country(1, "country"), 1);
+		CountryCodeNetworkCodeCK otherCK = new CountryCodeNetworkCodeCK(new Country(1, "other country"), 1);
+		
+		CountryCodeNetworkCodeCK wrongCK1 = new CountryCodeNetworkCodeCK(new Country(2, "country"), 1);
+		CountryCodeNetworkCodeCK wrongCK2 = new CountryCodeNetworkCodeCK(new Country(1, "other country"), 2);
+		
+		assertTrue(ck.equals(otherCK));
+		assertFalse(ck.equals(null));
+		assertFalse(ck.equals(new Integer(0)));
+		assertFalse(ck.equals(new CountryCodeNetworkCodeCK(new Country(2, "country"), 1)));
+		assertFalse(ck.equals(new CountryCodeNetworkCodeCK(new Country(1, "country"), 2)));
+		assertTrue(ck.hashCode() == (otherCK.hashCode()));
+		
+		CountryCodeNetworkCode cc = new CountryCodeNetworkCode(ck, "description");
+		CountryCodeNetworkCode otherCC = new CountryCodeNetworkCode(otherCK, "other description");
+		
+		assertTrue(cc.equals(otherCC));
+		assertFalse(cc.equals(null));
+		assertFalse(cc.equals(new Integer(0)));
+		assertFalse(cc.equals(new CountryCodeNetworkCode(wrongCK1, "description")));
+		assertFalse(cc.equals(new CountryCodeNetworkCode(wrongCK2, "description")));
+		assertTrue(cc.hashCode() == (otherCC.hashCode()));
 	}
 
 	private void clearData() throws Exception {

@@ -84,6 +84,16 @@ public class EventCauseTest {
 		assertFalse(pk.equals(new EventCauseCK(0, 1)));
 		assertFalse(pk.equals(new EventCauseCK(1, 0)));
 		assertTrue(pk.hashCode() == (other.hashCode()));
+		
+		EventCause eventCause = new EventCause(pk, "description");
+		EventCause otherEventCause = new EventCause(other, "description");
+		
+		assertTrue(eventCause.equals(otherEventCause));
+		assertFalse(eventCause.equals(null));
+		assertFalse(eventCause.equals(new Integer(0)));
+		assertFalse(eventCause.equals(new EventCause(new EventCauseCK(0, 1), "description")));
+		assertFalse(eventCause.equals(new EventCause(new EventCauseCK(1, 0), "description")));
+		assertTrue(eventCause.hashCode() == (otherEventCause.hashCode()));
 	}
 
 	private void clearData() throws Exception {

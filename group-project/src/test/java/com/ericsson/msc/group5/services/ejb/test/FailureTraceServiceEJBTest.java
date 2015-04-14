@@ -14,7 +14,7 @@ import com.ericsson.msc.group5.services.FailureTraceService;
 public class FailureTraceServiceEJBTest {
 
 	@EJB
-	FailureTraceService service;
+	private FailureTraceService service;
 
 	@Test
 	public void addFailureTracesTest() {

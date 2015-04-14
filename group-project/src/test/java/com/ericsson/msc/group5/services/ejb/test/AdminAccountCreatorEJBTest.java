@@ -22,21 +22,9 @@ import com.ericsson.msc.group5.services.UserService;
 
 @RunWith(Arquillian.class)
 public class AdminAccountCreatorEJBTest {
-
-	@Deployment(testable = true)
-	public static Archive <?> createDeployment() {
-		PomEquippedResolveStage pom = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeAndTestDependencies();
-		File [] libraries = pom.resolve("org.apache.poi:poi").withTransitivity().asFile();
-
-		return ShrinkWrap.create(WebArchive.class, "test.war")
-				.addPackages(true, "com.ericsson")
-				.addAsLibraries(libraries)
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
 	
 	@EJB
-	UserService service;
+	private UserService service;
 	
 	@Test
 	public void initTest() {

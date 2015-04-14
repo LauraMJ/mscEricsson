@@ -16,7 +16,7 @@ import com.ericsson.msc.group5.services.CountryCodeNetworkCodeService;
 public class CountryCodeNetworkCodeServiceEJBTest {
 
 	@EJB
-	CountryCodeNetworkCodeService service;
+	private CountryCodeNetworkCodeService service;
 
 	@Test
 	public void addCountryCodeNetworkCodeTest() {

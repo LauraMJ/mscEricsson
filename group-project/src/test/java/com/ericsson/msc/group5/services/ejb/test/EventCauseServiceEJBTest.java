@@ -15,7 +15,7 @@ import com.ericsson.msc.group5.services.EventCauseService;
 public class EventCauseServiceEJBTest {
 
 	@EJB
-	EventCauseService service;
+	private EventCauseService service;
 
 	@Test
 	public void addEventCause() {

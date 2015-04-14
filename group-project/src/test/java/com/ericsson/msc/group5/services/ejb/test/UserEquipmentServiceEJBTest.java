@@ -14,7 +14,7 @@ import com.ericsson.msc.group5.services.UserEquipmentService;
 public class UserEquipmentServiceEJBTest {
 
 	@EJB
-	UserEquipmentService service;
+	private UserEquipmentService service;
 
 	@Test
 	public void addUserEquipmentTest() {

@@ -13,7 +13,7 @@ import com.ericsson.msc.group5.services.UserService;
 public class UserAuthenicationServiceEJBTest {
 
 	@EJB
-	UserAuthenticationService service;
+	private UserAuthenticationService service;
 
 	@EJB
 	UserService userService;

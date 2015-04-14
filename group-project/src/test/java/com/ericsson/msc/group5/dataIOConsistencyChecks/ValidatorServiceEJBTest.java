@@ -68,6 +68,7 @@ public class ValidatorServiceEJBTest {
 	public void tearDown(){
 		HSSFWorkbook workbook2 = null;
 		HSSFWorkbook workbook3 = null;
+		HSSFSheet worksheet = null;
 	}
 	
 	

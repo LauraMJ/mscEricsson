@@ -36,5 +36,11 @@ public class UserServiceEJBTests {
 		User newUser = service.getUser("SAM");
 		assertEquals(newUser.getUsername(), "SAM");
 	}
+	
+	@Test
+	public void testExistingUser() {
+		service.addUser("test", "pass", "administrator");
+		assertEquals(service.addUser("test", "pass", "administrator"), false);
+	}
 
 }

@@ -24,8 +24,9 @@ public class UserServiceEJB implements UserService {
 
 	@Override
 	public boolean addUser(String username, String password, String userRole) {
-		if (dao.getUser(username) != null)
+		if (dao.getUser(username) != null){
 			return false;
+		}
 		dao.addUser(new User(username, passwordGeneratorService.generate(password), userRole));
 		return true;
 	}

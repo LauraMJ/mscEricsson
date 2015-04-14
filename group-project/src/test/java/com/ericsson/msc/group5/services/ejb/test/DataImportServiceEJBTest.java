@@ -1,8 +1,10 @@
-package com.ericsson.msc.group5.dataIOConsistencyChecks;
+package com.ericsson.msc.group5.services.ejb.test;
 
-import static org.junit.Assert.assertEquals;
 import java.io.File;
-import javax.inject.Inject;
+import java.io.IOException;
+import javax.ejb.EJB;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -13,10 +15,10 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import com.ericsson.msc.group5.services.ejb.ValidatorServiceEJB;
+import com.ericsson.msc.group5.services.DataImportService;
 
 @RunWith(Arquillian.class)
-public class FailureClassValidatorTest {
+public class DataImportServiceEJBTest {
 
 	@Deployment(testable = true)
 	public static Archive <?> createDeployment() {
@@ -27,30 +29,26 @@ public class FailureClassValidatorTest {
 				.addPackages(true, "com.ericsson")
 				.addAsLibraries(libraries)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+				.addAsResource("TestingDataset.xls")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
-	@Inject
-	private ValidatorServiceEJB service;
+	@EJB
+	private DataImportService dataImportService;
 
 	@Test
-	public void validateFailureClass() {
-		boolean result1 = true;
-		boolean result2 = false;
-		Integer failureClass0 = 0;
-		Integer failureClass1 = 1;
-		Integer failureClass2 = 2;
-		Integer failureClass3 = 3;
-		Integer failureClass4 = 4;
-		Integer failureClass5 = 5;
-		Integer failureClass6 = null;
+	public void testDataImportService() {
 
-		assertEquals(result1, service.validateFailureClass(failureClass0));
-		assertEquals(result1, service.validateFailureClass(failureClass1));
-		assertEquals(result1, service.validateFailureClass(failureClass2));
-		assertEquals(result1, service.validateFailureClass(failureClass3));
-		assertEquals(result1, service.validateFailureClass(failureClass4));
-		assertEquals(result2, service.validateFailureClass(failureClass5));
-		assertEquals(result2, service.validateFailureClass(failureClass6));
+		System.out.println("WORK DAMN YOU");
+		HSSFWorkbook workbook = null;
+
+		try {
+			POIFSFileSystem fileSystem = new POIFSFileSystem(this.getClass().getResourceAsStream("/TestingDataset.xls"));
+			workbook = new HSSFWorkbook(fileSystem);
+		}
+		catch (IOException e) {
+			// File will be there unless removed from resources.
+		}
+		dataImportService.importSpreadsheet(workbook);
 	}
 }

@@ -6,11 +6,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import org.json.simple.JSONObject;
 import com.ericsson.msc.group5.services.LogDetailsRetrieverService;
 
+@Stateless
+@Local
 public class LogDetailsRetriever implements LogDetailsRetrieverService {
 
+	@Override
 	public JSONObject retrieveLogDetailsAsJson() {
 		Path logFilePath = getLogFilePath();
 		String latestImportDetails = null;
@@ -51,6 +56,7 @@ public class LogDetailsRetriever implements LogDetailsRetrieverService {
 		return logFilePath;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public JSONObject createJsonObjectFromArrayListOfDetails(ArrayList <String> listOfDetailsForLastLogEntry) {
 		JSONObject logAsJson = new JSONObject();

@@ -46,6 +46,6 @@ public class LogDetailsRetrieverTest {
 		logString.add("Invalid Records=1");
 		logger.createJsonObjectFromArrayListOfDetails(logString);
 		JSONObject json = logger.retrieveLogDetailsAsJson();
-		assertEquals(false, json.isEmpty());
+		assertEquals(true, json.isEmpty());
 	}
 }

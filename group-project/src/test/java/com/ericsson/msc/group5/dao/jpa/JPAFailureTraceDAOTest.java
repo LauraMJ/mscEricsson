@@ -1,8 +1,6 @@
 package com.ericsson.msc.group5.dao.jpa;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import java.util.Date;
 import javax.inject.Inject;
@@ -31,7 +29,7 @@ public class JPAFailureTraceDAOTest {
 
 	@Inject
 	private UserTransaction utx;
-	
+
 	@Before
 	public void preparePersistenceTest() throws Exception {
 		clearData();
@@ -42,22 +40,22 @@ public class JPAFailureTraceDAOTest {
 	public void commitTransaction() throws Exception {
 		utx.commit();
 	}
-	
+
 	@Test
-	public void testInsertion(){
+	public void testInsertion() {
 		FailureTrace ft = new FailureTrace();
 		ft.setFailureTraceId(0L);
 		failureTraceDAO.insertFailureTrace(ft);
 		assertNotNull(failureTraceDAO.getAllFailureTraces());
 		assertTrue(failureTraceDAO.getAllFailureTraces().size() == 1);
 	}
-	
+
 	@Test
-	public void testGetEventCauseForIMSI(){
+	public void testGetEventCauseForIMSI() {
 		String imsi = "1234";
 		EventCause eventCause = new EventCause(new EventCauseCK(1, 1), "description");
 		em.persist(eventCause);
-		
+
 		FailureTrace ft = new FailureTrace();
 		ft.setFailureTraceId(0L);
 		ft.setEventCause(eventCause);
@@ -66,55 +64,55 @@ public class JPAFailureTraceDAOTest {
 		assertTrue(failureTraceDAO.getEventCauseForImsi(imsi).contains("description"));
 		assertTrue(failureTraceDAO.getEventCauseForImsi("12345").size() == 0);
 	}
-	
+
 	@Test
-	public void getImsiOfFailureWithinTimePeriod(){
+	public void getImsiOfFailureWithinTimePeriod() {
 		String imsi1 = "1234";
 		long days1 = 213412;
 		Date date1 = new Date(days1);
 		String imsi2 = "123456";
-		long days2 = days1+6;
+		long days2 = days1 + 6;
 		Date date2 = new Date(days2);
-		
+
 		FailureTrace ft1 = new FailureTrace();
 		ft1.setFailureTraceId(0L);
 		ft1.setIMSI(imsi1);
 		ft1.setDateTime(date1);
-		
+
 		FailureTrace ft2 = new FailureTrace();
 		ft2.setFailureTraceId(1L);
 		ft2.setIMSI(imsi2);
 		ft2.setDateTime(date2);
-		
+
 		failureTraceDAO.insertFailureTrace(ft1);
 		failureTraceDAO.insertFailureTrace(ft2);
 
-		assertTrue(failureTraceDAO.getImsiOfFailureWithinTimePeriod(new Date(days1-1), new Date(days2+1)).size() == 2);
-		assertTrue(failureTraceDAO.getImsiOfFailureWithinTimePeriod(new Date(days1-1), new Date(days2+1)).contains(imsi1));
-		assertTrue(failureTraceDAO.getImsiOfFailureWithinTimePeriod(new Date(days1-1), new Date(days2+1)).contains(imsi2));
+		assertTrue(failureTraceDAO.getImsiOfFailureWithinTimePeriod(new Date(days1 - 1), new Date(days2 + 1)).size() == 2);
+		assertTrue(failureTraceDAO.getImsiOfFailureWithinTimePeriod(new Date(days1 - 1), new Date(days2 + 1)).contains(imsi1));
+		assertTrue(failureTraceDAO.getImsiOfFailureWithinTimePeriod(new Date(days1 - 1), new Date(days2 + 1)).contains(imsi2));
 	}
-	
+
 	@Test
-	public void testGetGivenImsiOfFailureWithinTimePeriod(){
+	public void testGetCountAndTotalDurationForGivenImsiWithinTimePeriod() {
 		String imsi = "1234";
 		long days = 213412;
 		Date date = new Date(days);
-		
+
 		FailureTrace ft = new FailureTrace();
 		ft.setFailureTraceId(0L);
 		ft.setIMSI(imsi);
 		ft.setDateTime(date);
-		
+
 		failureTraceDAO.insertFailureTrace(ft);
-		
-		assertTrue(failureTraceDAO.getGivenImsiOfFailureWithinTimePeriod(new Date(days-1), new Date(days+1), imsi).contains(imsi));
-		assertTrue(failureTraceDAO.getGivenImsiOfFailureWithinTimePeriod(new Date(days-2), new Date(days-1), imsi).size() == 0);
-		assertTrue(failureTraceDAO.getGivenImsiOfFailureWithinTimePeriod(new Date(days+1), new Date(days+2), imsi).size() == 0);
-		assertTrue(failureTraceDAO.getGivenImsiOfFailureWithinTimePeriod(new Date(days-1), new Date(days+1), "12345").size() == 0);
+
+		assertTrue(failureTraceDAO.getCountAndTotalDurationForGivenImsiWithinTimePeriod(new Date(days - 1), new Date(days + 1), imsi).contains(imsi));
+		assertTrue(failureTraceDAO.getCountAndTotalDurationForGivenImsiWithinTimePeriod(new Date(days - 2), new Date(days - 1), imsi).size() == 0);
+		assertTrue(failureTraceDAO.getCountAndTotalDurationForGivenImsiWithinTimePeriod(new Date(days + 1), new Date(days + 2), imsi).size() == 0);
+		assertTrue(failureTraceDAO.getCountAndTotalDurationForGivenImsiWithinTimePeriod(new Date(days - 1), new Date(days + 1), "12345").size() == 0);
 	}
-	
+
 	@Test
-	public void testGetCountOfFailuresForModelWithinTimePeriod(){
+	public void testGetCountOfFailuresForModelWithinTimePeriod() {
 		String model = "model";
 		UserEquipment ue = new UserEquipment();
 		ue.setModel(model);
@@ -144,16 +142,16 @@ public class JPAFailureTraceDAOTest {
 		ft3.setFailureTraceId(2L);
 		ft3.setUserEquipment(ue2);
 		ft3.setDateTime(date);
-		
+
 		failureTraceDAO.insertFailureTrace(ft1);
 		failureTraceDAO.insertFailureTrace(ft2);
 		failureTraceDAO.insertFailureTrace(ft3);
-		
-		System.out.println(failureTraceDAO.getCountOfFailuresForModelWithinTimePeriod(model, new Date(days-1), new Date(days+1)));
-		System.out.println(failureTraceDAO.getCountOfFailuresForModelWithinTimePeriod(differentModel, new Date(days-1), new Date(days+1)));
-		
-		assertTrue(failureTraceDAO.getCountOfFailuresForModelWithinTimePeriod(model, new Date(days-1), new Date(days+1)).contains("2"));
-		assertTrue(failureTraceDAO.getCountOfFailuresForModelWithinTimePeriod(differentModel, new Date(days-1), new Date(days+1)).contains("1"));
+
+		System.out.println(failureTraceDAO.getCountOfFailuresForModelWithinTimePeriod(model, new Date(days - 1), new Date(days + 1)));
+		System.out.println(failureTraceDAO.getCountOfFailuresForModelWithinTimePeriod(differentModel, new Date(days - 1), new Date(days + 1)));
+
+		assertTrue(failureTraceDAO.getCountOfFailuresForModelWithinTimePeriod(model, new Date(days - 1), new Date(days + 1)).contains("2"));
+		assertTrue(failureTraceDAO.getCountOfFailuresForModelWithinTimePeriod(differentModel, new Date(days - 1), new Date(days + 1)).contains("1"));
 	}
 
 	private void clearData() throws Exception {

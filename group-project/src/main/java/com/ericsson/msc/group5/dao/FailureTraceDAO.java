@@ -14,7 +14,7 @@ public interface FailureTraceDAO {
 
 	public Collection <String> getImsiOfFailureWithinTimePeriod(Date startTime, Date endTime);
 
-	public Collection <String> getGivenImsiOfFailureWithinTimePeriod(Date startTime, Date endTime, String Imsi);
+	public Collection <String> getCountAndTotalDurationForGivenImsiWithinTimePeriod(Date startTime, Date endTime, String Imsi);
 
 	public Collection <String> getCountOfFailuresForModelWithinTimePeriod(String model, Date startTime, Date endTime);
 

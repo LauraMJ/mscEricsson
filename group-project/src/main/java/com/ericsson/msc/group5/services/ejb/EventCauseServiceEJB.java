@@ -10,15 +10,13 @@ import com.ericsson.msc.group5.dao.EventCauseDAO;
 import com.ericsson.msc.group5.entities.EventCause;
 import com.ericsson.msc.group5.services.EventCauseService;
 
-
-
 @Stateless
 @Local
-public class EventCauseServiceEJB implements EventCauseService{
-	
+public class EventCauseServiceEJB implements EventCauseService {
+
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Inject
 	private EventCauseDAO dao;
 
@@ -26,12 +24,15 @@ public class EventCauseServiceEJB implements EventCauseService{
 	public Collection <EventCause> getCauseCode() {
 		return dao.getAllEventCauses();
 	}
-	
+
 	@Override
-	public void addEventCause(Collection<EventCause> eventCauses) {
+	public void addEventCauses(Collection <EventCause> eventCauses) {
 		dao.batchInsertEventCause(eventCauses);
-		
 	}
-	
+
+	@Override
+	public void addEventCause(EventCause eventCause) {
+		dao.insertEventCause(eventCause);
+	}
 
 }

@@ -14,6 +14,10 @@ import com.ericsson.msc.group5.entities.FailureTrace;
 @Local
 public interface FailureTraceService {
 
+	public void addFailureTrace(FailureTrace failureTrace);
+
+	public void addFailureTraces(Collection <FailureTrace> failureTraces);
+
 	public Collection <String> getImsiOfFailureByTimePeriod(Date startTime, Date endTime);
 
 	public Collection <EventCause> getEventCauseCombinations(String imsi);
@@ -30,17 +34,13 @@ public interface FailureTraceService {
 
 	public Collection <FailureTrace> getAllFailureTraces();
 
-	public void addFailureTraces(Collection <FailureTrace> failureTraces);
-
 	public Collection <String> getTop10MarketOperatorCellIdCombinations(Date dateOne, Date dateTwo);
 
-	// For a given IMSI, count the number of failures it has had during a given time period.
 	public Collection <String> givenImsiAndTimePeriodReturnNumberOfFailures(String Imsi, Date startTime, Date endTime);
-	
-	//Show the Top 10 IMSIs that had call failures during a time period
+
 	public Collection <String> topTenIMSIsWithFailures(Date startTime, Date endTime);
 
-	Long getTotalNumberOfEntries();
+	public Long getTotalNumberOfEntries();
 
 	public Collection <String> getAllIMSIs();
 

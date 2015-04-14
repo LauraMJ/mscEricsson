@@ -29,7 +29,7 @@ public class EventCauseServiceEJBTest {
 			eventCauses.add(e);
 		}
 
-		service.addEventCause(eventCauses);
+		service.addEventCauses(eventCauses);
 
 		Collection <EventCause> retrievedEventCauses = service.getCauseCode();
 

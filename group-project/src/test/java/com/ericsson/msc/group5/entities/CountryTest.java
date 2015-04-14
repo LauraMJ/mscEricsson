@@ -44,6 +44,8 @@ public class CountryTest {
 		Country createdC = new Country(id, INITIAL_COUNTRY);
 		em.persist(createdC);
 
+		commitTransaction();
+		em.clear();
 		Country loadedC = em.find(Country.class, id);
 		assertEquals("Failed to insert", INITIAL_COUNTRY, loadedC.getCountry());
 

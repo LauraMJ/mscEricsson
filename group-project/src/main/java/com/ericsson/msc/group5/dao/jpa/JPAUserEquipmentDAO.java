@@ -28,7 +28,7 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 
 	@Override
 	public void batchInsertUserEquipment(Collection <UserEquipment> userEquipmentList) {
-		for(UserEquipment userEquipment : userEquipmentList)
+		for (UserEquipment userEquipment : userEquipmentList)
 			em.persist(userEquipment);
 	}
 }

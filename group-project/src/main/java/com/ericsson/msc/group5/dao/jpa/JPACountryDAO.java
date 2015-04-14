@@ -20,4 +20,9 @@ public class JPACountryDAO implements CountryDAO {
 		return em.createNamedQuery("findAllCountries").getResultList();
 	}
 
+	@Override
+	public void insertCountry(Country country) {
+		em.persist(country);
+	}
+
 }

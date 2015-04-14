@@ -30,11 +30,8 @@ public class UserEquipmentTest {
 		PomEquippedResolveStage pom = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeAndTestDependencies();
 		File [] libraries = pom.resolve("org.apache.poi:poi").withTransitivity().asFile();
 
-		return ShrinkWrap.create(WebArchive.class, "test.war")
-				.addPackages(true, "com.ericsson")
-				.addAsLibraries(libraries)
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackages(true, "com.ericsson").addAsLibraries(libraries)
+				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@PersistenceContext
@@ -84,7 +81,8 @@ public class UserEquipmentTest {
 		utx.begin();
 		em.joinTransaction();
 
-		UserEquipment ue = new UserEquipment(id, INITIAL_MARKETING_NAME, INITIAL_MANUFACTURER, INITIAL_ACCESS_CAPABILITY, INITIAL_MODEL, INITIAL_VENDOR, INITIAL_USER_EQUIPMENT_TYPE, INITIAL_OPERATING_SYSTEM, INITIAL_INPUT_MODE);
+		UserEquipment ue = new UserEquipment(id, INITIAL_MARKETING_NAME, INITIAL_MANUFACTURER, INITIAL_ACCESS_CAPABILITY, INITIAL_MODEL, INITIAL_VENDOR,
+				INITIAL_USER_EQUIPMENT_TYPE, INITIAL_OPERATING_SYSTEM, INITIAL_INPUT_MODE);
 		em.persist(ue);
 
 		utx.commit();
@@ -131,7 +129,7 @@ public class UserEquipmentTest {
 	}
 
 	@Test
-	private void equalityTest() throws Exception {
+	public void equalityTest() throws Exception {
 
 		UserEquipment loadedUE = em.find(UserEquipment.class, id);
 		UserEquipment userEquipment = new UserEquipment();

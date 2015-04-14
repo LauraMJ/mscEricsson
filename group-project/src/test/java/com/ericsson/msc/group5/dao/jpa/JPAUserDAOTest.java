@@ -61,5 +61,4 @@ public class JPAUserDAOTest {
 		utx.begin();
 		em.joinTransaction();
 	}
-
 }

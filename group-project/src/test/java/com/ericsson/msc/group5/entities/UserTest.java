@@ -2,6 +2,7 @@ package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,7 +34,6 @@ public class UserTest {
 	private UserTransaction utx;
 
 	private static String INITIAL_USERNAME = "username";
-	private static String UPDATED_USERNAME = "lee";
 
 	private static String INITIAL_PASSWORD = "password";
 	private static String UPDATED_PASSWORD = "other";
@@ -71,16 +71,18 @@ public class UserTest {
 		assertEquals("Failed to update", INITIAL_PASSWORD, loadedUser.getPassword());
 		assertEquals("Failed to update", INITIAL_ROLE, loadedUser.getRole());
 
-		loadedUser.setUsername(UPDATED_USERNAME);
 		loadedUser.setPassword(UPDATED_PASSWORD);
 		loadedUser.setRole(UPDATED_ROLE);
-		User updatedUser = em.find(User.class, UPDATED_USERNAME);
-		assertEquals("Failed to update", UPDATED_USERNAME, updatedUser.getUsername());
+		em.merge(loadedUser);
+		
+		User updatedUser = em.find(User.class, INITIAL_USERNAME);
+//		assertTrue("Failed to match", loadedUser.hashCode() == updatedUser.hashCode());
+		assertTrue("Failed to match", loadedUser.equals(updatedUser));
 		assertEquals("Failed to update", UPDATED_PASSWORD, updatedUser.getPassword());
 		assertEquals("Failed to update", UPDATED_ROLE, updatedUser.getRole());
 
 		em.remove(updatedUser);
-		User shouldBeNull = em.find(User.class, UPDATED_USERNAME);
+		User shouldBeNull = em.find(User.class, INITIAL_USERNAME);
 		assertNull("Failed to delete", shouldBeNull);
 	}
 

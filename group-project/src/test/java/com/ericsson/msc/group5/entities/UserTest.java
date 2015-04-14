@@ -71,9 +71,8 @@ public class UserTest {
 		assertEquals("Failed to update", INITIAL_PASSWORD, loadedUser.getPassword());
 		assertEquals("Failed to update", INITIAL_ROLE, loadedUser.getRole());
 
-		loadedUser.setUsername(UPDATED_USERNAME);
-		loadedUser.setPassword(UPDATED_PASSWORD);
-		loadedUser.setRole(UPDATED_ROLE);
+		User user = new User(UPDATED_USERNAME, UPDATED_PASSWORD, UPDATED_ROLE);
+		em.persist(user);
 		User updatedUser = em.find(User.class, UPDATED_USERNAME);
 		assertEquals("Failed to update", UPDATED_USERNAME, updatedUser.getUsername());
 		assertEquals("Failed to update", UPDATED_PASSWORD, updatedUser.getPassword());

@@ -10,11 +10,6 @@ import java.util.regex.Pattern;
 import javax.inject.Inject;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.ss.usermodel.Cell;
-import com.ericsson.msc.group5.entities.CountryCodeNetworkCode;
-import com.ericsson.msc.group5.entities.EventCause;
-import com.ericsson.msc.group5.entities.FailureClass;
-import com.ericsson.msc.group5.entities.FailureTrace;
-import com.ericsson.msc.group5.entities.UserEquipment;
 import com.ericsson.msc.group5.services.DateUtilityService;
 import com.ericsson.msc.group5.services.ValidatorService;
 
@@ -94,7 +89,6 @@ public class ValidatorServiceEJB implements ValidatorService {
 	}
 
 	public boolean validateFailureTraceRowFieldValues(HSSFRow row) {
-
 		if ( !validateDate(dateUtilityService.formatDateAsString(row.getCell(0).getDateCellValue()))) {
 			setErrorDescriptionString("Date not ok");
 			return false;
@@ -387,123 +381,6 @@ public class ValidatorServiceEJB implements ValidatorService {
 		}
 
 		return dateString;
-	}
-
-	// Unused
-	public boolean validateFieldTypes(HSSFRow row, Object entity) {
-		if (entity instanceof FailureTrace) {
-			return validateFailureTraceRowFieldTypes(row);
-		}
-		if (entity instanceof UserEquipment) {
-			return validateUserEquipmentRowFieldTypes(row);
-		}
-		if (entity instanceof EventCause) {
-			return validateEventCauseRowFieldTypes(row);
-		}
-		if (entity instanceof FailureClass) {
-			return validateFailureClassRowFieldTypes(row);
-		}
-		if (entity instanceof CountryCodeNetworkCode) {
-			return validateCountryCodeNetworkCodeRowFieldTypes(row);
-		}
-		return false;
-	}
-
-	// Unused
-	public boolean validateFieldValues(HSSFRow row, Object entity) {
-		if (entity instanceof FailureTrace) {
-			return validateFailureTraceRowFieldValues(row);
-		}
-		return true;
-	}
-
-	// Unused
-	public boolean validateUserEquipmentRowFieldTypes(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(4).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(5).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(6).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(7).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(8).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return true;
-	}
-
-	// Unused
-	public boolean validateCountryCodeNetworkCodeRowFieldTypes(
-			HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		if (row.getCell(3).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return false;
-	}
-
-	// Unused
-	public boolean validateHierInfoRowFieldTypes(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return true;
-		}
-		return false;
-	}
-
-	// Unused
-	public boolean validateFailureClassRowFieldTypes(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return true;
-	}
-
-	// Unused
-	public boolean validateEventCauseRowFieldTypes(HSSFRow row) {
-		if (row.getCell(0).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(1).getCellType() != Cell.CELL_TYPE_NUMERIC) {
-			return false;
-		}
-		if (row.getCell(2).getCellType() != Cell.CELL_TYPE_STRING) {
-			return false;
-		}
-		return true;
 	}
 
 	public String getErrorDescriptionString() {

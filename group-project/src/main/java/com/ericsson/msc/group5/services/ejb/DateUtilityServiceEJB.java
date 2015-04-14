@@ -32,9 +32,10 @@ public class DateUtilityServiceEJB implements DateUtilityService {
 				Locale.UK);
 		DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT,
 				Locale.UK);
-
-		String dateTimeString = dateFormat.format(dateTime) + " "
-				+ timeFormat.format(dateTime);
+		if (dateTime == null) {
+			System.out.println("Date time null :(");
+		}
+		String dateTimeString = dateFormat.format(dateTime) + " " + timeFormat.format(dateTime);
 		//
 		// java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
 		// "dd/MM/yyyy, HH:mm");

@@ -17,13 +17,15 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import com.ericsson.msc.group5.dao.FailureTraceDAO;
+import com.ericsson.msc.group5.dao.jpa.JPAFailureTraceDAO;
 
 @RunWith(Arquillian.class)
 public class FailureTraceTest {
 
 	@Deployment
 	public static Archive <?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(FailureTrace.class.getPackage())
+		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(FailureTrace.class.getPackage()).addPackage(FailureTraceDAO.class.getPackage()).addPackage(JPAFailureTraceDAO.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -32,6 +34,8 @@ public class FailureTraceTest {
 
 	@Inject
 	private UserTransaction utx;
+	@Inject
+	private FailureTraceDAO failureTraceDAO;
 
 	private static Integer INITIAL_DURATION = 1000;
 	private static Integer UPDATED_DURATION = 10000;
@@ -86,6 +90,7 @@ public class FailureTraceTest {
 		em.clear();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void basicCRUDTest() throws Exception {
 		FailureTrace loadedFT = em.find(FailureTrace.class, id);
@@ -98,6 +103,8 @@ public class FailureTraceTest {
 		em.remove(updatedFT);
 		FailureTrace shouldBeNull = em.find(FailureTrace.class, id);
 		assertNull("Failed to delete", shouldBeNull);
+
+		em.remove(loadedFT);
 	}
 
 	/*

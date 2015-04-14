@@ -2,6 +2,7 @@ package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -103,6 +104,7 @@ public class UserEquipmentTest {
 		loadedUE.setInputMode(UPDATED_INPUT_MODE);
 		
 		UserEquipment updatedUE = em.find(UserEquipment.class, id);
+		assertTrue("Failed to match", loadedUE.equals(updatedUE));
 		assertEquals("Failed to insert", UPDATED_MARKETING_NAME, loadedUE.getMarketingName());
 		assertEquals("Failed to insert", UPDATED_MARKETING_NAME, loadedUE.getMarketingName());
 		assertEquals("Failed to update", UPDATED_MANUFACTURER, updatedUE.getManufacturer());

@@ -48,6 +48,15 @@ public class JPACountryDAOTest {
 		assertTrue(countryDAO.getAllCountries().size() == 1);
 	}
 	
+	@Test
+	public void testGetAllCountries(){
+		Country c = new Country(12, "Japan");
+		Country c2 = new Country(21, "Kenya");
+		countryDAO.insertCountry(c);
+		countryDAO.insertCountry(c2);
+		assertTrue(countryDAO.getAllCountries().size() == 2);
+	}
+	
 	private void clearData() throws Exception {
 		utx.begin();
 		em.joinTransaction();

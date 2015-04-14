@@ -5,6 +5,8 @@ import javax.ejb.EJB;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.ericsson.msc.group5.services.DataImportService;
@@ -16,6 +18,7 @@ public class DataImportServiceEJBTest {
 	private DataImportService dataImportService;
 
 	@Test
+	@Transactional(TransactionMode.ROLLBACK)
 	public void testDataImportService() {
 
 		HSSFWorkbook workbook = null;

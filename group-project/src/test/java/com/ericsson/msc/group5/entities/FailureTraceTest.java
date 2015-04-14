@@ -13,7 +13,6 @@ import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import com.ericsson.msc.group5.dao.CountryDAO;
 import com.ericsson.msc.group5.dao.FailureTraceDAO;
 import com.ericsson.msc.group5.services.CountryCodeNetworkCodeService;
 import com.ericsson.msc.group5.services.EventCauseService;
@@ -41,8 +40,8 @@ public class FailureTraceTest {
 	private FailureClassService failureClassService;
 	@Inject
 	private EventCauseService eventCauseService;
-	@Inject
-	private CountryDAO countryDAO;
+	// @Inject
+	// private CountryService countryService;
 	@Inject
 	private CountryCodeNetworkCodeService countryCodeNetworkCodeService;
 
@@ -125,7 +124,7 @@ public class FailureTraceTest {
 		testCountry = new Country();
 		testCountry.setCountry("country");
 		testCountry.setCountryCode(231);
-		countryDAO.insertCountry(testCountry);
+		// countryService.insertCountry(testCountry);
 		// em.persist(testCountry);
 		testCountryCodeNetworkCode = new CountryCodeNetworkCode(new CountryCodeNetworkCodeCK(testCountry, 0), "operator");
 		testFailureTrace.setCountryCodeNetworkCode(testCountryCodeNetworkCode);

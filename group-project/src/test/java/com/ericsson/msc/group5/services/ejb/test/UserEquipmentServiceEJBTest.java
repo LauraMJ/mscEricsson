@@ -5,18 +5,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.ejb.EJB;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.ericsson.msc.group5.entities.UserEquipment;
 import com.ericsson.msc.group5.services.UserEquipmentService;
 
 @RunWith(Arquillian.class)
+@Transactional
 public class UserEquipmentServiceEJBTest {
 
 	@EJB
 	private UserEquipmentService service;
 
 	@Test
+	@Transactional(TransactionMode.ROLLBACK)
 	public void addUserEquipmentTest() {
 		UserEquipment [] userEquipmentArray = {
 				new UserEquipment(1, "one", "one", "one", "one", "one", "one", "one", "one"),

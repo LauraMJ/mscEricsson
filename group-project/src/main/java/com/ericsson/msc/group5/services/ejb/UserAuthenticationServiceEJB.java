@@ -22,6 +22,7 @@ public class UserAuthenticationServiceEJB implements UserAuthenticationService {
 	@Inject
 	private PasswordGeneratorService passwordGeneratorService;
 
+	@Override
 	public String authenticateUser(String username, String password) {
 		User user = userDAO.getUser(username);
 		System.out.println("password is " + password);

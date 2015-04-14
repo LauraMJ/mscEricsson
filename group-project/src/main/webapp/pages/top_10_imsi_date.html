@@ -142,8 +142,7 @@
 									<tbody>
 									</tbody>
 								</table>
-								<div id = "graph-button-container">
-								</div>
+								<div id = "graph-button-container"></div>
 							</div>
 							
 							<!-- /#page-wrapper -->
@@ -218,17 +217,17 @@
 	<!-- Graphing -->
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['bar']}]}"></script>
 	<script>
-		google.load("visualization", "1.1", {packages:["bar"]});
-		google.setOnLoadCallback(drawGraph);	
-		function drawGraph(){
+		
 			
+		function drawGraph(){
+			google.load("visualization", "1.1", {packages:["bar"]});
 			var countMapping = { 0: true };
 			var countList = [];
 		
 			$("#datatable-1 tr").each(function(rowIndex) {
 			    $(this).find("td").each(function(cellIndex) {
 			        if (countMapping[cellIndex]){
-			        	countList.push($(this).text());
+			        	countList.push(Number($(this).text()));
 			        }
 			    });
 			});
@@ -255,33 +254,39 @@
 			var j;
 			for(j = 0; j < imsiList.length; j++){
 				arrIn = new Array(2);
-				arrIn[0] = countList[j];
-				arrIn[1] = imsiList[j];
+				arrIn[0] = 'IMSI:\n'+imsiList[j];
+				arrIn[1] = countList[j];
+				//arrIn[2] = ''
+				//arrIn[3] = imsiList[j];
 				arr[j] = arrIn;
 			}
-			/*var data = new google.visualization.DataTable();
-			data.addColumn('string','Count');
-			data.addColumn('string','IMSI');
-			var i;
-			for(i = 0; i < imsiList.length; i++){
-				var a = arr[i];
-				data.addRow(a);
-			}*/
 			var arr2 = [
-                        ['Count', '']
+                        ['', 'Count']
             ]
-			for(var i = 0; i < arr.length; i++){
+			for(var i = arr.length-1; i >= 0; i--){
 				arr2.push(arr[i]);
 			}
 			var data = new google.visualization.arrayToDataTable(arr2);
-	
+			data.addColumn({type: 'string', role: 'tooltip'});
 		    var options = {
-		        title: "Top 10 IMSI Failures",
+	    		chart: {
+	    			title: "Top 10 IMSI Failures"
+    	        },
+    	        hAxis: {
+    	        	title: 'Count',
+    	            minValue: 0,
+    	        },
+    	        axes: {
+    	            y: {
+    	              0: { side: 'top', label: 'Count'} // Top x-axis.
+    	            }
+   	          	},
 		        width: 600,
 		        height: 400,
 		        isStacked: false,
-		        bars: 'horizontal',
-		        hAxis: { textPosition: 'none' },
+		        bars: 'vertical',
+		        tooltip: {isHtml: true}
+		        
 		      }; 
 			
 			var chart = new google.charts.Bar(document.getElementById('graphContainer'));

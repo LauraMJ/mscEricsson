@@ -47,13 +47,12 @@ public class RestImportService {
 			String timestamp = dataImport.getTimestamp();
 			String validRecordCount = dataImport.getAddedCount();
 			String invalidRecordCount = dataImport.getRejectedCount();
-			resultString = "time_taken=" + DataImportServiceEJB.duration + "ms&timestamp=" + timestamp + "&added=" + validRecordCount + "&rejected=" + invalidRecordCount;
+			resultString = "time_taken=" + DataImportServiceEJB.duration + "ms&timestamp=" + timestamp + "&added=" + validRecordCount + "&rejected="
+					+ invalidRecordCount;
 			System.out.println(resultString);
 		}
 		catch (IOException e) {
 			resultString = "Import was unsuccessful";
-			// e.printStackTrace();
-
 			return Response.temporaryRedirect(location).build();
 		}
 

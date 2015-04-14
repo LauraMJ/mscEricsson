@@ -33,9 +33,29 @@ public class UserEquipmentTest {
 	@Inject
 	private UserTransaction utx;
 
-	private static String INITIAL_MANUFACTURER = "Samsung";
-	private static String UPDATED_MANUFACTURER = "Apple";
-	private UserEquipment ue;
+	private static String INITIAL_MARKETING_NAME = "initial marketing name";
+	private static String UPDATED_MARKETING_NAME = "updated marketing name";
+
+	private static String INITIAL_MANUFACTURER = "initial manufacturer";
+	private static String UPDATED_MANUFACTURER = "updated manufacturer";
+
+	private static String INITIAL_ACCESS_CAPABILITY = "initial ac";
+	private static String UPDATED_ACCESS_CAPABILITY = "updated ac";
+
+	private static String INITIAL_MODEL = "initial model";
+	private static String UPDATED_MODEL = "updated model";
+
+	private static String INITIAL_VENDOR = "initial vendor";
+	private static String UPDATED_VENDOR = "updated vendor";
+
+	private static String INITIAL_USER_EQUIPMENT_TYPE = "initial uet";
+	private static String UPDATED_USER_EQUIPMENT_TYPE = "updated uet";
+
+	private static String INITIAL_OPERATING_SYSTEM = "initial os";
+	private static String UPDATED_OPERATING_SYSTEM = "updated os";
+
+	private static String INITIAL_INPUT_MODE = "initial input mode";
+	private static String UPDATED_INPUT_MODE = "updated input mode";
 	private int id = 0;
 
 	@Before
@@ -54,13 +74,7 @@ public class UserEquipmentTest {
 		utx.begin();
 		em.joinTransaction();
 
-		ue = new UserEquipment();
-		ue.setTypeAllocationCode(id);
-		ue.setManufacturer(INITIAL_MANUFACTURER);
-		ue.setAccessCapability("access capability");
-		ue.setInputMode("input mode");
-		ue.setOperatingSystem("operating system");
-		ue.setUserEquipmentType("user equipment type");
+		UserEquipment ue = new UserEquipment(id, INITIAL_MARKETING_NAME, INITIAL_MANUFACTURER, INITIAL_ACCESS_CAPABILITY, INITIAL_MODEL, INITIAL_VENDOR, INITIAL_USER_EQUIPMENT_TYPE, INITIAL_OPERATING_SYSTEM, INITIAL_INPUT_MODE);
 		em.persist(ue);
 
 		utx.commit();
@@ -70,51 +84,38 @@ public class UserEquipmentTest {
 	@Test
 	public void basicCRUDTest() throws Exception {
 		UserEquipment loadedUE = em.find(UserEquipment.class, id);
+		assertEquals("Failed to insert", INITIAL_MARKETING_NAME, loadedUE.getMarketingName());
 		assertEquals("Failed to insert", INITIAL_MANUFACTURER, loadedUE.getManufacturer());
+		assertEquals("Failed to insert", INITIAL_ACCESS_CAPABILITY, loadedUE.getAccessCapability());
+		assertEquals("Failed to insert", INITIAL_MODEL, loadedUE.getModel());
+		assertEquals("Failed to insert", INITIAL_VENDOR, loadedUE.getVendor());
+		assertEquals("Failed to insert", INITIAL_USER_EQUIPMENT_TYPE, loadedUE.getUserEquipmentType());
+		assertEquals("Failed to insert", INITIAL_OPERATING_SYSTEM, loadedUE.getOperatingSystem());
+		assertEquals("Failed to insert", INITIAL_INPUT_MODE, loadedUE.getInputMode());
 
+		loadedUE.setMarketingName(UPDATED_MARKETING_NAME);
 		loadedUE.setManufacturer(UPDATED_MANUFACTURER);
+		loadedUE.setAccessCapability(UPDATED_ACCESS_CAPABILITY);
+		loadedUE.setModel(UPDATED_MODEL);
+		loadedUE.setVendor(UPDATED_VENDOR);
+		loadedUE.setUserEquipmentType(UPDATED_USER_EQUIPMENT_TYPE);
+		loadedUE.setOperatingSystem(UPDATED_OPERATING_SYSTEM);
+		loadedUE.setInputMode(UPDATED_INPUT_MODE);
+		
 		UserEquipment updatedUE = em.find(UserEquipment.class, id);
+		assertEquals("Failed to insert", UPDATED_MARKETING_NAME, loadedUE.getMarketingName());
+		assertEquals("Failed to insert", UPDATED_MARKETING_NAME, loadedUE.getMarketingName());
 		assertEquals("Failed to update", UPDATED_MANUFACTURER, updatedUE.getManufacturer());
+		assertEquals("Failed to insert", UPDATED_ACCESS_CAPABILITY, updatedUE.getAccessCapability());
+		assertEquals("Failed to insert", UPDATED_MODEL, updatedUE.getModel());
+		assertEquals("Failed to insert", UPDATED_VENDOR, updatedUE.getVendor());
+		assertEquals("Failed to insert", UPDATED_USER_EQUIPMENT_TYPE, updatedUE.getUserEquipmentType());
+		assertEquals("Failed to insert", UPDATED_OPERATING_SYSTEM, updatedUE.getOperatingSystem());
+		assertEquals("Failed to insert", UPDATED_INPUT_MODE, loadedUE.getInputMode());
 
 		em.remove(updatedUE);
 		UserEquipment shouldBeNull = em.find(UserEquipment.class, id);
 		assertNull("Failed to delete", shouldBeNull);
-	}
-
-	/*
-	 * Test to ensure that deletes cascade/don't cascade properly to the owned entities.
-	 */
-	@Test
-	@Ignore
-	public void testDeleteCascade() {
-
-	}
-
-	/*
-	 * Test the manufacturer field - boundary/values
-	 */
-	@Test
-	@Ignore
-	public void testManufacturerSetter() {
-
-	}
-
-	/*
-	 * Test the marketing name field - boundary/values
-	 */
-	@Test
-	@Ignore
-	public void testMarketingNameSetter() {
-
-	}
-
-	/*
-	 * Test the model field - boundary/values
-	 */
-	@Test
-	@Ignore
-	public void testModelSetter() {
-
 	}
 
 	private void clearData() throws Exception {

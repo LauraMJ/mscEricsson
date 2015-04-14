@@ -51,4 +51,10 @@ function populateTable(data) {
 		t.row.add([ count, cellId, operator, market ]);
 	}
 	t.draw();
+	var cont = document.getElementById("graph-button-container");
+	cont.innerHTML = "<button id = 'graph'\
+						onclick = 'drawGraph()'\
+						class='btn btn-primary btn-lg'>\
+							Show Graph\
+					  </button>"
 }

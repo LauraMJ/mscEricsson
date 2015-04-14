@@ -17,15 +17,10 @@ import org.hibernate.annotations.Index;
  * Base Data table.
  */
 
-// .causeCode, f.eventCause.causeCodeEventIdCK.eventId,
-// .description
-// f.eventCause.causeCodeEventIdCK.causeCode,
-// f.eventCause.causeCodeEventIdCK.eventId, "
-// + "f.eventCause.description
 @Entity
 @Table(name = "failure_trace")
 @NamedQueries({
-		// Queries for dropdown population
+// Queries for dropdown population
 		@NamedQuery(name = "getAllIMSIs", query = "SELECT DISTINCT (f.IMSI) FROM FailureTrace f"),
 		@NamedQuery(name = "getAllModels", query = "SELECT DISTINCT (u.model) FROM UserEquipment u"),
 		// Other queries
@@ -75,7 +70,9 @@ public class FailureTrace {
 	@JoinColumns({@JoinColumn(name = "cause_code", referencedColumnName = "cause_code"), @JoinColumn(name = "event_id", referencedColumnName = "event_id")})
 	private EventCause eventCause;
 	@ManyToOne
-	@JoinColumns({@JoinColumn(name = "country_code", referencedColumnName = "country_code"), @JoinColumn(name = "network_code", referencedColumnName = "network_code")})
+	@JoinColumns({
+			@JoinColumn(name = "country_code", referencedColumnName = "country_code"),
+			@JoinColumn(name = "network_code", referencedColumnName = "network_code")})
 	private CountryCodeNetworkCode countryCodeNetworkCode;
 
 	/**

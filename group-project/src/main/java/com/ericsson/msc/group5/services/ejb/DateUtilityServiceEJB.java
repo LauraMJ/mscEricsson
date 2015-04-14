@@ -53,7 +53,7 @@ public class DateUtilityServiceEJB implements DateUtilityService {
 			parsedDate = dateFormat.parse(inputDateString);
 		}
 		catch (ParseException e) {
-			e.printStackTrace();
+			return null;
 		}
 		Timestamp timestamp = new Timestamp(parsedDate.getTime());
 

@@ -1,9 +1,12 @@
 package com.ericsson.msc.group5.services.ejb.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.util.ArrayList;
+
 import javax.ejb.EJB;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -15,6 +18,7 @@ import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import com.ericsson.msc.group5.services.LogDetailsRetrieverService;
 
 @RunWith(Arquillian.class)
@@ -42,6 +46,6 @@ public class LogDetailsRetrieverTest {
 		logString.add("Invalid Records=1");
 		logger.createJsonObjectFromArrayListOfDetails(logString);
 		JSONObject json = logger.retrieveLogDetailsAsJson();
-		assertTrue(json.isEmpty());
+		assertEquals(false, json.isEmpty());
 	}
 }

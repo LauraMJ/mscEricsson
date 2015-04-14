@@ -1,6 +1,6 @@
 package com.ericsson.msc.group5.services.ejb.test;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.ArrayList;
 import javax.ejb.EJB;
@@ -42,6 +42,6 @@ public class LogDetailsRetrieverTest {
 		logString.add("Invalid Records=1");
 		logger.createJsonObjectFromArrayListOfDetails(logString);
 		JSONObject json = logger.retrieveLogDetailsAsJson();
-		assertFalse(json.isEmpty());
+		assertTrue(json.isEmpty());
 	}
 }

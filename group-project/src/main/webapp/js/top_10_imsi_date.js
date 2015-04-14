@@ -46,12 +46,12 @@ function populateTable(data) {
 		t.row.add([ data[i][0], data[i][1] ]);
 	}
 	t.draw();
-	var cont = document.getElementById("graph-button-container");
+	/*var cont = document.getElementById("graph-button-container");
 	cont.innerHTML = "<button id = 'graph'\
 						onclick = 'drawGraph()'\
 						class='btn btn-primary btn-lg btn-block'>\
 							Show Graph\
-					  </button>"
+					  </button>"*/
 }
 function passData(data){
 	$.getScript("../bower_components/raphael/raphael.js",function(data){

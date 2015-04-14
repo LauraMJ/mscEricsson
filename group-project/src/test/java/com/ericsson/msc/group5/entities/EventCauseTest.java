@@ -2,63 +2,63 @@ package com.ericsson.msc.group5.entities;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.UserTransaction;
 import org.jboss.arquillian.junit.Arquillian;
-import org.junit.After;
-import org.junit.Before;
+import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import com.ericsson.msc.group5.services.EventCauseService;
 
 @RunWith(Arquillian.class)
+@Transactional
 public class EventCauseTest {
 
 	@PersistenceContext
 	private EntityManager em;
 
 	@Inject
-	private UserTransaction utx;
+	private EventCauseService eventCauseService;
 
 	private static String INITIAL_DESCRIPTION = "RRC CONN SETUP-UE BEARERS REJECTED DUE TO ARP ADM REJ AND LICENSES MISSING";
 	private static String UPDATED_DESCRIPTION = "UE CTXT RELEASE-UNKNOWN OR ALREADY ALLOCATED ENB UE S1AP ID";
 
-	@Before
-	public void preparePersistenceTest() throws Exception {
-		clearData();
-		startTransaction();
-	}
-
-	@After
-	public void commitTransaction() throws Exception {
-		utx.commit();
-	}
 
 	@Test
+	@Transactional(TransactionMode.ROLLBACK)
 	public void basicCRUDTest() throws Exception {
 		EventCauseCK pk = new EventCauseCK();
 		pk.setCauseCode(1);
 		pk.setEventId(1);
 		EventCause createdEC = new EventCause(pk, INITIAL_DESCRIPTION);
-		em.persist(createdEC);
+		eventCauseService.addEventCause(createdEC);
 
-		EventCause loadedEC = em.find(EventCause.class, pk);
+		ArrayList <EventCause> eventCauses = new ArrayList <>();
+		Collection <?> eventCausesCollection = eventCauseService.getCauseCode();
+
+		for (Object e : eventCausesCollection) {
+			eventCauses.add((EventCause) e);
+		};
+		EventCause loadedEC = null;
+		for (EventCause f : eventCauses) {
+			if (f.getCauseCodeEventIdCK().equals(pk)) {
+				loadedEC = f;
+				break;
+			}
+		}
+
 		assertEquals("Failed to insert", INITIAL_DESCRIPTION, loadedEC.getDescription());
 
 		loadedEC.setDescription(UPDATED_DESCRIPTION);
-		EventCause updatedEC = em.find(EventCause.class, pk);
-
-		assertEquals("Failed to update", UPDATED_DESCRIPTION, updatedEC.getDescription());
-
-		em.remove(updatedEC);
-		EventCause shouldBeNull = em.find(EventCause.class, pk);
-		assertNull("Failed to delete", shouldBeNull);
 	}
 
 	@Test
+	@Transactional(TransactionMode.ROLLBACK)
 	public void compositeKeyTest() {
 		int oldCauseCode = 21;
 		int oldEventId = 45;
@@ -74,6 +74,7 @@ public class EventCauseTest {
 	}
 	
 	@Test
+	@Transactional(TransactionMode.ROLLBACK)
 	public void testEquality(){
 		EventCauseCK pk = new EventCauseCK(1, 1);
 		EventCauseCK other = new EventCauseCK(1, 1);
@@ -94,18 +95,5 @@ public class EventCauseTest {
 		assertFalse(eventCause.equals(new EventCause(new EventCauseCK(0, 1), "description")));
 		assertFalse(eventCause.equals(new EventCause(new EventCauseCK(1, 0), "description")));
 		assertTrue(eventCause.hashCode() == (otherEventCause.hashCode()));
-	}
-
-	private void clearData() throws Exception {
-		utx.begin();
-		em.joinTransaction();
-		System.out.println("Dumping old records...");
-		em.createQuery("delete from com.ericsson.msc.group5.entities.EventCause").executeUpdate();
-		utx.commit();
-	}
-
-	private void startTransaction() throws Exception {
-		utx.begin();
-		em.joinTransaction();
 	}
 }

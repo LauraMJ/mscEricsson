@@ -142,8 +142,7 @@
 									<tbody>
 									</tbody>
 								</table>
-								<div id = "graph-button-container">
-								</div>
+								<div id = "graph-button-container"></div>
 							</div>
 							
 							<!-- /#page-wrapper -->
@@ -255,7 +254,7 @@
 			var j;
 			for(j = 0; j < imsiList.length; j++){
 				arrIn = new Array(2);
-				arrIn[0] = imsiList[j];
+				arrIn[0] = 'IMSI:\n'+imsiList[j];
 				arrIn[1] = countList[j];
 				//arrIn[2] = ''
 				//arrIn[3] = imsiList[j];
@@ -268,6 +267,7 @@
 				arr2.push(arr[i]);
 			}
 			var data = new google.visualization.arrayToDataTable(arr2);
+			data.addColumn({type: 'string', role: 'tooltip'});
 		    var options = {
 	    		chart: {
 	    			title: "Top 10 IMSI Failures"
@@ -285,6 +285,7 @@
 		        height: 400,
 		        isStacked: false,
 		        bars: 'vertical',
+		        tooltip: {isHtml: true}
 		        
 		      }; 
 			

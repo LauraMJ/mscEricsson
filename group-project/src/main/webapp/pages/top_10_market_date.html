@@ -144,6 +144,7 @@
 									<tbody>
 									</tbody>
 								</table>
+								<div id = "graph-button-container"></div>
 							</div>
 							<!-- /#page-wrapper -->
 						</div>
@@ -219,6 +220,102 @@
 			});
 		});
 	</script>
+	<!-- Graphing -->
+	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['bar']}]}"></script>
+	<script>
+		function drawGraph(){
+			google.load("visualization", "1.1", {packages:["bar"]});
+			var countMapping = { 0: true };
+			var countList = [];
+		
+			$("#datatable-1 tr").each(function(rowIndex) {
+			    $(this).find("td").each(function(cellIndex) {
+			        if (countMapping[cellIndex]){
+			        	countList.push(Number($(this).text()));
+			        }
+			    });
+			});
+			
+			var cellIdMapping = { 1: true };
+			var cellIdList = [];
+		
+			$("#datatable-1 tr").each(function(rowIndex) {
+			    $(this).find("td").each(function(cellIndex) {
+			        if (cellIdMapping[cellIndex]){
+			        	cellIdList.push($(this).text());
+			        }
+			    });
+			});
+			
+			var operatorMapping = { 2: true };
+			var operatorList = [];
+		
+			$("#datatable-1 tr").each(function(rowIndex) {
+			    $(this).find("td").each(function(cellIndex) {
+			        if (operatorMapping[cellIndex]){
+			        	operatorList.push($(this).text());
+			        }
+			    });
+			});
+			
+			var marketMapping = { 4: true };
+			var marketList = [];
+		
+			$("#datatable-1 tr").each(function(rowIndex) {
+			    $(this).find("td").each(function(cellIndex) {
+			        if (marketMapping[cellIndex]){
+			        	marketList.push($(this).text());
+			        }
+			    });
+			});
+			
+			var options = {
+				chart: {
+	            	title: 'Count per IMSI'
+				},
+	            bars: 'horizontal' 
+	        };
+			
+			var arr = [];
+			var j;
+			for(j = 0; j < cellIdList.length; j++){
+				arrIn = new Array(2);
+				arrIn[0] = 'Cell ID:\n'+cellIdList[j] +'\nOperator:\n'+operatorList[j]+'\nMarket:\n'+marketList[j];
+				arrIn[1] = countList[j];
+				//arrIn[2] = ''
+				//arrIn[3] = imsiList[j];
+				arr[j] = arrIn;
+			}
+			var arr2 = [
+                        ['', 'Count']
+            ]
+			for(var i = arr.length-1; i >= 0; i--){
+				arr2.push(arr[i]);
+			}
+			var data = new google.visualization.arrayToDataTable(arr2);
+		    var options = {
+	    		chart: {
+	    			title: "Top 10 IMSI Failures"
+    	        },
+    	        hAxes: 'none',
+    	        legend: {position: 'none'},
+    	        axes: {
+    	            y: {
+    	              0: {label: 'Count'} 
+    	            }
+   	          	},
+		        width: 600,
+		        height: 400,
+		        isStacked: false,
+		        bars: 'vertical',
+		        tooltip: {isHtml: true}
+		      }; 
+			
+			var chart = new google.charts.Bar(document.getElementById('graphContainer'));
+	        chart.draw(data, options);
+		}
+	</script>
+	<div class = "graphing" id = 'graphContainer'></div>
 
 </body>
 </html>

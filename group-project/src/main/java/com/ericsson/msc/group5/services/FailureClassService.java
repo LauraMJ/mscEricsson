@@ -18,10 +18,13 @@ public interface FailureClassService {
 	public Collection <FailureClass> getFailureClasses();
 
 	/**
-	 * Batch store a collection of FailureClasses. Optimized to handle large volumes of data efficiently.
+	 * Batch store a collection of FailureClasses. Optimized to handle large
+	 * volumes of data efficiently.
 	 * 
 	 * @param failureClasses
 	 *            A collection of FailureClass objects to store.
 	 */
 	public void addFailureClasses(Collection <FailureClass> failureClasses);
+
+	public void addFailureClass(FailureClass testFailureClass);
 }

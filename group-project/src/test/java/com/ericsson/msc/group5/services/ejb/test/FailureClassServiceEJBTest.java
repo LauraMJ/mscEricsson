@@ -14,7 +14,7 @@ import com.ericsson.msc.group5.services.FailureClassService;
 public class FailureClassServiceEJBTest {
 
 	@EJB
-	private FailureClassService failureClassServiceEJB;
+	FailureClassService failureClassServiceEJB;
 
 	@Test
 	public void addFailureClassesTest() {

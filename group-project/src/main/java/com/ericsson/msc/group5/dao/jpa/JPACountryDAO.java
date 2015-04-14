@@ -15,18 +15,9 @@ public class JPACountryDAO implements CountryDAO {
 	@PersistenceContext
 	private EntityManager em;
 
-	public Country getManagedCountry(int countryCode, String country) {
-		return em.find(Country.class, new Country(countryCode, country));
-	}
-
 	@Override
 	public Collection <Country> getAllCountries() {
 		return em.createNamedQuery("findAllCountries").getResultList();
 	}
 
-	@Override
-	public void batchInsertCountries(Collection <Country> countryList) {
-		for (Country country : countryList)
-			em.persist(country);
-	}
 }

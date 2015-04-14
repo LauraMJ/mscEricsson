@@ -2,6 +2,9 @@ package com.ericsson.msc.group5.dao.jpa;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -72,12 +75,36 @@ public class JPACountryCodeNetworkCodeDAOTest {
 	
 	@Test 
 	public void testGetCountryCodeNetworkCode(){
-		
+		Country country = new Country(1, "country");
+		CountryCodeNetworkCodeCK ck = new CountryCodeNetworkCodeCK(country, 1);
+		CountryCodeNetworkCode ccncck = new CountryCodeNetworkCode(ck, "one");
+		countryDAO.insertCountryCodeNetworkCode(ccncck);
+		assertNotNull(countryDAO.getCountryCodeNetworkCode(1, 1));
+		assertTrue(countryDAO.getAllCountryCodeNetworkCodes().size() == 1);
 	}
 	
 	@Test
 	public void testBatchInsertCountryCodeNetworkCode(){
-		
+		Country country = new Country(1, "country");
+		CountryCodeNetworkCodeCK ck = new CountryCodeNetworkCodeCK(country, 1);
+		CountryCodeNetworkCode ccncck = new CountryCodeNetworkCode(ck, "one");
+
+		Country countryTwo = new Country(2, "countryTwo");
+		CountryCodeNetworkCodeCK ckTwo = new CountryCodeNetworkCodeCK(countryTwo, 2);
+		CountryCodeNetworkCode ccncckTwo = new CountryCodeNetworkCode(ckTwo, "two");
+
+		Country countryThree = new Country(3, "countryThree");
+		CountryCodeNetworkCodeCK ckThree = new CountryCodeNetworkCodeCK(countryThree, 3);
+		CountryCodeNetworkCode ccncckThree = new CountryCodeNetworkCode(ckThree, "Three");
+
+		Collection <CountryCodeNetworkCode> ccncArray = new ArrayList<>();
+		ccncArray.add(ccncck);
+		ccncArray.add(ccncckTwo);
+		ccncArray.add(ccncckThree);
+
+		countryDAO.batchInsertCountryCodeNetworkCode(ccncArray);
+		assertNotNull(countryDAO.getAllCountryCodeNetworkCodes());
+		assertTrue(countryDAO.getAllCountryCodeNetworkCodes().size() == 3);
 	}
 	
 	private void clearData() throws Exception {
